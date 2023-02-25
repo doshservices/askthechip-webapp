@@ -17,7 +17,7 @@ import "swiper/css/free-mode";
 //eslint-disable-next-line
 export default () => {
   const windowWidth = useRef([window.innerWidth]);
-  console.log(windowWidth.current[0])
+  
   let perView;
   if (windowWidth.current[0] <= 420) {
     perView = 1;
@@ -42,8 +42,8 @@ export default () => {
       loop={true}
       freeMode={true}
       pagination={{ clickable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log("slide change")}
+      // onSwiper={(swiper) => console.log(swiper)}
+      // onSlideChange={() => console.log("slide change")}
     >
       <SwiperSlide>
         {({ isActive }) => (

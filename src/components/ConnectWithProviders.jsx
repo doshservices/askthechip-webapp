@@ -10,7 +10,7 @@ const ConnectWithProviders = () => {
           <h1 className="font-bold text-[32px] md:text-[40px] text-center max-w-[29ch] leading-[48px] mt-8 mb-4">
             Connect with service providers
           </h1>
-          <h2 className="font-semibold text-[20px] max-w-[90%] text-center mb-12 opacity-[54%]">
+          <h2 className="font-semibold text-[20px] max-w-[90%] text-center mb-12 text-[#00000074]">
             Get assistance from accredited service providers at discounted fee
           </h2>
         </div>

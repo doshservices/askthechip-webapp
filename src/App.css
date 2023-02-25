@@ -1,6 +1,9 @@
 .testing {
     background-color: #75b8c880;
 }
+.swiper {
+    z-index: 1 !important;
+}
 .swiper-pagination-bullets {
     align-items: center;
 }
@@ -29,6 +32,4 @@
     top: -20.1px;
     left: -1.4px;
     font-size: 38px;
-
-    
 }
