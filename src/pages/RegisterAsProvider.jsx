@@ -99,7 +99,7 @@ const RegisterAsProvider = () => {
                   name="cac_certificate"
                   id="cac_certificate"
                   placeholder="Upload your CAC Certificate"
-                  />
+                />
               </div>
               <div>
                 <label htmlFor="rep_id" className="text-[24px] mb-4">
@@ -111,7 +111,7 @@ const RegisterAsProvider = () => {
                   name="rep_id"
                   id="rep_id"
                   placeholder="Upload your Representative ID"
-                  />
+                />
               </div>
             </div>
             <div className="flex justify-center mt-4 mb-2">

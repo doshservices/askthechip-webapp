@@ -19,9 +19,9 @@ export default () => {
   const windowWidth = useRef([window.innerWidth]);
   console.log(windowWidth.current[0])
   let perView;
-  if(windowWidth.current[0] <= 420){
+  if (windowWidth.current[0] <= 420) {
     perView = 1;
-  } else if (windowWidth.current[0] >= 420 && windowWidth.current[0] <= 900){
+  } else if (windowWidth.current[0] >= 420 && windowWidth.current[0] <= 900) {
     perView = 2;
   } else {
     perView = 3;

@@ -21,20 +21,20 @@ const Onboarding = () => {
               <h2 className="mb-2">Suggested interests based on your profile</h2>
             </div>
             <div className="flex flex-col w-[90%] items-start justify-start">
-                <div className="my-2">
-                    <button className="bg-[#2F2924] text-[#FDFBF9] py-1 px-2 border rounded">
-                        <span>+</span>
-                        Add a new interest
-                    </button>
-                </div>
-                <div className="max-w-[22ch] w-[90%]">
-                    {interestData.map(interest=>(
-                       <button className="text-[#2F2924] bg-[#FDFBF9] rounded px-2 py-1 border my-1 mx-1">
-                           <span>+</span>
-                           {interest.title}
-                       </button>
-                    ))}
-                </div>
+              <div className="my-2">
+                <button className="bg-[#2F2924] text-[#FDFBF9] py-1 px-2 border rounded">
+                  <span>+</span>
+                  Add a new interest
+                </button>
+              </div>
+              <div className="max-w-[22ch] w-[90%]">
+                {interestData.map(interest => (
+                  <button className="text-[#2F2924] bg-[#FDFBF9] rounded px-2 py-1 border my-1 mx-1">
+                    <span>+</span>
+                    {interest.title}
+                  </button>
+                ))}
+              </div>
             </div>
             <div className="flex justify-center mt-4 mb-2">
               <p className="max-w-[41ch] w-[95%]">

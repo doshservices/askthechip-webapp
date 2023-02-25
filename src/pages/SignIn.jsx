@@ -34,7 +34,7 @@ const SignIn = () => {
               <Button title="Sign In" path="sign-in" />
             </div>
             <div className='flex justify-center text-tertiary my-6 md:my-8 underline'>
-            <Link to="/register">Register</Link>
+              <Link to="/register">Register</Link>
             </div>
           </div>
         </div>

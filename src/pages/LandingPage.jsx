@@ -5,13 +5,13 @@ import Testimonial from '../components/Testimonial'
 const Landing = () => {
   return (
     <div>
-        <Navbar />
-        <Header />
-        <WhyJoining />
-        <ConnectWithFounders />
-        <ConnectWithProviders />
-        <Testimonial />
-        <Footer />
+      <Navbar />
+      <Header />
+      <WhyJoining />
+      <ConnectWithFounders />
+      <ConnectWithProviders />
+      <Testimonial />
+      <Footer />
     </div>
   )
 }

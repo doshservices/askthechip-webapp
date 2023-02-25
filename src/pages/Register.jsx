@@ -91,9 +91,9 @@ const Register = () => {
             </div>
             <div className="flex flex-col md:flex-row text-center justify-center text-tertiary -mb-2 mt-2">
               <div className="flex w-fit max-w-[6ch] mx-auto underline">
-                <Link to="/sign-in">Sign In</Link> 
+                <Link to="/sign-in">Sign In</Link>
               </div>
-              <span className="mx-2 text-[#00000050]">or</span> 
+              <span className="mx-2 text-[#00000050]">or</span>
               <div className="flex w-fit max-w-[13ch] md:max-w-full underline">
                 <Link to="/register-as-provider">Register as a Service Provider</Link>
               </div>
