@@ -1,0 +1,35 @@
+.testing {
+    background-color: #75b8c880;
+}
+.swiper-pagination-bullets {
+    align-items: center;
+}
+.swiper-pagination-bullet {
+    color: white !important;
+    background-color: white !important;
+    border: 0.8px solid black;
+    opacity: 1 !important;
+    padding: 6px !important;
+}
+.swiper-pagination-bullet:not(.swiper-pagination-bullet-active){
+    margin-bottom: 3px !important;
+}
+.swiper-pagination-bullet-active {
+    outline: white !important;
+    border: 1px solid white !important;
+    background-color: black !important;
+    padding: 10px !important;
+    position: relative;
+}
+.swiper-pagination-bullet-active::before{
+    content: '⚪';
+    color: white !important;
+    border-radius: 50%;
+    position: absolute;
+    top: -1.6px;
+    left: -.6px;
+    /* top: -14.27px;
+    left: -3.8px; */
+    /* font-size: 34px; */
+    /* font-size: 34px; */
+}
