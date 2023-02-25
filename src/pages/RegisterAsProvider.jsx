@@ -14,7 +14,7 @@ const RegisterAsProvider = () => {
               <img src={logo} alt="Ask the chip" />
             </Link>
           </div>
-          <div className="max-w-[600px] flex flex-col justify-center items-center ml-8 my-8">
+          <div className="w-[90%] max-w-[600px] flex flex-col justify-center items-center ml-4 md:ml-8 mb-8">
             <div className="flex items-start w-[90%]">
               <h1 className="font-Inter text-[32px] mb-8">Register as a service provider</h1>
             </div>
@@ -88,13 +88,13 @@ const RegisterAsProvider = () => {
                 placeholder="Enter your office address"
               />
             </div>
-            <div className="grid grid-cols-2 w-[85%] gap-2 -ml-[5%] mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 w-[85%] gap-2 -ml-[5%] mb-4">
               <div>
                 <label htmlFor="cac_certificate" className="text-[24px] mb-4">
                   CAC Certificate
                 </label>
                 <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]"
+                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 mt-2 w-[90%]"
                   type="file"
                   name="cac_certificate"
                   id="cac_certificate"
@@ -106,7 +106,7 @@ const RegisterAsProvider = () => {
                   Representative ID
                 </label>
                 <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]"
+                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 mt-2 w-[90%]"
                   type="file"
                   name="rep_id"
                   id="rep_id"
