@@ -15,7 +15,7 @@ const Register = () => {
               <img src={logo} alt="Ask the chip" />
             </Link>
           </div>
-          <div className="max-w-[600px] flex flex-col justify-center items-center ml-4 md:ml-8 mb-8">
+          <div className="w-[90%] max-w-[600px] flex flex-col justify-center items-center ml-4 md:ml-8 mb-8">
             <div className="flex items-start w-full">
               <h1 className="font-Inter text-[32px] mb-4">Register</h1>
             </div>
@@ -87,10 +87,16 @@ const Register = () => {
               </p>
             </div>
             <div className="flex justify-center my-2">
-              <Button title="Register" path="register" />
+              <Button title="Register" path="onboarding" />
             </div>
-            <div className="flex justify-center text-tertiary -mb-2 mt-2 underline">
-              <Link to="/sign-in">Sign In</Link>
+            <div className="flex flex-col md:flex-row text-center justify-center text-tertiary -mb-2 mt-2">
+              <div className="flex w-fit max-w-[6ch] mx-auto underline">
+                <Link to="/sign-in">Sign In</Link> 
+              </div>
+              <span className="mx-2 text-[#00000050]">or</span> 
+              <div className="flex w-fit max-w-[13ch] md:max-w-full underline">
+                <Link to="/register-as-provider">Register as a Service Provider</Link>
+              </div>
             </div>
           </div>
         </div>

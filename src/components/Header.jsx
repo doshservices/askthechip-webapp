@@ -5,7 +5,7 @@ import header from "./../assets/images/header.svg";
 
 const Header = () => {
   return (
-    <div className="font-Montserrat">
+    <div className="font-Montserrat" id="home">
       <section className="flex justify-center items-center flex-col min-h-screen">
         <div className="flex justify-center items-center flex-col my-10">
           <h1 className="font-bold md:text-[64px] sm:text-[45px] text-[36px] text-center w-[90%] max-w-[32ch] leading-[50px] sm:leading-[60px] md:leading-[82px] mt-8 mb-4 text-[#021B38]">

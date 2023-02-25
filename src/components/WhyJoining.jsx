@@ -4,7 +4,7 @@ import WhyCard from './WhyCard'
 
 const WhyJoining = () => {
   return (
-    <div className='font-Montserrat'>
+    <div className='font-Montserrat' id='about'>
         <section className="flex justify-center items-center flex-col min-h-screen">
         <h1 className="font-bold text-[30px] md:text-[36px] text-center w-[90%] max-w-[29ch] leading-[44px] mt-8 mb-4 text-[#021B38]">Why should you join our Community</h1>
         <h2 className="text-[20px] w-[90%] max-w-[36ch] text-center mb-12 text-[#343432]">

@@ -22,14 +22,13 @@
     position: relative;
 }
 .swiper-pagination-bullet-active::before{
-    content: '⚪';
+    content: '○';
     color: white !important;
     border-radius: 50%;
     position: absolute;
-    top: -1.6px;
-    left: -.6px;
-    /* top: -14.27px;
-    left: -3.8px; */
-    /* font-size: 34px; */
-    /* font-size: 34px; */
+    top: -20.1px;
+    left: -1.4px;
+    font-size: 38px;
+
+    
 }

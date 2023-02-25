@@ -14,7 +14,7 @@ const RegisterAsProvider = () => {
               <img src={logo} alt="Ask the chip" />
             </Link>
           </div>
-          <div className="w-[90%] max-w-[600px] flex flex-col justify-center items-center ml-4 md:ml-8 mb-8">
+          <div className="w-[90%] max-w-[600px] flex flex-col justify-center items-center ml-4 md:ml-8 mb-6">
             <div className="flex items-start w-[90%]">
               <h1 className="font-Inter text-[32px] mb-8">Register as a service provider</h1>
             </div>
@@ -124,7 +124,7 @@ const RegisterAsProvider = () => {
               </p>
             </div>
             <div className="flex justify-center my-2">
-              <Button title="Register" path="register" />
+              <Button title="Register" path="onboarding" />
             </div>
             <div className="flex justify-center text-tertiary -mb-2 mt-2 underline">
               <Link to="/sign-in">Sign In</Link>

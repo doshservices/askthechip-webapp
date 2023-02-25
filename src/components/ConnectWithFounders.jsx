@@ -3,7 +3,7 @@ import foundersImage from "../assets/images/connect.svg";
 
 const ConnectWithFounders = () => {
   return (
-    <section className="bg-[#77CBB9] min-h-fit font-OpenSans">
+    <section className="bg-[#77CBB9] min-h-fit font-OpenSans" id="discover">
       <div className="mx-10 pb-10 pt-20">
         <img src={foundersImage} alt="Connect with founders" className="max-h-[50vh] w-full" />
       </div>

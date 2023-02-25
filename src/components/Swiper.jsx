@@ -18,12 +18,21 @@ import "swiper/css/free-mode";
 export default () => {
   const windowWidth = useRef([window.innerWidth]);
   console.log(windowWidth.current[0])
+  let perView;
+  if(windowWidth.current[0] <= 420){
+    perView = 1;
+  } else if (windowWidth.current[0] >= 420 && windowWidth.current[0] <= 900){
+    perView = 2;
+  } else {
+    perView = 3;
+  }
+  console.log(perView)
   return (
     <Swiper
       // install Swiper modules
       modules={[Navigation, Pagination]}
       spaceBetween={20}
-      slidesPerView={3}
+      slidesPerView={perView}
       centeredSlides={true}
       autoplay={{
         delay: 2500,
@@ -42,8 +51,8 @@ export default () => {
             <div
               className={
                 isActive
-                  ? `bg-[#75b8c880] h-[253px] flex justify-center items-center rounded-lg px-6`
-                  : `bg-[#A1C5CF] h-[179px] flex justify-center items-center rounded-lg px-6`
+                  ? `bg-[#75b8c880] py-8 min-h-[253px] flex justify-center items-center rounded-lg px-6`
+                  : `bg-[#A1C5CF] py-4 min-h-[179px] flex justify-center items-center rounded-lg px-6`
               }
             >
               &quot;Current slide is {isActive ? "active" : "not active"} ipsum dolor
@@ -63,8 +72,8 @@ export default () => {
             <div
               className={
                 isActive
-                  ? `bg-[#75b8c880] h-[253px] flex justify-center items-center rounded-lg px-6`
-                  : `bg-[#A1C5CF] h-[179px] flex justify-center items-center rounded-lg px-6`
+                  ? `bg-[#75b8c880] py-8 min-h-[253px] flex justify-center items-center rounded-lg px-6`
+                  : `bg-[#A1C5CF] py-4 min-h-[179px] flex justify-center items-center rounded-lg px-6`
               }
             >
               &quot;Current slide is {isActive ? "active" : "not active"} ipsum dolor
@@ -84,8 +93,8 @@ export default () => {
             <div
               className={
                 isActive
-                  ? `bg-[#75b8c880] h-[253px] flex justify-center items-center rounded-lg px-6`
-                  : `bg-[#A1C5CF] h-[179px] flex justify-center items-center rounded-lg px-6`
+                  ? `bg-[#75b8c880] py-8 min-h-[253px] flex justify-center items-center rounded-lg px-6`
+                  : `bg-[#A1C5CF] py-4 min-h-[179px] flex justify-center items-center rounded-lg px-6`
               }
             >
               &quot;Current slide is {isActive ? "active" : "not active"} ipsum dolor

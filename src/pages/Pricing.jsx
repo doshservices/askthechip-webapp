@@ -46,10 +46,10 @@ const Pricing = () => {
       </div>
       <div className="text-[#000B33]">
         <div className="flex flex-col w-full items-center mb-6">
-          <h1 className="font-Inter text-[48px] max-w-[13ch] z-10 text-center font-bold mb-2">
+          <h1 className="font-Inter text-[36px] leading-[45px] md:leading-[70px] md:text-[48px] w-[90%] max-w-[13ch] z-10 text-center font-bold mb-2">
             Pick a plan that's right for you
           </h1>
-          <div className="-mt-8">
+          <div className="-mt-4 md:-mt-8">
             <img src={underline} alt="underline" />
           </div>
         </div>
@@ -65,7 +65,7 @@ const Pricing = () => {
                 </div>
                 <div className="h-[1.5px] w-full bg-[#00000050] mt-10"></div>
                 <div className="my-8 mt-12">
-                  <span className="text-[72px] font-semibold leading-6">
+                  <span className="text-[52px] md:text-[72px] font-semibold leading-6">
                     ${data.price}
                   </span>{" "}
                   <br />
@@ -98,8 +98,8 @@ const Pricing = () => {
                     <h2 className="opacity-50 text-sm">
                       Enter the 16-digit number on the card
                     </h2>
-                    <div className="flex items-center bg-white border border-[#757575] rounded-lg px-4 mt-2 mb-4">
-                      <img src={card} alt="Card" className="h-4 mx-4" />
+                    <div className="flex items-center bg-white border border-[#757575] rounded-lg px-2 md:px-4 mt-2 mb-4">
+                      <img src={card} alt="Card" className="h-4 mx-0 md:mx-4" />
                       <input
                         type="number"
                         name="card_no"
@@ -123,7 +123,7 @@ const Pricing = () => {
                         Enter the 3-digit number at the back of your card
                       </h2>
                     </div>
-                    <div className="flex items-center bg-white border border-[#757575] rounded-lg px-4 mt-4 mb-6 max-w-[12ch]">
+                    <div className="flex items-center bg-white border border-[#757575] rounded-lg px-2 md:px-4 mt-4 mb-6 max-w-[10ch] md:max-w-[12ch]">
                       <input
                         type="number"
                         name="cvv_no"
