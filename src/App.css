@@ -33,3 +33,7 @@
     left: -1.4px;
     font-size: 38px;
 }
+.active {
+    color: #09CEB4;
+    font-weight: 600;
+}
