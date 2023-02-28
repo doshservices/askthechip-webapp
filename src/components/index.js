@@ -4,5 +4,8 @@ export { default as ConnectWithProviders } from "./ConnectWithProviders";
 export { default as Footer } from "./Footer";
 export { default as Header } from "./Header";
 export { default as Navbar } from "./Navbar";
+export { default as PaymentForm } from "./PaymentForm";
 export { default as Profile } from "./Profile";
+export {default as SideNav} from './SideNav';
+export {default as Settings} from './Settings';
 export { default as WhyJoining } from "./WhyJoining";

@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { LandingPage, Onboarding, Pricing, ProfilePage, Register, RegisterAsProvider, SignIn } from './pages';
+import { LandingPage, Onboarding, Pricing, ProfilePage, Register, RegisterAsProvider, SettingsPage, SignIn } from './pages';
 
 import HomePage from './pages/Homepage';
 
@@ -17,6 +17,7 @@ function App() {
         {/* Pages after signing in */}
         <Route path='/home' element={<HomePage />} />
         <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/settings' element={<SettingsPage />} />
       </Routes>
     </div>
   );
