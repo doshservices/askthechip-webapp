@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { LandingPage, Onboarding, Pricing, ProfilePage, Register, RegisterAsProvider, SettingsPage, SignIn } from './pages';
+import { LandingPage, MentorshipPage, MessagesPage, NotificationsPage, Onboarding, Pricing, ProfilePage, Register, RegisterAsProvider, ServicesPage, SettingsPage, SignIn } from './pages';
 
 import HomePage from './pages/Homepage';
 
@@ -16,8 +16,12 @@ function App() {
         <Route path='/pricing' element={<Pricing />} />
         {/* Pages after signing in */}
         <Route path='/home' element={<HomePage />} />
+        <Route path='/mentorship' element={<MentorshipPage />} />
+        <Route path='/messages' element={<MessagesPage />} />
+        <Route path='/notifications' element={<NotificationsPage />} />
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/settings' element={<SettingsPage />} />
+        <Route path='/services' element={<ServicesPage />} />
       </Routes>
     </div>
   );

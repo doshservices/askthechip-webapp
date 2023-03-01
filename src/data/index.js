@@ -281,3 +281,24 @@ export const settingsButtons = [
         path: 'delete-account'
     },
 ]
+
+import blogImg from "./../assets/blog-img.svg";
+
+export const servicesData = [
+    {
+        title: "Boston Consulting Group",
+        rating: '100',
+        image: blogImg
+    },
+    {
+        title: "Ernst and young",
+        rating: '80',
+        image: blogImg
+    },
+    {
+        title: "Templars Law Inc",
+        rating: '90',
+        image: blogImg
+    },
+    
+]

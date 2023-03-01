@@ -93,7 +93,7 @@ const SideNav = () => {
               <span>Mentorship</span>
             </li>
           </NavLink>
-          <NavLink to="messages">
+          <NavLink to="/messages">
             <li className="flex text-base font-medium font-tertiary items-center gap-2 my-4">
               <svg
                 width="28"
