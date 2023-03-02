@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <header className="bg-smoke min-h-screen grow">
       <nav className="p-7 font-tertiary">
-        <Link to="/home">
+        <Link to="/">
           <img src={logo} alt="logo" />
         </Link>
         <ul>
