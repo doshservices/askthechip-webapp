@@ -2,6 +2,7 @@ import upload from './../assets/icons/upload.svg';
 import truck from './../assets/icons/car.svg';
 import check from './../assets/icons/check.svg';
 import error from './../assets/icons/error.svg';
+import interestImg from './../assets/images/interest.png';
 
 export const whyData = [
     {
@@ -208,4 +209,96 @@ export const pricingData = [
             },
         ]
     }
+]
+
+// Personal view
+
+export const experienceData = [
+    {
+        role: 'Freelance UI/UX designer',
+        heading: 'Lorem ipsum',
+        subheading: 'Lorem ipsum',
+        starting: 'Jun 2022',
+        ending: 'Present',
+        duration: '1yr 02mos',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus eros eu vehicula interdum.'
+    },
+    {
+        role: 'UI/UX designer',
+        heading: 'Lorem ipsum',
+        subheading: 'Lorem ipsum',
+        starting: 'Jun 2022',
+        ending: 'Present',
+        duration: '3mos',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus eros eu vehicula interdum.'
+    }
+]
+
+// Others view
+
+export const aboutData = [
+    {
+        heading: 'Lorem ipsum',
+        subheading: 'Lorem ipsum',
+        address: '404, Error Location',
+        website: 'website.com',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus eros eu vehicula interdum.'
+    },
+]
+
+export const interestTopics = [
+    {
+        img: interestImg,
+        title: 'Lorem ipsum',
+        followers: '10,258'
+    },
+    {
+        img: interestImg,
+        title: 'Lorem ipsum',
+        followers: '10,258'
+    }
+]
+
+export const settingsButtons = [
+    {
+        id: 1,
+        title: 'Update account info',
+        path: 'update-account-info'
+    },
+    {
+        id: 2,
+        title: 'Update payment info',
+        path: 'update-payment-info'
+    },
+    {
+        id: 3,
+        title: 'Change Password',
+        path: 'change-password'
+    },
+    {
+        id: 4,
+        title: 'Delete account',
+        path: 'delete-account'
+    },
+]
+
+import blogImg from "./../assets/blog-img.svg";
+
+export const servicesData = [
+    {
+        title: "Boston Consulting Group",
+        rating: '100',
+        image: blogImg
+    },
+    {
+        title: "Ernst and young",
+        rating: '80',
+        image: blogImg
+    },
+    {
+        title: "Templars Law Inc",
+        rating: '90',
+        image: blogImg
+    },
+    
 ]

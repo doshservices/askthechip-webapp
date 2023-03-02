@@ -4,11 +4,12 @@ import { Share } from "../components/home/share/share";
 import  Navbar  from "../components/NavHome";
 import { Search } from "../components/home/search/search";
 import ServiceProviders from "../components/home/serviceProviders/explore";
+import { SideNav } from "../components";
 
 const HomePage = () => {
   return (
     <section className="flex justify-between">
-      <Navbar />
+      <SideNav />
       <div className="grow">
         <Header />
         <Share />
