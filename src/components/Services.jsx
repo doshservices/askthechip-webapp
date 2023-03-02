@@ -7,7 +7,7 @@ const Services = () => {
   return (
     <div className='grid grid-cols-12 pl-8'>
         <div className="col-span-6 h-screen pt-4 overflow-y-auto pr-20">
-            <Search />
+            <Search background='#EBEEF0' />
             <div className='font-Inter pl-4'>
                 <div className=' font-bold text-xl py-3 my-3 border-b border-[#EBEEF0]'>Graphics Designing</div>
                 {servicesData.map(service=>(
@@ -17,7 +17,7 @@ const Services = () => {
                         <div className='text-[#5B7083] font-medium text-sm'>Rated by {service.rating} people</div>
                     </div>
                     <div className='col-span-3 ml-auto mr-3'>
-                        <img src={service.image} alt="blog" className="" />
+                        <img src={service.image} alt="blog" className="rounded-2xl" />
                     </div>
                 </div>
                 ))}
