@@ -15,8 +15,8 @@ const Messages = () => {
           <div className='border border-[#EBEEF0] rounded-3xl'>
             <div className='font-Inter pl-4'>
               <div className=' font-semibold text-xl py-1 my-1'>Groups</div>
-              {servicesData.map(service => (
-                <div className='grid grid-cols-12 pt-1 pb-3 my-2 border-b last:border-b-0 border-[#EBEEF0] mr-4'>
+              {servicesData.map((service, index) => (
+                <div key={index} className='grid grid-cols-12 pt-1 pb-3 my-2 border-b last:border-b-0 border-[#EBEEF0] mr-4'>
                   <div className='col-span-2 ml-auto mr-3'>
                     <img src={service.image} alt="blog" className="rounded-full" />
                   </div>
@@ -42,8 +42,8 @@ const Messages = () => {
           <div className='border border-[#EBEEF0] rounded-3xl mb-4'>
             <div className='font-Inter pl-4'>
               <div className=' font-semibold text-xl py-1 my-1'>People</div>
-              {servicesData.map(service => (
-                <div className='grid grid-cols-12 pt-1 pb-3 my-2 border-b last:border-b-0 border-[#EBEEF0] mr-4'>
+              {servicesData.map((service, index) => (
+                <div key={index} className='grid grid-cols-12 pt-1 pb-3 my-2 border-b last:border-b-0 border-[#EBEEF0] mr-4'>
                   <div className='col-span-2 ml-auto mr-3'>
                     <img src={service.image} alt="blog" className="rounded-full" />
                   </div>
@@ -65,7 +65,7 @@ const Messages = () => {
           </div>
         </div>
       </div>
-      <div className="col-span-6 h-screen pt-1 overflow-y-auto pr-8 font-Inter">
+      <div className="col-span-6 h-screen pt-1 pl-4 overflow-y-auto pr-8 font-Inter">
         <div className='h-20 fixed top-0 bg-white w-full'>
           <div className='font-semibold text-3xl mt-2'>Anil</div>
           <div className='text-[#303030] font-light'>Last seen, 2:02pm</div>

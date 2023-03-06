@@ -10,8 +10,7 @@ const Navbar = () => {
   const showMenu = () => {
     navRef.current.classList.toggle('translate-x-[100%]');
   }
-  // const pathname = window.location.pathname;
-  // console.log(pathname);
+
   return (
     <nav className={`fixed w-full mx-auto lg:px-auto sm:px-20 transition duration-500 flex justify-center h-fit`}>
         <div className='absolute top-[90vh] right-10 text-white bg-tertiary p-2 rounded-xl cursor-pointer hover:scale-90'><HashLink to="#home">Back to top</HashLink></div>
@@ -24,20 +23,13 @@ const Navbar = () => {
           </Link>
         </div>
         
-
         {/* Desktop Nav */}
         <div className='hidden md:flex font-body my-auto items-center justify-between w-full max-w-[500px]'>
           <NavLink to="/home" smooth className={({ isActive }) => (isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>Home</NavLink>
-          <HashLink to='#about' smooth className={({ isActive }) => (isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>About us</HashLink>
-          <HashLink to='#discover' smooth className={({ isActive }) => (isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>Discover</HashLink>
+          <HashLink to='#about' smooth className='px-4 hover:underline decoration-2 underline-offset-4'>About us</HashLink>
+          <HashLink to='#discover' smooth className='px-4 hover:underline decoration-2 underline-offset-4'>Discover</HashLink>
           <Button path='register' title='Register' />
         </div>
-        {/* <div className='hidden md:flex font-body my-auto items-center justify-between w-full max-w-[500px]'>
-            <NavLink to="/" end className={({isActive}) =>(isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>Home</NavLink>
-            <NavLink to='/about' className={({isActive}) =>(isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>About us</NavLink>
-            <NavLink to='/discover' className={({isActive}) =>(isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>Discover</NavLink>
-            <Button path='register' title='Register' />
-        </div> */}
 
         {/* Mobile nav & toggler */}
         <div className='flex md:hidden z-20'>
@@ -46,7 +38,7 @@ const Navbar = () => {
           </button>
           <div ref={navRef} className={`flex translate-x-[100%]  bg-white z-[2] md:hidden transition flex-col w-[70%] items-center font-body uppercase my-auto h-screen fixed top-0 right-0`}>
             <div className='flex justify-center mb-4 mt-[50%]' onClick={showMenu}>
-              <HashLink to="#home" smooth className={({ isActive }) => (isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')} end>Home</HashLink>
+              <NavLink to="#home" smooth className={({ isActive }) => (isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')} end>Home</NavLink>
             </div>
             <div className='flex justify-center my-4' onClick={showMenu}>
               <HashLink to='#about' smooth className={({ isActive }) => (isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>About</HashLink>
@@ -62,28 +54,6 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-        {/* <div className='flex md:hidden'>
-          <button onClick={showMenu} className="flex pt-[1rem] absolute right-2 md:hidden p-3 transition active:scale-90">
-              <FaBars size={30} />
-          </button>
-          <div ref={navRef} className={`flex translate-x-[100%] z-10 md:hidden transition flex-col w-[70%] items-center font-body uppercase my-auto h-screen fixed top-0 right-0 backdrop-blur`}>
-              <div className='flex justify-center mb-4 mt-[50%]' onClick={showMenu}>
-                <NavLink to="/" className={({isActive}) =>(isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')} end>Home</NavLink>
-              </div>
-              <div className='flex justify-center my-4' onClick={showMenu}>
-                <NavLink to='/about' className={({isActive}) =>(isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>About</NavLink>
-              </div>
-              <div className='flex justify-center my-4' onClick={showMenu}>
-                <NavLink to='/discover' className={({isActive}) =>(isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>Discover</NavLink>
-              </div>
-              <div className='flex justify-center my-4' onClick={showMenu}>
-                <NavLink to='/register' className={({isActive}) =>(isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>Register</NavLink>
-              </div>
-              <button onClick={showMenu} className="flex absolute right-2 md:hidden p-3 ease-in transition duration-500 active:scale-90">
-                <FaTimes size={40}/>
-              </button>
-          </div>
-        </div> */}
       </div>
     </nav>
   )
