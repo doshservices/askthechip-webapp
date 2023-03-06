@@ -38,7 +38,6 @@ const Settings = () => {
                               placeholder="Enter your full name"
                           />
                       </div>
-
                   </div>
                   <div className="flex flex-col w-full mb-4">
                       <label htmlFor="phone_no" className="mb-2 font-medium font-Inter w-[80%] mx-auto">
