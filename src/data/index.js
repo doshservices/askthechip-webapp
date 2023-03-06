@@ -286,16 +286,19 @@ import blogImg from "./../assets/blog-img.svg";
 
 export const servicesData = [
     {
+        category: 'Business and Consultancy',
         title: "Boston Consulting Group",
         rating: '100',
         image: blogImg
     },
     {
+        category: "Accounting",
         title: "Ernst and young",
         rating: '80',
         image: blogImg
     },
     {
+        category: 'Legal Services',
         title: "Templars Law Inc",
         rating: '90',
         image: blogImg

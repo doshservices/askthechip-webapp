@@ -1,5 +1,6 @@
 import logo from "../assets/logo.svg";
 import { NavLink, Link } from "react-router-dom";
+import profileImage from '../assets/images/profile-picture.png';
 
 const SideNav = () => {
   const pathname = window.location.pathname;
@@ -15,8 +16,8 @@ const SideNav = () => {
               to="/home"
               className={({ isActive }) =>
                 isActive
-                  ? "flex text-[1.1875rem] font-bold font-tertiary items-center gap-2 my-4 active"
-                  : "flex text-[1.1875rem] font-bold font-tertiary items-center gap-2 my-4"
+                  ? "flex text-[1.1875rem] font-bold font-tertiary items-center gap-2 my-6 active"
+                  : "flex text-[1.1875rem] font-bold font-tertiary items-center gap-2 my-6"
               }
             >
               <svg
@@ -39,7 +40,7 @@ const SideNav = () => {
           <li>
             <NavLink
               to="/services"
-              className="flex text-base font-bold font-tertiary items-center gap-2 my-4"
+              className="flex text-base font-bold font-tertiary items-center gap-2 my-6"
             >
               <svg
                 width="28"
@@ -61,7 +62,7 @@ const SideNav = () => {
             </NavLink>
           </li>
           <NavLink to="/notifications">
-            <li className="flex text-base font-bold font-tertiary items-center  gap-2 my-4">
+            <li className="flex text-base font-bold font-tertiary items-center  gap-2 my-6">
               <svg
                 width="28"
                 height="28"
@@ -80,7 +81,7 @@ const SideNav = () => {
             </li>
           </NavLink>
           <NavLink to="/mentorship">
-            <li className="flex text-base font-bold font-tertiary items-center gap-2 my-4">
+            <li className="flex text-base font-bold font-tertiary items-center gap-2 my-6">
               <svg
                 width="28"
                 height="28"
@@ -97,7 +98,7 @@ const SideNav = () => {
             </li>
           </NavLink>
           <NavLink to="/messages">
-            <li className="flex text-base font-bold font-tertiary items-center gap-2 my-4">
+            <li className="flex text-base font-bold font-tertiary items-center gap-2 my-6">
               <svg
                 width="28"
                 height="28"
@@ -115,6 +116,21 @@ const SideNav = () => {
           </NavLink>
         </ul>
       </nav>
+      <NavLink to="/profile">
+        <div className="grid grid-cols-6 px-1 py-1 mx-1" style={pathname==='/profile'? {backgroundColor: '#09CEB475'} : {backgroundColor: 'transparent'}}>
+          <div className="col-span-1">
+            <img src={profileImage} alt="Profile picture" className="border-3 border-white p-1" />
+          </div>
+          <div className="col-span-5 ml-2">
+            <div className="text-[#0F1419] font-bold">
+              Jerome Bell
+            </div>
+            <div className="font-medium text-[#5B7083]">
+              Lawyer at Banwo & co.
+            </div>
+          </div>
+        </div>
+      </NavLink>
     </header>
   );
 };
