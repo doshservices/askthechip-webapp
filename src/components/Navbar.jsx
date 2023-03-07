@@ -38,7 +38,7 @@ const Navbar = () => {
           </button>
           <div ref={navRef} className={`flex translate-x-[100%]  bg-white z-[2] md:hidden transition flex-col w-[70%] items-center font-body uppercase my-auto h-screen fixed top-0 right-0`}>
             <div className='flex justify-center mb-4 mt-[50%]' onClick={showMenu}>
-              <NavLink to="#home" smooth className={({ isActive }) => (isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')} end>Home</NavLink>
+              <NavLink to="/home" smooth className={({ isActive }) => (isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')} end>Home</NavLink>
             </div>
             <div className='flex justify-center my-4' onClick={showMenu}>
               <HashLink to='#about' smooth className={({ isActive }) => (isActive ? 'px-4 underline decoration-2 underline-offset-4' : 'px-4 hover:underline decoration-2 underline-offset-4')}>About</HashLink>
