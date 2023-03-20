@@ -14,8 +14,15 @@ const ConnectWithProviders = () => {
             Get assistance from accredited service providers at discounted fee
           </h2>
         </div>
-        <div className='grid place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-10 gap-y-8 md:gap-10 px-4 md:px-10'>
-          {connectData.map((item, index) => <ConnectCard key={index} title={item.title} text={item.text} icon={item.icon} />)}
+        <div className="grid place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-x-10 gap-y-8 md:gap-10 px-4 md:px-10">
+          {connectData.map((item, index) => (
+            <ConnectCard
+              key={index}
+              title={item.title}
+              text={item.text}
+              icon={item.icon}
+            />
+          ))}
         </div>
       </div>
     </div>

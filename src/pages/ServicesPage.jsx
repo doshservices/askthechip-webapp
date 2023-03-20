@@ -1,10 +1,15 @@
-import { HomepageLayout, Services } from "../components";
+import { HomepageLayout, MobileLayout, Services, ServicesMobile } from "../components";
 
 const ServicesPage = () => {
   return (
+    <>
     <HomepageLayout>
-            <Services />
+      <Services />
     </HomepageLayout>
+    <MobileLayout>
+      <ServicesMobile />
+    </MobileLayout>
+    </>
   );
 };
 export default ServicesPage;

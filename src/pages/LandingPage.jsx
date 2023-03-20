@@ -1,6 +1,13 @@
-import React from 'react'
-import { ConnectWithFounders, ConnectWithProviders, Footer, Header, Navbar, WhyJoining } from '../components'
-import Testimonial from '../components/Testimonial'
+import React from "react";
+import {
+  ConnectWithFounders,
+  ConnectWithProviders,
+  Footer,
+  Header,
+  Navbar,
+  WhyJoining,
+} from "../components";
+import Testimonial from "../components/Testimonial";
 
 const Landing = () => {
   return (
@@ -13,7 +20,7 @@ const Landing = () => {
       <Testimonial />
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing;

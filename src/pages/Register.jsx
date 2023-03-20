@@ -47,7 +47,11 @@ const Register = () => {
               <label htmlFor="account_type" className="text-[24px] mb-4">
                 Select account type
               </label>
-              <select className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]" id="account_type" name="account_type">
+              <select
+                className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]"
+                id="account_type"
+                name="account_type"
+              >
                 <option>Entrepreneur</option>
                 <option>Investor</option>
                 <option>Entrepreneur/Investor</option>
@@ -95,7 +99,9 @@ const Register = () => {
               </div>
               <span className="mx-2 text-[#00000050]">or</span>
               <div className="flex w-fit max-w-[13ch] md:max-w-full underline">
-                <Link to="/register-as-provider">Register as a Service Provider</Link>
+                <Link to="/register-as-provider">
+                  Register as a Service Provider
+                </Link>
               </div>
             </div>
           </div>

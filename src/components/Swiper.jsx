@@ -4,9 +4,9 @@ import { useRef } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import test1 from './../assets/images/test1.png';
-import test2 from './../assets/images/test2.png';
-import test3 from './../assets/images/test3.png';
+import test1 from "./../assets/images/test1.png";
+import test2 from "./../assets/images/test2.png";
+import test3 from "./../assets/images/test3.png";
 
 // Import Swiper styles
 import "swiper/css";
@@ -17,7 +17,7 @@ import "swiper/css/free-mode";
 //eslint-disable-next-line
 export default () => {
   const windowWidth = useRef([window.innerWidth]);
-  
+
   let perView;
   if (windowWidth.current[0] <= 420) {
     perView = 1;
@@ -26,7 +26,7 @@ export default () => {
   } else {
     perView = 3;
   }
-  console.log(perView)
+  console.log(perView);
   return (
     <Swiper
       // install Swiper modules
@@ -55,8 +55,8 @@ export default () => {
                   : `bg-[#A1C5CF] py-4 min-h-[179px] flex justify-center items-center rounded-lg px-6`
               }
             >
-              &quot;Current slide is {isActive ? "active" : "not active"} ipsum dolor
-              sit amet consectetur, adipisicing elit. Itaque suscipit
+              &quot;Current slide is {isActive ? "active" : "not active"} ipsum
+              dolor sit amet consectetur, adipisicing elit. Itaque suscipit
               repellendus magni illum quidem! Minima voluptate quo similique
               incidunt quibusdam.&quot;
             </div>
@@ -76,8 +76,8 @@ export default () => {
                   : `bg-[#A1C5CF] py-4 min-h-[179px] flex justify-center items-center rounded-lg px-6`
               }
             >
-              &quot;Current slide is {isActive ? "active" : "not active"} ipsum dolor
-              sit amet consectetur, adipisicing elit. Itaque suscipit
+              &quot;Current slide is {isActive ? "active" : "not active"} ipsum
+              dolor sit amet consectetur, adipisicing elit. Itaque suscipit
               repellendus magni illum quidem! Minima voluptate quo similique
               incidunt quibusdam.&quot;
             </div>
@@ -97,8 +97,8 @@ export default () => {
                   : `bg-[#A1C5CF] py-4 min-h-[179px] flex justify-center items-center rounded-lg px-6`
               }
             >
-              &quot;Current slide is {isActive ? "active" : "not active"} ipsum dolor
-              sit amet consectetur, adipisicing elit. Itaque suscipit
+              &quot;Current slide is {isActive ? "active" : "not active"} ipsum
+              dolor sit amet consectetur, adipisicing elit. Itaque suscipit
               repellendus magni illum quidem! Minima voluptate quo similique
               incidunt quibusdam.&quot;
             </div>
