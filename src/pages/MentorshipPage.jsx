@@ -1,11 +1,16 @@
-import { HomepageLayout, Mentorship } from "../components";
+import { HomepageLayout, Mentorship, MobileLayout } from "../components";
 
 const MessagesPage = () => {
-    return (
-        <HomepageLayout>
-            <Mentorship />
-        </HomepageLayout>
-    )
-}
+  return (
+    <>
+    <HomepageLayout>
+      <Mentorship />
+    </HomepageLayout>
+    <MobileLayout>
+      <Mentorship />
+    </MobileLayout>
+    </>
+  );
+};
 
 export default MessagesPage;

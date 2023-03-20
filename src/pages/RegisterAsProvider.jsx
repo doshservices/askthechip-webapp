@@ -16,7 +16,9 @@ const RegisterAsProvider = () => {
           </div>
           <div className="w-[90%] max-w-[600px] flex flex-col justify-center items-center ml-4 md:ml-8 mb-6">
             <div className="flex items-start w-[90%]">
-              <h1 className="font-Inter text-[32px] mb-8">Register as a service provider</h1>
+              <h1 className="font-Inter text-[32px] mb-8">
+                Register as a service provider
+              </h1>
             </div>
             <div className="grid grid-cols-1 w-[90%] mb-4">
               <label htmlFor="email" className="text-[24px] mb-4">
@@ -46,7 +48,11 @@ const RegisterAsProvider = () => {
               <label htmlFor="service_type" className="text-[24px] mb-4">
                 Service type
               </label>
-              <select className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]" id="service_type" name="service_type">
+              <select
+                className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]"
+                id="service_type"
+                name="service_type"
+              >
                 <option>Accounting services</option>
                 <option>Financial services</option>
                 <option>Legal services</option>
@@ -131,8 +137,7 @@ const RegisterAsProvider = () => {
             </div>
           </div>
         </div>
-        <div className="w-[50%] hidden md:flex bg-handBulb bg-right-bottom bg-no-repeat bg-cover h-screen">
-        </div>
+        <div className="w-[50%] hidden md:flex bg-handBulb bg-right-bottom bg-no-repeat bg-cover h-screen"></div>
       </div>
     </div>
   );

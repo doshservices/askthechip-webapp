@@ -15,7 +15,6 @@ const Pricing = () => {
   const [expYear, setExpYear] = useState("");
   const [pin, setPin] = useState("");
 
-
   const handleCardNum = (event) => {
     const limit = 16;
     setCardNum(event.target.value.slice(0, limit));
@@ -198,7 +197,10 @@ const Pricing = () => {
                     You will be charged after your 14 day free trial period
                   </div>
                   <div>
-                    <button onClick={() => setModal(!modal)} className="text-white bg-[#09CEB4] w-full py-2 rounded-2xl hover:scale-95 transition duration-200">
+                    <button
+                      onClick={() => setModal(!modal)}
+                      className="text-white bg-[#09CEB4] w-full py-2 rounded-2xl hover:scale-95 transition duration-200"
+                    >
                       Continue
                     </button>
                   </div>

@@ -1,11 +1,15 @@
-import { HomepageLayout, Notifications } from '../components'
+import { HomepageLayout, MobileLayout, Notifications } from "../components";
 
 const NotificationsPage = () => {
-  return (
+  return (<>
     <HomepageLayout>
-        <Notifications />
+      <Notifications />
     </HomepageLayout>
-  )
-}
+    <MobileLayout>
+      <Notifications />
+    </MobileLayout>
+  </>
+  );
+};
 
-export default NotificationsPage
+export default NotificationsPage;
