@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 
-import header from "./../assets/images/header.svg";
+import header from "./../assets/images/header.jpg";
 import header_mobile from "./../assets/images/header_mobile.jpg";
 
 const Header = () => {
