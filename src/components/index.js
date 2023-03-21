@@ -5,7 +5,7 @@ export { default as Footer } from "./Footer";
 export { default as Header } from "./Header";
 export { default as HomepageLayout } from "./HomepageLayout";
 export { default as Mentorship } from "./Mentorship";
-export { default as MessageMobile } from "./MessageMobile";
+export { default as Chat } from "./Chat";
 export { default as Messages } from "./Messages";
 export { default as MobileNav } from "./MobileNav";
 export { default as MobileLayout } from "./MobileLayout";

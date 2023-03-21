@@ -4,7 +4,7 @@ import { servicesData } from "../data";
 
 const ServicesMobile = () => {
   return (
-    <div className="col-span-12 md:col-span-6 h-screen pt-4 overflow-y-auto  pr-4 xm:pr-20">
+    <div className="col-span-12 md:col-span-6 h-[calc(100vh_-_4.5rem)] sm:h-screen pt-4 overflow-y-auto  pr-4 xm:pr-20">
     <div className="pl-4 sm:pl-0">
         <Search background="#EBEEF0" />
     </div>
