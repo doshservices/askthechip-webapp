@@ -1,4 +1,4 @@
-import { HomepageLayout, MessageMobile, Messages, MobileLayout } from "../components";
+import { Chat, HomepageLayout, Messages, MobileLayout } from "../components";
 
 const MessagesPage = () => {
   return (
@@ -7,7 +7,7 @@ const MessagesPage = () => {
       <Messages />
     </HomepageLayout>
     <MobileLayout>
-      <MessageMobile />
+      <Chat />
     </MobileLayout>
     </>
   );

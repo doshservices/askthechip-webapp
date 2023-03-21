@@ -1,7 +1,7 @@
 import React from "react";
 import { servicesData } from "../data";
 import { Search } from "./home/search/search";
-import MessageMobile from "./MessageMobile";
+import Chat from "./Chat";
 
 const Messages = () => {
   return (
@@ -91,7 +91,7 @@ const Messages = () => {
         </div>
       </div>
       <div className="col-span-12 xm:col-span-6">
-        <MessageMobile />
+        <Chat />
       </div>
     </div>
   );

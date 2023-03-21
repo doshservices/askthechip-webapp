@@ -2,7 +2,7 @@ import MobileNav from './MobileNav'
 
 const MobileLayout = ({children}) => {
     return (
-        <div className='flex flex-col sm:hidden'>
+        <div className='flex flex-col max-h-screen overflow-y-hidden sm:hidden'>
             <div className='h-[calc(100vh_-_4.5rem)] overflow-y-auto'>
                 {children}
             </div>

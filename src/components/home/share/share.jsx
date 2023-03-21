@@ -37,7 +37,7 @@ export const Share = () => {
           </button>
         </div>
         <div className="flex justify-between w-full">
-          <div className="flex ml-16">
+          <div className="flex ml-2 sm:ml-16">
             <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
               <AiOutlineFileImage size={20} />
             </Link>
