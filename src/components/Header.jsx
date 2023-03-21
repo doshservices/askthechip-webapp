@@ -2,6 +2,7 @@ import React from "react";
 import Button from "./Button";
 
 import header from "./../assets/images/header.svg";
+import header_mobile from "./../assets/images/header_mobile.jpg";
 
 const Header = () => {
   return (
@@ -21,7 +22,8 @@ const Header = () => {
           </div>
         </div>
         <div className="w-full flex items-center justify-center">
-          <img src={header} alt="Header" />
+          <img src={header} alt="Header" className="hidden md:flex" />
+          <img src={header_mobile} alt="Header" className="flex md:hidden" />
         </div>
       </section>
     </div>

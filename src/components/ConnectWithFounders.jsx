@@ -12,7 +12,7 @@ const ConnectWithFounders = () => {
         />
       </div>
       <div className="flex flex-col justify-center items-center text-center">
-        <h1 className="w-[90%] max-w-[26ch] text-white opacity-[87%] font-bold text-[32px] md:text-[40px] leading-[54px] text-center mb-[20px] md:mb-[30px]">
+        <h1 className="w-[90%] max-w-[26ch] text-white font-bold text-[32px] md:text-[40px] leading-[54px] text-center mb-[20px] md:mb-[30px]">
           Connect with other founders and investors
         </h1>
         <h2 className="w-[90%] max-w-[40ch] text-white font-semibold text-[20px] leading-[36px] md:leading-[48px] mb-10">
