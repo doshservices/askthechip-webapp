@@ -16,8 +16,8 @@ const SideNav = () => {
               to="/home"
               className={({ isActive }) =>
                 isActive
-                  ? "flex text-[1.1875rem] font-bold font-tertiary items-center gap-2 my-6 active"
-                  : "flex text-[1.1875rem] font-bold font-tertiary items-center gap-2 my-6"
+                  ? "flex justify-center xm:justify-start text-[1.1875rem] font-bold font-tertiary items-center gap-2 my-6 active"
+                  : "flex justify-center xm:justify-start text-[1.1875rem] font-bold font-tertiary items-center gap-2 my-6"
               }
             >
               <svg
@@ -39,7 +39,7 @@ const SideNav = () => {
           <li>
             <NavLink
               to="/services"
-              className="flex text-base font-bold font-tertiary items-center gap-2 my-6"
+              className="flex justify-center xm:justify-start text-base font-bold font-tertiary items-center gap-2 my-6"
             >
               <svg
                 width="28"
@@ -61,7 +61,7 @@ const SideNav = () => {
             </NavLink>
           </li>
           <NavLink to="/notifications">
-            <li className="flex text-base font-bold font-tertiary items-center  gap-2 my-6">
+            <li className="flex justify-center xm:justify-start text-base font-bold font-tertiary items-center  gap-2 my-6">
               <svg
                 width="28"
                 height="28"
@@ -80,7 +80,7 @@ const SideNav = () => {
             </li>
           </NavLink>
           <NavLink to="/mentorship">
-            <li className="flex text-base font-bold font-tertiary items-center gap-2 my-6">
+            <li className="flex justify-center xm:justify-start text-base font-bold font-tertiary items-center gap-2 my-6">
               <svg
                 width="28"
                 height="28"
@@ -97,7 +97,7 @@ const SideNav = () => {
             </li>
           </NavLink>
           <NavLink to="/messages">
-            <li className="flex text-base font-bold font-tertiary items-center gap-2 my-6">
+            <li className="flex justify-center xm:justify-start text-base font-bold font-tertiary items-center gap-2 my-6">
               <svg
                 width="28"
                 height="28"
@@ -128,10 +128,10 @@ const SideNav = () => {
             <img
               src={profileImage}
               alt="Profile picture"
-              className="border-3 border-white p-1 w-12 xm:w-full"
+              className="border-3 border-white mx-auto p-1 w-12 xm:w-full"
             />
           </div>
-          <div className="hidden xm:flex flex-col col-span-9 ml-2">
+          <div className="hidden xm:flex flex-col col-span-9 justify-center ml-2">
             <div className="text-[#0F1419] font-bold">Jerome Bell</div>
             <div className="font-medium text-[#5B7083]">
               Lawyer at Banwo & co.

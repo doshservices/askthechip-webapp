@@ -1,7 +1,7 @@
 import light from "../../assets/& Switch-white.svg";
 import dark from "../../assets/& Switch-dark.svg";
 
-export const Header = ({ darkMode, setDarkMode }) => {
+const Header = ({ darkMode, setDarkMode }) => {
   return (
     <div className="flex justify-between p-5">
       <h3 className="text-[#0F1419] font-bold font-Inter text-[1.1875rem]">
@@ -18,3 +18,5 @@ export const Header = ({ darkMode, setDarkMode }) => {
     </div>
   );
 };
+
+export default Header

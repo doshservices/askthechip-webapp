@@ -1,14 +1,14 @@
-import { HomepageLayout, Mentorship, MobileLayout } from "../components";
+import { DesktopLayout, Mentorship, MobileLayout } from "../components";
 
 const MessagesPage = () => {
   return (
     <>
-    <HomepageLayout>
-      <Mentorship />
-    </HomepageLayout>
-    <MobileLayout>
-      <Mentorship />
-    </MobileLayout>
+      <DesktopLayout>
+        <Mentorship />
+      </DesktopLayout>
+      <MobileLayout>
+        <Mentorship />
+      </MobileLayout>
     </>
   );
 };

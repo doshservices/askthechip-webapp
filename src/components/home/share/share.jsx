@@ -7,7 +7,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { BiPoll } from "react-icons/bi";
 import { TbCalendarTime } from "react-icons/tb";
 
-export const Share = () => {
+const Share = () => {
   return (
     <section className="px-1">
       <div className="border border-[#00000021] mr-2 ml-1.5">
@@ -70,3 +70,5 @@ export const Share = () => {
     </section>
   );
 };
+
+export default Share;

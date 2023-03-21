@@ -1,14 +1,14 @@
-import { Chat, HomepageLayout, Messages, MobileLayout } from "../components";
+import { Chat, DesktopLayout, Messages, MobileLayout } from "../components";
 
 const MessagesPage = () => {
   return (
     <>
-    <HomepageLayout>
-      <Messages />
-    </HomepageLayout>
-    <MobileLayout>
-      <Chat />
-    </MobileLayout>
+      <DesktopLayout>
+        <Messages />
+      </DesktopLayout>
+      <MobileLayout>
+        <Chat />
+      </MobileLayout>
     </>
   );
 };

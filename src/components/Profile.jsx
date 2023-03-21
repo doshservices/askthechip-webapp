@@ -14,15 +14,15 @@ const Profile = () => {
 
   return (
     <div>
-      <div>
-        <img src={coverImage} alt="Cover image" />
+      <div className="grid grid-cols-1">
+        <img src={coverImage} alt="Cover image" className="w-full col-span-1" />
       </div>
       <div className="grid-cols-3 ml-8">
-        <div className="col-span-1 -mt-[20%]">
+        <div className="col-span-1 -mt-[4rem] sm:-mt-[5rem] xm:-mt-[4rem]">
           <img
             src={profileImage}
             alt="Profile Image"
-            className="rounded-full max-w-[30%]"
+            className="rounded-full max-w-[8rem] sm:max-w-[10rem] xm:max-w-[8rem]"
           />
         </div>
         <div className="font-Montserrat font-medium text-[#181818] text-2xl mb-2 mt-2">

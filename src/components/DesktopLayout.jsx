@@ -1,6 +1,6 @@
-import { SideNav } from "../components";
+import { SideNav } from ".";
 
-const HomepageLayout = ({ children }) => {
+const DesktopLayout = ({ children }) => {
   return (
     <section className="hidden sm:grid grid-cols-12 justify-between">
       <div className="col-span-1 xm:col-span-3 h-screen overflow-y-auto border-r border-[#EBEEF0]">
@@ -11,4 +11,4 @@ const HomepageLayout = ({ children }) => {
   );
 };
 
-export default HomepageLayout;
+export default DesktopLayout;

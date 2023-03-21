@@ -2,7 +2,7 @@
 import postImg from "../../../assets/post-img.png";
 import profileImage from "../../../assets/images/profile-picture.png";
 
-export const Posts = ({ bgColor, color }) => {
+const Posts = ({ bgColor, color }) => {
   return (
     <section
       className="p-5 mt-4 mx-2.5 grid grid-cols-12"
@@ -24,3 +24,5 @@ export const Posts = ({ bgColor, color }) => {
     </section>
   );
 };
+
+export default Posts

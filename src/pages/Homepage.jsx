@@ -1,10 +1,10 @@
-import { Header } from "../components/home/header";
-import { Posts } from "../components/home/feed/posts";
-import { Share } from "../components/home/share/share";
-import { Search } from "../components/home/search/search";
-import ServiceProviders from "../components/home/serviceProviders/explore";
-import { MobileLayout, SideNav } from "../components";
 import { useState } from "react";
+import { Header } from "../components/home";
+import { Posts } from "../components/home";
+import { Share } from "../components/home";
+import { Search } from "../components/home";
+import { ServiceProviders } from "../components/home";
+import { MobileLayout, SideNav } from "../components";
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState(false);
