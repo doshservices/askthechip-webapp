@@ -1,5 +1,5 @@
 import React from "react";
-import { Search } from "./home/search/search";
+import { Search } from "./home";
 import { servicesData } from "../data";
 
 const ServicesMobile = () => {

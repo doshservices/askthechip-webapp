@@ -1,6 +1,6 @@
 import search from "../../../assets/search.svg";
 
-export const Search = ({ background }) => {
+const Search = ({ background }) => {
   return (
     <div
       className="flex rounded-full items-center border border-[#EBEEF0]"
@@ -19,3 +19,5 @@ export const Search = ({ background }) => {
     </div>
   );
 };
+
+export default Search

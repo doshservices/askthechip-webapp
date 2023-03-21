@@ -1,7 +1,3 @@
-import { Header } from "../components/home/header";
-import { Posts } from "../components/home/feed/posts";
-import { Share } from "../components/home/share/share";
-
 import { SideNav, Settings } from "../components";
 
 const SettingsPage = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { servicesData } from "../data";
-import { Search } from "./home/search/search";
+import { Search } from "./home";
 import Chat from "./Chat";
 
 const Messages = () => {

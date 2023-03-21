@@ -1,10 +1,10 @@
-import { HomepageLayout, MobileLayout, Notifications } from "../components";
+import { DesktopLayout, MobileLayout, Notifications } from "../components";
 
 const NotificationsPage = () => {
   return (<>
-    <HomepageLayout>
+    <DesktopLayout>
       <Notifications />
-    </HomepageLayout>
+    </DesktopLayout>
     <MobileLayout>
       <Notifications />
     </MobileLayout>

@@ -1,5 +1,5 @@
 import React from "react";
-import Swiper from "./Swiper";
+import Carousel from "./Carousel";
 
 const Testimonial = () => {
   return (
@@ -9,8 +9,8 @@ const Testimonial = () => {
           Testimonials
         </h1>
       </div>
-      <div className="mx-4">
-        <Swiper />
+      <div className="mx-1">
+        <Carousel />
       </div>
     </section>
   );
