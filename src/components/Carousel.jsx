@@ -158,14 +158,14 @@ const Carousel = () => {
     ];
 
     return (
-        <div className=" overflow-hidden pt-5" id="testimonials">
+        <div className="-z-10 overflow-hidden pt-5" id="testimonials">
             <div className="container mx-auto ">
                 <Slider
                     {...settings}
                     afterChange={(index) => setCurrentSlide(index)}
                     dots={true}
                     autoplay={true}
-                    autoplaySpeed={2000}
+                    autoplaySpeed={4000}
                     className="center-padding"
                 >
                     {testimonials.map((testimonial) => (
