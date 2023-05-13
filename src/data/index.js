@@ -2,24 +2,33 @@ import upload from "./../assets/icons/upload.svg";
 import truck from "./../assets/icons/car.svg";
 import check from "./../assets/icons/check.svg";
 import error from "./../assets/icons/error.svg";
+import network from "./../assets/icons/network.svg";
+import growth from "./../assets/icons/growth.svg";
+import mentoring from "./../assets/icons/mentoring.svg";
 import interestImg from "./../assets/images/interest.png";
+
+
 
 export const whyData = [
   {
-    title: "Focused mentoring",
-    text: "Get dedicated time for feedback on your projects, Q&A and AMA sessions.",
+    icon: network,
+    title: "Access Exclusive Network",
+    text: "Where we promote innovation and value creation by addressing the non-core but critical factors that affect Entrepreneurs and Start-ups. Thereby allowing for focus on the development of the core ideas and solutions.",
   },
   {
-    title: "Multi-lingual program",
-    text: "Get mentored in your native language from our diverse group of mentors.",
+    icon: growth,
+    title: "Accelerate your growth",
+    text: "Our community is designed to help early-stage startups accelerate their growth and achieve their goals. Join us to get the support and resources you need to take your business to the next level.",
   },
   {
-    title: "Multi-lingual program",
-    text: "Get mentored in your native language from our diverse group of mentors.",
+    icon: mentoring,
+    title: "Focused Mentoring",
+    text: "Get dedicated time for feedback on your projects, Q&A and AMA sessions from our vast network of experienced and  successful entrepreneurs, investors, and industry experts who are committed to helping our members succeed.",
   },
   {
-    title: "Multi-lingual program",
-    text: "Get mentored in your native language from our diverse group of mentors.",
+    icon: network,
+    title: "Access Exclusive Resources",
+    text: "As a member of our community, you'll have access to exclusive resources, such as mentorship, funding opportunities, and educational content, that can help you take your business to the next level.",
   },
 ];
 

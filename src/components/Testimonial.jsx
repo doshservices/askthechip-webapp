@@ -3,10 +3,10 @@ import Carousel from "./Carousel";
 
 const Testimonial = () => {
   return (
-    <section className="min-h-fit my-4">
+    <section className="min-h-fit font-DMSans">
       <div className="flex flex-col justify-center items-center">
-        <h1 className="font-bold text-[40px] text-center max-w-[29ch] leading-[48px] mt-8 mb-8">
-          Testimonials
+        <h1 className="text-primary110 text-[46px] text-center max-w-[29ch] leading-[50px] mt-20 mb-10">
+          What Others Have to Say
         </h1>
       </div>
       <div className="mx-1">

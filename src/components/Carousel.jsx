@@ -15,7 +15,7 @@ const Carousel = () => {
         const { onClick } = props;
         return (
             <button
-                className="absolute top-1/2 right-0 -translate-y-1/2 transform rounded-full bg-primary p-2 text-white"
+                className="absolute top-1/2 -right-2 -translate-y-1/2 transform rounded-full bg-primary p-2 text-white"
                 onClick={onClick}
             >
                 <svg
@@ -40,7 +40,7 @@ const Carousel = () => {
         const { onClick } = props;
         return (
             <button
-                className="z-50 absolute top-1/2 left-0 -translate-y-1/2 transform rounded-full bg-primary p-2 text-white"
+                className="z-50 absolute top-1/2 -left-2 -translate-y-1/2 transform rounded-full bg-primary p-2 text-white"
                 onClick={onClick}
             >
                 <svg
@@ -128,31 +128,28 @@ const Carousel = () => {
 
     const testimonials = [
         {
-            id: 0,
-            image: test1,
-            content:
-                `Current slide ipsum
-                dolor sit amet consectetur, adipisicing elit. Itaque suscipit
-                repellendus magni illum quidem! Minima voluptate quo similique
-                incidunt quibusdam.`
-        },
-        {
-            id: 1,
+            id: 3,
             image: test2,
             content:
-                `Current slide ipsum
-                dolor sit amet consectetur, adipisicing elit. Itaque suscipit
-                repellendus magni illum quidem! Minima voluptate quo similique
-                incidunt quibusdam.`
+                `As a member of this community, we have enjoyed easy access to financial and legal services which has allowed us to focus on our creativity… thank you ‘askthechip’ for transforming our idea from concept to business.`
         },
         {
-            id: 2,
+            id: 4,
             image: test3,
             content:
-                `Current slide ipsum
-                dolor sit amet consectetur, adipisicing elit. Itaque suscipit
-                repellendus magni illum quidem! Minima voluptate quo similique
-                incidunt quibusdam.`
+                `As a member of this community, we have enjoyed easy access to financial and legal services which has allowed us to focus on our creativity… thank you ‘askthechip’ for transforming our idea from concept to business.`
+        },
+        {
+            id: 5,
+            image: test3,
+            content:
+                `As a member of this community, we have enjoyed easy access to financial and legal services which has allowed us to focus on our creativity… thank you ‘askthechip’ for transforming our idea from concept to business.`
+        },
+        {
+            id: 6,
+            image: test3,
+            content:
+                `As a member of this community, we have enjoyed easy access to financial and legal services which has allowed us to focus on our creativity… thank you ‘askthechip’ for transforming our idea from concept to business.`
         }
         // add more testimonial objects as needed
     ];
@@ -172,7 +169,7 @@ const Carousel = () => {
                         <div key={testimonial.id} className="mb-16 px-4">
                             <div
                                 className={
-                                    currentSlide === testimonial.id
+                                    currentSlide  === testimonial.id
                                         ? `bg-[#75b8c880] py-8 min-h-[253px] flex justify-center items-center rounded-lg px-6`
                                         : `bg-[#A1C5CF] py-4 min-h-[179px] flex justify-center items-center rounded-lg px-6`
                                 }
