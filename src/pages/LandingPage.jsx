@@ -10,7 +10,7 @@ import Testimonial from "../components/Testimonial";
 
 const Landing = () => {
   return (
-    <div>
+    <div className="bg-[#f8f8f8]">
       <Navbar />
       <Header />
       <WhyJoining />

@@ -3,11 +3,11 @@ import Button from "./Button";
 import "../App.css";
 
 import header from "./../assets/images/header.jpg";
-import header1 from "./../assets/images/header1.jpg";
-import header2 from "./../assets/images/header2.jpg";
-import header3 from "./../assets/images/header3.jpg";
-import header4 from "./../assets/images/header4.jpg";
-import header5 from "./../assets/images/header5.jpg";
+import header1 from "./../assets/images/header1.png";
+import header2 from "./../assets/images/header2.png";
+import header3 from "./../assets/images/header3.png";
+import header4 from "./../assets/images/header4.png";
+import header5 from "./../assets/images/header5.png";
 import header_mobile from "./../assets/images/header_mobile.jpg";
 import ellipse from "./../assets/images/ellipse.svg";
 
