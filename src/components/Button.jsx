@@ -17,9 +17,9 @@ const Button = ({ path, title }) => {
         <Link to={`/${path}`}>
           <button
             className={
-              title === "Sign In"
-                ? `bg-primary text-white py-2 px-10 rounded hover:scale-125 transition duration-200`
-                : `bg-primary text-white py-2 px-4 rounded hover:scale-110 transition duration-200`
+              title === "Get Started"
+                ? `bg-primary text-white py-2.5 px-8 rounded hover:scale-125 transition duration-200`
+                : `bg-primary text-white py-2.5 px-4 rounded hover:scale-110 transition duration-200`
             }
           >
             {title}

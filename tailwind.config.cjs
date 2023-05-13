@@ -5,20 +5,26 @@ module.exports = {
   ],
   theme: {
     colors: {
-      'primary': '#4FD6C4',
-      'secondary': '#021B38',
+      'primary': '#068978',
+      'primary110': '#022924',
+      'primary90': '#05675A',
+      'secondary': '#022924',
       'tertiary': '#09CEB4',
       'white': '#ffffff',
       'smoke': '#F7F9FA',
+      'dark': '#0A1E25',
       'transparent': '#ffffff00'
     },
     fontFamily: {
       'Montserrat': ['Montserrat', 'sans-serif'],
       'OpenSans': ['Open Sans', 'sans-serif'],
+      'Raleway': ['Raleway', 'sans-serif'],
+      'DMSans': ['DM Sans', 'sans-serif'],
       'Inter': ['Inter', 'sans-serif'],
     },
     backgroundImage: {
-      'handBulb': "url(./assets/images/hand-bulb.svg)"
+      'handBulb': "url(./assets/images/hand-bulb.svg)",
+      'foundersConnect': "url(./assets/images/founders_connect.jpg)"
     },
     screens: {
       'xs': '576px',

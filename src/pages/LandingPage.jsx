@@ -1,7 +1,6 @@
 import React from "react";
 import {
   ConnectWithFounders,
-  ConnectWithProviders,
   Footer,
   Header,
   Navbar,
@@ -16,7 +15,6 @@ const Landing = () => {
       <Header />
       <WhyJoining />
       <ConnectWithFounders />
-      <ConnectWithProviders />
       <Testimonial />
       <Footer />
     </div>
