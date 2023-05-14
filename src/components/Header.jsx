@@ -3,7 +3,7 @@ import Button from "./Button";
 import "../App.css";
 
 import header from "./../assets/images/header.jpg";
-import header1 from "./../assets/images/header1.png";
+import header1 from "./../assets/images/header1_1.png";
 import header2 from "./../assets/images/header2.png";
 import header3 from "./../assets/images/header3.png";
 import header4 from "./../assets/images/header4.png";
@@ -46,11 +46,21 @@ const Header = () => {
         </div>
         <div className="my-10">
           <div className="flex max-w-full">
-            <div className="flex gap-4 rounded-grid bg-black/50">
+            <div className="flex gap-4 bg-black/50 relative">
+            <div class="custom-shape-divider-top">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill"></path>
+                </svg>
+            </div>
               <div className="grid rounded-grid grid-cols-5 gap-4">
                 {images.map((image, index) => (
-                  <img src={image.src} key={index} />
+                  <img className="h-full" src={image.src} key={index} />
                 ))}
+              </div>
+              <div class="custom-shape-divider-bottom">
+                  <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                      <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill"></path>
+                  </svg>
               </div>
             </div>
           </div>

@@ -16,9 +16,6 @@ const Navbar = () => {
     <nav
       className={`static md:fixed w-full mx-auto lg:px-auto sm:px-20 transition duration-500 flex justify-center h-fit`}
     >
-      <div className="hidden md:flex absolute top-[90vh] right-10 text-white bg-tertiary p-2 rounded-xl cursor-pointer hover:scale-90">
-        <HashLink to="#home">Back to top</HashLink>
-      </div>
       <div
         className={`flex w-full fixed md:static max-w-[1200px] mx-auto justify-between transition duration-500 backdrop-blur h-16 px-4 md:px-0 z-20`}
       >

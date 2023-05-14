@@ -38,6 +38,43 @@
     font-weight: 600;
 }
 
-.rounded-grid {
-    border-radius: 10px 10px 0 0;
+.custom-shape-divider-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 85px;
+}
+
+.custom-shape-divider-top .shape-fill {
+    fill: #F8F8F8;
+}
+
+.custom-shape-divider-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 85px;
+}
+
+.custom-shape-divider-bottom .shape-fill {
+    fill: #F8F8F8;
 }
