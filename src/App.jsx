@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
+  ForgotPassword,
   LandingPage,
   MentorshipPage,
   MessagesPage,
@@ -8,11 +9,11 @@ import {
   Onboarding,
   Pricing,
   ProfilePage,
-  Register,
-  RegisterAsProvider,
   ServicesPage,
   SettingsPage,
   SignIn,
+  SignUp,
+  SignUpAsProvider
 } from "./pages";
 
 import HomePage from "./pages/Homepage";
@@ -22,9 +23,10 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/register-as-provider" element={<RegisterAsProvider />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/provider-sign" element={<SignUpAsProvider />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/pricing" element={<Pricing />} />
         {/* Pages after signing in */}

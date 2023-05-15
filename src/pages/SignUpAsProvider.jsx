@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 
-import Button from "./../components/Button";
+import Button from "../components/Button";
 
-const RegisterAsProvider = () => {
+const SignUpAsProvider = () => {
   return (
     <div className="min-h-screen font-Inter">
       <div className="flex flex-col md:flex-row h-full md:h-screen">
@@ -17,7 +17,7 @@ const RegisterAsProvider = () => {
           <div className="w-[90%] max-w-[600px] flex flex-col justify-center items-center ml-4 md:ml-8 mb-6">
             <div className="flex items-start w-[90%]">
               <h1 className="font-Inter text-[32px] mb-8">
-                Register as a service provider
+                SignUp as a service provider
               </h1>
             </div>
             <div className="grid grid-cols-1 w-[90%] mb-4">
@@ -130,10 +130,10 @@ const RegisterAsProvider = () => {
               </p>
             </div>
             <div className="flex justify-center my-2">
-              <Button title="Register" path="onboarding" />
+              <Button title="SignUp" path="onboarding" />
             </div>
             <div className="flex justify-center text-tertiary -mb-2 mt-2 underline">
-              <Link to="/sign-in">Sign In</Link>
+              <Link to="/login">Sign In</Link>
             </div>
           </div>
         </div>
@@ -143,4 +143,4 @@ const RegisterAsProvider = () => {
   );
 };
 
-export default RegisterAsProvider;
+export default SignUpAsProvider;

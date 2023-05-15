@@ -8,6 +8,7 @@ module.exports = {
       'primary': '#068978',
       'primary110': '#022924',
       'primary90': '#05675A',
+      'primary80': '#068978',
       'secondary': '#022924',
       'tertiary': '#09CEB4',
       'white': '#ffffff',
@@ -24,7 +25,9 @@ module.exports = {
     },
     backgroundImage: {
       'handBulb': "url(./assets/images/hand-bulb.svg)",
-      'foundersConnect': "url(./assets/images/founders_connect.jpg)"
+      'foundersConnect': "url(./assets/images/founders_connect.jpg)",
+      'authImage': "url(./assets/images/auth-image.png)",
+      'dottedRectangle': "url(./assets/icons/dotted-rectangles.svg)"
     },
     screens: {
       'xs': '576px',

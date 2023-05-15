@@ -16,9 +16,6 @@ const Navbar = () => {
     <nav
       className={`static md:fixed w-full mx-auto lg:px-auto sm:px-20 transition duration-500 flex justify-center h-fit`}
     >
-      <div className="hidden md:flex absolute top-[90vh] right-10 text-white bg-tertiary p-2 rounded-xl cursor-pointer hover:scale-90">
-        <HashLink to="#home">Back to top</HashLink>
-      </div>
       <div
         className={`flex w-full fixed md:static max-w-[1200px] mx-auto justify-between transition duration-500 backdrop-blur h-16 px-4 md:px-0 z-20`}
       >
@@ -56,7 +53,7 @@ const Navbar = () => {
           >
             Discover
           </HashLink>
-          <Button path="register" title="Register" />
+          <Button path="SignUp" title="SignUp" />
         </div>
 
         {/* Mobile nav & toggler */}
@@ -104,7 +101,7 @@ const Navbar = () => {
             </div>
             <div className="flex justify-center my-4" onClick={showMenu}>
               <NavLink
-                to="/sign-in"
+                to="/login"
                 className="px-8 bg-primary py-1 rounded-lg text-white"
               >
                 Signin
@@ -112,10 +109,10 @@ const Navbar = () => {
             </div>
             <div className="flex justify-center my-4" onClick={showMenu}>
               <NavLink
-                to="/register"
+                to="/SignUp"
                 className="px-4 border-[0.5px] py-1 rounded-lg border-primary"
               >
-                Register
+                SignUp
               </NavLink>
             </div>
             <button
@@ -127,8 +124,8 @@ const Navbar = () => {
           </div>
         </div>
 
-         {/* Mobile nav & toggler */}
-         {/* <div className="flex md:hidden">
+        {/* Mobile nav & toggler */}
+        {/* <div className="flex md:hidden">
           <button
             onClick={showMenu}
             className="absolute right-2 flex h-16 items-center justify-center p-3 text-secondary transition active:scale-90 md:hidden"

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Navbar } from "../components"
 import { pricingData } from "../data";
-import logo from "./../assets/ask.svg";
 import underline from "./../assets/images/underline.svg";
 import card from "./../assets/icons/card.svg";
 import checkCircle from "./../assets/icons/check-circle.svg";
@@ -37,53 +36,53 @@ const Pricing = () => {
   };
 
   return (
-    <div>
-      <div className="h-16 ml-4 mt-4 md:ml-8">
-        <Link to="/">
-          <img src={logo} alt="Ask the chip" />
-        </Link>
-      </div>
-      <div className="text-[#000B33]">
+    <div className="font-DMSans">
+      <Navbar />
+      <div className="pt-20">
         <div className="flex flex-col w-full items-center mb-6">
-          <h1 className="font-Inter text-[36px] leading-[45px] md:leading-[70px] md:text-[48px] w-[90%] max-w-[13ch] z-10 text-center font-bold mb-2">
+          <h1 className="font-DMSans font-bold text-primary110 text-4xl md:text-5xl w-[90%] max-w-[13ch] z-10 text-center mb-2">
             Pick a plan that's right for you
           </h1>
-          <div className="-mt-4 md:-mt-8">
+          <div className="-mt-4 md:-mt-5">
             <img src={underline} alt="underline" />
           </div>
         </div>
         <div className="flex items-center justify-center">
-          <div className="grid grid-cols-1 md:grid-cols-3 w-[90%] place-items-center mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 w-[90%] max-w-[60rem] place-items-center mb-8">
             {pricingData.map((data) => (
-              <div className="border border-[#000B33] rounded-lg px-8 py-4 mb-4">
-                <div className="my-4">
-                  <h2 className="bg-[#F1F1F1] rounded-lg text-[#160F0F] font-semibold w-fit px-2 py-1">
-                    {data.title}
-                  </h2>
-                  <p className="max-w-[30ch] mt-4">{data.subtitle}</p>
-                </div>
-                <div className="h-[1.5px] w-full bg-[#00000050] mt-10"></div>
-                <div className="my-8 mt-12">
-                  <span className="text-[52px] md:text-[72px] font-semibold leading-6">
-                    ${data.price}
-                  </span>{" "}
-                  <br />
-                  per member, per month
-                </div>
-                <div className="h-[2px] w-full bg-[#00000050] mb-10"></div>
-                {data.desc.map((desc) => (
-                  <div className="flex mb-4">
-                    <img src={desc.icon} alt={desc.text} />
-                    <span className="ml-2">{desc.text}</span>
+              <div className="max-w-[27.5rem] border border-[#00000015] rounded-lg mb-4">
+                <div className={`bg-[${data.priceBg}] w-full h-[10px] rounded-tl-lg rounded-tr-lg`}></div>
+                <div className="px-[1.875rem] pt-10 pb-8">
+                  <div className="mb-4">
+                    <h2 className="text-[#333] text-[1.375rem] font-semibold py-1">
+                      {data.title}
+                    </h2>
+                    <p className="max-w-[30ch] mt-4">{data.subtitle}</p>
                   </div>
-                ))}
-                <div className="mb-2">
-                  <button
-                    onClick={() => setModal(!modal)}
-                    className="bg-[#000] hover:scale-95 transition duration-200 rounded text-white w-full py-2"
-                  >
-                    Start a 14-day free trial
-                  </button>
+                  <div className="h-[1px] w-full bg-[#2d2d2d80] opacity-50 mt-10"></div>
+                  <div className="my-8 mt-12">
+                    <span style={{color: data.priceBg}} className={`text-[52px] md:text-[72px] font-semibold leading-6`}>
+                      ${data.price}
+                    </span>{" "}
+                    <br />
+                    per member, per month
+                  </div>
+                  <div className="h-[1px] w-full bg-[#2d2d2d80] opacity-50 mb-10"></div>
+                  {data.desc.map((desc) => (
+                    <div className="flex items-center mb-4">
+                      <img src={desc.icon} alt={desc.text} />
+                      <span className="ml-2">{desc.text}</span>
+                    </div>
+
+                  ))}
+                  <div className="mb-2 mt-[3.75rem]">
+                    <button
+                      onClick={() => setModal(!modal)}
+                      className="bg-primary80 hover:scale-95 transition duration-200 rounded-full text-white w-full py-2"
+                    >
+                      Start a 14-day free trial
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
