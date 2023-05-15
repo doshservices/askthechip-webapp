@@ -137,10 +137,11 @@ export const interestData = [
 
 export const pricingData = [
   {
-    title: "Individual",
+    title: "Basic",
     subtitle:
-      "For all individuals and starters who want to start with domaining.",
-    price: 19,
+      "For all individuals and starters with a small portfolio.",
+    price: 49,
+    priceBg: "#00CA72",
     desc: [
       {
         icon: check,
@@ -165,36 +166,10 @@ export const pricingData = [
     ],
   },
   {
-    title: "Businesses",
+    title: "Premium",
     subtitle: "For professional domain names investors with a big portfolio.",
-    price: 49,
-    desc: [
-      {
-        icon: check,
-        text: "Access to all features",
-      },
-      {
-        icon: check,
-        text: "1k lookups per month",
-      },
-      {
-        icon: check,
-        text: "30k API credits per month",
-      },
-      {
-        icon: check,
-        text: "10 monitoring quota",
-      },
-      {
-        icon: check,
-        text: "60 minutes monitoring interval",
-      },
-    ],
-  },
-  {
-    title: "Services",
-    subtitle: "For businessess, enterprise domain registrars and registries.",
     price: 99,
+    priceBg: "#0085FF",
     desc: [
       {
         icon: check,
@@ -217,7 +192,7 @@ export const pricingData = [
         text: "60 minutes monitoring interval",
       },
     ],
-  },
+  }
 ];
 
 // Personal view

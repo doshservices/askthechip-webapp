@@ -53,7 +53,7 @@ const Navbar = () => {
           >
             Discover
           </HashLink>
-          <Button path="register" title="Register" />
+          <Button path="SignUp" title="SignUp" />
         </div>
 
         {/* Mobile nav & toggler */}
@@ -101,7 +101,7 @@ const Navbar = () => {
             </div>
             <div className="flex justify-center my-4" onClick={showMenu}>
               <NavLink
-                to="/sign-in"
+                to="/login"
                 className="px-8 bg-primary py-1 rounded-lg text-white"
               >
                 Signin
@@ -109,10 +109,10 @@ const Navbar = () => {
             </div>
             <div className="flex justify-center my-4" onClick={showMenu}>
               <NavLink
-                to="/register"
+                to="/SignUp"
                 className="px-4 border-[0.5px] py-1 rounded-lg border-primary"
               >
-                Register
+                SignUp
               </NavLink>
             </div>
             <button
@@ -124,8 +124,8 @@ const Navbar = () => {
           </div>
         </div>
 
-         {/* Mobile nav & toggler */}
-         {/* <div className="flex md:hidden">
+        {/* Mobile nav & toggler */}
+        {/* <div className="flex md:hidden">
           <button
             onClick={showMenu}
             className="absolute right-2 flex h-16 items-center justify-center p-3 text-secondary transition active:scale-90 md:hidden"

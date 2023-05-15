@@ -11,23 +11,23 @@ import header5 from "./../assets/images/header5.png";
 import header_mobile from "./../assets/images/header_mobile.jpg";
 import ellipse from "./../assets/images/ellipse.svg";
 
-  const images = [
-    {
-      src: header1,
-    },
-    {
-      src: header2,
-    },
-    {
-      src: header3,
-    },
-    {
-      src: header4,
-    },
-    {
-      src: header5,
-    }
-  ];
+const images = [
+  {
+    src: header1,
+  },
+  {
+    src: header2,
+  },
+  {
+    src: header3,
+  },
+  {
+    src: header4,
+  },
+  {
+    src: header5,
+  }
+];
 
 const Header = () => {
   return (
@@ -38,29 +38,29 @@ const Header = () => {
             Welcome to Our Community <span className="text-primary">of Entrepreneurs</span>
           </h1>
           <h2 className="text-lg w-[90%] max-w-[49ch] text-center mb-10 text-[#343432]">
-          Where we promote innovation and value creation by addressing the non-core but critical factors that affect Entrepreneurs and Start-ups. Thereby allowing for focus on the development of the core ideas and solutions.
+            Where we promote innovation and value creation by addressing the non-core but critical factors that affect Entrepreneurs and Start-ups. Thereby allowing for focus on the development of the core ideas and solutions.
           </h2>
           <div>
-            <Button path="sign-in" title="Get Started" />
+            <Button path="login" title="Get Started" />
           </div>
         </div>
         <div className="my-10">
           <div className="flex max-w-full">
             <div className="flex gap-4 bg-black/50 relative">
-            <div class="custom-shape-divider-top">
+              <div class="custom-shape-divider-top">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill"></path>
+                  <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill"></path>
                 </svg>
-            </div>
+              </div>
               <div className="grid rounded-grid grid-cols-5 gap-4">
                 {images.map((image, index) => (
                   <img className="h-full" src={image.src} key={index} />
                 ))}
               </div>
               <div class="custom-shape-divider-bottom">
-                  <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                      <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill"></path>
-                  </svg>
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                  <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill"></path>
+                </svg>
               </div>
             </div>
           </div>

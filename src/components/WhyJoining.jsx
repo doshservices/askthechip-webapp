@@ -11,8 +11,8 @@ const WhyJoining = () => {
           Why you should join our Community
         </h1>
         <h2 className="text-[18px] w-[90%] max-w-[49ch] text-center mb-12 text-[#343432]">
-          Where we promote innovation and value creation by addressing the non-core but critical 
-          factors that affect Entrepreneurs and Start-ups. Thereby allowing for focus on the development 
+          Where we promote innovation and value creation by addressing the non-core but critical
+          factors that affect Entrepreneurs and Start-ups. Thereby allowing for focus on the development
           of the core ideas and solutions.
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 mb-6 md:mb-0 mx-4">
@@ -21,7 +21,7 @@ const WhyJoining = () => {
           ))}
         </div>
         <div className="mt-16 mb-20">
-          <Button path="sign-in" title="Get Started" />
+          <Button path="login" title="Get Started" />
         </div>
       </section>
     </div>

@@ -51,7 +51,7 @@ const Onboarding = () => {
               <Button title="Continue" path="pricing" />
             </div>
             <div className="flex justify-center text-tertiary -mb-2 mt-2 underline">
-              <Link to="/sign-in">Sign In</Link>
+              <Link to="/login">Sign In</Link>
             </div>
           </div>
         </div>
