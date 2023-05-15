@@ -18,8 +18,8 @@ const Button = ({ path, title }) => {
           <button
             className={
               title === "Get Started"
-                ? `bg-primary text-white py-2.5 px-8 rounded hover:scale-125 transition duration-200`
-                : `bg-primary text-white py-2.5 px-4 rounded hover:scale-110 transition duration-200`
+                ? `bg-primary text-xs md:text-base text-white py-2.5 px-8 rounded hover:scale-125 transition duration-200`
+                : `bg-primary text-xs md:text-base text-white py-2.5 px-4 rounded hover:scale-110 transition duration-200`
             }
           >
             {title}

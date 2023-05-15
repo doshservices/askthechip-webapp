@@ -7,10 +7,10 @@ const WhyJoining = () => {
   return (
     <div className="font-DMSans" id="about">
       <section className="flex justify-center items-center flex-col min-h-screen">
-        <h1 className="font-medium capitalize text-[30px] md:text-[36px] text-center w-[90%] max-w-[29ch] leading-[44px] mt-8 mb-4 text-[#021B38]">
+        <h1 className="font-medium capitalize text-2xl md:text-[36px] text-center w-[90%] max-w-[29ch] md:leading-[44px] mt-8 mb-4 text-[#021B38]">
           Why you should join our Community
         </h1>
-        <h2 className="text-[18px] w-[90%] max-w-[49ch] text-center mb-12 text-[#343432]">
+        <h2 className="text-xs leading-[24px] md:text-[18px] w-[90%] max-w-[49ch] text-center mb-12 text-[#343432]">
           Where we promote innovation and value creation by addressing the non-core but critical
           factors that affect Entrepreneurs and Start-ups. Thereby allowing for focus on the development
           of the core ideas and solutions.

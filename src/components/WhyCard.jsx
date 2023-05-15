@@ -3,7 +3,7 @@ import React from "react";
 const WhyCard = ({ title, text, icon }) => {
 
   return (
-    <div className="max-w-[274px] shadow-lg rounded-xl px-5 pt-8 pb-5 mt-16">
+    <div className="bg-[#ffffff] max-w-[274px] shadow-lg rounded-xl px-5 pt-8 pb-5 mt-16">
       <div className="flex justify-center">
         <div className="flex justify-center items-center mb-6 bg-white rounded-full shadow-lg w-20 aspect-square -mt-16">
           <img src={icon} alt="Why Joining" className="p-3" />

@@ -40,7 +40,7 @@
 
 .custom-shape-divider-top {
     position: absolute;
-    top: 0;
+    top: -1px;
     left: 0;
     width: 100%;
     overflow: hidden;
@@ -51,7 +51,7 @@
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
-    height: 85px;
+    height: 5.3125rem;
 }
 
 .custom-shape-divider-top .shape-fill {
@@ -60,7 +60,7 @@
 
 .custom-shape-divider-bottom {
     position: absolute;
-    bottom: 0;
+    bottom: -10px;
     left: 0;
     width: 100%;
     overflow: hidden;
@@ -72,9 +72,45 @@
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
-    height: 85px;
+    height: 5.625rem;
 }
 
 .custom-shape-divider-bottom .shape-fill {
     fill: #F8F8F8;
+}
+@media (max-width: 1024px) {
+    .custom-shape-divider-top svg { 
+        height: 4rem;
+    } 
+    .custom-shape-divider-bottom svg { 
+        height: 4rem;
+    } 
+}
+@media (max-width: 768px) {
+    .custom-shape-divider-top svg { 
+        height: 2.5rem;
+    } 
+    .custom-shape-divider-bottom {
+        bottom: -7px;
+    }
+    .custom-shape-divider-bottom svg { 
+        height: 2.5rem;
+    } 
+}
+
+@media (max-width: 640px) {
+    .custom-shape-divider-top svg { 
+        height: 2rem;
+    }
+    .custom-shape-divider-bottom svg { 
+        height: 2rem;
+    }
+}
+@media (max-width: 576px) {
+    .custom-shape-divider-top svg { 
+        height: 1.5rem;
+    }
+    .custom-shape-divider-bottom svg { 
+        height: 2rem;
+    }
 }
