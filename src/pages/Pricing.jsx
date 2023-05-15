@@ -39,11 +39,11 @@ const Pricing = () => {
     <div className="font-DMSans">
       <Navbar />
       <div className="pt-20">
-        <div className="flex flex-col w-full items-center mb-6">
-          <h1 className="font-DMSans font-bold text-primary110 text-4xl md:text-5xl w-[90%] max-w-[13ch] z-10 text-center mb-2">
+        <div className="flex flex-col w-full items-center mb-6 mt-10">
+          <h1 className="font-DMSans font-bold text-primary110 text-4xl md:text-5xl w-[90%] max-w-[13ch] text-center mb-2">
             Pick a plan that's right for you
           </h1>
-          <div className="-mt-4 md:-mt-5">
+          <div className="-z-10 -mt-4 md:-mt-5">
             <img src={underline} alt="underline" />
           </div>
         </div>
