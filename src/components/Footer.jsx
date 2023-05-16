@@ -77,8 +77,8 @@ const Footer = () => {
               Quick Links
             </div>
             <ul>
-              {quickLinks.map(l =>
-                <li className="font-DMSans font-medium text-sm text-primary90 mb-3 hover:scale-110 active:scale-100 cursor-pointer transition duration-300">
+              {quickLinks.map((l, index) =>
+                <li key={index} className="font-DMSans font-medium text-sm text-primary90 mb-3 hover:scale-110 active:scale-100 cursor-pointer transition duration-300">
                   {l.text}
                 </li>
               )}
@@ -89,8 +89,8 @@ const Footer = () => {
               Support
             </div>
             <ul>
-              {supportLinks.map(l =>
-                <li className="font-DMSans font-medium text-sm text-primary90 mb-3 hover:scale-110 active:scale-100 cursor-pointer transition duration-300">
+              {supportLinks.map((l, index) =>
+                <li key={index} className="font-DMSans font-medium text-sm text-primary90 mb-3 hover:scale-110 active:scale-100 cursor-pointer transition duration-300">
                   {l.text}
                 </li>
               )}

@@ -5,7 +5,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "./../assets/ask.svg";
 
 const Navbar = () => {
-  const pathname = window.location.pathname;
+  
   const navRef = useRef();
   const showMenu = () => {
     navRef.current.classList.toggle("translate-x-[100%]");
@@ -28,7 +28,6 @@ const Navbar = () => {
         <div className="hidden md:flex font-body my-auto items-center justify-between w-full max-w-[500px]">
           <NavLink
             to="/home"
-            smooth
             className={({ isActive }) =>
               isActive
                 ? "px-4 underline decoration-2 underline-offset-4"
@@ -39,14 +38,13 @@ const Navbar = () => {
           </NavLink>
           <HashLink
             to="#explore"
-            smooth
+            smooth={true}
             className="px-4 hover:underline decoration-2 underline-offset-4"
           >
             Explore
           </HashLink>
           <NavLink
               to="/pricing"
-              smooth
               className={({ isActive }) =>
                 isActive
                   ? "px-4 underline decoration-2 underline-offset-4"
@@ -57,14 +55,14 @@ const Navbar = () => {
             </NavLink>
           <HashLink
             to="#about"
-            smooth
+            smooth={true}
             className="px-4 hover:underline decoration-2 underline-offset-4"
           >
             About us
           </HashLink>
           <HashLink
             to="#discover"
-            smooth
+            smooth={true}
             className="px-4 hover:underline decoration-2 underline-offset-4"
           >
             Contact
@@ -81,7 +79,7 @@ const Navbar = () => {
       <div className="flex md:hidden">
         <button
           onClick={showMenu}
-          className="flex pt-[1rem] text-[#f8f8f8] absolute right-2 md:hidden p-3 transition active:scale-90"
+          className="flex pt-[1.25rem] text-[#f8f8f8] absolute right-2 md:hidden p-3 transition active:scale-90"
         >
           <FaBars size={30} />
         </button>
@@ -95,7 +93,6 @@ const Navbar = () => {
           >
             <NavLink
               to="/home"
-              smooth
               className="px-4 hover:underline decoration-2 underline-offset-4"
               end
             >
@@ -105,7 +102,7 @@ const Navbar = () => {
           <div className="flex justify-center my-4" onClick={showMenu}>
             <HashLink
               to="#discover"
-              smooth
+              smooth={true}
               className="px-4 hover:underline decoration-2 underline-offset-4"
             >
               Explore
@@ -117,7 +114,6 @@ const Navbar = () => {
           >
             <NavLink
               to="/pricing"
-              smooth
               className="px-4 hover:underline decoration-2 underline-offset-4"
               end
             >
@@ -127,7 +123,7 @@ const Navbar = () => {
           <div className="flex justify-center my-4" onClick={showMenu}>
             <HashLink
               to="#about"
-              smooth
+              smooth={true}
               className="px-4 hover:underline decoration-2 underline-offset-4"
             >
               About
@@ -136,7 +132,7 @@ const Navbar = () => {
           <div className="flex justify-center my-4" onClick={showMenu}>
             <HashLink
               to="#discover"
-              smooth
+              smooth={true}
               className="px-4 hover:underline decoration-2 underline-offset-4"
             >
               Contact

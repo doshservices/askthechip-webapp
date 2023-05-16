@@ -47,9 +47,9 @@ const Header = () => {
         <div className="my-0 md:my-10 mb-5 md:mb-10">
           <div className="flex max-w-full">
             <div className="flex gap-4 bg-black/50 relative">
-              <div class="custom-shape-divider-top">
+              <div className="custom-shape-divider-top">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                  <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill"></path>
+                  <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" className="shape-fill"></path>
                 </svg>
               </div>
               <div className="grid rounded-grid grid-cols-5 gap-4">
@@ -57,9 +57,9 @@ const Header = () => {
                   <img className="h-full" src={image.src} key={index} />
                 ))}
               </div>
-              <div class="custom-shape-divider-bottom">
+              <div className="custom-shape-divider-bottom">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                  <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill"></path>
+                  <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" className="shape-fill"></path>
                 </svg>
               </div>
             </div>

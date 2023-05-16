@@ -25,8 +25,8 @@ const socials = [
 const Socials = () => {
     return (
         <ul className="flex">
-            {socials.map(s =>
-                <li className="mr-5 hover:scale-125 active:scale-100 cursor-pointer transition duration-300">
+            {socials.map((s, index) =>
+                <li key={index} className="mr-5 hover:scale-125 active:scale-100 cursor-pointer transition duration-300">
                     <img src={s.icon} alt="Facebook" />
                 </li>
             )}
