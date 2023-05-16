@@ -58,8 +58,8 @@ const SignUp = () => {
               <div className="flex justify-center mb-10">
                 <div className="flex justify-center text-light text-sm rounded-full border-[0.0694rem] border-[#2d2d2d] w-fit p-[0.375rem]">
                   <div onClick={handleSwitchAccount} className={accountType === "individual" ?
-                    `mr-[22px] px-7 bg-primary80 rounded-full py-1.5 cursor-pointer` :
-                    `mr-[22px] px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`}>
+                    `mr-4 md:mr-[22px] px-7 bg-primary80 rounded-full py-1.5 cursor-pointer` :
+                    `mr-4 md:mr-[22px] px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`}>
                     For Individual
                   </div>
                   <div onClick={handleSwitchAccount} className={accountType === "business" ?
@@ -332,9 +332,9 @@ const SignUp = () => {
           </div>
         </div>
         <div className="hidden md:flex w-[50%] h-screen relative">
-          <div className="absolute -z-10 top-0 right-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
-          <div className="absolute -z-10 bottom-0 left-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
-          <div className="hidden md:flex w-full h-[calc(100vh_-_76px)] my-[2.375rem] bg-authImage bg-center bg-contain bg-no-repeat">
+          <div className="absolute z-10 top-0 right-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
+          <div className="absolute z-10 bottom-0 left-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
+          <div className="hidden z-20 md:flex w-full h-[calc(100vh_-_76px)] my-[2.375rem] bg-authImage bg-center bg-contain bg-no-repeat">
           </div>
         </div>
       </div>
