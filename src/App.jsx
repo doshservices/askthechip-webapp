@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
+  Error,
   ForgotPassword,
   LandingPage,
   MentorshipPage,
@@ -13,7 +14,8 @@ import {
   SettingsPage,
   SignIn,
   SignUp,
-  SignUpAsProvider
+  SignUpAsProvider,
+  Verify
 } from "./pages";
 
 import HomePage from "./pages/Homepage";
@@ -29,6 +31,8 @@ function App() {
         <Route path="/provider-sign" element={<SignUpAsProvider />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/pricing" element={<Pricing />} />
+        <Route path="/verify" element={<Verify />} />
+        <Route path="/*" element={<Error />} />
         {/* Pages after signing in */}
         <Route path="/home" element={<HomePage />} />
         <Route path="/mentorship" element={<MentorshipPage />} />
