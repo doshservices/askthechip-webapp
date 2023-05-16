@@ -22,7 +22,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className="font-Inter overflow-hidden">
+    <div className="font-Inter overflow-hidden bg-light">
       <div className="flex flex-col md:flex-row w-full">
         <div className="w-full md:w-[50%] h-screen">
           <Link to="/" className="flex items-center h-16 ml-4 md:ml-20 my-7">
@@ -45,7 +45,7 @@ const SignIn = () => {
               </label>
               <div className="border border-[#2d2d2d] rounded-full">
                 <input
-                  className="rounded-full py-2 px-5 w-full outline-none text-xs"
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                   type="text"
                   name="email"
                   id="email"
@@ -62,7 +62,7 @@ const SignIn = () => {
               </label>
               <div className="flex border border-[#2d2d2d] rounded-full">
                 <input
-                  className="rounded-full py-2 px-5 w-full outline-none text-xs"
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                   type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
@@ -109,9 +109,9 @@ const SignIn = () => {
           </div>
         </div>
         <div className="hidden md:flex w-[50%] h-screen relative">
-          <div className="absolute -z-10 top-0 right-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
-          <div className="absolute -z-10 bottom-0 left-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
-          <div className="hidden md:flex w-full h-[calc(100vh_-_76px)] my-[2.375rem] bg-authImage bg-center bg-contain bg-no-repeat">
+          <div className="absolute z-10 top-0 right-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
+          <div className="absolute z-10 bottom-0 left-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
+          <div className="hidden z-20 md:flex w-full h-[calc(100vh_-_76px)] my-[2.375rem] bg-authImage bg-center bg-contain bg-no-repeat">
           </div>
         </div>
       </div>
