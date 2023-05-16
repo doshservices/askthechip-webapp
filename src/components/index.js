@@ -1,6 +1,7 @@
 export { default as Button } from "./Button";
 export { default as Carousel } from "./Carousel";
 export { default as ConnectWithFounders } from "./ConnectWithFounders";
+export { default as FileUploadInput } from "./FileUploadInput";
 export { default as Footer } from "./Footer";
 export { default as Header } from "./Header";
 export { default as DesktopLayout } from "./DesktopLayout";

@@ -10,11 +10,13 @@ module.exports = {
       'primary100': '#03453C',
       'primary90': '#05675A',
       'primary80': '#068978',
+      'primary60': '#09CEB4',
       'secondary': '#022924',
       'tertiary': '#09CEB4',
       'white': '#ffffff',
       'smoke': '#F7F9FA',
       'dark': '#0A1E25',
+      'light': '#f8f8f8',
       'transparent': '#ffffff00'
     },
     fontFamily: {
