@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav
       className={`bg-primary100 md:bg-[#f8f8f8] h-[4.625rem] font-DMSans fixed z-[9999] w-full shadow-md transition duration-500 flex`}
     >
-      <div className="flex justify-between w-full ml-6 md:ml-[6.25rem]">
+      <div className="flex justify-between w-full mx-6 md:mx-[6.25rem]">
         {/* Brand Logo */}
         <div className="flex my-auto">
           <Link to="/" className={`flex items-center`}>
@@ -72,7 +72,9 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex justify-center items-center">
-          <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.875rem] py-[0.625rem] rounded-lg">Join Now</button>
+          <Link to="/sign-up">
+            <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.875rem] py-[0.625rem] rounded-lg">Join Now</button>
+          </Link>
         </div>
       </div>
       {/* Mobile nav & toggler */}
