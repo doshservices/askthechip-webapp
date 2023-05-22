@@ -12,10 +12,11 @@ module.exports = {
       'primary80': '#068978',
       'primary60': '#09CEB4',
       'secondary': '#022924',
-      'tertiary': '#09CEB4',
+      'tertiary': '#068978',
       'white': '#ffffff',
       'smoke': '#F7F9FA',
       'dark': '#0A1E25',
+      'dark2D': '#2d2d2d',
       'light': '#f8f8f8',
       'transparent': '#ffffff00'
     },
@@ -54,7 +55,21 @@ module.exports = {
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
     },
-    extend: {},
+    extend: {
+      gridColumn: {
+        'span-3': 'span 3 / span 3',
+        'span-5': 'span 5 / span 5',
+        'span-7': 'span 7 / span 7',
+        'span-14': 'span 14 / span 14',
+        'span-19': 'span 19 / span 19',
+      },
+      gridTemplateColumns: {
+        '6': 'repeat(6, minmax(0, 1fr))',
+        '12': 'repeat(12, minmax(0, 1fr))',
+        '19': 'repeat(19, minmax(0, 1fr))',
+        '24': 'repeat(24, minmax(0, 1fr))',
+      }
+    },
   },
   plugins: [],
 }

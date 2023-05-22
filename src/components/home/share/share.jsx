@@ -10,60 +10,54 @@ import { TbCalendarTime } from "react-icons/tb";
 const Share = () => {
   return (
     <section className="px-1">
-      <div className="border border-[#00000021] mr-2 ml-1.5">
-        <div className="ml-2 flex w-full justify-between">
-          <div className="mx-2 mt-2 w-12 h-12">
-            <img src={profileImg} alt={profileImg} className={`rounded-full`} />
-          </div>
-          <div className="flex ml-2 w-[55%]">
-            <input
-              type="text"
-              placeholder="Share a post"
-              autoComplete="off"
-              className="bg-black border-0 outline-none placeholder:text-dark-gray w-full"
-            />
-          </div>
-          <button className="flex items-center border border-[#00000021] px-4 m-4 mr-6 rounded-xl h-8">
-            <span className="mr-2 text-[0.625rem]"> Select board</span>
-            <svg
-              width="10"
-              height="5"
-              viewBox="0 0 14 7"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M7 6.75L0.75 0.5H13.25L7 6.75Z" fill="black" />
-            </svg>
-          </button>
+      <div className="flex">
+        <div className="mr-6 mt-2 w-12 h-12">
+          <img src={profileImg} alt={profileImg} className={`rounded-full`} />
         </div>
-        <div className="flex justify-between w-full">
-          <div className="flex ml-2 sm:ml-16">
-            <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
-              <AiOutlineFileImage size={20} />
-            </Link>
-            <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
-              <AiOutlineFileGif size={20} />
-            </Link>
-            <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
-              <BiPoll size={20} />
-            </Link>
-            <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
-              <BsEmojiSmile size={20} />
-            </Link>
-            <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
-              <TbCalendarTime size={20} />
-            </Link>
-            <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
-              <HiOutlineLocationMarker size={20} />
-            </Link>
+        <div className="flex flex-col justify-between w-full rounded-lg bg-[#f4f4f4]">
+          <div className="ml-2 flex w-full justify-between">
+            <div className="flex ml-2 w-[80%]">
+              <textarea placeholder="Share a post" name="post" id="post" cols="100" rows="2"
+                className="bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray w-full resize-none mt-4"
+              />
+            </div>
+            <div className="w-fit">
+            <select name="board" id="board" className="bg-[#f4f4f4] border rounded-md border-[#2d2d2d]/80 outline-none text-xs w-fit h-fit py-1 px-1 mt-4 mr-6">
+              <option value="select" disabled selected>Select Board</option>
+              <option value="white">White Board</option>
+              <option value="black">Black Board</option>
+            </select>
+            </div>
           </div>
-          <div className="flex items-center mr-4">
-            <Link
-              to="#"
-              className={`flex bg-primary text-white hover:bg-primary/90 rounded-lg h-fit w-full px-4 py-1`}
-            >
-              Share
-            </Link>
+          <div className="flex justify-between w-full">
+            <div className="flex ml-2">
+              <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
+                <AiOutlineFileImage size={20} />
+              </Link>
+              <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
+                <AiOutlineFileGif size={20} />
+              </Link>
+              <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
+                <BiPoll size={20} />
+              </Link>
+              <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
+                <BsEmojiSmile size={20} />
+              </Link>
+              <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
+                <TbCalendarTime size={20} />
+              </Link>
+              <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
+                <HiOutlineLocationMarker size={20} />
+              </Link>
+            </div>
+            <div className="flex items-center mr-4">
+              <Link
+                to="#"
+                className={`flex bg-primary text-white text-xs hover:bg-primary/90 rounded-lg h-fit w-full px-4 py-1`}
+              >
+                Post
+              </Link>
+            </div>
           </div>
         </div>
       </div>

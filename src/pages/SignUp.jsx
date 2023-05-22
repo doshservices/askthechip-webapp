@@ -305,6 +305,10 @@ const SignUp = () => {
                     <div className="border border-[#2d2d2d] rounded-full">
                       <select id="serviceType" className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
                         <option disabled selected>Select Document Type</option>
+                        <option>Driver's license</option>
+                        <option>International Passport</option>
+                        <option>National Identity Card</option>
+                        <option>Voter's card</option>
                       </select>
                     </div>
                   </div>

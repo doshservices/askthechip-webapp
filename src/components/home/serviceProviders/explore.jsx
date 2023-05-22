@@ -4,21 +4,21 @@ import { servicesData } from "../../../data";
 const ServiceProviders = () => {
   return (
     <section>
-      <div className="font-Inter pl-4 bg-[#F7F9FA] rounded-xl">
-        <div className="font-bold text-xl pl-3 py-3 my-3 border-b border-[#EBEEF0]">
-          Explore Service Providers
+      <div className="font-Inter rounded-xl">
+        <div className="font-medium text-lg pt-10 pb-3">
+          Trending
         </div>
         {servicesData.map((service) => (
           <div className="grid grid-cols-12 pt-2 pb-4 my-2 border-b border-[#EBEEF0]">
             <div className="col-span-9 ml-3">
-              <div className="text-[#5B7083] font-medium text-sm">
+              <div className="text-[#5B7083] text-xs">
                 {service.category}
               </div>
-              <div className="font-bold text-[#0F1419] mb-1.5">
+              <div className="font-medium text-sm text-[#0F1419] mb-1.5">
                 {service.title}
               </div>
-              <div className="text-[#5B7083] font-medium text-sm">
-                Rated by {service.rating} people
+              <div className="text-[#5B7083] text-xs">
+                {service.rating}k views
               </div>
             </div>
             <div className="col-span-3 ml-auto mr-3">
@@ -26,7 +26,7 @@ const ServiceProviders = () => {
             </div>
           </div>
         ))}
-        <div className="text-tertiary font-medium cursor-pointer ml-3 pb-2">
+        <div className="text-primary80 text-xs font-medium cursor-pointer ml-3 pb-2">
           Show more
         </div>
       </div>

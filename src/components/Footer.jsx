@@ -1,7 +1,6 @@
 import React from "react";
 import logo from "./../assets/ask.svg";
 import { Link } from "react-router-dom";
-import Button from './Button.jsx';
 import envelopePrimary from './../assets/icons/envelopePrimary.svg'
 import Socials from "./Socials";
 
@@ -110,16 +109,16 @@ const Footer = () => {
             <div className="grid grid-cols-2 gap-8 md:gap-20 mb-5 font-DMSans font-medium">
               <div className="flex flex-col">
                 <label htmlFor="fname" className="text-primary90/70 text-sm">First Name</label>
-                <input type="text" className="outline-none border-b border-primary90 " name="fname" id="fname" />
+                <input type="text" className="outline-none border-b border-primary90 bg-transparent" name="fname" id="fname" />
               </div>
               <div className="flex flex-col w-full">
                 <label htmlFor="lname" className="text-primary90/70 text-sm">Last Name</label>
-                <input type="text" className="outline-none border-b border-primary90 " name="lname" id="fname" />
+                <input type="text" className="outline-none border-b border-primary90 bg-transparent" name="lname" id="fname" />
               </div>
             </div>
             <div className="flex flex-col mb-5 font-DMSans font-medium">
               <label htmlFor="email" className="text-primary90/70 text-sm">Email</label>
-              <input type="email" className="outline-none border-b border-primary90 " name="email" id="fname" />
+              <input type="email" className="outline-none border-b border-primary90 bg-transparent" name="email" id="fname" />
             </div>
             <div className="flex mb-4">
               <input type="checkbox" className="border-b border-primary90 " name="acceptance" id="acceptance" />
