@@ -1,79 +1,117 @@
+import { useState } from "react";
+
+const defaultFormFields = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  type: "",
+  password: "",
+  confirmPassword: "",
+  companyName: "",
+  officeAddress: ""
+}
+
 const Mentorship = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const [accountType, setAccountType] = useState("individual");
+  const { firstName, lastName, email, phone, password, confirmPassword, companyName, officeAddress } = formFields;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormFields({ ...formFields, [name]: value });
+  }
+
   return (
     <div className="grid grid-cols-12 pl-8">
-      <div className="col-span-11 md:col-span-9 xm:col-span-7 xl:col-span-4">
-        <div className="font-Inter text-2xl font-medium my-2">
-          Request for Mentorship
+      <div className="col-span-11 md:col-span-9 xm:col-span-7 xl:col-span-6">
+        <div className="font-Inter text-2xl font-medium my-2 mt-5">
+          Mentorship
         </div>
-        <div className="mt-6">
-          <div className="flex flex-col w-full mb-4">
-            <label
-              htmlFor="industry"
-              className="mb-2 font-Inter text-left w-full mx-auto"
-            >
-              Select Industry
-            </label>
-            <select
-              className="outline-none border-[0.3px] border-[#757575] rounded-lg py-1.5 px-2 w-[90%]"
-              name="industry"
-              id="industry"
-            >
-              <option>Manufacturing</option>
-              <option>Technology</option>
-              <option>Entertainment</option>
-            </select>
-          </div>
-          <div className="flex flex-col w-full mb-4">
-            <label
-              htmlFor="full_name"
-              className="mb-2 font-Inter text-left w-full mx-auto"
-            >
-              Email address
-            </label>
-            <div className="flex w-full justify-start">
-              <input
-                className="outline-none border border-[#757575] rounded-lg py-1 px-2 w-[90%]"
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Enter your email address"
-              />
+        <div>
+          Kindly fill out the form below to request for mentorship session
+        </div>
+        <div className="mt-6 ml-28">
+          <form>
+            <div className="flex flex-col mb-5">
+              <label htmlFor="firstName" className="font-DMSans text-sm mb-2">
+                First Name
+              </label>
+              <div className="border border-[#2d2d2d] rounded-full">
+                <input
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  value={firstName}
+                  onChange={handleChange}
+                  placeholder="First Name Here"
+                  required
+                />
+              </div>
+              </div>
+              <div className="flex flex-col mb-5">
+                <label htmlFor="lastName" className="font-DMSans text-sm mb-2">
+                  Last Name
+                </label>
+                <div className="border border-[#2d2d2d] rounded-full bg-transparent">
+                  <input
+                    className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                    type="text"
+                    name="lastName"
+                    id="lastName"
+                    value={lastName}
+                    onChange={handleChange}
+                    placeholder="Last Name Here"
+                    required
+                  />
+                </div>
+              </div>
+            <div className="flex flex-col mb-5">
+              <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                Email Address
+              </label>
+              <div className="border border-[#2d2d2d] rounded-full bg-transparent">
+                <input
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={email}
+                  onChange={handleChange}
+                  placeholder="Email Address Here"
+                  required
+                />
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col w-full mb-4">
-            <label
-              htmlFor="phone_no"
-              className="mb-2 font-Inter w-full mx-auto"
-            >
-              Phone number
-            </label>
-            <div className="flex w-full justify-start">
-              <input
-                className="outline-none border border-[#757575] rounded-lg py-1 px-2 w-[90%]"
-                type="tel"
-                name="phone_no"
-                id="phone_no"
-                placeholder="Enter your phone number"
-              />
+            <div className="flex flex-col mb-5">
+              <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                Select Industry
+              </label>
+              <div className="border border-[#2d2d2d] rounded-full">
+                <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                  <option disabled selected>Select Industry</option>
+                  <option value="Accounting">Accounting</option>
+                  <option value="Administrative">Administrative</option>
+                  <option value="Consultation">Consultation</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Technology">Technology</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col w-full mb-4">
-            <label
-              htmlFor="full_name"
-              className="mb-2 font-Inter text-left w-full mx-auto"
-            >
-              Others
-            </label>
-            <div className="flex w-full justify-start">
-              <input
-                className="outline-none border border-[#757575] rounded-lg py-1 px-2 w-[90%]"
-                type="text"
-                name="others"
-                id="others"
-                placeholder="Some values goes here"
-              />
+            <div className="flex flex-col mb-5">
+              <label htmlFor="message" className="font-DMSans text-sm mb-2">
+                Message
+              </label>
+              <textarea className="border border-[#2d2d2d] rounded-xl bg-transparent py-4 px-4" placeholder="Message here" name="message" id="message" cols="30" rows="5" />
             </div>
-          </div>
+            <div className="flex justify-center mt-[3.75rem]">
+              <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+                Request
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
