@@ -137,59 +137,53 @@ export const interestData = [
 
 export const pricingData = [
   {
-    title: "Basic",
+    title: "Free",
     subtitle:
       "For all individuals and starters with a small portfolio.",
-    price: 49,
+    price: 0,
     priceBg: "#00CA72",
+    buttonVal: "Start Now",
     desc: [
       {
         icon: check,
-        text: "Access to all features",
+        text: "Access to startup support services",
       },
       {
         icon: check,
-        text: "1k lookups per month",
-      },
-      {
-        icon: error,
-        text: "No API credits",
+        text: "Access to capacity development program",
       },
       {
         icon: check,
-        text: "10 monitoring quota",
-      },
-      {
-        icon: check,
-        text: "60 minutes monitoring interval",
-      },
+        text: "Access to shared experience",
+      }
     ],
   },
   {
     title: "Premium",
     subtitle: "For professional domain names investors with a big portfolio.",
-    price: 99,
+    price: 49,
     priceBg: "#0085FF",
+    buttonVal: "Start Free 14-days Trial",
     desc: [
       {
         icon: check,
-        text: "Access to all features",
+        text: "Access to startup support services",
       },
       {
         icon: check,
-        text: "1k lookups per month",
+        text: "Access to capacity development program",
       },
       {
         icon: check,
-        text: "30k API credits per month",
+        text: "Access to shared experience",
       },
       {
         icon: check,
-        text: "10 monitoring quota",
+        text: "Access to capital via investors and financiers",
       },
       {
         icon: check,
-        text: "60 minutes monitoring interval",
+        text: "Access to coaching and mentorship",
       },
     ],
   }

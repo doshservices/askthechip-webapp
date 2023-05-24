@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import { useRef, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "./../assets/ask.svg";
+import { SignInContext } from "../contexts/SigninContext";
 
 const Navbar = () => {
+  const {openSignInModal, closeSignInModal} = useContext(SignInContext)
   
   const navRef = useRef();
   const showMenu = () => {
@@ -15,6 +17,7 @@ const Navbar = () => {
     <nav
       className={`bg-primary100 md:bg-[#f8f8f8] h-[4.625rem] font-DMSans fixed z-[9999] w-full shadow-md transition duration-500 flex`}
     >
+
       <div className="flex justify-between w-full mx-6 md:mx-[6.25rem]">
         {/* Brand Logo */}
         <div className="flex my-auto">
@@ -70,9 +73,9 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex justify-center items-center">
-          <Link to="/sign-up">
+          <div onClick={openSignInModal}>
             <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.875rem] py-[0.625rem] rounded-lg">Join Now</button>
-          </Link>
+          </div>
         </div>
       </div>
       {/* Mobile nav & toggler */}
@@ -139,22 +142,13 @@ const Navbar = () => {
             </HashLink>
           </div>
           
-          <div className="flex justify-center my-4" onClick={showMenu}>
-            <NavLink
-              to="/sign-up"
+          <div className="flex justify-center my-4" onClick={openSignInModal}>
+            <div
               className="px-8 bg-primary py-1 rounded-lg text-white"
             >
               Join In
-            </NavLink>
+            </div>
           </div>
-          {/* <div className="flex justify-center my-4" onClick={showMenu}>
-            <NavLink
-              to="/SignUp"
-              className="px-4 border-[0.5px] py-1 rounded-lg border-primary"
-            >
-              SignUp
-            </NavLink>
-          </div> */}
           <button
             onClick={showMenu}
             className="flex absolute right-2 md:hidden p-3 ease-in transition duration-500 active:scale-90"

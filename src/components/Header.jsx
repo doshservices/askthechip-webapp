@@ -35,7 +35,8 @@ const Header = () => {
             Welcome to Our Community <span className="text-primary">of Entrepreneurs</span>
           </h1>
           <h2 className="text-xs md:text-lg w-[90%] max-w-[49ch] text-center mb-10 text-[#343432]">
-            Where we promote innovation and value creation by addressing the non-core but critical factors that affect Entrepreneurs and Start-ups. Thereby allowing for focus on the development of the core ideas and solutions.
+            Here, we promote innovation and help you to create value by addressing the critical factors that affect you as an entrepreneur or a start-up. Through our diverse, hands-on resources, you will receive guidanc every step of the way; from conception to actualization of your business and profitability.
+            So whether you are just starting out or you are already in business there is a resource that can help your business grow.
           </h2>
           <div>
             <Button path="login" title="Get Started" />

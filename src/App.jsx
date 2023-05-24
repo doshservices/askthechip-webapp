@@ -19,16 +19,18 @@ import {
 } from "./pages";
 
 import HomePage from "./pages/Homepage";
+import SignInProvider from "./contexts/SigninContext";
 
 function App() {
   return (
     <div>
+      <SignInProvider>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/provider-sign" element={<SignUpAsProvider />} />
+        <Route path="/provider-signup" element={<SignUpAsProvider />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/verify" element={<Verify />} />
@@ -42,6 +44,7 @@ function App() {
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/services" element={<ServicesPage />} />
       </Routes>
+      </SignInProvider>
     </div>
   );
 }
