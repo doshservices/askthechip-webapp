@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { NavLink } from "react-router-dom";
-import { SignInContext } from "../contexts/SigninContext";
+import { SignInContext } from "../contexts/SignInContext";
 
 const SignInModal = () => {
   const { openSignInModal, closeSignInModal } = useContext(SignInContext);
