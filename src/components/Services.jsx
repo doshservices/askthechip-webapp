@@ -5,28 +5,15 @@ import ServicesMobile from "./ServicesMobile";
 const Services = () => {
   const [serviceType, setServiceType] = useState("Accounting");
 
-
-  // const renderServices = () => {
-  //   switch (serviceType) {
-  //     case "Accounting": return "Accounting"
-  //     case "Administrative": return "Administrative"
-  //     case "Financial": return "Financial"
-  //     case "Legal": return "Legal"
-  //     case "Marketing": return "Marketing"
-  //     case "Technology": return "Technology";
-  //     default:
-  //       return null;
-  //   }
-  // }
   const handleServiceType = (service) => {
     setServiceType(service);
   }
 
   return (
-    <div className="grid grid-cols-12 pl-4 xm:pl-8">
-      <div className="hidden md:flex flex-col col-span-6 h-screen pt-4 overflow-y-auto xm:pr-16">
-        <div className="font-Inter pl-4">
-          <div className="font-bold text-xl pl-5 py-3 my-3">
+    <div className="grid grid-cols-12">
+      <div className="hidden md:flex flex-col col-span-6 h-screen pt-4 overflow-y-auto xm:pr-16 border-r border-[#EBEEF0]">
+        <div className="font-DMSans">
+          <div className="font-medium text-2xl pl-4 xm:pl-10 pb-3 mb-3">
             Services
           </div>
           <div className="flex flex-col">

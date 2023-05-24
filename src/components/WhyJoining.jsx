@@ -11,7 +11,7 @@ const WhyJoining = () => {
           Why you should join our Community
         </h1>
         <h2 className="text-xs leading-[24px] md:text-[18px] w-[90%] max-w-[49ch] text-center mb-12 text-[#343432]">
-          Where we promote innovation and value creation by addressing the non-core but critical
+          We promote innovation and value creation by addressing the non-core but critical
           factors that affect Entrepreneurs and Start-ups. Thereby allowing for focus on the development
           of the core ideas and solutions.
         </h2>

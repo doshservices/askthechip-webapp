@@ -149,7 +149,9 @@ const SignUp = () => {
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
                       <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                        <option disabled selected>Select Account Type</option>
+                        <option disabled defaultValue>Select Account Type</option>
+                        <option value="entrepreneur">Entrepreneur</option>
+                        <option value="investor">Investor</option>
                       </select>
                     </div>
                   </div>
@@ -290,11 +292,14 @@ const SignUp = () => {
                   </div>
                   <div className="flex flex-col mb-5">
                     <label htmlFor="serviceType" className="font-DMSans text-sm mb-2">
-                      Service Type
+                      Account Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
                       <select id="serviceType" className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                        <option disabled selected>Select Service Type</option>
+                        <option disabled defaultValue={true}>Select Account Type</option>
+                        <option value="startup">Startup</option>
+                        <option value="established">Established</option>
+                        <option value="investor">Investor</option>
                       </select>
                     </div>
                   </div>

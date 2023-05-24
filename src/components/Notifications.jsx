@@ -21,10 +21,10 @@ const reactions = [
 const Notifications = () => {
   return (
     <div className="grid grid-cols-12">
-      <div className="overflow-y-hidden sm:h-screen h-[calc(100vh_-_4.5rem)] flex flex-col col-span-12 md:col-span-11 xm:col-span-7 ml-4 xm:ml-10 font-DMSans pt-2">
+      <div className="overflow-y-hidden sm:h-screen h-[calc(100vh_-_4.5rem)] border-r border-[#EBEEF0] flex flex-col col-span-12 md:col-span-11 xm:col-span-6 font-DMSans pt-2">
         <div className="h-16 flex flex-col sm:flex-row justify-between">
           <div className="flex font-medium justify-between sm:justify-start items-center">
-            <div className="mr-2 sm:mr-4 text-2xl">Notifications</div>
+            <div className="text-2xl ml-4 xm:ml-10 font-DMSans">Notifications</div>
           </div>
         </div>
         <div className="h-[calc(100vh_-_10rem)] sm:h-screen overflow-y-auto mt-4">
@@ -66,7 +66,7 @@ const Notifications = () => {
           </div>
         </div>
       </div>
-      <div className="xm:flex flex-col hidden md:hidden xm:col-span-5">
+      <div className="xm:flex flex-col hidden md:hidden xm:col-span-6">
         <div className="grid grid-cols-24 mt-20 py-3">
             <div className="col-span-3 sm:col-span-3 ml-4">
               <img src={user} alt="User" className="rounded-full p-1.5" />

@@ -48,7 +48,7 @@ const Pricing = () => {
           </div>
         </div>
         <div className="flex items-center justify-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-[90%] max-w-[60rem] place-items-center mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-[90%] max-w-[60rem] mb-8">
             {pricingData.map((data, index) => (
               <div key={index} className="max-w-[27.5rem] border border-[#00000015] rounded-lg mb-4">
                 <div style={{backgroundColor: data.priceBg}} className={`w-full h-[10px] rounded-tl-lg rounded-tr-lg`}></div>
@@ -86,7 +86,7 @@ const Pricing = () => {
                       onClick={() => setModal(!modal)}
                       className="bg-primary80 hover:scale-95 transition duration-200 rounded-full text-white w-full py-2"
                     >
-                      Start a 14-day free trial
+                      {data.buttonVal}
                     </button>
                   </div>
                 </div>
