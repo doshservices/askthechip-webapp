@@ -19,7 +19,7 @@ import {
 } from "./pages";
 
 import HomePage from "./pages/Homepage";
-import SignInProvider from "./contexts/SigninContext";
+import SignInProvider from "./contexts/SignInContext";
 
 function App() {
   return (

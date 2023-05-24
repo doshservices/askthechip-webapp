@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [viewer, setViewer] = useState("self");
-  const [type, setType] = useState(!"personal");
+  const [type, setType] = useState("personal");
 
   return (
     <div>

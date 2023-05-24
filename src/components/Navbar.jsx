@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "./../assets/ask.svg";
-import { SignInContext } from "../contexts/SigninContext";
+import { SignInContext } from "./../contexts/SignInContext";
 
 const Navbar = () => {
   const {openSignInModal, closeSignInModal} = useContext(SignInContext)
