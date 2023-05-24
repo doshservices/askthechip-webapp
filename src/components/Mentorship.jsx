@@ -26,7 +26,7 @@ const Mentorship = () => {
   return (
     <div className="grid grid-cols-12 pl-8">
       <div className="col-span-11 md:col-span-9 xm:col-span-7 xl:col-span-6">
-        <div className="font-Inter text-2xl font-medium my-2 mt-5">
+        <div className="font-DMSans text-2xl font-medium my-2 mt-5">
           Mentorship
         </div>
         <div>
@@ -104,9 +104,9 @@ const Mentorship = () => {
               <label htmlFor="message" className="font-DMSans text-sm mb-2">
                 Message
               </label>
-              <textarea className="border border-[#2d2d2d] rounded-xl bg-transparent py-4 px-4" placeholder="Message here" name="message" id="message" cols="30" rows="5" />
+              <textarea className="border border-[#2d2d2d] rounded-xl bg-transparent py-4 px-4 resize-none" placeholder="Message here" name="message" id="message" cols="30" rows="5" />
             </div>
-            <div className="flex justify-center mt-[3.75rem]">
+            <div className="flex justify-center my-[3.75rem]">
               <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
                 Request
               </button>

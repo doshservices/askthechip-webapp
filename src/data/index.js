@@ -290,4 +290,10 @@ export const servicesData = [
     rating: "90",
     image: blogImg,
   },
+  {
+    category: "Technology",
+    title: "Sturum",
+    rating: "100",
+    image: blogImg,
+  },
 ];

@@ -5,11 +5,8 @@ import { servicesData } from "../data";
 const ServicesMobile = ({serviceType}) => {
   return (
     <div className="col-span-12 md:col-span-6 h-[calc(100vh_-_4.5rem)] sm:h-screen pt-4 overflow-y-auto  pr-4 xm:pr-20">
-    <div className="pl-4 sm:pl-0">
-        <Search background="#fcfcfc" />
-    </div>
     <div className="font-DMSans pl-4 text-dark2D">
-        <div className="font-medium text-lg py-3 my-3">
+        <div className="font-medium text-lg pb-3 my-3">
         {serviceType}
         </div>
         {servicesData.map((service) => (
