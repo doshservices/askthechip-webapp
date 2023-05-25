@@ -3,10 +3,10 @@ import { Link, NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "./../assets/ask.svg";
-import { SignInContext } from "./../contexts/SignInContext";
+import { SigninContext } from "../contexts/SigninContext";
 
 const Navbar = () => {
-  const {openSignInModal, closeSignInModal} = useContext(SignInContext)
+  const {openSignInModal, closeSignInModal} = useContext(SigninContext)
   
   const navRef = useRef();
   const showMenu = () => {
@@ -157,75 +157,6 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-
-      {/* Mobile nav & toggler */}
-      {/* <div className="flex md:hidden">
-          <button
-            onClick={showMenu}
-            className="absolute right-2 flex h-16 items-center justify-center p-3 text-secondary transition active:scale-90 md:hidden"
-          >
-            <FaBars />
-          </button>
-          <div
-            ref={navRef}
-            className={`font-body fixed  top-0 right-0 my-auto flex h-screen w-[70%] translate-x-[100%] flex-col items-center bg-primary uppercase transition md:hidden`}
-          >
-            <div
-              className="mb-4 mt-[50%] flex justify-center"
-              onClick={showMenu}
-            >
-              <HashLink
-                to={pathname === "/" ? `#home` : "/#home"}
-                smooth
-                className="px-4 decoration-2 underline-offset-4 hover:underline"
-              >
-                Home
-              </HashLink>
-            </div>
-            <div className="my-4 flex justify-center" onClick={showMenu}>
-              <HashLink
-                to={pathname === "/" ? `#services` : "/#services"}
-                smooth
-                className="px-4 decoration-2 underline-offset-4 hover:underline"
-              >
-                Services
-              </HashLink>
-            </div>
-            <div className="my-4 flex justify-center" onClick={showMenu}>
-              <HashLink
-                to={pathname === "/" ? `#about` : "/#about"}
-                smooth
-                className="px-4 decoration-2 underline-offset-4 hover:underline"
-              >
-                About Us
-              </HashLink>
-            </div>
-            <div className="my-4 flex justify-center" onClick={showMenu}>
-              <HashLink
-                to={pathname === "/" ? `#testimonials` : "/#testimonials"}
-                smooth
-                className="px-4 decoration-2 underline-offset-4 hover:underline"
-              >
-                Testimonials
-              </HashLink>
-            </div>
-            <div className="my-4 flex justify-center" onClick={showMenu}>
-              <HashLink
-                to={pathname === "/" ? `#contact` : "/#contact"}
-                smooth
-                className="px-4 decoration-2 underline-offset-4 hover:underline"
-              >
-                Contact Us
-              </HashLink>
-            </div>
-            <button
-              onClick={showMenu}
-              className="absolute top-1 right-3 flex scale-110 cursor-pointer p-2 text-4xl font-bold text-secondary transition duration-500 ease-in active:scale-110 md:hidden"
-            >
-              &times;
-            </button>
-          </div>
-        </div> */}
     </nav>
   );
 };

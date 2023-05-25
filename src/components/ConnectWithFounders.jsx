@@ -11,7 +11,7 @@ const ConnectWithFounders = () => {
         </h1>
         <h2 className="w-[90%] max-w-[58ch] text-white text-xs md:text-base md:leading-[30px] mb-10">
           
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius lacinia ante, in faucibus nibh sollicitudin id. Fusce rhoncus dolor libero, eget pretium nulla interdum ac.
+          You can join us as a service provider
         </h2>
         <Link to="/provider-signup">
           <button

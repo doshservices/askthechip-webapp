@@ -7,21 +7,27 @@ import googleLogo from "../assets/icons/google-logo.svg";
 import { FileUploadInput } from "../components";
 
 const defaultFormFields = {
+  firstName: "",
+  lastName: "",
   email: "",
+  phone: "",
+  type: "",
   password: "",
   confirmPassword: "",
   companyName: "",
-  phone: "",
-  officeAddress: "",
-  cac: "",
-  rep_id: "",
+  officeAddress: ""
 }
 
 const SignUpAsProvider = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { email, password, confirmPassword, companyName, phone, officeAddress } = formFields;
+  const [accountType, setAccountType] = useState("individual");
+  const { firstName, lastName, email, phone, password, confirmPassword, companyName, officeAddress } = formFields;
 
+  const handleSwitchAccount = () => {
+    if (accountType === "individual") setAccountType("business");
+    else { setAccountType("individual") }
+  }
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
@@ -49,163 +55,328 @@ const SignUpAsProvider = () => {
                   Fill out the fields below to create your account
                 </p>
               </div>
-              <form>
-                <div className="flex flex-col mb-5">
-                  <label htmlFor="email" className="font-DMSans text-sm mb-2">
-                    Email Address
-                  </label>
-                  <div className="border border-[#2d2d2d] rounded-full">
-                    <input
-                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                      type="email"
-                      name="email"
-                      id="email"
-                      value={email}
-                      onChange={handleChange}
-                      placeholder="Email Address Here"
-                      required
-                    />
+              <div className="flex justify-center mb-10">
+                <div className="flex justify-center text-light text-sm rounded-full border-[0.0694rem] border-[#2d2d2d] w-fit p-[0.375rem]">
+                  <div onClick={handleSwitchAccount} className={accountType === "individual" ?
+                    `mr-4 md:mr-[22px] px-7 bg-primary80 rounded-full py-1.5 cursor-pointer` :
+                    `mr-4 md:mr-[22px] px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`}>
+                    For Individual
+                  </div>
+                  <div onClick={handleSwitchAccount} className={accountType === "business" ?
+                    `px-7 bg-primary80 rounded-full py-1.5 cursor-pointer` :
+                    `px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`}>
+                    For Business
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 mb-3">
-                  <div className="flex flex-col mb-2">
-                    <label htmlFor="password" className="font-DMSans text-sm mb-2">
-                      Password
-                    </label>
-                    <div className="flex border border-[#2d2d2d] rounded-full">
-                      <input
-                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                        type={showPassword ? "text" : "password"}
-                        name="password"
-                        id="password"
-                        placeholder="Password here"
-                        value={password}
-                        onChange={handleChange}
-                        minLength={8}
-                        required
-                      />
-                      <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
-                        <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
-                      </span>
+              </div>
+              {accountType === "individual" && (
+                <form>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
+                    <div className="flex flex-col mb-5">
+                      <label htmlFor="firstName" className="font-DMSans text-sm mb-2">
+                        First Name
+                      </label>
+                      <div className="border border-[#2d2d2d] rounded-full">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type="text"
+                          name="firstName"
+                          id="firstName"
+                          value={firstName}
+                          onChange={handleChange}
+                          placeholder="First Name Here"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col mb-5">
+                      <label htmlFor="lastName" className="font-DMSans text-sm mb-2">
+                        Last Name
+                      </label>
+                      <div className="border border-[#2d2d2d] rounded-full bg-transparent">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type="text"
+                          name="lastName"
+                          id="lastName"
+                          value={lastName}
+                          onChange={handleChange}
+                          placeholder="Last Name Here"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className="flex flex-col mb-2">
-                    <label htmlFor="confirmPassword" className="font-DMSans text-sm mb-2">
-                      Confirm Password
-                    </label>
-                    <div className="flex border border-[#2d2d2d] rounded-full">
-                      <input
-                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                        type={showPassword ? "text" : "password"}
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        placeholder="Confirm new password"
-                        value={confirmPassword}
-                        onChange={handleChange}
-                        minLength={8}
-                        required
-                      />
-                      <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
-                        <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
-                      </span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
+                    <div className="flex flex-col mb-5">
+                      <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                        Email Address
+                      </label>
+                      <div className="border border-[#2d2d2d] rounded-full bg-transparent">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type="email"
+                          name="email"
+                          id="email"
+                          value={email}
+                          onChange={handleChange}
+                          placeholder="Email Address Here"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col mb-5">
+                      <label htmlFor="phone" className="font-DMSans text-sm mb-2">
+                        Phone Number <span className="text-[0.5625rem]">(Add country code)</span>
+                      </label>
+                      <div className="border border-[#2d2d2d] rounded-full">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type="number"
+                          name="phone"
+                          id="phone"
+                          value={phone}
+                          onChange={handleChange}
+                          placeholder="+234 902 360 0083"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex flex-col mb-5">
-                  <label htmlFor="email" className="font-DMSans text-sm mb-2">
-                    Service Type
-                  </label>
-                  <div className="border border-[#2d2d2d] rounded-full">
-                    <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                      <option disabled defaultValue>Select Service Type</option>
-                      <option value="accounting">Accounting</option>
-                      <option value="administrative">Administrative</option>
-                      <option value="consultation">Consultation</option>
-                      <option value="marketing">Marketing</option>
-                    </select>
+                  <div className="flex flex-col mb-5">
+                    <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                      Service Type
+                    </label>
+                    <div className="border border-[#2d2d2d] rounded-full">
+                      <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                        <option disabled defaultValue>Select Service Type</option>
+                        <option value="accounting">Accounting</option>
+                        <option value="administrative">Administrative</option>
+                        <option value="consulting">Consulting</option>
+                        <option value="financial">Financial</option>
+                        <option value="legal">Legal</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="mentorship">Mentorship</option>
+                        <option value="technology">Technology</option>
+                        <option value="training">Training</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col mb-5">
-                  <label htmlFor="companyName" className="font-DMSans text-sm mb-2">
-                    Company Name
-                  </label>
-                  <div className="border border-[#2d2d2d] rounded-full">
-                    <input
-                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                      type="text"
-                      name="companyName"
-                      id="companyName"
-                      value={companyName}
-                      onChange={handleChange}
-                      placeholder="Enter Company Name Here"
-                      required
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
+                    <div className="flex flex-col mb-2">
+                      <label htmlFor="password" className="font-DMSans text-sm mb-2">
+                        Password
+                      </label>
+                      <div className="flex border border-[#2d2d2d] rounded-full">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type={showPassword ? "text" : "password"}
+                          name="password"
+                          id="password"
+                          placeholder="Password here"
+                          value={password}
+                          onChange={handleChange}
+                          minLength={8}
+                          required
+                        />
+                        <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
+                          <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col mb-2">
+                      <label htmlFor="confirmPassword" className="font-DMSans text-sm mb-2">
+                        Confirm Password
+                      </label>
+                      <div className="flex border border-[#2d2d2d] rounded-full">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type={showPassword ? "text" : "password"}
+                          name="confirmPassword"
+                          id="confirmPassword"
+                          placeholder="Confirm new password"
+                          value={confirmPassword}
+                          onChange={handleChange}
+                          minLength={8}
+                          required
+                        />
+                        <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
+                          <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col mb-5">
-                  <label htmlFor="phone" className="font-DMSans text-sm mb-2">
-                    Phone Number <span className="text-[0.5625rem]">(Add country code)</span>
-                  </label>
-                  <div className="border border-[#2d2d2d] rounded-full">
-                    <input
-                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                      type="number"
-                      name="phone"
-                      id="phone"
-                      value={phone}
-                      onChange={handleChange}
-                      placeholder="+234 902 360 0083"
-                      required
-                    />
+                  <div className="mb-5 mt-3">
+                    <div className="font-DMSans text-sm">
+                      Government ID
+                    </div>
+                    <FileUploadInput />
                   </div>
-                </div>
-                <div className="flex flex-col mb-5">
-                  <label htmlFor="officeAddress" className="font-DMSans text-sm mb-2">
-                    Office Address
-                  </label>
-                  <div className="border border-[#2d2d2d] rounded-full">
-                    <input
-                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                      type="text"
-                      name="officeAddress"
-                      id="officeAddress"
-                      value={officeAddress}
-                      onChange={handleChange}
-                      placeholder="Enter Office Address Here"
-                      required
-                    />
+                  <div className="flex justify-center mt-[3.75rem]">
+                    <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+                      Create Account
+                    </button>
                   </div>
-                </div>
-                <div className="mb-5">
-                  <label htmlFor="cac" className="font-DMSans text-sm">
-                    CAC Certificate
-                  </label>
-                  <FileUploadInput />
-                </div>
-                <div>
-                  <label htmlFor="rep_id" className="font-DMSans text-sm">
-                    Representative ID
-                  </label>
-                  <FileUploadInput />
-                </div>
-                <div className="flex justify-center mt-[3.75rem]">
-                  <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
-                    Create Account
-                  </button>
-                </div>
-                <div className="flex justify-center my-2 font-DMSans font-medium text-sm">
-                  OR
-                </div>
-                <div className="flex justify-center mb-2">
-                  <button type="button" className="flex items-center justify-center bg-transparent border border-primary80 text-primary80 text-sm font-DMSans font-medium w-full text-center rounded-full">
-                    <img src={googleLogo} alt="Google Logo" className="h-8" />
-                    Continue with Google
-                  </button>
-                </div>
-                <div className="font-DMSans text-sm text-center pb-4">
-                  Already have an account? <Link to="/login" className="font-bold text-primary90">Login</Link>
-                </div>
-              </form>
+                  <div className="font-DMSans text-sm text-center pb-4 mt-3">
+                    Already have an account? <Link to="/login" className="font-bold text-primary90">Login</Link>
+                  </div>
+                </form>
+              )}
+              {accountType === "business" && (
+                <form>
+                  <div className="flex flex-col mb-5">
+                    <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                      Email Address
+                    </label>
+                    <div className="border border-[#2d2d2d] rounded-full">
+                      <input
+                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={email}
+                        onChange={handleChange}
+                        placeholder="Email Address Here"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 mb-3">
+                    <div className="flex flex-col mb-2">
+                      <label htmlFor="password" className="font-DMSans text-sm mb-2">
+                        Password
+                      </label>
+                      <div className="flex border border-[#2d2d2d] rounded-full">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type={showPassword ? "text" : "password"}
+                          name="password"
+                          id="password"
+                          placeholder="Password here"
+                          value={password}
+                          onChange={handleChange}
+                          minLength={8}
+                          required
+                        />
+                        <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
+                          <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col mb-2">
+                      <label htmlFor="confirmPassword" className="font-DMSans text-sm mb-2">
+                        Confirm Password
+                      </label>
+                      <div className="flex border border-[#2d2d2d] rounded-full">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type={showPassword ? "text" : "password"}
+                          name="confirmPassword"
+                          id="confirmPassword"
+                          placeholder="Confirm new password"
+                          value={confirmPassword}
+                          onChange={handleChange}
+                          minLength={8}
+                          required
+                        />
+                        <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
+                          <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col mb-5">
+                    <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                      Service Type
+                    </label>
+                    <div className="border border-[#2d2d2d] rounded-full">
+                      <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                        <option disabled defaultValue>Select Service Type</option>
+                        <option value="accounting">Accounting</option>
+                        <option value="administrative">Administrative</option>
+                        <option value="consulting">Consulting</option>
+                        <option value="financial">Financial</option>
+                        <option value="legal">Legal</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="mentorship">Mentorship</option>
+                        <option value="technology">Technology</option>
+                        <option value="training">Training</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="flex flex-col mb-5">
+                    <label htmlFor="companyName" className="font-DMSans text-sm mb-2">
+                      Company Name
+                    </label>
+                    <div className="border border-[#2d2d2d] rounded-full">
+                      <input
+                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                        type="text"
+                        name="companyName"
+                        id="companyName"
+                        value={companyName}
+                        onChange={handleChange}
+                        placeholder="Enter Company Name Here"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col mb-5">
+                    <label htmlFor="phone" className="font-DMSans text-sm mb-2">
+                      Phone Number <span className="text-[0.5625rem]">(Add country code)</span>
+                    </label>
+                    <div className="border border-[#2d2d2d] rounded-full">
+                      <input
+                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                        type="number"
+                        name="phone"
+                        id="phone"
+                        value={phone}
+                        onChange={handleChange}
+                        placeholder="+234 902 360 0083"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col mb-5">
+                    <label htmlFor="officeAddress" className="font-DMSans text-sm mb-2">
+                      Office Address
+                    </label>
+                    <div className="border border-[#2d2d2d] rounded-full">
+                      <input
+                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                        type="text"
+                        name="officeAddress"
+                        id="officeAddress"
+                        value={officeAddress}
+                        onChange={handleChange}
+                        placeholder="Enter Office Address Here"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="mb-5">
+                    <div className="font-DMSans text-sm">
+                      CAC Certificate
+                    </div>
+                    <FileUploadInput />
+                  </div>
+                  <div>
+                    <div className="font-DMSans text-sm">
+                      Representative ID
+                    </div>
+                    <FileUploadInput />
+                  </div>
+                  <div className="flex justify-center mt-[3.75rem]">
+                    <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+                      Create Account
+                    </button>
+                  </div>
+                  <div className="font-DMSans text-sm text-center pb-4">
+                    Already have an account? <Link to="/login" className="font-bold text-primary90">Login</Link>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         </div>
