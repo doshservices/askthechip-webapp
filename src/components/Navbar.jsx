@@ -3,10 +3,10 @@ import { Link, NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "./../assets/ask.svg";
-import { SigninContext } from "../contexts/SigninContext";
+import { SignInAsContext } from "../contexts/SignInAsContext";
 
 const Navbar = () => {
-  const {openSignInModal, closeSignInModal} = useContext(SigninContext)
+  const { openSignInModal } = useContext(SignInAsContext);
   
   const navRef = useRef();
   const showMenu = () => {
@@ -47,15 +47,15 @@ const Navbar = () => {
             Explore
           </HashLink>
           <NavLink
-              to="/pricing"
-              className={({ isActive }) =>
-                isActive
-                  ? "px-4 underline decoration-2 underline-offset-4"
-                  : "px-4 hover:underline decoration-2 underline-offset-4"
-              }
-            >
-              Pricing
-            </NavLink>
+            to="/pricing"
+            className={({ isActive }) =>
+              isActive
+                ? "px-4 underline decoration-2 underline-offset-4"
+                : "px-4 hover:underline decoration-2 underline-offset-4"
+            }
+          >
+            Pricing
+          </NavLink>
           <HashLink
             to="#about"
             smooth={true}
@@ -141,7 +141,7 @@ const Navbar = () => {
               Contact
             </HashLink>
           </div>
-          
+
           <div className="flex justify-center my-4" onClick={openSignInModal}>
             <div
               className="px-8 bg-primary py-1 rounded-lg text-white"
