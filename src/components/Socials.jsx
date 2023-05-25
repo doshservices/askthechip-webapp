@@ -6,15 +6,7 @@ import twitterPrimary from './../assets/icons/twitterPrimary.svg'
 const socials = [
     {
       link: "",
-      icon: facebookPrimary
-    },
-    {
-      link: "",
       icon: instagramPrimary
-    },
-    {
-      link: "",
-      icon: twitterPrimary
     },
     {
       link: "",

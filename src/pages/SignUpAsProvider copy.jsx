@@ -1,143 +1,220 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "./../assets/ask.svg";
+import eye from "./../assets/icons/eye.svg";
+import crossedEye from "./../assets/icons/crossed-eye.svg";
+import googleLogo from "../assets/icons/google-logo.svg";
+import { FileUploadInput } from "../components";
 
-import Button from "../components/Button";
+const defaultFormFields = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+  companyName: "",
+  phone: "",
+  officeAddress: "",
+  cac: "",
+  rep_id: "",
+}
 
 const SignUpAsProvider = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { email, password, confirmPassword, companyName, phone, officeAddress } = formFields;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormFields({ ...formFields, [name]: value });
+  }
+
   return (
-    <div className="min-h-screen font-Inter">
-      <div className="flex flex-col md:flex-row h-full md:h-screen">
-        <div className="w-full md:w-[50%] h-screen overflow-y-auto">
-          <div className="h-16 ml-4 md:ml-8 mt-4">
-            <Link to="/">
+    <div className="font-Inter overflow-hidden bg-light">
+      <div className="flex flex-col md:flex-row w-full">
+        <div className="w-full md:w-[50%] h-screen">
+          <Link to="/" className="flex items-center h-16 ml-4 md:ml-20 my-7">
+            <div>
               <img src={logo} alt="Ask the chip" />
-            </Link>
-          </div>
-          <div className="w-[90%] max-w-[600px] flex flex-col justify-center items-center ml-4 md:ml-8 mb-6">
-            <div className="flex items-start w-[90%]">
-              <h1 className="font-Inter text-[32px] mb-8">
-                SignUp as a service provider
-              </h1>
             </div>
-            <div className="grid grid-cols-1 w-[90%] mb-4">
-              <label htmlFor="email" className="text-[24px] mb-4">
-                Email
-              </label>
-              <input
-                className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]"
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Enter your email"
-              />
+            <div className="font-bold text-primary90 ml-2">
+              Askthechip
             </div>
-            <div className="grid grid-cols-1 w-[90%] mb-4">
-              <label htmlFor="password" className="text-[24px] mb-4">
-                Password
-              </label>
-              <input
-                className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]"
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Enter your password"
-              />
-            </div>
-            <div className="grid grid-cols-1 w-[90%] mb-4">
-              <label htmlFor="service_type" className="text-[24px] mb-4">
-                Service type
-              </label>
-              <select
-                className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]"
-                id="service_type"
-                name="service_type"
-              >
-                <option>Accounting services</option>
-                <option>Financial services</option>
-                <option>Legal services</option>
-              </select>
-            </div>
-            <div className="grid grid-cols-1 w-[90%] mb-4">
-              <label htmlFor="full_name" className="text-[24px] mb-4">
-                Company name
-              </label>
-              <input
-                className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]"
-                type="text"
-                name="full_name"
-                id="full_name"
-                placeholder="Enter your company name"
-              />
-            </div>
-            <div className="grid grid-cols-1 w-[90%] mb-4">
-              <label htmlFor="phone_no" className="text-[24px] mb-4">
-                Phone number
-              </label>
-              <input
-                className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]"
-                type="tel"
-                name="phone_no"
-                id="phone_no"
-                placeholder="Enter your phone number"
-              />
-            </div>
-            <div className="grid grid-cols-1 w-[90%] mb-4">
-              <label htmlFor="address" className="text-[24px] mb-4">
-                Office address
-              </label>
-              <input
-                className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[90%]"
-                type="text"
-                name="address"
-                id="address"
-                placeholder="Enter your office address"
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 w-[85%] gap-2 -ml-[5%] mb-4">
-              <div>
-                <label htmlFor="cac_certificate" className="text-[24px] mb-4">
-                  CAC Certificate
-                </label>
-                <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 mt-2 w-[90%]"
-                  type="file"
-                  name="cac_certificate"
-                  id="cac_certificate"
-                  placeholder="Upload your CAC Certificate"
-                />
+          </Link>
+          <div className="h-[calc(100vh_-_8rem)] md:h-[calc(100vh_-_10rem)] overflow-y-auto">
+            <div className="w-[90%] max-w-[468px] mx-auto h-full">
+              <div className="flex flex-col items-center mb-[1.875rem]">
+                <h1 className="font-DMSans text-[30px] font-bold mb-2 uppercase text-[#2d2d2d]">
+                  Create an account
+                </h1>
+                <p className="font-DMSans text-[#2d2d2d90]">
+                  Fill out the fields below to create your account
+                </p>
               </div>
-              <div>
-                <label htmlFor="rep_id" className="text-[24px] mb-4">
-                  Representative ID
-                </label>
-                <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 mt-2 w-[90%]"
-                  type="file"
-                  name="rep_id"
-                  id="rep_id"
-                  placeholder="Upload your Representative ID"
-                />
-              </div>
-            </div>
-            <div className="flex justify-center mt-4 mb-2">
-              <p className="max-w-[41ch]">
-                By clicking Agree & Join, you agree to the Askthechip{" "}
-                <span className="text-tertiary underline">User agreement</span>,{" "}
-                <span className="text-tertiary underline"> Privacy Policy</span>
-                , and{" "}
-                <span className="text-tertiary underline"> Cookie Policy.</span>
-              </p>
-            </div>
-            <div className="flex justify-center my-2">
-              <Button title="SignUp" path="onboarding" />
-            </div>
-            <div className="flex justify-center text-tertiary -mb-2 mt-2 underline">
-              <Link to="/login">Sign In</Link>
+              <form>
+                <div className="flex flex-col mb-5">
+                  <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                    Email Address
+                  </label>
+                  <div className="border border-[#2d2d2d] rounded-full">
+                    <input
+                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                      type="email"
+                      name="email"
+                      id="email"
+                      value={email}
+                      onChange={handleChange}
+                      placeholder="Email Address Here"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 mb-3">
+                  <div className="flex flex-col mb-2">
+                    <label htmlFor="password" className="font-DMSans text-sm mb-2">
+                      Password
+                    </label>
+                    <div className="flex border border-[#2d2d2d] rounded-full">
+                      <input
+                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        id="password"
+                        placeholder="Password here"
+                        value={password}
+                        onChange={handleChange}
+                        minLength={8}
+                        required
+                      />
+                      <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
+                        <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col mb-2">
+                    <label htmlFor="confirmPassword" className="font-DMSans text-sm mb-2">
+                      Confirm Password
+                    </label>
+                    <div className="flex border border-[#2d2d2d] rounded-full">
+                      <input
+                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                        type={showPassword ? "text" : "password"}
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        placeholder="Confirm new password"
+                        value={confirmPassword}
+                        onChange={handleChange}
+                        minLength={8}
+                        required
+                      />
+                      <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
+                        <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col mb-5">
+                  <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                    Service Type
+                  </label>
+                  <div className="border border-[#2d2d2d] rounded-full">
+                    <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                      <option disabled defaultValue>Select Service Type</option>
+                      <option value="accounting">Accounting</option>
+                      <option value="administrative">Administrative</option>
+                      <option value="consultation">Consultation</option>
+                      <option value="marketing">Marketing</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="flex flex-col mb-5">
+                  <label htmlFor="companyName" className="font-DMSans text-sm mb-2">
+                    Company Name
+                  </label>
+                  <div className="border border-[#2d2d2d] rounded-full">
+                    <input
+                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                      type="text"
+                      name="companyName"
+                      id="companyName"
+                      value={companyName}
+                      onChange={handleChange}
+                      placeholder="Enter Company Name Here"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col mb-5">
+                  <label htmlFor="phone" className="font-DMSans text-sm mb-2">
+                    Phone Number <span className="text-[0.5625rem]">(Add country code)</span>
+                  </label>
+                  <div className="border border-[#2d2d2d] rounded-full">
+                    <input
+                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                      type="number"
+                      name="phone"
+                      id="phone"
+                      value={phone}
+                      onChange={handleChange}
+                      placeholder="+234 902 360 0083"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col mb-5">
+                  <label htmlFor="officeAddress" className="font-DMSans text-sm mb-2">
+                    Office Address
+                  </label>
+                  <div className="border border-[#2d2d2d] rounded-full">
+                    <input
+                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                      type="text"
+                      name="officeAddress"
+                      id="officeAddress"
+                      value={officeAddress}
+                      onChange={handleChange}
+                      placeholder="Enter Office Address Here"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="mb-5">
+                  <label htmlFor="cac" className="font-DMSans text-sm">
+                    CAC Certificate
+                  </label>
+                  <FileUploadInput />
+                </div>
+                <div>
+                  <label htmlFor="rep_id" className="font-DMSans text-sm">
+                    Representative ID
+                  </label>
+                  <FileUploadInput />
+                </div>
+                <div className="flex justify-center mt-[3.75rem]">
+                  <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+                    Create Account
+                  </button>
+                </div>
+                <div className="flex justify-center my-2 font-DMSans font-medium text-sm">
+                  OR
+                </div>
+                <div className="flex justify-center mb-2">
+                  <button type="button" className="flex items-center justify-center bg-transparent border border-primary80 text-primary80 text-sm font-DMSans font-medium w-full text-center rounded-full">
+                    <img src={googleLogo} alt="Google Logo" className="h-8" />
+                    Continue with Google
+                  </button>
+                </div>
+                <div className="font-DMSans text-sm text-center pb-4">
+                  Already have an account? <Link to="/login" className="font-bold text-primary90">Login</Link>
+                </div>
+              </form>
             </div>
           </div>
         </div>
-        <div className="w-[50%] hidden md:flex bg-handBulb bg-right-bottom bg-no-repeat bg-cover h-screen"></div>
+        <div className="hidden md:flex w-[50%] h-screen relative">
+          <div className="absolute z-10 top-0 right-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
+          <div className="absolute z-10 bottom-0 left-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
+          <div className="hidden z-20 md:flex w-full h-[calc(100vh_-_76px)] my-[2.375rem] bg-authImage bg-center bg-contain bg-no-repeat">
+          </div>
+        </div>
       </div>
     </div>
   );

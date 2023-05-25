@@ -151,7 +151,9 @@ const SignUp = () => {
                       <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
                         <option disabled defaultValue>Select Account Type</option>
                         <option value="entrepreneur">Entrepreneur</option>
+                        <option value="established_business">Established Business</option>
                         <option value="investor">Investor</option>
+                        <option value="startup">Start-up</option>
                       </select>
                     </div>
                   </div>
@@ -295,11 +297,12 @@ const SignUp = () => {
                       Account Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
-                      <select id="serviceType" className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                        <option disabled defaultValue={true}>Select Account Type</option>
-                        <option value="startup">Startup</option>
-                        <option value="established">Established</option>
+                      <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                        <option disabled defaultValue>Select Account Type</option>
+                        <option value="entrepreneur">Entrepreneur</option>
+                        <option value="established_business">Established Business</option>
                         <option value="investor">Investor</option>
+                        <option value="startup">Start-up</option>
                       </select>
                     </div>
                   </div>

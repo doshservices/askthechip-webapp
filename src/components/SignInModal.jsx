@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { NavLink } from "react-router-dom";
-import { SignInContext } from "../contexts/SignInContext";
+import { SigninContext } from "../contexts/SigninContext";
 
 const SignInModal = () => {
-  const { openSignInModal, closeSignInModal } = useContext(SignInContext);
+  const { closeSignInModal } = useContext(SigninContext);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
