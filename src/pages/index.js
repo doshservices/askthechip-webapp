@@ -10,6 +10,7 @@ export { default as SignIn } from "./SignIn";
 export { default as SignUp } from "./SignUp";
 export { default as SignUpAsProvider } from "./SignUpAsProvider";
 export { default as Pricing } from "./Pricing";
+export { default as Payment } from "./Payment";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as ServicesPage } from "./ServicesPage";
 export { default as SettingsPage } from "./SettingsPage";
