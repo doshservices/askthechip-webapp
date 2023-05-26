@@ -20,8 +20,8 @@ const defaultFormFields = {
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [formFields, setFormFields] = useState(defaultFormFields);
   const [accountType, setAccountType] = useState("individual");
+  const [formFields, setFormFields] = useState(defaultFormFields);
   const { firstName, lastName, email, phone, password, confirmPassword, companyName, officeAddress } = formFields;
 
   const handleSwitchAccount = () => {
