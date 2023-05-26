@@ -55,7 +55,7 @@ const supportLinks = [
 ]
 const Footer = () => {
   return (
-    <footer>
+    <footer id="contact">
       <div className="grid grid-cols-9 gap-0 md:gap-20 min-h-[383px] px-6 md:px-20 py-8 md:py-[3.75rem] border-t border-[#2d2d2d60]">
         <div className="col-span-9 md:col-span-2">
           <div className="flex justify-center md:justify-start mb-6">

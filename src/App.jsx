@@ -8,6 +8,7 @@ import {
   MessagesPage,
   NotificationsPage,
   Onboarding,
+  Payment,
   Pricing,
   ProfilePage,
   ServicesPage,
@@ -33,6 +34,7 @@ function App() {
           <Route path="/provider-signup" element={<SignUpAsProvider />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/pricing/payment" element={<Payment />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/*" element={<Error />} />
           {/* Pages after signing in */}

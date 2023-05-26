@@ -28,7 +28,7 @@ const images = [
 
 const Header = () => {
   return (
-    <div className="font-DMSans" id="home">
+    <div className="font-DMSans" id="explore">
       <section className="flex justify-center items-center flex-col md:min-h-screen">
         <div className="flex justify-center items-center flex-col my-10">
           <h1 className="font-bold md:text-[50px] sm:text-[45px] text-[28px] text-center w-[90%] max-w-[23ch] leading-[37.99px] sm:leading-[60px] md:leading-[60px] mt-20 mb-3 text-secondary">

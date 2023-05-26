@@ -40,7 +40,7 @@ const Navbar = () => {
             Home
           </NavLink>
           <HashLink
-            to="#explore"
+            to="/#explore"
             smooth={true}
             className="px-4 hover:underline decoration-2 underline-offset-4"
           >
@@ -57,14 +57,14 @@ const Navbar = () => {
             Pricing
           </NavLink>
           <HashLink
-            to="#about"
+            to="/#about"
             smooth={true}
             className="px-4 hover:underline decoration-2 underline-offset-4"
           >
             About us
           </HashLink>
           <HashLink
-            to="#discover"
+            to="/#contact"
             smooth={true}
             className="px-4 hover:underline decoration-2 underline-offset-4"
           >
@@ -104,7 +104,7 @@ const Navbar = () => {
           </div>
           <div className="flex justify-center my-4" onClick={showMenu}>
             <HashLink
-              to="#discover"
+              to="/#explore"
               smooth={true}
               className="px-4 hover:underline decoration-2 underline-offset-4"
             >
@@ -125,16 +125,16 @@ const Navbar = () => {
           </div>
           <div className="flex justify-center my-4" onClick={showMenu}>
             <HashLink
-              to="#about"
+              to="/#about"
               smooth={true}
               className="px-4 hover:underline decoration-2 underline-offset-4"
             >
-              About
+              About Us
             </HashLink>
           </div>
           <div className="flex justify-center my-4" onClick={showMenu}>
             <HashLink
-              to="#discover"
+              to="/#contact"
               smooth={true}
               className="px-4 hover:underline decoration-2 underline-offset-4"
             >
@@ -146,7 +146,7 @@ const Navbar = () => {
             <div
               className="px-8 bg-primary py-1 rounded-lg text-white"
             >
-              Join In
+              Join Now
             </div>
           </div>
           <button
