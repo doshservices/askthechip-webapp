@@ -3,13 +3,13 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import test1 from "./../assets/images/test1.png";
-import test2 from "./../assets/images/test2.png";
-import test3 from "./../assets/images/test3.png";
+import adunab from "./../assets/images/adunab.png";
+import openQuot from "./../assets/icons/opening-quotation.svg";
+import closeQuot from "./../assets/icons/closing-quotation.svg";
 
 
 const Carousel = () => {
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const [currentSlide, setCurrentSlide] = useState(1);
 
     const NextArrow = (props) => {
         const { onClick } = props;
@@ -74,7 +74,7 @@ const Carousel = () => {
     const settings = {
         // dots: true,
         dots: <Dot />,
-        beforeChange: (current, next) => setCurrentSlide(next),
+        beforeChange: (current, next) => setCurrentSlide(1+next),
         arrows: true,
         prevArrow: <PrevArrow />,
         nextArrow: <NextArrow />,
@@ -83,7 +83,7 @@ const Carousel = () => {
         autoplay: true,
         autoplaySpeed: 5000,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: 2,
         slidesToScroll: 1,
 
         responsive: [
@@ -128,29 +128,24 @@ const Carousel = () => {
 
     const testimonials = [
         {
+            id: 1,
+            image: adunab,
+            content:
+                `As a member of this community, we have enjoyed easy access to financial and legal services which has allowed us to focus on our creativity… thank you ‘askthechip’ for transforming our idea from concept to business.`
+        },
+        {
+            id: 2,
+            image: adunab,
+            content:
+                `As a member of this community, we have enjoyed easy access to financial and legal services which has allowed us to focus on our creativity… thank you ‘askthechip’ for transforming our idea from concept to business.`
+        },
+        {
             id: 3,
-            image: test2,
+            image: adunab,
             content:
                 `As a member of this community, we have enjoyed easy access to financial and legal services which has allowed us to focus on our creativity… thank you ‘askthechip’ for transforming our idea from concept to business.`
         },
-        {
-            id: 4,
-            image: test3,
-            content:
-                `As a member of this community, we have enjoyed easy access to financial and legal services which has allowed us to focus on our creativity… thank you ‘askthechip’ for transforming our idea from concept to business.`
-        },
-        {
-            id: 5,
-            image: test3,
-            content:
-                `As a member of this community, we have enjoyed easy access to financial and legal services which has allowed us to focus on our creativity… thank you ‘askthechip’ for transforming our idea from concept to business.`
-        },
-        {
-            id: 6,
-            image: test3,
-            content:
-                `As a member of this community, we have enjoyed easy access to financial and legal services which has allowed us to focus on our creativity… thank you ‘askthechip’ for transforming our idea from concept to business.`
-        }
+
         // add more testimonial objects as needed
     ];
 
@@ -169,15 +164,32 @@ const Carousel = () => {
                         <div key={testimonial.id} className="mb-16 px-4">
                             <div
                                 className={
-                                    currentSlide  === testimonial.id
-                                        ? `bg-[#75b8c880] py-8 min-h-[253px] flex justify-center items-center rounded-lg px-6`
-                                        : `bg-[#A1C5CF] py-4 min-h-[179px] flex justify-center items-center rounded-lg px-6`
+                                    currentSlide === testimonial.id
+                                        ? `bg-[#EFF4F4] border border-[#000000]/5 py-8 min-h-[253px] flex justify-start items-start rounded-lg px-6 text-DMSans`
+                                        : `bg-[#EFF4F4] border border-[#000000]/5 py-4 mt-8 min-h-[179px] flex justify-start items-start rounded-lg px-6 text-DMSans`
                                 }
                             >
-                                &quot;{testimonial.content}&quot;
-                            </div>
-                            <div className="flex justify-center items-center my-4">
-                                <img src={testimonial.image} alt="Testimonial" />
+                                <div className="flex justify-start w-[242px]">
+                                    <img src={testimonial.image} alt="Testimonial" className="h-[142px] w-[142px]" />
+                                </div>
+                                <div className="flex flex-col w-full">
+                                    <div className="flex ">
+                                        <div className="w-20 mr-2">
+                                            <img src={openQuot} alt='"' />
+                                        </div>
+                                        <div className="my-3 text-justify mr-2">
+                                            {testimonial.content}&quot;
+                                        </div>
+                                        <div className="flex mt-auto justify-end w-20 mr-2">
+                                            <img src={closeQuot} alt='"' />
+                                        </div>
+                                    </div>
+                                    <div className="px-6 mt-[30px]">
+                                        <div className="text-xl text-[#0A1E25] font-medium">Omobolaji A.</div>
+                                        <div className="text-xl text-primary80">Founder of Adunab Designs</div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>))}
 
