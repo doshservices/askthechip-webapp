@@ -17,16 +17,27 @@ const Share = () => {
         <div className="flex flex-col justify-between w-full rounded-lg bg-[#f4f4f4]">
           <div className="ml-2 flex w-full justify-between">
             <div className="flex ml-2 w-[80%]">
-              <textarea placeholder="Share a post" name="post" id="post" cols="100" rows="2"
+              <textarea
+                placeholder="Share a post"
+                name="post"
+                id="post"
+                cols="100"
+                rows="2"
                 className="bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray w-full resize-none mt-4"
               />
             </div>
             <div className="w-fit">
-            <select name="board" id="board" className="bg-[#f4f4f4] border rounded-md border-[#2d2d2d]/80 outline-none text-xs w-fit h-fit py-1 px-1 mt-4 mr-6">
-              <option value="select" disabled selected>Select Board</option>
-              <option value="white">White Board</option>
-              <option value="black">Black Board</option>
-            </select>
+              <select
+                name="board"
+                id="board"
+                className="bg-[#f4f4f4] border rounded-md border-[#2d2d2d]/80 outline-none text-xs w-fit h-fit py-1 px-1 mt-4 mr-6"
+              >
+                <option value="select" disabled selected>
+                  Select Board
+                </option>
+                <option value="white">White Board</option>
+                <option value="black">Black Board</option>
+              </select>
             </div>
           </div>
           <div className="flex justify-between w-full">

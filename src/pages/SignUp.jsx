@@ -15,23 +15,34 @@ const defaultFormFields = {
   password: "",
   confirmPassword: "",
   companyName: "",
-  officeAddress: ""
-}
+  officeAddress: "",
+};
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [accountType, setAccountType] = useState("individual");
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { firstName, lastName, email, phone, password, confirmPassword, companyName, officeAddress } = formFields;
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    password,
+    confirmPassword,
+    companyName,
+    officeAddress,
+  } = formFields;
 
   const handleSwitchAccount = () => {
     if (accountType === "individual") setAccountType("business");
-    else { setAccountType("individual") }
-  }
+    else {
+      setAccountType("individual");
+    }
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
-  }
+  };
 
   return (
     <div className="font-Inter overflow-hidden bg-light">
@@ -41,9 +52,7 @@ const SignUp = () => {
             <div>
               <img src={logo} alt="Ask the chip" />
             </div>
-            <div className="font-bold text-primary90 ml-2">
-              Askthechip
-            </div>
+            <div className="font-bold text-primary90 ml-2">Askthechip</div>
           </Link>
           <div className="h-[calc(100vh_-_8rem)] md:h-[calc(100vh_-_10rem)] overflow-y-auto">
             <div className="w-[90%] max-w-[468px] mx-auto h-full">
@@ -57,14 +66,24 @@ const SignUp = () => {
               </div>
               <div className="flex justify-center mb-10">
                 <div className="flex justify-center text-light text-sm rounded-full border-[0.0694rem] border-[#2d2d2d] w-fit p-[0.375rem]">
-                  <div onClick={handleSwitchAccount} className={accountType === "individual" ?
-                    `mr-4 md:mr-[22px] px-7 bg-primary80 rounded-full py-1.5 cursor-pointer` :
-                    `mr-4 md:mr-[22px] px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`}>
+                  <div
+                    onClick={handleSwitchAccount}
+                    className={
+                      accountType === "individual"
+                        ? `mr-4 md:mr-[22px] px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
+                        : `mr-4 md:mr-[22px] px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
+                    }
+                  >
                     For Individual
                   </div>
-                  <div onClick={handleSwitchAccount} className={accountType === "business" ?
-                    `px-7 bg-primary80 rounded-full py-1.5 cursor-pointer` :
-                    `px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`}>
+                  <div
+                    onClick={handleSwitchAccount}
+                    className={
+                      accountType === "business"
+                        ? `px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
+                        : `px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
+                    }
+                  >
                     For Business
                   </div>
                 </div>
@@ -73,7 +92,10 @@ const SignUp = () => {
                 <form>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                     <div className="flex flex-col mb-5">
-                      <label htmlFor="firstName" className="font-DMSans text-sm mb-2">
+                      <label
+                        htmlFor="firstName"
+                        className="font-DMSans text-sm mb-2"
+                      >
                         First Name
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full">
@@ -90,7 +112,10 @@ const SignUp = () => {
                       </div>
                     </div>
                     <div className="flex flex-col mb-5">
-                      <label htmlFor="lastName" className="font-DMSans text-sm mb-2">
+                      <label
+                        htmlFor="lastName"
+                        className="font-DMSans text-sm mb-2"
+                      >
                         Last Name
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full bg-transparent">
@@ -109,7 +134,10 @@ const SignUp = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                     <div className="flex flex-col mb-5">
-                      <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                      <label
+                        htmlFor="email"
+                        className="font-DMSans text-sm mb-2"
+                      >
                         Email Address
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full bg-transparent">
@@ -126,8 +154,14 @@ const SignUp = () => {
                       </div>
                     </div>
                     <div className="flex flex-col mb-5">
-                      <label htmlFor="phone" className="font-DMSans text-sm mb-2">
-                        Phone Number <span className="text-[0.5625rem]">(Add country code)</span>
+                      <label
+                        htmlFor="phone"
+                        className="font-DMSans text-sm mb-2"
+                      >
+                        Phone Number{" "}
+                        <span className="text-[0.5625rem]">
+                          (Add country code)
+                        </span>
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full">
                         <input
@@ -149,9 +183,13 @@ const SignUp = () => {
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
                       <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                        <option disabled defaultValue>Select Account Type</option>
+                        <option disabled defaultValue>
+                          Select Account Type
+                        </option>
                         <option value="entrepreneur">Entrepreneur</option>
-                        <option value="established_business">Established Business</option>
+                        <option value="established_business">
+                          Established Business
+                        </option>
                         <option value="investor">Investor</option>
                         <option value="startup">Start-up</option>
                       </select>
@@ -159,7 +197,10 @@ const SignUp = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
                     <div className="flex flex-col mb-2">
-                      <label htmlFor="password" className="font-DMSans text-sm mb-2">
+                      <label
+                        htmlFor="password"
+                        className="font-DMSans text-sm mb-2"
+                      >
                         Password
                       </label>
                       <div className="flex border border-[#2d2d2d] rounded-full">
@@ -174,13 +215,23 @@ const SignUp = () => {
                           minLength={8}
                           required
                         />
-                        <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
-                          <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                        <span
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="flex justify-center items-center mx-3 cursor-pointer"
+                        >
+                          <img
+                            className="h-6"
+                            src={showPassword ? crossedEye : eye}
+                            alt="Show Password"
+                          />
                         </span>
                       </div>
                     </div>
                     <div className="flex flex-col mb-2">
-                      <label htmlFor="confirmPassword" className="font-DMSans text-sm mb-2">
+                      <label
+                        htmlFor="confirmPassword"
+                        className="font-DMSans text-sm mb-2"
+                      >
                         Confirm Password
                       </label>
                       <div className="flex border border-[#2d2d2d] rounded-full">
@@ -195,14 +246,24 @@ const SignUp = () => {
                           minLength={8}
                           required
                         />
-                        <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
-                          <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                        <span
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="flex justify-center items-center mx-3 cursor-pointer"
+                        >
+                          <img
+                            className="h-6"
+                            src={showPassword ? crossedEye : eye}
+                            alt="Show Password"
+                          />
                         </span>
                       </div>
                     </div>
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
-                    <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+                    <button
+                      type="submit"
+                      className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+                    >
                       Create Account
                     </button>
                   </div>
@@ -210,20 +271,29 @@ const SignUp = () => {
                     OR
                   </div>
                   <div className="flex justify-center mb-2">
-                    <button type="button" className="flex items-center justify-center bg-transparent border border-primary80 text-primary80 text-sm font-DMSans font-medium w-full text-center rounded-full">
+                    <button
+                      type="button"
+                      className="flex items-center justify-center bg-transparent border border-primary80 text-primary80 text-sm font-DMSans font-medium w-full text-center rounded-full"
+                    >
                       <img src={googleLogo} alt="Google Logo" className="h-8" />
                       Continue with Google
                     </button>
                   </div>
                   <div className="font-DMSans text-sm text-center pb-4">
-                    Already have an account? <Link to="/login" className="font-bold text-primary90">Login</Link>
+                    Already have an account?{" "}
+                    <Link to="/login" className="font-bold text-primary90">
+                      Login
+                    </Link>
                   </div>
                 </form>
               )}
               {accountType === "business" && (
                 <form>
                   <div className="flex flex-col mb-5">
-                    <label htmlFor="companyName" className="font-DMSans text-sm mb-2">
+                    <label
+                      htmlFor="companyName"
+                      className="font-DMSans text-sm mb-2"
+                    >
                       Company Name
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
@@ -241,7 +311,10 @@ const SignUp = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                     <div className="flex flex-col mb-5">
-                      <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                      <label
+                        htmlFor="email"
+                        className="font-DMSans text-sm mb-2"
+                      >
                         Email Address
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full">
@@ -258,8 +331,14 @@ const SignUp = () => {
                       </div>
                     </div>
                     <div className="flex flex-col mb-5">
-                      <label htmlFor="phone" className="font-DMSans text-sm mb-2">
-                        Phone Number <span className="text-[0.5625rem]">(Add country code)</span>
+                      <label
+                        htmlFor="phone"
+                        className="font-DMSans text-sm mb-2"
+                      >
+                        Phone Number{" "}
+                        <span className="text-[0.5625rem]">
+                          (Add country code)
+                        </span>
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full">
                         <input
@@ -276,7 +355,10 @@ const SignUp = () => {
                     </div>
                   </div>
                   <div className="flex flex-col mb-5">
-                    <label htmlFor="officeAddress" className="font-DMSans text-sm mb-2">
+                    <label
+                      htmlFor="officeAddress"
+                      className="font-DMSans text-sm mb-2"
+                    >
                       Office Address
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
@@ -293,26 +375,41 @@ const SignUp = () => {
                     </div>
                   </div>
                   <div className="flex flex-col mb-5">
-                    <label htmlFor="serviceType" className="font-DMSans text-sm mb-2">
+                    <label
+                      htmlFor="serviceType"
+                      className="font-DMSans text-sm mb-2"
+                    >
                       Account Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
                       <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                        <option disabled defaultValue>Select Account Type</option>
+                        <option disabled defaultValue>
+                          Select Account Type
+                        </option>
                         <option value="entrepreneur">Entrepreneur</option>
-                        <option value="established_business">Established Business</option>
+                        <option value="established_business">
+                          Established Business
+                        </option>
                         <option value="investor">Investor</option>
                         <option value="startup">Start-up</option>
                       </select>
                     </div>
                   </div>
                   <div className="flex flex-col mb-5">
-                    <label htmlFor="serviceType" className="font-DMSans text-sm mb-2">
+                    <label
+                      htmlFor="serviceType"
+                      className="font-DMSans text-sm mb-2"
+                    >
                       Document Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
-                      <select id="serviceType" className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                        <option disabled selected>Select Document Type</option>
+                      <select
+                        id="serviceType"
+                        className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
+                      >
+                        <option disabled selected>
+                          Select Document Type
+                        </option>
                         <option>Driver's license</option>
                         <option>International Passport</option>
                         <option>National Identity Card</option>
@@ -322,7 +419,10 @@ const SignUp = () => {
                   </div>
                   <FileUploadInput />
                   <div className="flex justify-center mt-[3.75rem]">
-                    <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+                    <button
+                      type="submit"
+                      className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+                    >
                       Create Account
                     </button>
                   </div>
@@ -330,13 +430,19 @@ const SignUp = () => {
                     OR
                   </div>
                   <div className="flex justify-center mb-2">
-                    <button type="button" className="flex items-center justify-center bg-transparent border border-primary80 text-primary80 text-sm font-DMSans font-medium w-full text-center rounded-full">
+                    <button
+                      type="button"
+                      className="flex items-center justify-center bg-transparent border border-primary80 text-primary80 text-sm font-DMSans font-medium w-full text-center rounded-full"
+                    >
                       <img src={googleLogo} alt="Google Logo" className="h-8" />
                       Continue with Google
                     </button>
                   </div>
                   <div className="font-DMSans text-sm text-center pb-4">
-                    Already have an account? <Link to="/login" className="font-bold text-primary90">Login</Link>
+                    Already have an account?{" "}
+                    <Link to="/login" className="font-bold text-primary90">
+                      Login
+                    </Link>
                   </div>
                 </form>
               )}
@@ -346,8 +452,7 @@ const SignUp = () => {
         <div className="hidden md:flex w-[50%] h-screen relative">
           <div className="absolute z-10 top-0 right-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
           <div className="absolute z-10 bottom-0 left-0 w-[17rem] h-[13rem] bg-dottedRectangle bg-cover"></div>
-          <div className="hidden z-20 md:flex w-full h-[calc(100vh_-_76px)] my-[2.375rem] bg-authImage bg-center bg-contain bg-no-repeat">
-          </div>
+          <div className="hidden z-20 md:flex w-full h-[calc(100vh_-_76px)] my-[2.375rem] bg-authImage bg-center bg-contain bg-no-repeat"></div>
         </div>
       </div>
     </div>

@@ -5,15 +5,11 @@ const ServiceProviders = () => {
   return (
     <section>
       <div className="font-Inter rounded-xl">
-        <div className="font-medium text-lg pt-10 pb-3">
-          Trending
-        </div>
+        <div className="font-medium text-lg pt-10 pb-3">Trending</div>
         {servicesData.map((service) => (
           <div className="grid grid-cols-12 pt-2 pb-4 my-2 border-b border-[#EBEEF0]">
             <div className="col-span-9 ml-3">
-              <div className="text-[#5B7083] text-xs">
-                {service.category}
-              </div>
+              <div className="text-[#5B7083] text-xs">{service.category}</div>
               <div className="font-medium text-sm text-[#0F1419] mb-1.5">
                 {service.title}
               </div>

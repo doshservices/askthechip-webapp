@@ -7,7 +7,7 @@ const Services = () => {
 
   const handleServiceType = (service) => {
     setServiceType(service);
-  }
+  };
 
   return (
     <div className="grid grid-cols-12">
@@ -17,31 +17,66 @@ const Services = () => {
             Services
           </div>
           <div className="flex flex-col">
-            <button className={
-              serviceType === "Accounting"
-                ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
-                : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`} 
-                onClick={() => handleServiceType("Accounting")}>Accounting</button>
-            <button className={
-              serviceType === "Administrative"
-                ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
-                : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`}  onClick={() => handleServiceType("Administrative")}>Administrative</button>
-            <button className={
-              serviceType === "Financial"
-                ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
-                : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`}  onClick={() => handleServiceType("Financial")}>Financial</button>
-            <button className={
-              serviceType === "Legal"
-                ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
-                : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`}  onClick={() => handleServiceType("Legal")}>Legal</button>
-            <button className={
-              serviceType === "Marketing"
-                ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
-                : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`}  onClick={() => handleServiceType("Marketing")}>Marketing</button>
-            <button className={
-              serviceType === "Technology"
-                ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
-                : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`}  onClick={() => handleServiceType("Technology")}>Technology</button>
+            <button
+              className={
+                serviceType === "Accounting"
+                  ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
+                  : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`
+              }
+              onClick={() => handleServiceType("Accounting")}
+            >
+              Accounting
+            </button>
+            <button
+              className={
+                serviceType === "Administrative"
+                  ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
+                  : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`
+              }
+              onClick={() => handleServiceType("Administrative")}
+            >
+              Administrative
+            </button>
+            <button
+              className={
+                serviceType === "Financial"
+                  ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
+                  : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`
+              }
+              onClick={() => handleServiceType("Financial")}
+            >
+              Financial
+            </button>
+            <button
+              className={
+                serviceType === "Legal"
+                  ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
+                  : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`
+              }
+              onClick={() => handleServiceType("Legal")}
+            >
+              Legal
+            </button>
+            <button
+              className={
+                serviceType === "Marketing"
+                  ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
+                  : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`
+              }
+              onClick={() => handleServiceType("Marketing")}
+            >
+              Marketing
+            </button>
+            <button
+              className={
+                serviceType === "Technology"
+                  ? `w-full bg-primary80 text-left text-light py-2.5 px-7 rounded border-b`
+                  : `w-full bg-transparent text-left text-dark2D py-2.5 px-7 rounded border-b border-[#EBEEF0]`
+              }
+              onClick={() => handleServiceType("Technology")}
+            >
+              Technology
+            </button>
           </div>
         </div>
       </div>

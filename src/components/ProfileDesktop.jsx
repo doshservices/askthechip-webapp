@@ -11,7 +11,7 @@ const ProfileDesktop = () => {
           <div className="font-DMSans text-2xl font-medium my-5 mb-6">
             Profile
           </div>
-            <Profile />
+          <Profile />
         </div>
       </div>
       <div className="hidden xm:grid xm:col-span-6 h-screen overflow-y-auto overflow-x-hidden px-5">

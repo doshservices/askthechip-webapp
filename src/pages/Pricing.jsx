@@ -1,4 +1,4 @@
-import { Navbar } from "../components"
+import { Navbar } from "../components";
 import { pricingData } from "../data";
 import underline from "./../assets/images/underline.svg";
 import { Link } from "react-router-dom";
@@ -50,44 +50,46 @@ const Pricing = () => {
         <div className="flex items-center justify-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-[90%] max-w-[60rem] mb-8">
             {pricingData.map((data, index) => (
-              <div key={index} className="max-w-[27.5rem] border border-[#00000015] rounded-lg mb-4">
-                <div style={{ backgroundColor: data.priceBg }} className={`w-full h-[10px] rounded-tl-lg rounded-tr-lg`}></div>
+              <div
+                key={index}
+                className="max-w-[27.5rem] border border-[#00000015] rounded-lg mb-4"
+              >
+                <div
+                  style={{ backgroundColor: data.priceBg }}
+                  className={`w-full h-[10px] rounded-tl-lg rounded-tr-lg`}
+                ></div>
                 <div className="flex justify-between flex-col min-h-[44rem] px-[1.875rem] pt-10 pb-8">
                   <div>
-                  <div className="mb-4">
-                    <h2 className="text-[#333] text-[1.375rem] font-semibold py-1">
-                      {data.title}
-                    </h2>
-                    <p className="max-w-[30ch] mt-4">{data.subtitle}</p>
-                  </div>
-                  <div className="h-[1px] w-full bg-[#2d2d2d80] opacity-50 mt-10"></div>
-                  <div className="flex items-center my-8 mt-10">
-                    <span style={{ color: data.priceBg }} className={`text-[52px] md:text-[72px] font-semibold leading-6 mr-[0.625rem]`}>
-                      ${data.price}
-                    </span>{" "}
-                    <div className="flex flex-col">
-                      <span>
-                        Per member
-                      </span>
-                      <span>
-                        Per month
-                      </span>
+                    <div className="mb-4">
+                      <h2 className="text-[#333] text-[1.375rem] font-semibold py-1">
+                        {data.title}
+                      </h2>
+                      <p className="max-w-[30ch] mt-4">{data.subtitle}</p>
                     </div>
-                  </div>
-                  <div className="h-[1px] w-full bg-[#2d2d2d80] opacity-50 mb-10"></div>
-                  {data.desc.map((desc, index) => (
-                    <div key={index} className="flex items-center mb-4">
-                      <img src={desc.icon} alt={desc.text} />
-                      <span className="ml-2">{desc.text}</span>
+                    <div className="h-[1px] w-full bg-[#2d2d2d80] opacity-50 mt-10"></div>
+                    <div className="flex items-center my-8 mt-10">
+                      <span
+                        style={{ color: data.priceBg }}
+                        className={`text-[52px] md:text-[72px] font-semibold leading-6 mr-[0.625rem]`}
+                      >
+                        ${data.price}
+                      </span>{" "}
+                      <div className="flex flex-col">
+                        <span>Per member</span>
+                        <span>Per month</span>
+                      </div>
                     </div>
-
-                  ))}
+                    <div className="h-[1px] w-full bg-[#2d2d2d80] opacity-50 mb-10"></div>
+                    {data.desc.map((desc, index) => (
+                      <div key={index} className="flex items-center mb-4">
+                        <img src={desc.icon} alt={desc.text} />
+                        <span className="ml-2">{desc.text}</span>
+                      </div>
+                    ))}
                   </div>
                   <div className="mb-2">
                     <Link to={`/${data.link}`}>
-                      <button
-                        className="bg-primary80 hover:scale-95 transition duration-200 rounded-full text-white w-full py-2"
-                      >
+                      <button className="bg-primary80 hover:scale-95 transition duration-200 rounded-full text-white w-full py-2">
                         {data.buttonVal}
                       </button>
                     </Link>

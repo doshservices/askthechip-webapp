@@ -7,7 +7,7 @@ import { SignInAsContext } from "../contexts/SignInAsContext";
 
 const Navbar = () => {
   const { openSignInModal } = useContext(SignInAsContext);
-  
+
   const navRef = useRef();
   const showMenu = () => {
     navRef.current.classList.toggle("translate-x-[100%]");
@@ -17,13 +17,14 @@ const Navbar = () => {
     <nav
       className={`bg-primary100 md:bg-[#f8f8f8] h-[4.625rem] font-DMSans fixed z-[9999] w-full shadow-md transition duration-500 flex`}
     >
-
       <div className="flex justify-between w-full mx-6 md:mx-[6.25rem]">
         {/* Brand Logo */}
         <div className="flex my-auto">
           <Link to="/" className={`flex items-center`}>
             <img src={logo} alt="ask the chip" />
-            <div className="font-medium text-sm text-[#f8f8f8] ml-2">Askthechip</div>
+            <div className="font-medium text-sm text-[#f8f8f8] ml-2">
+              Askthechip
+            </div>
           </Link>
         </div>
 
@@ -74,7 +75,9 @@ const Navbar = () => {
 
         <div className="hidden md:flex justify-center items-center">
           <div onClick={openSignInModal}>
-            <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.875rem] py-[0.625rem] rounded-lg">Join Now</button>
+            <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.875rem] py-[0.625rem] rounded-lg">
+              Join Now
+            </button>
           </div>
         </div>
       </div>
@@ -90,10 +93,7 @@ const Navbar = () => {
           ref={navRef}
           className={`flex translate-x-[100%] z-50 bg-white md:hidden transition flex-col w-[70%] items-center font-body uppercase my-auto h-screen fixed top-0 right-0`}
         >
-          <div
-            className="flex justify-center mb-4 mt-[50%]"
-            onClick={showMenu}
-          >
+          <div className="flex justify-center mb-4 mt-[50%]" onClick={showMenu}>
             <NavLink
               to="/home"
               className="px-4 hover:underline decoration-2 underline-offset-4"
@@ -111,10 +111,7 @@ const Navbar = () => {
               Explore
             </HashLink>
           </div>
-          <div
-            className="flex justify-center my-4"
-            onClick={showMenu}
-          >
+          <div className="flex justify-center my-4" onClick={showMenu}>
             <NavLink
               to="/pricing"
               className="px-4 hover:underline decoration-2 underline-offset-4"
@@ -143,9 +140,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex justify-center my-4" onClick={openSignInModal}>
-            <div
-              className="px-8 bg-primary py-1 rounded-lg text-white"
-            >
+            <div className="px-8 bg-primary py-1 rounded-lg text-white">
               Join Now
             </div>
           </div>

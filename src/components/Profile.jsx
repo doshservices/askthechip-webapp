@@ -56,11 +56,7 @@ const Profile = () => {
               <div className="flex">
                 <div>
                   <button className="bg-primary80 font-DMSans text-light border-[0.3px] border-tertiary flex px-2 py-[0.2rem] hover:scale-90 transition duration-200 rounded-lg items-center">
-                    <img
-                      src={envelope}
-                      alt="Settings"
-                      className="px-0.5"
-                    />
+                    <img src={envelope} alt="Settings" className="px-0.5" />
                     Message
                   </button>
                 </div>
@@ -99,9 +95,7 @@ const Profile = () => {
           </div>
         ) : (
           <div className="text-[#181818] font-DMSans">
-            <div className="text-[#181818] font-medium mt-3 text-lg">
-              About
-            </div>
+            <div className="text-[#181818] font-medium mt-3 text-lg">About</div>
             {aboutData.map((about, index) => (
               <div className="flex my-3" key={index}>
                 <div className="h-[48px] w-[38px] bg-tertiary rounded-3xl mr-3"></div>

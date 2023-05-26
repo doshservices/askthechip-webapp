@@ -16,7 +16,7 @@ import {
   SignIn,
   SignUp,
   SignUpAsProvider,
-  Verify
+  Verify,
 } from "./pages";
 
 import HomePage from "./pages/Homepage";

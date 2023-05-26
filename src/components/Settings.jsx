@@ -22,18 +22,32 @@ const defaultFormFields = {
   cvv: "",
   address: "",
   pin: "",
-}
+};
 
 const Settings = () => {
   const [activeButton, setActiveButton] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { cardNum, expiration, cvv, firstName, lastName, email, phone, password, oldPassword, confirmPassword, companyName, address, pin } = formFields;
+  const {
+    cardNum,
+    expiration,
+    cvv,
+    firstName,
+    lastName,
+    email,
+    phone,
+    password,
+    oldPassword,
+    confirmPassword,
+    companyName,
+    address,
+    pin,
+  } = formFields;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
-  }
+  };
 
   return (
     <div className="font-DMSans grid grid-cols-9">
@@ -106,14 +120,17 @@ const Settings = () => {
               </div>
             </div>
             <div className="flex justify-center mt-[3.75rem]">
-              <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+              <button
+                type="submit"
+                className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+              >
                 Save
               </button>
             </div>
           </form>
         ) : activeButton === 2 ? (
           <div>
-            <form className='w-[80%] mx-auto'>
+            <form className="w-[80%] mx-auto">
               <div className="flex flex-col mb-5">
                 <label htmlFor="cardNum" className="font-DMSans text-sm mb-2">
                   Card Number
@@ -133,7 +150,10 @@ const Settings = () => {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                 <div className="flex flex-col mb-5">
-                  <label htmlFor="expiration" className="font-DMSans text-sm mb-2">
+                  <label
+                    htmlFor="expiration"
+                    className="font-DMSans text-sm mb-2"
+                  >
                     Expiration
                   </label>
                   <div className="border border-[#2d2d2d] rounded-full">
@@ -150,7 +170,10 @@ const Settings = () => {
                   </div>
                 </div>
                 <div className="flex flex-col mb-5">
-                  <label htmlFor="lastName" className="font-DMSans text-sm mb-2">
+                  <label
+                    htmlFor="lastName"
+                    className="font-DMSans text-sm mb-2"
+                  >
                     CVV
                   </label>
                   <div className="border border-[#2d2d2d] rounded-full bg-transparent">
@@ -185,14 +208,17 @@ const Settings = () => {
                 </div>
               </div>
               <div className="flex justify-center mt-[3.75rem]">
-                <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+                <button
+                  type="submit"
+                  className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+                >
                   Save
                 </button>
               </div>
             </form>
           </div>
         ) : activeButton === 3 ? (
-          <form className='w-[80%] mx-auto'>
+          <form className="w-[80%] mx-auto">
             <div className="flex flex-col mb-5">
               <label htmlFor="oldPassword" className="font-DMSans text-sm mb-2">
                 Old Password
@@ -209,8 +235,15 @@ const Settings = () => {
                   minLength={8}
                   required
                 />
-                <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
-                  <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="flex justify-center items-center mx-3 cursor-pointer"
+                >
+                  <img
+                    className="h-6"
+                    src={showPassword ? crossedEye : eye}
+                    alt="Show Password"
+                  />
                 </span>
               </div>
             </div>
@@ -230,13 +263,23 @@ const Settings = () => {
                   minLength={8}
                   required
                 />
-                <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
-                  <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="flex justify-center items-center mx-3 cursor-pointer"
+                >
+                  <img
+                    className="h-6"
+                    src={showPassword ? crossedEye : eye}
+                    alt="Show Password"
+                  />
                 </span>
               </div>
             </div>
             <div className="flex flex-col mb-5">
-              <label htmlFor="confirmPassword" className="font-DMSans text-sm mb-2">
+              <label
+                htmlFor="confirmPassword"
+                className="font-DMSans text-sm mb-2"
+              >
                 Confirm New Password
               </label>
               <div className="flex border border-[#2d2d2d] rounded-full">
@@ -251,13 +294,23 @@ const Settings = () => {
                   minLength={8}
                   required
                 />
-                <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
-                  <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="flex justify-center items-center mx-3 cursor-pointer"
+                >
+                  <img
+                    className="h-6"
+                    src={showPassword ? crossedEye : eye}
+                    alt="Show Password"
+                  />
                 </span>
               </div>
             </div>
             <div className="flex justify-center mt-[3.75rem]">
-              <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+              <button
+                type="submit"
+                className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+              >
                 Save
               </button>
             </div>
@@ -306,16 +359,26 @@ const Settings = () => {
                   minLength={8}
                   required
                 />
-                <span onClick={() => setShowPassword(!showPassword)} className='flex justify-center items-center mx-3 cursor-pointer'>
-                  <img className='h-6' src={showPassword ? crossedEye : eye} alt="Show Password" />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="flex justify-center items-center mx-3 cursor-pointer"
+                >
+                  <img
+                    className="h-6"
+                    src={showPassword ? crossedEye : eye}
+                    alt="Show Password"
+                  />
                 </span>
               </div>
             </div>
             <div className="flex justify-center mt-[3.75rem]">
-                <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
-                  Deactivate
-                </button>
-              </div>
+              <button
+                type="submit"
+                className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+              >
+                Deactivate
+              </button>
+            </div>
           </form>
         )}
       </div>

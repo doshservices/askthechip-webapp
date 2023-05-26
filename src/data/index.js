@@ -7,8 +7,6 @@ import growth from "./../assets/icons/growth.svg";
 import mentoring from "./../assets/icons/mentoring.svg";
 import interestImg from "./../assets/images/interest.png";
 
-
-
 export const whyData = [
   {
     icon: network,
@@ -138,8 +136,7 @@ export const interestData = [
 export const pricingData = [
   {
     title: "Free",
-    subtitle:
-      "For all individuals and starters with a small portfolio.",
+    subtitle: "For all individuals and starters with a small portfolio.",
     price: 0,
     priceBg: "#00CA72",
     buttonVal: "Start Now",
@@ -156,7 +153,7 @@ export const pricingData = [
       {
         icon: check,
         text: "Access to shared experience",
-      }
+      },
     ],
   },
   {
@@ -188,7 +185,7 @@ export const pricingData = [
         text: "Access to coaching and mentorship",
       },
     ],
-  }
+  },
 ];
 
 // Personal view

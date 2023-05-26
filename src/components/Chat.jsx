@@ -7,7 +7,9 @@ const Chat = () => {
     <div className="h-[calc(100vh_-_4.5rem)] sm:h-screen overflow-y-hidden font-DMSans">
       <div className="h-16 bg-white w-full shadow pl-2 xm:pl-4 ">
         <div className="font-medium text-xl sm:text-2xl mt-2">Sturum</div>
-        <div className="text-[#303030] text-xs sm:text-sm font-light">Last seen, 2:02pm</div>
+        <div className="text-[#303030] text-xs sm:text-sm font-light">
+          Last seen, 2:02pm
+        </div>
       </div>
       <div className="h-[calc(100vh_-_14.5rem)] sm:h-[calc(100vh_-_10rem)] overflow-y-auto pt-2">
         <div className="px-1 md:pr-4 xm:pr-2">
@@ -69,28 +71,20 @@ const Chat = () => {
       </div>
       <div className="h-16 bg-white pb-3 ml-4 pr-10 pt-2 grid grid-cols-12">
         <div className="col-span-11 grid grid-cols-12 gap-2 bg-[#eff6fcde] px-4 rounded-3xl mr-3">
-          <img
-            src={emoji}
-            className="col-span-1 mt-4"
-            alt="Emoji"
-          />
+          <img src={emoji} className="col-span-1 mt-4" alt="Emoji" />
           <textarea
             className="col-span-10 resize-none w-full min-h-fit text-sm bg-transparent outline-none my-4"
             placeholder="Type your message here..."
           />
 
-          <img
-            src={camera}
-            className="col-span-1 mt-4 mr-4"
-            alt="Camera"
-          />
+          <img src={camera} className="col-span-1 mt-4 mr-4" alt="Camera" />
         </div>
         <div className="col-span-1 my-auto ml-auto bg-primary80 rounded-full p-2 cursor-pointer">
           <img src={send} alt="Send Message" />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Chat;

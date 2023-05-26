@@ -1,58 +1,57 @@
 import React from "react";
 import logo from "./../assets/ask.svg";
 import { Link } from "react-router-dom";
-import envelopePrimary from './../assets/icons/envelopePrimary.svg'
+import envelopePrimary from "./../assets/icons/envelopePrimary.svg";
 import Socials from "./Socials";
-
 
 const quickLinks = [
   {
     link: "",
-    text: "Invest funds"
+    text: "Invest funds",
   },
   {
     link: "",
-    text: "Knowledge Bank"
+    text: "Knowledge Bank",
   },
   {
     link: "",
-    text: "Apply for Loan"
+    text: "Apply for Loan",
   },
   {
     link: "",
-    text: "Media Enquiry"
+    text: "Media Enquiry",
   },
   {
     link: "",
-    text: "Venture Education"
+    text: "Venture Education",
   },
   {
     link: "",
-    text: "Affiliates"
+    text: "Affiliates",
   },
-]
+];
 const supportLinks = [
   {
     link: "",
-    text: "Contact Us"
+    text: "Contact Us",
   },
   {
     link: "",
-    text: "FAQ"
+    text: "FAQ",
   },
   {
     link: "",
-    text: "Saved"
+    text: "Saved",
   },
   {
     link: "",
-    text: "Find a Mentor"
+    text: "Find a Mentor",
   },
   {
     link: "",
-    text: "Service Registration"
-  }
-]
+    text: "Service Registration",
+  },
+];
 const Footer = () => {
   return (
     <footer id="contact">
@@ -63,7 +62,9 @@ const Footer = () => {
               <div>
                 <img src={logo} alt="ask the chip" className="w-10" />
               </div>
-              <div className="text-primary90 font-bold font-DMSans text-xl ml-2">Askthechip</div>
+              <div className="text-primary90 font-bold font-DMSans text-xl ml-2">
+                Askthechip
+              </div>
             </Link>
           </div>
           <div className="hidden md:flex">
@@ -76,11 +77,14 @@ const Footer = () => {
               Quick Links
             </div>
             <ul>
-              {quickLinks.map((l, index) =>
-                <li key={index} className="font-DMSans font-medium text-sm text-primary90 mb-3 hover:scale-110 active:scale-100 cursor-pointer transition duration-300">
+              {quickLinks.map((l, index) => (
+                <li
+                  key={index}
+                  className="font-DMSans font-medium text-sm text-primary90 mb-3 hover:scale-110 active:scale-100 cursor-pointer transition duration-300"
+                >
                   {l.text}
                 </li>
-              )}
+              ))}
             </ul>
           </div>
           <div>
@@ -88,11 +92,14 @@ const Footer = () => {
               Support
             </div>
             <ul>
-              {supportLinks.map((l, index) =>
-                <li key={index} className="font-DMSans font-medium text-sm text-primary90 mb-3 hover:scale-110 active:scale-100 cursor-pointer transition duration-300">
+              {supportLinks.map((l, index) => (
+                <li
+                  key={index}
+                  className="font-DMSans font-medium text-sm text-primary90 mb-3 hover:scale-110 active:scale-100 cursor-pointer transition duration-300"
+                >
                   {l.text}
                 </li>
-              )}
+              ))}
             </ul>
           </div>
         </div>
@@ -108,30 +115,64 @@ const Footer = () => {
           <form>
             <div className="grid grid-cols-2 gap-8 md:gap-20 mb-5 font-DMSans font-medium">
               <div className="flex flex-col">
-                <label htmlFor="fname" className="text-primary90/70 text-sm">First Name</label>
-                <input type="text" className="outline-none border-b border-primary90 bg-transparent" name="fname" id="fname" />
+                <label htmlFor="fname" className="text-primary90/70 text-sm">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  className="outline-none border-b border-primary90 bg-transparent"
+                  name="fname"
+                  id="fname"
+                />
               </div>
               <div className="flex flex-col w-full">
-                <label htmlFor="lname" className="text-primary90/70 text-sm">Last Name</label>
-                <input type="text" className="outline-none border-b border-primary90 bg-transparent" name="lname" id="fname" />
+                <label htmlFor="lname" className="text-primary90/70 text-sm">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  className="outline-none border-b border-primary90 bg-transparent"
+                  name="lname"
+                  id="fname"
+                />
               </div>
             </div>
             <div className="flex flex-col mb-5 font-DMSans font-medium">
-              <label htmlFor="email" className="text-primary90/70 text-sm">Email</label>
-              <input type="email" className="outline-none border-b border-primary90 bg-transparent" name="email" id="fname" />
+              <label htmlFor="email" className="text-primary90/70 text-sm">
+                Email
+              </label>
+              <input
+                type="email"
+                className="outline-none border-b border-primary90 bg-transparent"
+                name="email"
+                id="fname"
+              />
             </div>
             <div className="flex mb-4">
-              <input type="checkbox" className="border-b border-primary90 " name="acceptance" id="acceptance" />
-              <label htmlFor="acceptance" className="text-primary90/70 font-DMSans font-medium text-xs ml-2">I have read and accept the privacy policy.</label>
+              <input
+                type="checkbox"
+                className="border-b border-primary90 "
+                name="acceptance"
+                id="acceptance"
+              />
+              <label
+                htmlFor="acceptance"
+                className="text-primary90/70 font-DMSans font-medium text-xs ml-2"
+              >
+                I have read and accept the privacy policy.
+              </label>
             </div>
             <div>
-              <button className="w-full md:w-fit py-2 px-[3.75rem] bg-primary90 text-white text-sm font-DMSans rounded hover:scale-90 active:scale-100 transition duration-300" type="submit">
+              <button
+                className="w-full md:w-fit py-2 px-[3.75rem] bg-primary90 text-white text-sm font-DMSans rounded hover:scale-90 active:scale-100 transition duration-300"
+                type="submit"
+              >
                 Sign Up
               </button>
             </div>
           </form>
           <div className="flex md:hidden justify-center mt-8">
-              <Socials />
+            <Socials />
           </div>
         </div>
       </div>
@@ -141,12 +182,8 @@ const Footer = () => {
         </div>
         <div className="w-full md:w-fit">
           <ul className="flex justify-between opacity-80 font-Raleway">
-            <li className="mr-[1.875rem]">
-              Terms and Condition
-            </li>
-            <li>
-              Privacy Policy
-            </li>
+            <li className="mr-[1.875rem]">Terms and Condition</li>
+            <li>Privacy Policy</li>
           </ul>
         </div>
       </div>
