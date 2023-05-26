@@ -3,6 +3,7 @@ import { Navbar } from '../components'
 import Back from "../assets/icons/back-button.svg";
 import cancel from "../assets/icons/cancel-icon.svg";
 import { countries } from '../data/countries';
+import { Link } from 'react-router-dom';
 
 const defaultFormFields = {
     cardNum: "",
@@ -28,13 +29,17 @@ const Payment = () => {
             <Navbar />
             <div className='pt-32 pb-20 px-20 text-dark2D'>
                 <div className='flex'>
-                    <div className='cursor-pointer'>
-                        <img src={Back} alt="Back" />
-                    </div>
+                    <Link to="/pricing">
+                        <div className='cursor-pointer'>
+                            <img src={Back} alt="Back" />
+                        </div>
+                    </Link>
                     <div className='text-primary110 font-bold text-3xl mx-auto'>Premium Plan Purchase</div>
-                    <div className='cursor-pointer'>
-                        <img src={cancel} alt="Back" />
-                    </div>
+                    <Link to="/pricing">
+                        <div className='cursor-pointer'>
+                            <img src={cancel} alt="Back" />
+                        </div>
+                    </Link>
                 </div>
                 <div className='flex'>
                     <div className='w-full md:w-1/2'>
@@ -241,9 +246,10 @@ const Payment = () => {
                                     $0.0
                                 </div>
                             </div>
+                            <div className='h-[1px] w-full bg-[#000]/50 mt-10'></div>
                             <div className="flex justify-center mt-10 mb-2">
                                 <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
-                                    Create Account
+                                    Start Trial
                                 </button>
                             </div>
                         </div>
