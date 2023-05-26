@@ -1,1 +1,1 @@
-export {default as SignInAsProvider} from "./SignInAsContext";
+export { default as SignInAsProvider } from "./SignInAsContext";

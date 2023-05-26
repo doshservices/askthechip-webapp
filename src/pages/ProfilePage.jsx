@@ -1,5 +1,9 @@
-import { ProfileDesktop, Profile, DesktopLayout, MobileLayout } from "../components";
-
+import {
+  ProfileDesktop,
+  Profile,
+  DesktopLayout,
+  MobileLayout,
+} from "../components";
 
 const ProfilePage = () => {
   return (

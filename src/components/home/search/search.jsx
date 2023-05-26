@@ -20,4 +20,4 @@ const Search = ({ background }) => {
   );
 };
 
-export default Search
+export default Search;

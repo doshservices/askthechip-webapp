@@ -1,214 +1,385 @@
 import React, { useState } from "react";
 import ButtonNew from "../components/ButtonNew";
 import { settingsButtons } from "../data";
-import clsx from "clsx";
-import PaymentForm from "./PaymentForm";
+import eye from "./../assets/icons/eye.svg";
+import crossedEye from "./../assets/icons/crossed-eye.svg";
+// import clsx from "clsx";
+// import PaymentForm from "./PaymentForm";
+
+const defaultFormFields = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  type: "",
+  oldPassword: "",
+  password: "",
+  confirmPassword: "",
+  companyName: "",
+  officeAddress: "",
+  cardNum: "",
+  expiration: "",
+  cvv: "",
+  address: "",
+  pin: "",
+};
 
 const Settings = () => {
   const [activeButton, setActiveButton] = useState(1);
+  const [showPassword, setShowPassword] = useState(false);
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const {
+    cardNum,
+    expiration,
+    cvv,
+    firstName,
+    lastName,
+    email,
+    phone,
+    password,
+    oldPassword,
+    confirmPassword,
+    companyName,
+    address,
+    pin,
+  } = formFields;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
+
   return (
-    <div className="grid grid-cols-9">
-      <div className="col-span-3 min-h-screen ml-6 pr-6 pt-6 border-r border-[#EBEEF0]">
-        <div className="font-Inter font-bold text-lg">Settings</div>
+    <div className="font-DMSans grid grid-cols-9">
+      <div className="col-span-4 min-h-screen ml-6 pr-6 pt-6 border-r border-[#EBEEF0]">
+        <div className="font-DMSans font-medium mb-10 text-2xl">Settings</div>
         {settingsButtons.map((button) => (
           <div className="my-4" key={button.id}>
             <ButtonNew
               intent={activeButton === button.id ? `primary` : `secondary`}
               onClick={() => setActiveButton(button.id)}
-              // className={activeButton=== button.id ? clsx('border-tertiary'):('border-gray-800')}
-              className="w-full font-Inter text-lg py-[0.4rem]"
+              className="w-full py-[0.4rem]"
             >
               {button.title}
             </ButtonNew>
           </div>
         ))}
       </div>
-      <div className="col-span-6 pt-20">
+      <div className="col-span-5 pt-20">
         {activeButton === 1 ? (
-          <div>
-            <div className="flex flex-col w-full mb-4">
-              <label
-                htmlFor="full_name"
-                className="mb-2 font-medium font-Inter text-left w-[80%] mx-auto"
-              >
-                Full name
+          <form className="w-[90%] md:w-[80%] mx-auto">
+            <div className="flex flex-col mb-5">
+              <label htmlFor="firstName" className="font-DMSans text-sm mb-2">
+                First Name
               </label>
-              <div className="flex w-full justify-center">
+              <div className="border border-[#2d2d2d] rounded-full">
                 <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[80%]"
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                   type="text"
-                  name="full_name"
-                  id="full_name"
-                  placeholder="Enter your full name"
+                  name="firstName"
+                  id="firstName"
+                  value={firstName}
+                  onChange={handleChange}
+                  placeholder="First Name Here"
+                  required
                 />
               </div>
             </div>
-            <div className="flex flex-col w-full mb-4">
-              <label
-                htmlFor="phone_no"
-                className="mb-2 font-medium font-Inter w-[80%] mx-auto"
-              >
-                Phone number
+            <div className="flex flex-col mb-5">
+              <label htmlFor="lastName" className="font-DMSans text-sm mb-2">
+                Last Name
               </label>
-              <div className="flex w-full justify-center">
+              <div className="border border-[#2d2d2d] rounded-full bg-transparent">
                 <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[80%]"
-                  type="tel"
-                  name="phone_no"
-                  id="phone_no"
-                  placeholder="Enter your phone number"
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  value={lastName}
+                  onChange={handleChange}
+                  placeholder="Last Name Here"
+                  required
                 />
               </div>
             </div>
-            <div className="flex flex-col mb-4 w-full">
-              <label
-                htmlFor="email"
-                className="mb-2 font-medium font-Inter w-[80%] mx-auto"
-              >
-                Email
+            <div className="flex flex-col mb-5">
+              <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                Email Address
               </label>
-              <div className="flex w-full justify-center">
+              <div className="border border-[#2d2d2d] rounded-full bg-transparent">
                 <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[80%]"
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Enter your email"
+                  value={email}
+                  onChange={handleChange}
+                  placeholder="Email Address Here"
+                  required
                 />
               </div>
             </div>
-            <div className="flex mt-20 mr-[10%] items-end justify-end my-4">
-              <ButtonNew
-                intent={`primary`}
-                className="w-fit px-8 font-Inter text-lg py-[0.4rem]"
+            <div className="flex justify-center mt-[3.75rem]">
+              <button
+                type="submit"
+                className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
               >
                 Save
-              </ButtonNew>
+              </button>
             </div>
-          </div>
+          </form>
         ) : activeButton === 2 ? (
           <div>
-            <PaymentForm />
+            <form className="w-[80%] mx-auto">
+              <div className="flex flex-col mb-5">
+                <label htmlFor="cardNum" className="font-DMSans text-sm mb-2">
+                  Card Number
+                </label>
+                <div className="border border-[#2d2d2d] rounded-full">
+                  <input
+                    className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                    type="text"
+                    name="cardNum"
+                    id="cardNum"
+                    value={cardNum}
+                    onChange={handleChange}
+                    placeholder="Enter card number Here"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
+                <div className="flex flex-col mb-5">
+                  <label
+                    htmlFor="expiration"
+                    className="font-DMSans text-sm mb-2"
+                  >
+                    Expiration
+                  </label>
+                  <div className="border border-[#2d2d2d] rounded-full">
+                    <input
+                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                      type="text"
+                      name="expiration"
+                      id="expiration"
+                      value={expiration}
+                      onChange={handleChange}
+                      placeholder="MM/YY"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col mb-5">
+                  <label
+                    htmlFor="lastName"
+                    className="font-DMSans text-sm mb-2"
+                  >
+                    CVV
+                  </label>
+                  <div className="border border-[#2d2d2d] rounded-full bg-transparent">
+                    <input
+                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                      type="text"
+                      name="cvv"
+                      id="cvv"
+                      value={cvv}
+                      onChange={handleChange}
+                      placeholder="***"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col mb-5">
+                <label htmlFor="pin" className="font-DMSans text-sm mb-2">
+                  PIN
+                </label>
+                <div className="border border-[#2d2d2d] rounded-full">
+                  <input
+                    className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                    type="password"
+                    name="pin"
+                    id="pin"
+                    value={pin}
+                    onChange={handleChange}
+                    placeholder="Enter your pin here"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="flex justify-center mt-[3.75rem]">
+                <button
+                  type="submit"
+                  className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
           </div>
         ) : activeButton === 3 ? (
-          <div>
-            <div className="flex flex-col w-full mb-4">
-              <label
-                htmlFor="old_pass"
-                className="mb-2 font-medium font-Inter text-left w-[80%] mx-auto"
-              >
+          <form className="w-[80%] mx-auto">
+            <div className="flex flex-col mb-5">
+              <label htmlFor="oldPassword" className="font-DMSans text-sm mb-2">
                 Old Password
               </label>
-              <div className="flex w-full justify-center">
+              <div className="flex border border-[#2d2d2d] rounded-full">
                 <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[80%]"
-                  type="password"
-                  name="old_pass"
-                  id="old_pass"
-                  placeholder="Enter your old password"
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                  type={showPassword ? "text" : "password"}
+                  name="oldPassword"
+                  id="oldPassword"
+                  placeholder="Old Password here"
+                  value={oldPassword}
+                  onChange={handleChange}
+                  minLength={8}
+                  required
                 />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="flex justify-center items-center mx-3 cursor-pointer"
+                >
+                  <img
+                    className="h-6"
+                    src={showPassword ? crossedEye : eye}
+                    alt="Show Password"
+                  />
+                </span>
               </div>
             </div>
-            <div className="flex flex-col w-full mb-4">
-              <label
-                htmlFor="new_pass"
-                className="mb-2 font-medium font-Inter w-[80%] mx-auto"
-              >
+            <div className="flex flex-col mb-5">
+              <label htmlFor="password" className="font-DMSans text-sm mb-2">
                 New Password
               </label>
-              <div className="flex w-full justify-center">
+              <div className="flex border border-[#2d2d2d] rounded-full">
                 <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[80%]"
-                  type="password"
-                  name="new_pass"
-                  id="new_pass"
-                  placeholder="Enter your new password"
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  id="password"
+                  placeholder="New Password here"
+                  value={password}
+                  onChange={handleChange}
+                  minLength={8}
+                  required
                 />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="flex justify-center items-center mx-3 cursor-pointer"
+                >
+                  <img
+                    className="h-6"
+                    src={showPassword ? crossedEye : eye}
+                    alt="Show Password"
+                  />
+                </span>
               </div>
             </div>
-            <div className="flex flex-col mb-4 w-full">
+            <div className="flex flex-col mb-5">
               <label
-                htmlFor="confirm_new_pass"
-                className="mb-2 font-medium font-Inter w-[80%] mx-auto"
+                htmlFor="confirmPassword"
+                className="font-DMSans text-sm mb-2"
               >
                 Confirm New Password
               </label>
-              <div className="flex w-full justify-center">
+              <div className="flex border border-[#2d2d2d] rounded-full">
                 <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[80%]"
-                  type="password"
-                  name="confirm_new_pass"
-                  id="confirm_new_pass"
-                  placeholder="Confirm your new password"
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                  type={showPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  id="confirmPassword"
+                  placeholder="Confirm new password"
+                  value={confirmPassword}
+                  onChange={handleChange}
+                  minLength={8}
+                  required
                 />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="flex justify-center items-center mx-3 cursor-pointer"
+                >
+                  <img
+                    className="h-6"
+                    src={showPassword ? crossedEye : eye}
+                    alt="Show Password"
+                  />
+                </span>
               </div>
             </div>
-            <div className="flex mt-20 mr-[10%] items-end justify-end my-4">
-              <ButtonNew
-                intent={`primary`}
-                className="w-fit px-8 font-Inter text-lg py-[0.4rem]"
+            <div className="flex justify-center mt-[3.75rem]">
+              <button
+                type="submit"
+                className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
               >
-                Change
-              </ButtonNew>
+                Save
+              </button>
             </div>
-          </div>
+          </form>
         ) : (
-          <div>
-            <div className="font-Inter ml-[10%] mr-4">
-              <div className="font-semibold mb-2">
+          <form className="mx-auto w-[80%]">
+            <div className="font-DMSans mb-10">
+              <div className="font-medium text-[#EB5757] mb-4 text-xl">
                 Are you sure you want to delete this account?
               </div>
-              <div className="mb-2">
+              <div className="mb-2 text-lg">
                 Deleting your account will erase your current data from the
                 platform
               </div>
-              <div className="mb-8">
-                Kindly enter email and password to confirm this action.
-              </div>
             </div>
-            <div className="flex flex-col mb-4 w-full">
-              <label
-                htmlFor="email"
-                className="mb-2 font-medium font-Inter w-[80%] mx-auto"
-              >
-                Email
+            <div className="flex flex-col mb-5">
+              <label htmlFor="email" className="font-DMSans text-sm mb-2">
+                Email Address
               </label>
-              <div className="flex w-full justify-center">
+              <div className="border border-[#2d2d2d] rounded-full bg-transparent">
                 <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[80%]"
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Enter your email"
+                  value={email}
+                  onChange={handleChange}
+                  placeholder="Email Address Here"
+                  required
                 />
               </div>
             </div>
-            <div className="flex flex-col w-full mb-4">
-              <label
-                htmlFor="old_pass"
-                className="mb-2 font-medium font-Inter text-left w-[80%] mx-auto"
-              >
+            <div className="flex flex-col mb-2">
+              <label htmlFor="oldPassword" className="font-DMSans text-sm mb-2">
                 Password
               </label>
-              <div className="flex w-full justify-center">
+              <div className="flex border border-[#2d2d2d] rounded-full">
                 <input
-                  className="bg-[#D9D9D921] outline-none border border-[#D9D9D9] rounded-lg py-1 px-2 w-[80%]"
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Enter your password"
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                  type={showPassword ? "text" : "password"}
+                  name="oldPassword"
+                  id="oldPassword"
+                  placeholder="Old Password here"
+                  value={oldPassword}
+                  onChange={handleChange}
+                  minLength={8}
+                  required
                 />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="flex justify-center items-center mx-3 cursor-pointer"
+                >
+                  <img
+                    className="h-6"
+                    src={showPassword ? crossedEye : eye}
+                    alt="Show Password"
+                  />
+                </span>
               </div>
             </div>
-            <div className="flex mt-20 mr-[10%] items-end justify-end my-4">
-              <ButtonNew
-                intent={`primary`}
-                className="w-fit px-8 font-Inter text-lg py-[0.4rem]"
+            <div className="flex justify-center mt-[3.75rem]">
+              <button
+                type="submit"
+                className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
               >
                 Deactivate
-              </ButtonNew>
+              </button>
             </div>
-          </div>
+          </form>
         )}
       </div>
     </div>

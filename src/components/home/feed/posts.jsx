@@ -25,4 +25,4 @@ const Posts = ({ bgColor, color }) => {
   );
 };
 
-export default Posts
+export default Posts;

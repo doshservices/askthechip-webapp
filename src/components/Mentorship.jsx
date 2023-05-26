@@ -9,19 +9,28 @@ const defaultFormFields = {
   password: "",
   confirmPassword: "",
   companyName: "",
-  officeAddress: ""
-}
+  officeAddress: "",
+};
 
 const Mentorship = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [accountType, setAccountType] = useState("individual");
-  const { firstName, lastName, email, phone, password, confirmPassword, companyName, officeAddress } = formFields;
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    password,
+    confirmPassword,
+    companyName,
+    officeAddress,
+  } = formFields;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
-  }
+  };
 
   return (
     <div className="grid grid-cols-12 pl-8">
@@ -50,24 +59,24 @@ const Mentorship = () => {
                   required
                 />
               </div>
+            </div>
+            <div className="flex flex-col mb-5">
+              <label htmlFor="lastName" className="font-DMSans text-sm mb-2">
+                Last Name
+              </label>
+              <div className="border border-[#2d2d2d] rounded-full bg-transparent">
+                <input
+                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  value={lastName}
+                  onChange={handleChange}
+                  placeholder="Last Name Here"
+                  required
+                />
               </div>
-              <div className="flex flex-col mb-5">
-                <label htmlFor="lastName" className="font-DMSans text-sm mb-2">
-                  Last Name
-                </label>
-                <div className="border border-[#2d2d2d] rounded-full bg-transparent">
-                  <input
-                    className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                    type="text"
-                    name="lastName"
-                    id="lastName"
-                    value={lastName}
-                    onChange={handleChange}
-                    placeholder="Last Name Here"
-                    required
-                  />
-                </div>
-              </div>
+            </div>
             <div className="flex flex-col mb-5">
               <label htmlFor="email" className="font-DMSans text-sm mb-2">
                 Email Address
@@ -91,7 +100,9 @@ const Mentorship = () => {
               </label>
               <div className="border border-[#2d2d2d] rounded-full">
                 <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                  <option disabled selected>Select Industry</option>
+                  <option disabled selected>
+                    Select Industry
+                  </option>
                   <option value="Accounting">Accounting</option>
                   <option value="Administrative">Administrative</option>
                   <option value="Consultation">Consultation</option>
@@ -104,10 +115,20 @@ const Mentorship = () => {
               <label htmlFor="message" className="font-DMSans text-sm mb-2">
                 Message
               </label>
-              <textarea className="border border-[#2d2d2d] rounded-xl bg-transparent py-4 px-4 resize-none" placeholder="Message here" name="message" id="message" cols="30" rows="5" />
+              <textarea
+                className="border border-[#2d2d2d] rounded-xl bg-transparent py-4 px-4 resize-none"
+                placeholder="Message here"
+                name="message"
+                id="message"
+                cols="30"
+                rows="5"
+              />
             </div>
             <div className="flex justify-center my-[3.75rem]">
-              <button type="submit" className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+              <button
+                type="submit"
+                className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+              >
                 Request
               </button>
             </div>

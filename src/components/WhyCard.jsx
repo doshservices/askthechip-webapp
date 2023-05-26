@@ -1,7 +1,6 @@
 import React from "react";
 
 const WhyCard = ({ title, text, icon }) => {
-
   return (
     <div className="bg-[#ffffff] max-w-[274px] shadow-lg rounded-xl px-5 pt-8 pb-5 mt-16">
       <div className="flex justify-center">
@@ -10,8 +9,12 @@ const WhyCard = ({ title, text, icon }) => {
         </div>
       </div>
       <div className="text-center">
-        <h2 className="font-normal text-xl leading-[26px] text-primary mb-3">{title}</h2>
-        <h3 className=" text-[#2d2d2d] text-justify text-xs leading-[24px]">{text}</h3>
+        <h2 className="font-normal text-xl leading-[26px] text-primary mb-3">
+          {title}
+        </h2>
+        <h3 className=" text-[#2d2d2d] text-justify text-xs leading-[24px]">
+          {text}
+        </h3>
       </div>
     </div>
   );

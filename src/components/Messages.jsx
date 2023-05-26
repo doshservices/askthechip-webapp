@@ -7,7 +7,7 @@ const Messages = () => {
   return (
     <div className="grid grid-cols-12 pl-8">
       <div className="hidden xm:grid col-span-6 h-screen pt-4 overflow-y-auto pr-10">
-      <div className="font-DMSans text-2xl font-medium my-2 mt-3">
+        <div className="font-DMSans text-2xl font-medium my-2 mt-3">
           Messages
         </div>
         <div className="mt-1">
@@ -55,7 +55,7 @@ const Messages = () => {
           </div>
           <div className="mb-4">
             <div className="font-DMSans pl-4">
-            <div className="font-medium text-xl py-1 my-1">People</div>
+              <div className="font-medium text-xl py-1 my-1">People</div>
               {servicesData.map((service, index) => (
                 <div
                   key={index}
