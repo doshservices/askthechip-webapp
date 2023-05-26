@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import coverImage from "../assets/images/cover-image.png";
 import profileImage from "../assets/images/profile-picture.png";
 import gear from "../assets/icons/gear.svg";
-import edit from "../assets/icons/edit.svg";
 import envelope from "../assets/icons/envelope.svg";
 import { aboutData, experienceData, interestTopics } from "../data";
 import { Link } from "react-router-dom";
+// import edit from "../assets/icons/edit.svg";
 // import Button from './Button';
 
 const Profile = () => {
@@ -44,7 +44,7 @@ const Profile = () => {
                   </button>
                 </div> */}
                 <div>
-                  <Link to="/settings">
+                  <Link to="/profile/settings">
                     <button className="bg-[#F7F9FA] border-[0.3px] border-tertiary text-tertiary flex pl-1 pr-3 py-[0.2rem] hover:scale-110 transition duration-200 rounded-lg items-center text-sm">
                       <img src={gear} alt="Settings" className="pr-1 pl-2" />
                       Settings

@@ -43,7 +43,7 @@ function App() {
           <Route path="/messages" element={<MessagesPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/profile/settings" element={<SettingsPage />} />
           <Route path="/services" element={<ServicesPage />} />
         </Routes>
       </SignInAsProvider>
