@@ -1,7 +1,7 @@
 import facebookPrimary from "./../assets/icons/facebookPrimary.svg";
 import instagramPrimary from "./../assets/icons/instagramPrimary.svg";
 import youtubePrimary from "./../assets/icons/youtubePrimary.svg";
-import twitterPrimary from "./../assets/icons/twitterPrimary.svg";
+import linkedInPrimary from "./../assets/icons/linkedin-primary.svg";
 
 const socials = [
   {
@@ -11,6 +11,10 @@ const socials = [
   {
     link: "",
     icon: youtubePrimary,
+  },
+  {
+    link: "",
+    icon: linkedInPrimary,
   },
 ];
 

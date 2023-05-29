@@ -5,7 +5,7 @@ import Chat from "./Chat";
 
 const Messages = () => {
   return (
-    <div className="grid grid-cols-12 pl-8">
+    <div className="grid grid-cols-12 pl-0 xm:pl-4">
       <div className="hidden xm:grid col-span-6 h-screen pt-4 overflow-y-auto pr-10">
         <div className="font-DMSans text-2xl font-medium my-2 mt-3">
           Messages

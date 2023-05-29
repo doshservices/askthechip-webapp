@@ -12,10 +12,10 @@ const HomePage = () => {
   return (
     <>
       <section className="hidden sm:grid grid-cols-24 justify-between">
-        <div className="col-span-1 sm:col-span-1 xm:col-span-4 h-screen overflow-y-auto border-r border-[#EBEEF0]">
+        <div className="col-span-3 sm:col-span-3 xm:col-span-4 h-screen overflow-y-auto border-r border-[#EBEEF0]">
           <SideNav />
         </div>
-        <div className="col-span-11 sm:col-span-11 xm:col-span-14 h-screen overflow-y-auto pl-10 pr-[3.75rem] border-r border-[#EBEEF0]">
+        <div className="col-span-21 sm:col-span-21 xm:col-span-14 h-screen overflow-y-auto pl-10 pr-[3.75rem] border-r border-[#EBEEF0]">
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Share />
           <Posts
@@ -29,7 +29,7 @@ const HomePage = () => {
         </div>
       </section>
       <MobileLayout>
-        <div>
+        <div className="overflow-x-hidden px-1 sm:px-4">
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Share />
           <Posts

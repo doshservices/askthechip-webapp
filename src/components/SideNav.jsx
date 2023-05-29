@@ -8,9 +8,9 @@ const SideNav = () => {
   return (
     <header className="min-h-screen grow">
       <nav className="font-Inter">
-        <Link to="/" className="flex items-center ml-8 pt-4 mb-11">
+        <Link to="/" className="flex items-center ml-6 md:ml-8 pt-4 mb-11">
           <img src={logo} alt="logo" />
-          <div className="font-bold text-primary90 ml-2">Askthechip</div>
+          <div className="hidden xm:flex font-bold text-primary90 ml-2">Askthechip</div>
         </Link>
         <ul>
           <li>
@@ -18,8 +18,8 @@ const SideNav = () => {
               to="/home"
               className={({ isActive }) =>
                 isActive
-                  ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-8"
-                  : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-9 h-11"
+                  ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-0 xm:pl-8"
+                  : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-1 xm:ml-9 h-11"
               }
             >
               <svg
@@ -43,8 +43,8 @@ const SideNav = () => {
               to="/services"
               className={({ isActive }) =>
                 isActive
-                  ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-8"
-                  : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-9 h-11"
+                  ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-1 xm:pl-8"
+                  : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-2 xm:ml-9 h-11"
               }
             >
               <svg
@@ -67,8 +67,8 @@ const SideNav = () => {
             to="/notifications"
             className={({ isActive }) =>
               isActive
-                ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-8"
-                : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-9 h-11"
+                ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-0 xm:pl-8"
+                : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-1 xm:ml-9 h-11"
             }
           >
             <li className="flex justify-center xm:justify-start text-base font-medium items-center  gap-2 my-6">
@@ -94,8 +94,8 @@ const SideNav = () => {
             to="/mentorship"
             className={({ isActive }) =>
               isActive
-                ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-8"
-                : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-9 h-11"
+                ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-0 xm:pl-8"
+                : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-1 xm:ml-9 h-11"
             }
           >
             <li className="flex justify-center xm:justify-start text-base font-medium items-center gap-2 my-6">
@@ -121,8 +121,8 @@ const SideNav = () => {
             to="/messages"
             className={({ isActive }) =>
               isActive
-                ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-8"
-                : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-9 h-11"
+                ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-0 xm:pl-8"
+                : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-1 xm:ml-9 h-11"
             }
           >
             <li className="flex justify-center xm:justify-start text-base font-medium items-center gap-2 my-6">
@@ -144,15 +144,15 @@ const SideNav = () => {
           </NavLink>
         </ul>
         <div className="my-5">
-          <div className=" border-t border-dark2D/40 mx-10"></div>
+          <div className=" border-t border-dark2D/40 mx-5 xm:mx-10"></div>
         </div>
         <div>
           <NavLink
             to="/profile"
             className={({ isActive }) =>
               isActive
-                ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-8"
-                : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-9 h-11"
+                ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-0 xm:pl-8"
+                : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-1 xm:ml-9 h-11"
             }
           >
             <div className="flex justify-center xm:justify-start text-base font-medium items-center gap-2 my-6">
@@ -172,9 +172,9 @@ const SideNav = () => {
               <span className="ml-[4px] text-sm hidden xm:flex">Profile</span>
             </div>
           </NavLink>
-          <div className="flex justify-center xm:justify-start text-sm font-medium items-center gap-2 mt-2 ml-9 text-[#EB5757]">
+          <div className="flex items-center xm:items-start justify-center xm:justify-start text-sm font-medium gap-2 mt-2 ml-1 xm:ml-9 text-[#EB5757]">
             <img src={power} alt="Settings" className="px-0.5" />
-            Log out
+            <span className="hidden xm:flex">Log out</span>
           </div>
         </div>
       </nav>

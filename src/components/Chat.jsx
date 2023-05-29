@@ -5,13 +5,13 @@ import camera from "../assets/icons/camera.svg";
 const Chat = () => {
   return (
     <div className="h-[calc(100vh_-_4.5rem)] sm:h-screen overflow-y-hidden font-DMSans">
-      <div className="h-16 bg-white w-full shadow pl-2 xm:pl-4 ">
+      <div className="h-16 bg-white w-full shadow pl-4">
         <div className="font-medium text-xl sm:text-2xl mt-2">Sturum</div>
         <div className="text-[#303030] text-xs sm:text-sm font-light">
           Last seen, 2:02pm
         </div>
       </div>
-      <div className="h-[calc(100vh_-_14.5rem)] sm:h-[calc(100vh_-_10rem)] overflow-y-auto pt-2">
+      <div className="h-[calc(100vh_-_14.5rem)] sm:h-[calc(100vh_-_10rem)] overflow-y-auto pt-2 px-2">
         <div className="px-1 md:pr-4 xm:pr-2">
           <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
             Hey there

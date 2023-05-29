@@ -11,10 +11,10 @@ const Share = () => {
   return (
     <section className="px-1">
       <div className="flex">
-        <div className="mr-6 mt-2 w-12 h-12">
+        <div className="mr-1 sm:mr-6 mt-2 w-full sm:w-14 h-8 sm:h-12">
           <img src={profileImg} alt={profileImg} className={`rounded-full`} />
         </div>
-        <div className="flex flex-col justify-between w-full rounded-lg bg-[#f4f4f4]">
+        <div className="flex flex-col justify-between w-[calc(100%_-_2rem)] rounded-lg bg-[#f4f4f4]">
           <div className="ml-2 flex w-full justify-between">
             <div className="flex ml-2 w-[80%]">
               <textarea
