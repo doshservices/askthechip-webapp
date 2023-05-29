@@ -22,7 +22,7 @@ const Notifications = () => {
   return (
     <div className="grid grid-cols-12">
       <div className="overflow-y-hidden sm:h-screen h-[calc(100vh_-_4.5rem)] border-r border-[#EBEEF0] flex flex-col col-span-12 md:col-span-11 xm:col-span-6 font-DMSans pt-2">
-        <div className="h-16 flex flex-col sm:flex-row justify-between">
+        <div className="h-fit sm:h-16 flex flex-col sm:flex-row justify-between">
           <div className="flex font-medium justify-between sm:justify-start items-center">
             <div className="text-2xl ml-4 xm:ml-10 font-DMSans">
               Notifications
@@ -31,10 +31,10 @@ const Notifications = () => {
         </div>
         <div className="h-[calc(100vh_-_10rem)] sm:h-screen overflow-y-auto mt-4">
           <div className="grid grid-cols-24 mt-2 bg-[#f3f3f3] py-3 border-b border-[#000]/10">
-            <div className="col-span-3 sm:col-span-3 ml-5">
+            <div className="col-span-4 sm:col-span-3 ml-1 sm:ml-5">
               <img src={user} alt="User" className="rounded-full p-1.5" />
             </div>
-            <div className="col-span-21 mx-5 my-3">
+            <div className="col-span-20 mx-2 md:mx-5 my-3">
               <div className="mb-3">Lex Murphy liked your post</div>
               <div className="text-[#A5ACB8] text-xs font-medium">
                 Today at 9:42 AM
@@ -42,10 +42,10 @@ const Notifications = () => {
             </div>
           </div>
           <div className="grid grid-cols-24 mt-2 py-3 border-b border-[#000]/10">
-            <div className="col-span-3 sm:col-span-3 ml-5">
+            <div className="col-span-4 sm:col-span-3 ml-1 sm:ml-5">
               <img src={user} alt="User" className="rounded-full p-1.5" />
             </div>
-            <div className="col-span-21 mx-5 my-3">
+            <div className="col-span-20 mx-2 md:mx-5 my-3">
               <div className="mb-3">
                 Dennis Nedry commented on Isla Nublar SOC2 post
               </div>
@@ -55,10 +55,10 @@ const Notifications = () => {
             </div>
           </div>
           <div className="grid grid-cols-24 mt-2 bg-[#f3f3f3] py-3 border-b border-[#000]/10">
-            <div className="col-span-3 sm:col-span-3 ml-5">
+            <div className="col-span-4 ml-1 sm:ml-5">
               <img src={user} alt="User" className="rounded-full p-1.5" />
             </div>
-            <div className="col-span-21 mx-5 my-3">
+            <div className="col-span-20 mx-2 md:mx-5 my-3">
               <div className="mb-3">Lex Murphy liked your post</div>
               <div className="text-[#A5ACB8] text-xs font-medium">
                 Today at 9:42 AM
@@ -66,10 +66,10 @@ const Notifications = () => {
             </div>
           </div>
           <div className="grid grid-cols-24 mt-2 bg-[#f3f3f3] py-3 border-b border-[#000]/10">
-            <div className="col-span-3 sm:col-span-3 ml-5">
+            <div className="col-span-4 ml-1 sm:ml-5">
               <img src={user} alt="User" className="rounded-full p-1.5" />
             </div>
-            <div className="col-span-21 mx-5 my-3">
+            <div className="col-span-20 mx-2 md:mx-5 my-3">
               <div className="mb-3">
                 Dennis Nedry commented on Isla Nublar SOC2 post
               </div>
@@ -82,10 +82,10 @@ const Notifications = () => {
       </div>
       <div className="xm:flex flex-col hidden md:hidden xm:col-span-6">
         <div className="grid grid-cols-24 mt-20 py-3">
-          <div className="col-span-3 sm:col-span-3 ml-4">
+          <div className="col-span-4 ml-4">
             <img src={user} alt="User" className="rounded-full p-1.5" />
           </div>
-          <div className="col-span-21 mx-4 mt-1">
+          <div className="col-span-20 mx-4 mt-1">
             <div className="mb-1.5">
               Dennis Nedry commented on Isla Nublar SOC2 post
             </div>
