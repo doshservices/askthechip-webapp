@@ -1,31 +1,18 @@
 import { Profile } from ".";
 import { useState } from "react";
-import { Share, Posts } from "./home";
+import { Share, Posts, Search } from "./home";
 
 const ProfileDesktop = () => {
   const [darkMode, setDarkMode] = useState(false);
   return (
     <section className="grid grid-cols-12">
-      <div className="col-span-12 xm:col-span-6 h-screen overflow-y-auto border-r border-[#EBEEF0] pl-10 pr-5">
-        <div>
-          <div className="font-DMSans text-2xl font-medium my-5 mb-6">
-            Profile
-          </div>
+      <div className="col-span-12 xm:col-span-12 h-screen overflow-y-auto border-r border-[#EBEEF0]">
+      <div className="hidden xm:flex py-4 border-b border-[#EBEEF0] pr-20 pl-10">
+        <Search />
+      </div>
+        <div className=" pr-20 pl-10">
           <Profile />
         </div>
-      </div>
-      <div className="hidden xm:grid xm:col-span-6 h-screen overflow-y-auto overflow-x-hidden px-5">
-        <div className="mt-10">
-          <Share />
-        </div>
-        <Posts
-          bgColor={darkMode ? "#79878D" : "white"}
-          color={darkMode ? "white" : "black"}
-        />
-        <Posts
-          bgColor={darkMode ? "#79878D" : "white"}
-          color={darkMode ? "white" : "black"}
-        />
       </div>
     </section>
   );
