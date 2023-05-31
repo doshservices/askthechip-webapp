@@ -162,7 +162,37 @@ export const pricingData = [
     price: 49,
     priceBg: "#0085FF",
     buttonVal: "Start Free 14-days Trial",
-    link: "pricing/payment",
+    link: "/pricing/payment",
+    desc: [
+      {
+        icon: check,
+        text: "Access to startup support services",
+      },
+      {
+        icon: check,
+        text: "Access to capacity development program",
+      },
+      {
+        icon: check,
+        text: "Access to shared experience",
+      },
+      {
+        icon: check,
+        text: "Access to capital via investors and financiers",
+      },
+      {
+        icon: check,
+        text: "Access to coaching and mentorship",
+      },
+    ],
+  },
+  {
+    title: "Custom",
+    subtitle: "For professional domain names investors with a big portfolio.",
+    price: 49,
+    priceBg: "#A25DDC",
+    buttonVal: "Start Free 14-days Trial",
+    link: "/pricing/payment",
     desc: [
       {
         icon: check,
