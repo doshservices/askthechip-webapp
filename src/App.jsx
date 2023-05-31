@@ -20,12 +20,10 @@ import {
 } from "./pages";
 
 import HomePage from "./pages/Homepage";
-import { SignInAsProvider } from "./contexts";
 
 function App() {
   return (
     <div>
-      <SignInAsProvider>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<SignIn />} />
@@ -43,10 +41,9 @@ function App() {
           <Route path="/messages" element={<MessagesPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/profile/settings" element={<SettingsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="/services" element={<ServicesPage />} />
         </Routes>
-      </SignInAsProvider>
     </div>
   );
 }

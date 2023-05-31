@@ -3,7 +3,7 @@ import search from "../../../assets/search.svg";
 const Search = ({ background }) => {
   return (
     <div
-      className="flex rounded-lg items-center border border-[#EBEEF0] px-5 mx-5"
+      className="flex rounded-lg items-center w-full border border-[#EBEEF0] px-5 mx-5"
       style={{ backgroundColor: background }}
     >
       <input

@@ -31,7 +31,8 @@ module.exports = {
       'handBulb': "url(./assets/images/hand-bulb.svg)",
       'foundersConnect': "url(./assets/images/founders_connect.jpg)",
       'authImage': "url(./assets/images/auth-image.png)",
-      'dottedRectangle': "url(./assets/icons/dotted-rectangles.svg)"
+      'dottedRectangle': "url(./assets/icons/dotted-rectangles.svg)",
+      'coverImage': "url(./assets/images/cover-image.png)"
     },
     screens: {
       'xs': '576px',

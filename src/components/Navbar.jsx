@@ -1,12 +1,10 @@
-import { useRef, useContext } from "react";
+import { useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "./../assets/ask.svg";
-import { SignInAsContext } from "../contexts/SignInAsContext";
 
 const Navbar = () => {
-  const { openSignInModal } = useContext(SignInAsContext);
 
   const navRef = useRef();
   const showMenu = () => {
@@ -74,10 +72,19 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex justify-center items-center">
-          <div onClick={openSignInModal}>
-            <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.875rem] py-[0.625rem] rounded-lg">
-              Join Now
+          <div className="mr-[0.625rem]">
+            <Link to="/provider-signup">
+            <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.875rem] py-[0.625rem] rounded-lg transition duration-200 hover:scale-90 active:100">
+              Become a Provider
             </button>
+            </Link>
+          </div>
+          <div>
+            <Link to="/sign-up">
+              <button className="text-light border border-primary80 bg-primary80 font-medium text-sm px-[1.875rem] py-[0.625rem] rounded-lg transition duration-200 hover:scale-90 active:100">
+                Join Now
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -139,9 +146,18 @@ const Navbar = () => {
             </HashLink>
           </div>
 
-          <div className="flex justify-center my-4" onClick={openSignInModal}>
-            <div className="px-8 bg-primary py-1 rounded-lg text-white">
-              Join Now
+          <div className="flex justify-center my-4">
+            <div className="px-8 border border-primary80 py-1 rounded-lg text-primary80">
+              <Link to="provider-signup">
+                Become a Provider
+              </Link> 
+            </div>
+          </div>
+          <div className="flex justify-center my-4">
+            <div className="px-8 border border-primary80 bg-primary80 py-1 rounded-lg text-white">
+              <Link to="sign-up">
+                Join Now
+              </Link>
             </div>
           </div>
           <button
