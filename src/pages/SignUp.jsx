@@ -279,11 +279,19 @@ const SignUp = () => {
                       Continue with Google
                     </button>
                   </div>
+                  <div className="flex justify-center">
                   <div className="font-DMSans text-sm text-center pb-4">
                     Already have an account?{" "}
                     <Link to="/login" className="font-bold text-primary90">
                       Login
                     </Link>
+                  </div>
+                  <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                     or{" "}
+                    <Link to="/provider-signup" className="ml-1 font-bold text-primary90">
+                      Signup As a Provider
+                    </Link>
+                  </div>
                   </div>
                 </form>
               )}
@@ -438,11 +446,19 @@ const SignUp = () => {
                       Continue with Google
                     </button>
                   </div>
+                  <div className="flex justify-center">
                   <div className="font-DMSans text-sm text-center pb-4">
                     Already have an account?{" "}
                     <Link to="/login" className="font-bold text-primary90">
                       Login
                     </Link>
+                  </div>
+                  <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                     or{" "}
+                    <Link to="/provider-signup" className="ml-1 font-bold text-primary90">
+                      Signup As a Provider
+                    </Link>
+                  </div>
                   </div>
                 </form>
               )}
