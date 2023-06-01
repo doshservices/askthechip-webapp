@@ -159,7 +159,7 @@ export const pricingData = [
   {
     title: "Premium",
     subtitle: "For professional domain names investors with a big portfolio.",
-    price: 49,
+    price: 5000,
     priceBg: "#0085FF",
     buttonVal: "Start Free 14-days Trial",
     link: "/pricing/payment",
@@ -189,7 +189,7 @@ export const pricingData = [
   {
     title: "Custom",
     subtitle: "For professional domain names investors with a big portfolio.",
-    price: 49,
+    price: 5000,
     priceBg: "#A25DDC",
     buttonVal: "Start Free 14-days Trial",
     link: "/pricing/payment",
