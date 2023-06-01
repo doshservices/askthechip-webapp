@@ -162,7 +162,8 @@ export const pricingData = [
     price: 5000,
     priceBg: "#0085FF",
     buttonVal: "Start Free 14-days Trial",
-    link: "/pricing/payment",
+    // link: "/pricing/payment",
+    link: "/sign-up",
     desc: [
       {
         icon: check,
@@ -192,7 +193,8 @@ export const pricingData = [
     price: 5000,
     priceBg: "#A25DDC",
     buttonVal: "Start Free 14-days Trial",
-    link: "/pricing/payment",
+    // link: "/pricing/payment",
+    link: "/sign-up",
     desc: [
       {
         icon: check,

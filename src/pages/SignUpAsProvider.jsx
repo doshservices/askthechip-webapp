@@ -459,7 +459,28 @@ const SignUpAsProvider = () => {
                     <FileUploadInput />
                   </div>
                   <div>
-                    <div className="font-DMSans text-sm">Valid ID (e.g NIN, International Passport, Drivers License)</div>
+                  <div className="flex flex-col mb-5">
+                    <label
+                      htmlFor="serviceType"
+                      className="font-DMSans text-sm mb-2"
+                    >
+                      Document Type
+                    </label>
+                    <div className="border border-[#2d2d2d] rounded-full">
+                      <select
+                        id="serviceType"
+                        className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
+                      >
+                        <option disabled selected>
+                          Select Document Type
+                        </option>
+                        <option>Driver's license</option>
+                        <option>International Passport</option>
+                        <option>National Identity Card</option>
+                        <option>Voter's card</option>
+                      </select>
+                    </div>
+                  </div>
                     <FileUploadInput />
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">

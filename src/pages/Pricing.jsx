@@ -116,9 +116,7 @@ const Pricing = () => {
                   {data.title === "Custom" ?
                     <div className="mb-2">
                       <button onClick={()=>handleNavigate(data.link)} disabled={selectedVal === "Pick a plan"} className="bg-primary80 hover:scale-95 disabled:bg-primary80/40 transition duration-200 rounded-full text-white w-full py-2">
-                        {/* <Link to={`/${data.link}`}> */}
                           {data.buttonVal}
-                        {/* </Link> */}
                       </button>
                     </div>
                     :
