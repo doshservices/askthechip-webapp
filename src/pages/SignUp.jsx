@@ -61,7 +61,7 @@ const SignUp = () => {
                   Create an account
                 </h1>
                 <p className="font-DMSans text-[#2d2d2d90]">
-                  Fill out the fields below to create your account
+                  Fill out the fields below to create your account as a user
                 </p>
               </div>
               <div className="flex justify-center mb-10">
