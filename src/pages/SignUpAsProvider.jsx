@@ -274,11 +274,19 @@ const SignUpAsProvider = () => {
                       Create Account
                     </button>
                   </div>
-                  <div className="font-DMSans text-sm text-center pb-4 mt-3">
+                  <div className="flex justify-center pt-3">
+                  <div className="font-DMSans text-sm text-center pb-4">
                     Already have an account?{" "}
                     <Link to="/login" className="font-bold text-primary90">
                       Login
                     </Link>
+                  </div>
+                  <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                     or{" "}
+                    <Link to="/sign-up" className="ml-1 font-bold text-primary90">
+                      Signup As a User
+                    </Link>
+                  </div>
                   </div>
                 </form>
               )}
@@ -451,7 +459,7 @@ const SignUpAsProvider = () => {
                     <FileUploadInput />
                   </div>
                   <div>
-                    <div className="font-DMSans text-sm">Representative ID</div>
+                    <div className="font-DMSans text-sm">Valid ID (e.g NIN, International Passport, Drivers License)</div>
                     <FileUploadInput />
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
@@ -462,11 +470,19 @@ const SignUpAsProvider = () => {
                       Create Account
                     </button>
                   </div>
+                  <div className="flex justify-center pt-3">
                   <div className="font-DMSans text-sm text-center pb-4">
                     Already have an account?{" "}
                     <Link to="/login" className="font-bold text-primary90">
                       Login
                     </Link>
+                  </div>
+                  <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                     or{" "}
+                    <Link to="/sign-up" className="ml-1 font-bold text-primary90">
+                      Signup As a user
+                    </Link>
+                  </div>
                   </div>
                 </form>
               )}
