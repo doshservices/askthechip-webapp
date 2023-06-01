@@ -123,7 +123,7 @@ const Pricing = () => {
                     </div>
                     :
                     <div className="mb-2">
-                      <Link to={`/${data.link}`}>
+                      <Link to={`${data.link}`}>
                         <button className="bg-primary80 hover:scale-95 transition duration-200 rounded-full text-white w-full py-2">
                           {data.buttonVal}
                         </button>
