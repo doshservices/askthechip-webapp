@@ -296,27 +296,207 @@ import blogImg from "./../assets/blog-img.svg";
 
 export const servicesData = [
   {
-    category: "Business and Consultancy",
-    title: "Boston Consulting Group",
-    rating: "100",
-    image: blogImg,
-  },
-  {
     category: "Accounting",
-    title: "Ernst and young",
-    rating: "80",
-    image: blogImg,
+    data: [
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+    ]
+    
   },
   {
-    category: "Legal Services",
-    title: "Templars Law Inc",
-    rating: "90",
-    image: blogImg,
+    category: "Administrative",
+    data: [
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+    ]
+    
+  },
+  {
+    category: "Consulting",
+    data: [
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+    ]
+    
+  },
+  {
+    category: "Financial",
+    data: [
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+    ]
+    
+  },
+  {
+    category: "Legal",
+    data: [
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+    ]
+    
+  },
+  {
+    category: "Marketing",
+    data: [
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+    ]
+    
   },
   {
     category: "Technology",
-    title: "Sturum",
-    rating: "100",
-    image: blogImg,
+    data: [
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+      {
+        title: "Ernst and young",
+        rating: "80",
+        image: blogImg,
+      },
+      {
+        title: "Boston Consulting Group",
+        rating: "100",
+        image: blogImg,
+      },
+    ]
   },
 ];
+
+export const messagesData = [
+  {
+    sender: "Shai Hulud",
+    message: "Okay nah... No wahala",
+    image: blogImg,
+  },
+  {
+    sender: "Rahmlad Aramide",
+    message: "Yo my amigo, whatsup?",
+    image: blogImg,
+  },
+  {
+    sender: "Developer Ezra",
+    message: "Team, let's join the meeting",
+    image: blogImg,
+  },
+  {
+    sender: "Rahman Senior",
+    message: "How far Rahman?",
+    image: blogImg,
+  },
+]

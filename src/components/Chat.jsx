@@ -6,7 +6,7 @@ const Chat = () => {
   return (
     <div className="h-[calc(100vh_-_4.5rem)] sm:h-screen overflow-y-hidden font-DMSans">
       <div className="h-16 bg-white w-full shadow pl-4">
-        <div className="font-medium text-xl sm:text-2xl mt-2">Sturum</div>
+        <div className="font-medium text-xl sm:text-2xl mt-0 pt-1">Shai Hulud</div>
         <div className="text-[#303030] text-xs sm:text-sm font-light">
           Last seen, 2:02pm
         </div>
@@ -17,15 +17,15 @@ const Chat = () => {
             Hey there
           </div>
           <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
-            How are you?
-          </div>
-          <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
             Hii
           </div>
           <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
-            I'm fine what about you?
+            How are you?
           </div>
           <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+            I'm fine what about you?
+          </div>
+          <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
             I'm fine too
           </div>
           <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
