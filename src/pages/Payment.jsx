@@ -271,7 +271,9 @@ const Payment = () => {
                   type="submit"
                   className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
                 >
-                  Start Trial
+                  <Link to="/sign-up">
+                    Start Trial
+                  </Link>
                 </button>
               </div>
             </div>
