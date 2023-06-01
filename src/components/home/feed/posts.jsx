@@ -2,17 +2,22 @@
 import postImg from "../../../assets/post-img.png";
 import profileImage from "../../../assets/images/profile-picture.png";
 import like from "../../../assets/icons/like-icon.svg";
+import dislike from "../../../assets/icons/dislike-icon.svg";
 import share from "../../../assets/icons/share-icon.svg";
 import comment from "../../../assets/icons/comment-icon.svg";
 import reply from "../../../assets/icons/reply-icon.svg";
 
 const reactions = [
   {
+    icon: comment,
+    value: 61,
+  },
+  {
     icon: like,
     value: 61,
   },
   {
-    icon: comment,
+    icon: dislike,
     value: 61,
   },
   {
@@ -51,19 +56,19 @@ const Posts = ({ bgColor, color }) => {
         <h4 className="font-medium mb-3">Tom is in a big hurry</h4>
         <img src={postImg} alt="post-img" className="w-full" />
       </div>
-      <div className="flex justify-between mt-5">
+      <div className="col-span-12 flex justify-between mt-5">
         <div className="flex">
-          {reactions.map((rxn) => (
-            <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
-              <div className="mr-3">
-                <img src={rxn.icon} alt="Comment" />
+          {reactions.map((rxn, index) => (
+            <div key={index} className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
+              <div className="ml-5 mr-1 w-5">
+                <img src={`${rxn.icon}`} alt="Comment" />
               </div>
-              <span className="text-center mt-1 mr-10">{rxn.value}</span>
+              <span className="text-center mt-1 mr-5">{rxn.value}</span>
             </div>
           ))}
         </div>
         <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center">
-          <div className="mr-3">
+          <div className="mr-1">
             <img src={reply} alt="Reply" />
           </div>
           <span className="text-center mt-1">Reply</span>

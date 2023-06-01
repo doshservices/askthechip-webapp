@@ -1,5 +1,4 @@
 import React from "react";
-import { Search } from "./home";
 import { servicesData } from "../data";
 
 const ServicesMobile = ({ serviceType }) => {
@@ -11,14 +10,14 @@ const ServicesMobile = ({ serviceType }) => {
         {servicesData.map((service, index) => (
           <div key={index} className="grid grid-cols-12 pt-2 pb-4 my-2 border-b border-[#EBEEF0]">
             <div className="col-span-3 ml-auto mr-3">
-              <img src={service.image} alt="blog" className="rounded" />
+              <img src={service.data.image} alt="blog" className="rounded" />
             </div>
             <div className="col-span-9 ml-3">
               <div className="font-medium text-sm text-dark2D/80 mb-1.5">
-                {service.title}
+                {service.data.title}
               </div>
               <div className="text-xs text-dark2D/80">
-                {service.rating}k views
+                {service.data.rating}k views
               </div>
             </div>
           </div>

@@ -1,42 +1,56 @@
-const Header = ({ darkMode, setDarkMode }) => {
-  const handleLightMode = () => {
-    if (darkMode === true) {
-      setDarkMode(!darkMode);
-    }
-  };
-  const handleDarkMode = () => {
-    if (darkMode === false) {
-      setDarkMode(!darkMode);
-    }
-  };
+import Search from "./search/search";
+
+const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) => {
+  const pathname = window.location.pathname;
+
   return (
-    <div className="flex justify-between py-5">
-      <h3 className="text-[#0F1419] font-bold font-Inter text-[1.1875rem]">
-        Home
-      </h3>
+    <div className="flex justify-between py-5 w-[calc(100%_-_2rem)]">
       <div className="flex gap-2 cursor-pointer">
-        <div className="flex justify-center text-light text-xs rounded-full border border-[#2d2d2d] w-fit p-1">
-          <div
-            onClick={handleLightMode}
-            className={
-              !darkMode
-                ? `px-5 bg-primary80 rounded-full py-1 cursor-pointer`
-                : `px-5 text-[#2d2d2d] rounded-full py-1 cursor-pointer`
-            }
+        <div className="flex justify-center text-xs rounded-full w-fit p-1">
+          {pathname === "/home"
+            ? <>
+              <div
+                onClick={handleAllPost}
+                className={
+                  darkMode === "All Posts"
+                    ? `px-5 bg-[#E9E9E9] text-dark2D rounded-full pb-0.5 pt-1.5 cursor-pointer`
+                    : `px-5 bg-transparent text-[#8C8C8C] rounded-full pb-0.5 pt-1.5 cursor-pointer`
+                }
+              >
+                All Posts
+              </div>
+              <div
+                onClick={handleLightMode}
+                className={
+                  darkMode === "White Board"
+                    ? `px-5 bg-[#E9E9E9] text-dark2D rounded-full pb-0.5 pt-1.5 cursor-pointer`
+                    : `px-5 bg-transparent text-[#8C8C8C] rounded-full pb-0.5 pt-1.5 cursor-pointer`
+                }
+              >
+                White Board
+              </div>
+              <div
+                onClick={handleDarkMode}
+                className={
+                  darkMode === "Black Board"
+                    ? `px-5 bg-[#E9E9E9] text-dark2D rounded-full pb-0.5 pt-1.5 cursor-pointer`
+                    : `px-5 bg-transparent text-[#8C8C8C] rounded-full pb-0.5 pt-1.5 cursor-pointer`
+                }
+              >
+                Black Board
+              </div>
+            </>
+            : 
+            <div
+            className={ `px-5 bg-[#E9E9E9] text-dark2D rounded-full pb-0.5 pt-1.5 cursor-pointer`            }
           >
-            White Board
+            All Services
           </div>
-          <div
-            onClick={handleDarkMode}
-            className={
-              darkMode
-                ? `px-5 bg-primary80 rounded-full py-1 cursor-pointer`
-                : `px-5 text-[#2d2d2d] rounded-full py-1 cursor-pointer`
-            }
-          >
-            Black Board
-          </div>
+          }
         </div>
+      </div>
+      <div className="w-[35%]">
+        <Search background={"#FCFCFC"} />
       </div>
     </div>
   );
