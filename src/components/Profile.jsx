@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import coverImage from "../assets/images/cover-image.png";
 import profileImage from "../assets/images/profile-picture.png";
 import gear from "../assets/icons/gear.svg";
+import photo from '../assets/images/photo.svg'
 import envelope from "../assets/icons/envelope.svg";
 import { aboutData, experienceData, interestTopics } from "../data";
 import { Link } from "react-router-dom";
 import edit from "../assets/icons/edit.svg";
+import camera from "../assets/icons/camera-icon.svg";
+import briefcase from "../assets/icons/briefcase-icon.svg";
+import followers from "../assets/icons/followers-icon.svg";
+import mapMarker from "../assets/icons/map-marker.svg";
+import { Posts, Share } from "./home";
 // import Button from './Button';
 
 const Profile = () => {
@@ -29,11 +35,14 @@ const Profile = () => {
       </div>
       <div className="grid-cols-3 ml-8">
         <div className="col-span-1 -mt-[4rem] sm:-mt-[5rem] xm:-mt-[4rem]">
-          <img
-            src={profileImage}
-            alt="Profile Image"
-            className="rounded-full max-w-[8rem] sm:max-w-[10rem] xm:max-w-[8rem]"
-          />
+          <div className="relative">
+            <img
+              src={profileImage}
+              alt="Profile Image"
+              className="rounded-full max-w-[8rem] sm:max-w-[10rem] xm:max-w-[8rem]"
+            />
+            <img src={camera} alt="Camera" className="bottom-0 left-14 absolute bg-black/50 rounded" />
+          </div>
         </div>
 
         <div className="text-[#181818] mb-2 flex justify-between border-b border-[#EBEEF0] py-4">
@@ -46,8 +55,8 @@ const Profile = () => {
             {viewer === "self" ? (
               <div className="flex">
                 <div>
-                  <button className="bg-tertiary border-[0.3px] mr-4 text-white border-tertiary flex px-2 py-[0.2rem] hover:scale-110 transition duration-200 rounded-lg items-center text-sm">
-                    <img src={edit} alt="Edit Profile" className="px-1" />
+                  <button className="bg-tertiary border-[0.3px] mr-4 text-white text-center border-tertiary flex px-4 py-[0.2rem] hover:scale-110 transition duration-200 rounded-lg items-center text-sm">
+                    <img src={edit} alt="Edit Profile" className="p-1" />
                     Edit Profile
                   </button>
                 </div>
@@ -64,11 +73,128 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <div className="text-sm font-DMSans">
+        <div className="grid grid-cols-12">
+          <div className="col-span-4 border-r border-[#ebeef0] pr-4">
+            <div className="bg-[#f4f4f4] rounded-lg py-4">
+              <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">About</div>
+              <div className="px-4">
+                <div className="flex items-center pt-4">
+                  <div>
+                    <img src={briefcase} alt="Briefcase" />
+                  </div>
+                  <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
+                    UX/UI Designer at <span className="text-primary80">Dosh Services Ltd</span>
+                  </div>
+                </div>
+                <div className="flex items-center pt-4">
+                  <div>
+                    <img src={briefcase} alt="Briefcase" />
+                  </div>
+                  <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
+                    Super Hero at <span className="text-primary80">The Avengers</span>
+                  </div>
+                </div>
+                <div className="flex items-center pt-4">
+                  <div>
+                    <img src={followers} alt="Briefcase" />
+                  </div>
+                  <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
+                    Followed by 300 People
+                  </div>
+                </div>
+                <div className="flex items-center pt-4">
+                  <div>
+                    <img src={mapMarker} alt="Briefcase" />
+                  </div>
+                  <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
+                    From Mombasa, Kenya
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="mt-5 bg-[#f4f4f4] rounded-lg py-4">
+              <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">Photos</div>
+              <div className="grid grid-cols-12 gap-4 p-4">
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" />
+                </div>
+              </div>
+            </div>
+            <div className="mt-5 bg-[#f4f4f4] rounded-lg py-4 mb-8">
+              <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">Friends</div>
+              <div className="grid grid-cols-12 gap-4 p-4">
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" className="rounded-full" />
+                </div>
+                <div className="col-span-4">
+                  <img src={profileImage} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" className="rounded-full" />
+                </div>
+                <div className="col-span-4">
+                  <img src={profileImage} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" className="rounded-full" />
+                </div>
+                <div className="col-span-4">
+                  <img src={profileImage} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" className="rounded-full" />
+                </div>
+                <div className="col-span-4">
+                  <img src={profileImage} alt="Photos" />
+                </div>
+                <div className="col-span-4">
+                  <img src={photo} alt="Photos" className="rounded-full" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-span-8">
+            <div className="p-4">
+              <Share />
+            </div>
+            <div className="m-4 rounded-lg bg-[#f4f4f4]">
+              <Posts />
+            </div>
+            <div className="m-4 rounded-lg bg-[#f4f4f4]">
+              <Posts />
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="text-sm font-DMSans">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus
           eros eu vehicula interdum.{" "}
-        </div>
-        {type === "personal" ? (
+        </div> */}
+        {/* {type === "personal" ? (
           <div className="text-[#181818] font-DMSans">
             <div className="text-[#181818] font-medium mt-3 text-lg">
               Work Experience
@@ -115,9 +241,9 @@ const Profile = () => {
               </div>
             ))}
           </div>
-        )}
+        )} */}
 
-        <div className="font-DMSans">
+        {/* <div className="font-DMSans">
           <div className="text-[#181818] font-medium mt-3 text-lg">
             Interests
           </div>
@@ -135,7 +261,7 @@ const Profile = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

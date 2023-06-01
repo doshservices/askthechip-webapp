@@ -5,7 +5,7 @@ import camera from "../assets/icons/camera.svg";
 const Chat = () => {
   return (
     <div className="h-[calc(100vh_-_4.5rem)] sm:h-screen overflow-y-hidden font-DMSans">
-      <div className="h-16 bg-white w-full shadow pl-4">
+      <div className="h-16 w-full shadow pl-4">
         <div className="font-medium text-xl sm:text-2xl mt-0 pt-1">Shai Hulud</div>
         <div className="text-[#303030] text-xs sm:text-sm font-light">
           Last seen, 2:02pm

@@ -1,9 +1,11 @@
 import { SideNav } from ".";
 
 const DesktopLayout = ({ children }) => {
+  const pathname = window.location.pathname;
+
   return (
-    <section className="hidden sm:grid grid-cols-24 xm:grid-cols-24 justify-between bg-light">
-      <div className="col-span-3 xm:col-span-4 h-screen overflow-y-auto border-r border-[#EBEEF0]">
+    <section className="hidden sm:grid grid-cols-24 xm:grid-cols-24 justify-between">
+      <div className={pathname === "/services" ? "col-span-3 xm:col-span-4 h-screen overflow-y-auto border-r border-[#EBEEF0] bg-light" : "col-span-3 xm:col-span-4 h-screen overflow-y-auto border-r border-[#EBEEF0] bg-white"}>
         <SideNav />
       </div>
       <div className="col-span-21 xm:col-span-20 h-screen overflow-y-auto">

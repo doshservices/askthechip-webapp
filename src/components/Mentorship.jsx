@@ -41,7 +41,7 @@ const Mentorship = () => {
         <div>
           Kindly fill out the form below to request for mentorship session
         </div>
-        <div className="mt-6 ml-0 md:ml-28">
+        <div className="mt-6 ml-0 md:ml-6 mr-0 md:mr-8">
           <form>
             <div className="flex flex-col mb-5">
               <label htmlFor="firstName" className="font-DMSans text-sm mb-2">
