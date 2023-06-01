@@ -95,9 +95,9 @@ const Pricing = () => {
                       <div className="flex items-center my-8 mt-10">
                         <span
                           style={{ color: data.priceBg }}
-                          className={`text-[52px] md:text-[72px] font-semibold leading-6 mr-[0.625rem]`}
+                          className={`text-[52px] md:text-[62px] font-semibold leading-6 mr-[0.625rem]`}
                         >
-                          ${data.price}
+                         <s>N</s>{data.price}
                         </span>{" "}
                         <div className="flex flex-col">
                           <span>Per member</span>
