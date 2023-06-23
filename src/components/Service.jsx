@@ -1,7 +1,6 @@
 import { useState } from "react";
 import expandIcon from './../assets/icons/expand-icon.svg';
 
-console.log(expandIcon);
 const Service = ({serviceData}) => {
   const [expand, setExpand] = useState(false);
   const handleClick = () => {

@@ -1,10 +1,12 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
 import googleLogo from "../assets/icons/google-logo.svg";
 import { FileUploadInput } from "../components";
+import { signUp } from "../api";
 
 const defaultFormFields = {
   firstName: "",
@@ -18,19 +20,24 @@ const defaultFormFields = {
   officeAddress: "",
 };
 
+
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [response, setResponse] = useState('');
   const [accountType, setAccountType] = useState("individual");
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {
     firstName,
     lastName,
     email,
-    phone,
+    phoneNumber,
     password,
     confirmPassword,
     companyName,
     officeAddress,
+    // gender, role, googleSigned
   } = formFields;
 
   const handleSwitchAccount = () => {
@@ -43,7 +50,26 @@ const SignUp = () => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
+  
 
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    if(password !== confirmPassword){
+      alert("Password doesn't match")
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await signUp(formFields);
+      // console.log(formFields)
+      setLoading(false);
+      console.log(res);
+    } catch (err) {
+      setLoading(false);
+      setError(err);
+      console.log(err);
+    }
+  }
   return (
     <div className="font-Inter overflow-hidden bg-light">
       <div className="flex flex-col md:flex-row w-full">
@@ -89,7 +115,7 @@ const SignUp = () => {
                 </div>
               </div>
               {accountType === "individual" && (
-                <form>
+                <form onSubmit={handleSignup}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                     <div className="flex flex-col mb-5">
                       <label
@@ -169,7 +195,7 @@ const SignUp = () => {
                           type="number"
                           name="phone"
                           id="phone"
-                          value={phone}
+                          value={phoneNumber}
                           onChange={handleChange}
                           placeholder="+234 902 360 0083"
                           required
