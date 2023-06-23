@@ -4,6 +4,7 @@ import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
 import googleLogo from "../assets/icons/google-logo.svg";
+import { login } from "../api";
 
 const defaultFormFields = {
   email: "",
@@ -13,6 +14,8 @@ const defaultFormFields = {
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const { email, password } = formFields;
 
@@ -21,6 +24,21 @@ const SignIn = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    try {
+      const res = await login(formFields);
+      // console.log(formFields)
+      setLoading(false);
+      console.log(res);
+    } catch (err) {
+      setLoading(false);
+      setError(err);
+      console.log(err);
+    }
+  }
   return (
     <div className="font-Inter overflow-hidden bg-light">
       <div className="flex flex-col md:flex-row w-full">
@@ -32,7 +50,7 @@ const SignIn = () => {
             <div className="font-bold text-primary90 ml-2">Askthechip</div>
           </Link>
           <div className=" h-[calc(100vh_-_10rem)] overflow-y-auto">
-            <form className="w-[90%] max-w-[468px] mx-auto h-full">
+            <form onSubmit={handleSubmit} className="w-[90%] max-w-[468px] mx-auto h-full">
               <div className="flex flex-col items-center mb-20">
                 <h1 className="font-DMSans text-[30px] font-bold mb-2 uppercase text-[#2d2d2d]">
                   Welcome Back
@@ -71,7 +89,7 @@ const SignIn = () => {
                     placeholder="Password here"
                     value={password}
                     onChange={handleChange}
-                    minLength={8}
+                    minLength={6}
                     required
                   />
                   <span
