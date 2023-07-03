@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import { interestData } from "../data";
 
-import Button from "./../components/Button";
+import Button from "../components/Button/Button";
 
 const Onboarding = () => {
   return (

@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
 import googleLogo from "../assets/icons/google-logo.svg";
-import { FileUploadInput } from "../components";
-import { signUp } from "../api";
+import { FileUploadInput, Loader } from "../components";
+import { notify, warn } from "../App";
+import { ToastContainer } from "react-toastify";
 
 const defaultFormFields = {
   firstName: "",
   lastName: "",
   email: "",
-  phone: "",
+  phoneNumber: "",
   type: "",
   password: "",
   confirmPassword: "",
@@ -19,33 +20,9 @@ const defaultFormFields = {
   officeAddress: "",
 };
 
-var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  "firstName": "Abdrahman",
-  "lastName": "Oladimeji",
-  "phoneNumber": "09023600083",
-  "email": "abdrahmanoladimeji02@gmail.com",
-  "password": "password",
-  "gender": "MALE",
-  "role": "USER",
-  "googleSigned": true
-});
-
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-
-// fetch("http://askthechip-endpoint-production.up.railway.app/api/users/", requestOptions)
-//   .then(response => response.json())
-//   .then(result => console.log(result))
-//   .catch(error => console.log('error', error));
-
 const SignUp = () => {
+  const navigateTo = useNavigate();
+  const [userData, setUserData] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -64,6 +41,11 @@ const SignUp = () => {
     // gender, role, googleSigned
   } = formFields;
 
+  const redirectToLogin = () => {
+    setTimeout(() => {
+      navigateTo('/login');
+    }, 2500);
+  };
   const handleSwitchAccount = () => {
     if (accountType === "individual") setAccountType("business");
     else {
@@ -75,13 +57,6 @@ const SignUp = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
-  // useEffect(()=> {
-  //   fetch("http://askthechip-endpoint-production.up.railway.app/api/users/", requestOptions)
-  // .then(response => response.json())
-  // .then(result => console.log(result))
-  // .catch(error => console.log('error', error));
-  // }, [])
-
   const handleSignup = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -89,20 +64,11 @@ const SignUp = () => {
       return;
     }
     setLoading(true);
-
-    // const res = await signUp(formFields);
-    // const res = await fetch("http://askthechip-endpoint-production.up.railway.app/api/users/", requestOptions)
-    // .then(response => response.json())
-    // .then(result => console.log(result))
-    // .catch(error => console.log('error', error));
-    // console.log(formFields)
-
     try {
-      // const url = '/api/users'
       const url = 'https://askthechip-endpoint-production.up.railway.app/api/users'
       const res = await fetch(url, {
         method: "POST",
-        header: {
+        headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -111,23 +77,34 @@ const SignUp = () => {
           email: formFields.email,
           phoneNumber: formFields.phoneNumber,
           password: formFields.password,
-          gender: "", 
-          role: "USER", 
+          gender: "MALE",
+          role: "USER",
           googleSigned: true
         })
       })
-      if(res.ok){
-        console.log("Sign up success")
-      } else console.log("Sign up failed")
-      console.log(res);
+      if (res.ok) {
+        console.log("Successful, redirecting you to login page!")
+        const dataRes = await res.json();
+        const userData = dataRes.data;
+        setUserData(userData);
+        notify("Successful, redirecting you to login page!")
+        redirectToLogin();
+      }
+      if (!res.ok) {
+        console.log("Sign up failed,", res.message)
+        warn("Sign up failed,", res.message)
+      }
       setLoading(false);
+
     } catch (err) {
       console.log(err);
+      warn("Error ", err)
       setLoading(false);
     }
   }
   return (
     <div className="font-Inter overflow-hidden bg-light">
+      <ToastContainer />
       <div className="flex flex-col md:flex-row w-full">
         <div className="w-full md:w-[50%] h-screen">
           <Link to="/" className="flex items-center h-16 ml-4 md:ml-20 my-7">
@@ -248,8 +225,8 @@ const SignUp = () => {
                       <div className="border border-[#2d2d2d] rounded-full">
                         <input
                           className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                          type="number"
-                          name="phone"
+                          type="text"
+                          name="phoneNumber"
                           id="phone"
                           value={phoneNumber}
                           onChange={handleChange}
@@ -343,10 +320,11 @@ const SignUp = () => {
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
                     <button
+                      disabled={loading}
                       type="submit"
-                      className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+                      className={loading? "bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300" :`bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`}
                     >
-                      Create Account
+                      {loading? <Loader />: "Create Account"} 
                     </button>
                   </div>
                   <div className="flex justify-center my-2 font-DMSans font-medium text-sm">
@@ -434,9 +412,9 @@ const SignUp = () => {
                         <input
                           className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                           type="number"
-                          name="phone"
+                          name="phoneNumber"
                           id="phone"
-                          value={phone}
+                          value={phoneNumber}
                           onChange={handleChange}
                           placeholder="+234 902 360 0083"
                           required
@@ -497,7 +475,7 @@ const SignUp = () => {
                         id="serviceType"
                         className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
                       >
-                        <option disabled selected>
+                        <option disabled defaultValue>
                           Select Document Type
                         </option>
                         <option>Driver's license</option>
