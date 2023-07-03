@@ -1,24 +1,33 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
 import googleLogo from "../assets/icons/google-logo.svg";
-import { login } from "../api";
+import { Loader } from "../components";
+import { ToastContainer } from "react-toastify";
+import { notify, warn } from "../App";
+import { AuthContext } from "../contexts/AuthContext/AuthContext";
 
 const defaultFormFields = {
-  email: "",
+  loginId: "",
   password: "",
 };
 
 const SignIn = () => {
+  const navigateTo = useNavigate();
+  const {user, setUser} = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { loginId, password } = formFields;
 
-  const { email, password } = formFields;
-
+  const redirectToHome = () => {
+    setTimeout(() => {
+      navigateTo('/home');
+    }, 2500);
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
@@ -26,21 +35,43 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     try {
-      const res = await login(formFields);
-      // console.log(formFields)
+      const url = 'https://askthechip-endpoint-production.up.railway.app/api/users/login'
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formFields)
+      })
+      if (res.ok) {
+        console.log("Successfully signed in to askthechip!")
+        const dataRes = await res.json();
+        const authUser = dataRes.data;
+        localStorage.setItem('authUser', JSON.stringify(authUser));
+        setUser(authUser);
+        // console.log(authUser)
+        notify("Login success, you're being redirected")
+        redirectToHome();
+        setLoading(false);
+      }
+      if (!res.ok) {
+        console.log("Sign in failed,", res.message)
+        warn("Sign in failed,", res.message)
+        setLoading(false);
+      }
       setLoading(false);
-      console.log(res);
+
     } catch (err) {
-      setLoading(false);
-      setError(err);
       console.log(err);
+      warn("Error ", err);
+      setLoading(false);
     }
   }
   return (
     <div className="font-Inter overflow-hidden bg-light">
+      <ToastContainer />
       <div className="flex flex-col md:flex-row w-full">
         <div className="w-full md:w-[50%] h-screen">
           <Link to="/" className="flex items-center h-16 ml-4 md:ml-20 my-7">
@@ -66,10 +97,10 @@ const SignIn = () => {
                 <div className="border border-[#2d2d2d] rounded-full">
                   <input
                     className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                    type="text"
-                    name="email"
+                    type="email"
+                    name="loginId"
                     id="email"
-                    value={email}
+                    value={loginId}
                     onChange={handleChange}
                     placeholder="Email Address Here"
                     required
@@ -89,7 +120,7 @@ const SignIn = () => {
                     placeholder="Password here"
                     value={password}
                     onChange={handleChange}
-                    minLength={6}
+                    minLength={8}
                     required
                   />
                   <span
@@ -117,10 +148,11 @@ const SignIn = () => {
               </div>
               <div className="flex justify-center mt-5">
                 <button
+                  disabled={loading}
                   type="submit"
-                  className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+                  className={loading ? "bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300" : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`}
                 >
-                  Log in
+                  {loading ? <Loader /> : "Log in"}
                 </button>
               </div>
               <div className="flex justify-center my-2 font-DMSans font-medium text-sm">
@@ -129,6 +161,7 @@ const SignIn = () => {
               <div className="flex justify-center mb-2">
                 <button
                   type="button"
+                  disabled={true}
                   className="flex items-center justify-center bg-transparent border border-primary80 text-primary80 text-sm font-DMSans font-medium w-full text-center rounded-full"
                 >
                   <img src={googleLogo} alt="Google Logo" className="h-8" />

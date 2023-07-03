@@ -1,4 +1,4 @@
-export { default as Button } from "./Button";
+export { default as Button } from "./Button/Button";
 export { default as Carousel } from "./Carousel";
 export { default as ConnectWithFounders } from "./ConnectWithFounders";
 export { default as FileUploadInput } from "./FileUploadInput";
@@ -7,6 +7,8 @@ export { default as Header } from "./Header";
 export { default as DesktopLayout } from "./DesktopLayout";
 export { default as Mentorship } from "./Mentorship";
 export { default as Chat } from "./Chat";
+export { default as Loader } from "./Loader/Loader";
+export { default as CircleLoader } from "./CircleLoader/CircleLoader";
 export { default as Messages } from "./Messages";
 export { default as MobileNav } from "./MobileNav";
 export { default as MobileLayout } from "./MobileLayout";

@@ -1,7 +1,7 @@
 import React from "react";
 import { whyData } from "../data";
 import WhyCard from "./WhyCard";
-import Button from "./Button";
+import Button from "./Button/Button";
 
 const WhyJoining = () => {
   return (

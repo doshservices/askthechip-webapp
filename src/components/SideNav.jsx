@@ -1,12 +1,27 @@
+import { useContext } from "react";
 import logo from "../assets/logo.svg";
 import gear from "../assets/icons/gear.svg";
 import power from "../assets/icons/power-icon.svg";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { inform } from "../App";
+import { AuthContext } from "../contexts/AuthContext/AuthContext";
+import { ToastContainer } from "react-toastify";
 
 const SideNav = () => {
+  const navigateTo = useNavigate();
   const pathname = window.location.pathname;
+  const {user, setUser} = useContext(AuthContext);
+  const handleLogOut = () => {
+    inform("Logging you out...");
+    localStorage.removeItem('authUser');
+    setUser(null)
+    setTimeout(()=> {
+      navigateTo("/login");
+    }, 2500)
+  }
   return (
     <header className="min-h-screen grow">
+      <ToastContainer />
       <nav className="font-Inter">
         <Link to="/" className="flex items-center ml-6 md:ml-8 pt-4 mb-11">
           <img src={logo} alt="logo" />
@@ -203,7 +218,7 @@ const SideNav = () => {
               <span className="ml-[4px] text-sm hidden xm:flex">Settings</span>
             </div>
           </NavLink>
-          <div className="flex items-center xm:items-start justify-center xm:justify-start text-sm font-medium gap-2 mt-2 ml-1 xm:ml-9 text-[#EB5757]">
+          <div onClick={handleLogOut} className="flex items-center xm:items-start justify-center xm:justify-start text-sm font-medium gap-2 mt-2 ml-1 xm:ml-9 text-[#EB5757] hover:scale-90 active:scale-100 transition duration-300">
             <img src={power} alt="Settings" className="px-0.5" />
             <span className="hidden xm:flex">Log out</span>
           </div>
