@@ -6,7 +6,7 @@ import {
   Error,
   ForgotPassword,
   LandingPage,
-  HomePage,
+  Homepage,
   MentorshipPage,
   MessagesPage,
   NotificationsPage,
@@ -69,7 +69,7 @@ function App() {
           {/* Pages after signing in */}
           <Route
             path="/home"
-            element={<AuthenticatedRoute Component={HomePage} />}
+            element={<AuthenticatedRoute Component={Homepage} />}
           />
           <Route
             path="/mentorship"

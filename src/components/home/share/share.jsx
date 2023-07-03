@@ -12,11 +12,11 @@ const Share = () => {
   }
   return (
     <section className="px-1">
-      <div className="flex bg-[#f4f4f4] py-2.5 px-5 rounded-lg">
-        <div className="mr-1 sm:mr-2 mb-auto w-full sm:w-14 h-8 sm:h-12">
-          <img src={profileImg} alt={profileImg} className={`rounded-full`} />
+      <div className="grid grid-cols-12 sm:flex bg-[#f4f4f4] py-2.5 px-5 rounded-lg">
+        <div className="col-span-2 justify-center items-center flex mr-1 sm:mr-2 mb-auto w-full sm:w-14 h-full">
+          <img src={profileImg} alt={profileImg} className={`rounded-full h-fit`} />
         </div>
-        <div className="flex flex-col justify-between w-[calc(100%_-_2rem)] rounded-lg bg-grey  border border-black/10">
+        <div className="col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-lg bg-grey  border border-black/10">
           <div className="flex w-full justify-between">
             <div className="flex ml-2 w-[80%]">
               <textarea
