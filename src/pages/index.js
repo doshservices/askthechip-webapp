@@ -1,6 +1,6 @@
 export { default as Error } from "./Error";
 export { default as LandingPage } from "./LandingPage";
-export { default as HomePage } from "./HomePage";
+export { default as Homepage } from "./Homepage";
 export { default as MentorshipPage } from "./MentorshipPage";
 export { default as MessagesPage } from "./MessagesPage";
 export { default as NotificationsPage } from "./NotificationsPage";
