@@ -17,9 +17,9 @@ const defaultFormFields = {
 const SignIn = () => {
   const navigateTo = useNavigate();
   const {user, setUser} = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { loginId, password } = formFields;
 
