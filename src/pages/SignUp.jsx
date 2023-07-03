@@ -98,8 +98,8 @@ const SignUp = () => {
     // console.log(formFields)
 
     try {
-      const url = '/api/users'
-      // const url = 'http://askthechip-endpoint-production.up.railway.app/api/users'
+      // const url = '/api/users'
+      const url = 'http://askthechip-endpoint-production.up.railway.app/api/users'
       const res = await fetch(url, {
         method: "POST",
         header: {
