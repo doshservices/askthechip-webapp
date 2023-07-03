@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://askthechip-endpoint-production.up.railway.app',
+        target: 'https://askthechip-endpoint-production.up.railway.app',
         changeOrigin: true,
       },
     },
