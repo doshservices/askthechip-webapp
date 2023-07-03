@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "./../assets/ask.svg";
@@ -20,6 +19,31 @@ const defaultFormFields = {
   officeAddress: "",
 };
 
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "firstName": "Abdrahman",
+  "lastName": "Oladimeji",
+  "phoneNumber": "09023600083",
+  "email": "abdrahmanoladimeji02@gmail.com",
+  "password": "password",
+  "gender": "MALE",
+  "role": "USER",
+  "googleSigned": true
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+// fetch("http://askthechip-endpoint-production.up.railway.app/api/users/", requestOptions)
+//   .then(response => response.json())
+//   .then(result => console.log(result))
+//   .catch(error => console.log('error', error));
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -50,24 +74,56 @@ const SignUp = () => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
-  
+
+  // useEffect(()=> {
+  //   fetch("http://askthechip-endpoint-production.up.railway.app/api/users/", requestOptions)
+  // .then(response => response.json())
+  // .then(result => console.log(result))
+  // .catch(error => console.log('error', error));
+  // }, [])
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    if(password !== confirmPassword){
+    if (password !== confirmPassword) {
       alert("Password doesn't match")
       return;
     }
     setLoading(true);
+
+    // const res = await signUp(formFields);
+    // const res = await fetch("http://askthechip-endpoint-production.up.railway.app/api/users/", requestOptions)
+    // .then(response => response.json())
+    // .then(result => console.log(result))
+    // .catch(error => console.log('error', error));
+    // console.log(formFields)
+
     try {
-      const res = await signUp(formFields);
-      // console.log(formFields)
-      setLoading(false);
+      const url = '/api/users'
+      // const url = 'http://askthechip-endpoint-production.up.railway.app/api/users'
+      const res = await fetch(url, {
+        method: "POST",
+        header: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          firstName: formFields.firstName,
+          lastName: formFields.lastName,
+          email: formFields.email,
+          phoneNumber: formFields.phoneNumber,
+          password: formFields.password,
+          gender: "", 
+          role: "USER", 
+          googleSigned: true
+        })
+      })
+      if(res.ok){
+        console.log("Sign up success")
+      } else console.log("Sign up failed")
       console.log(res);
-    } catch (err) {
       setLoading(false);
-      setError(err);
+    } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   }
   return (
@@ -306,18 +362,18 @@ const SignUp = () => {
                     </button>
                   </div>
                   <div className="flex justify-center">
-                  <div className="font-DMSans text-sm text-center pb-4">
-                    Already have an account?{" "}
-                    <Link to="/login" className="font-bold text-primary90">
-                      Login
-                    </Link>
-                  </div>
-                  <div className="ml-2 font-DMSans text-sm text-center pb-4">
-                     or{" "}
-                    <Link to="/provider-signup" className="ml-1 font-bold text-primary90">
-                      Signup As a Provider
-                    </Link>
-                  </div>
+                    <div className="font-DMSans text-sm text-center pb-4">
+                      Already have an account?{" "}
+                      <Link to="/login" className="font-bold text-primary90">
+                        Login
+                      </Link>
+                    </div>
+                    <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                      or{" "}
+                      <Link to="/provider-signup" className="ml-1 font-bold text-primary90">
+                        Signup As a Provider
+                      </Link>
+                    </div>
                   </div>
                 </form>
               )}
@@ -473,18 +529,18 @@ const SignUp = () => {
                     </button>
                   </div>
                   <div className="flex justify-center">
-                  <div className="font-DMSans text-sm text-center pb-4">
-                    Already have an account?{" "}
-                    <Link to="/login" className="font-bold text-primary90">
-                      Login
-                    </Link>
-                  </div>
-                  <div className="ml-2 font-DMSans text-sm text-center pb-4">
-                     or{" "}
-                    <Link to="/provider-signup" className="ml-1 font-bold text-primary90">
-                      Signup As a Provider
-                    </Link>
-                  </div>
+                    <div className="font-DMSans text-sm text-center pb-4">
+                      Already have an account?{" "}
+                      <Link to="/login" className="font-bold text-primary90">
+                        Login
+                      </Link>
+                    </div>
+                    <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                      or{" "}
+                      <Link to="/provider-signup" className="ml-1 font-bold text-primary90">
+                        Signup As a Provider
+                      </Link>
+                    </div>
                   </div>
                 </form>
               )}
