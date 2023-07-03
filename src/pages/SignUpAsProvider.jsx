@@ -1,16 +1,19 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
-import googleLogo from "../assets/icons/google-logo.svg";
 import { FileUploadInput } from "../components";
+import { AuthContext } from "../contexts/AuthContext/AuthContext";
+import { Loader } from "../components";
+import { ToastContainer } from "react-toastify";
+import { notify, warn } from "../App";
 
 const defaultFormFields = {
   firstName: "",
   lastName: "",
   email: "",
-  phone: "",
+  phoneNumber: "",
   type: "",
   password: "",
   confirmPassword: "",
@@ -18,20 +21,50 @@ const defaultFormFields = {
   officeAddress: "",
 };
 
+// {
+//   "companyName": "Human TECH",
+//   "officeAddress": "lekki face 23",
+//   "phoneNumber": "05335248299",
+//   "email": "oyasync03@gmail.com",
+//   "password": "123456",
+//   "gender": "MALE",
+//   "role": "SERVICE_PROVIDER",
+//   "serviceType": "ACCOUNTING_SERVICES",
+//   "cacDocument": "cacDocument",
+//   "representativeId": "representativeId",
+//   "googleSigned": true
+// }
+
 const SignUpAsProvider = () => {
+  const navigateTo = useNavigate();
+  const { setUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [loadingBusiness, setLoadingBusiness] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [accountType, setAccountType] = useState("individual");
+  const [serviceType, setServiceType] = useState('');
+
+  const handleChangeService = (e) => {
+    setServiceType(e.target.value);
+  }
+
   const {
     firstName,
     lastName,
     email,
-    phone,
+    phoneNumber,
     password,
     confirmPassword,
     companyName,
     officeAddress,
   } = formFields;
+
+  const redirectToHome = () => {
+    setTimeout(() => {
+      navigateTo('/home');
+    }, 2500);
+  };
 
   const handleSwitchAccount = () => {
     if (accountType === "individual") setAccountType("business");
@@ -43,9 +76,65 @@ const SignUpAsProvider = () => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
+  
+  const spaceToLodash = (str) => {
+    return str.replace(/\s/g, "_");
+  }
+
+  const handleBusinessSubmit = async (e) => {
+    e.preventDefault();
+    setLoadingBusiness(true);
+    try {
+      const url = 'https://askthechip-endpoint-production.up.railway.app/api/users'
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "companyName": formFields.companyName,
+          "officeAddress": formFields.officeAddress,
+          "phoneNumber": formFields.phoneNumber,
+          "email": formFields.email,
+          "password": formFields.password,
+          "gender": "MALE",
+          "role": "SERVICE_PROVIDER",
+          "serviceType": spaceToLodash(serviceType),
+          "cacDocument": "cacDocument",
+          "representativeId": "representativeId",
+          "googleSigned": false
+        })
+      })
+      if (res.ok) {
+        console.log("Successfully signed in to askthechip!")
+        const dataRes = await res.json();
+        const authUser = dataRes.data;
+        localStorage.setItem('authUser', JSON.stringify(authUser));
+        setUser(authUser);
+        console.log(authUser)
+        notify("Login success, you're being redirected")
+        redirectToHome();
+        setLoadingBusiness(false);
+      }
+      if (!res.ok) {
+        console.log("Sign in failed,", res)
+        const dataRes = await res.json();
+        console.log('dataRes',dataRes.message);
+        warn(dataRes.message)
+        setLoadingBusiness(false);
+      }
+      setLoadingBusiness(false);
+
+    } catch (err) {
+      console.log(err);
+      warn("Error ", err);
+      setLoadingBusiness(false);
+    }
+  }
 
   return (
     <div className="font-Inter overflow-hidden bg-light">
+      <ToastContainer />
       <div className="flex flex-col md:flex-row w-full">
         <div className="w-full md:w-[50%] h-screen">
           <Link to="/" className="flex items-center h-16 ml-4 md:ml-20 my-7">
@@ -167,9 +256,9 @@ const SignUpAsProvider = () => {
                         <input
                           className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                           type="number"
-                          name="phone"
+                          name="phoneNumber"
                           id="phone"
-                          value={phone}
+                          value={phoneNumber}
                           onChange={handleChange}
                           placeholder="+234 902 360 0083"
                           required
@@ -268,30 +357,31 @@ const SignUpAsProvider = () => {
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
                     <button
+                      disabled={loading}
                       type="submit"
-                      className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+                      className={loading ? "bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300" : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`}
                     >
-                      Create Account
+                      {loading ? <Loader /> : "Create Account"}
                     </button>
                   </div>
                   <div className="flex justify-center pt-3">
-                  <div className="font-DMSans text-sm text-center pb-4">
-                    Already have an account?{" "}
-                    <Link to="/login" className="font-bold text-primary90">
-                      Login
-                    </Link>
-                  </div>
-                  <div className="ml-2 font-DMSans text-sm text-center pb-4">
-                     or{" "}
-                    <Link to="/sign-up" className="ml-1 font-bold text-primary90">
-                      Signup As a User
-                    </Link>
-                  </div>
+                    <div className="font-DMSans text-sm text-center pb-4">
+                      Already have an account?{" "}
+                      <Link to="/login" className="font-bold text-primary90">
+                        Login
+                      </Link>
+                    </div>
+                    <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                      or{" "}
+                      <Link to="/sign-up" className="ml-1 font-bold text-primary90">
+                        Signup As a User
+                      </Link>
+                    </div>
                   </div>
                 </form>
               )}
               {accountType === "business" && (
-                <form>
+                <form onSubmit={handleBusinessSubmit}>
                   <div className="flex flex-col mb-5">
                     <label htmlFor="email" className="font-DMSans text-sm mb-2">
                       Email Address
@@ -378,19 +468,19 @@ const SignUpAsProvider = () => {
                       Service Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
-                      <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                        <option disabled defaultValue>
+                      <select value={serviceType} onChange={handleChangeService} className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                        <option disabled defaultValue value="">
                           Select Service Type
                         </option>
-                        <option value="accounting">Accounting</option>
-                        <option value="administrative">Administrative</option>
-                        <option value="consulting">Consulting</option>
-                        <option value="financial">Financial</option>
-                        <option value="legal">Legal</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="mentorship">Mentorship</option>
-                        <option value="technology">Technology</option>
-                        <option value="training">Training</option>
+                        <option value="Accounting">Accounting</option>
+                        <option value="Administrative">Administrative</option>
+                        <option value="Consulting">Consulting</option>
+                        <option value="Financial">Financial</option>
+                        <option value="Legal">Legal</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Mentorship">Mentorship</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Training">Training</option>
                       </select>
                     </div>
                   </div>
@@ -424,10 +514,10 @@ const SignUpAsProvider = () => {
                     <div className="border border-[#2d2d2d] rounded-full">
                       <input
                         className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                        type="number"
-                        name="phone"
+                        type="text"
+                        name="phoneNumber"
                         id="phone"
-                        value={phone}
+                        value={phoneNumber}
                         onChange={handleChange}
                         placeholder="+234 902 360 0083"
                         required
@@ -459,51 +549,52 @@ const SignUpAsProvider = () => {
                     <FileUploadInput />
                   </div>
                   <div>
-                  <div className="flex flex-col mb-5">
-                    <label
-                      htmlFor="serviceType"
-                      className="font-DMSans text-sm mb-2"
-                    >
-                      Document Type
-                    </label>
-                    <div className="border border-[#2d2d2d] rounded-full">
-                      <select
-                        id="serviceType"
-                        className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
+                    <div className="flex flex-col mb-5">
+                      <label
+                        htmlFor="serviceType"
+                        className="font-DMSans text-sm mb-2"
                       >
-                        <option disabled selected>
-                          Select Document Type
-                        </option>
-                        <option>Driver's license</option>
-                        <option>International Passport</option>
-                        <option>National Identity Card</option>
-                        <option>Voter's card</option>
-                      </select>
+                        Document Type
+                      </label>
+                      <div className="border border-[#2d2d2d] rounded-full">
+                        <select
+                          id="documentType"
+                          className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
+                        >
+                          <option disabled defaultValue value="">
+                            Select Document Type
+                          </option>
+                          <option>Driver's license</option>
+                          <option>International Passport</option>
+                          <option>National Identity Card</option>
+                          <option>Voter's card</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
                     <FileUploadInput />
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
                     <button
+                      disabled={loadingBusiness}
                       type="submit"
-                      className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+                      className={loadingBusiness ? "bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300" : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`}
                     >
-                      Create Account
+                      {loadingBusiness ? <Loader /> : "Create Account"}
                     </button>
                   </div>
                   <div className="flex justify-center pt-3">
-                  <div className="font-DMSans text-sm text-center pb-4">
-                    Already have an account?{" "}
-                    <Link to="/login" className="font-bold text-primary90">
-                      Login
-                    </Link>
-                  </div>
-                  <div className="ml-2 font-DMSans text-sm text-center pb-4">
-                     or{" "}
-                    <Link to="/sign-up" className="ml-1 font-bold text-primary90">
-                      Signup As a user
-                    </Link>
-                  </div>
+                    <div className="font-DMSans text-sm text-center pb-4">
+                      Already have an account?{" "}
+                      <Link to="/login" className="font-bold text-primary90">
+                        Login
+                      </Link>
+                    </div>
+                    <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                      or{" "}
+                      <Link to="/sign-up" className="ml-1 font-bold text-primary90">
+                        Signup As a user
+                      </Link>
+                    </div>
                   </div>
                 </form>
               )}
