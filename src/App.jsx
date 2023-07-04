@@ -23,6 +23,8 @@ import {
 } from "./pages";
 
 import { AuthProvider } from "./contexts";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "./contexts/AuthContext/AuthContext";
 
 
 const toastParams = {
@@ -52,6 +54,11 @@ const AuthenticatedRoute = ({ Component, ...rest }) => {
 
 
 function App() {
+  const {setUser} = useContext(AuthContext);
+  useEffect(() => {
+    let authUser = localStorage.getItem('authUser');
+    if (authUser) setUser(JSON.parse(authUser));
+  }, []);
   return (
     <div>
       <AuthProvider>

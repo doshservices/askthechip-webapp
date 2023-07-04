@@ -83,6 +83,8 @@ const SignUpAsProvider = () => {
 
   const handleBusinessSubmit = async (e) => {
     e.preventDefault();
+    localStorage.removeItem('authUser');
+    setUser(null);
     setLoadingBusiness(true);
     try {
       const url = 'https://askthechip-endpoint-production.up.railway.app/api/users'

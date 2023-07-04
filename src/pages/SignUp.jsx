@@ -59,6 +59,8 @@ const SignUp = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    localStorage.removeItem('authUser');
+    setUser(null);
     if (password !== confirmPassword) {
       alert("Password doesn't match")
       return;
