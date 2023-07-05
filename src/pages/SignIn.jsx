@@ -35,6 +35,8 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    localStorage.removeItem('authUser');
+    setUser(null);
     setLoading(true);
     try {
       const url = 'https://askthechip-endpoint-production.up.railway.app/api/users/login'

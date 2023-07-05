@@ -13,9 +13,9 @@ const SideNav = () => {
   const {user, setUser} = useContext(AuthContext);
   const handleLogOut = () => {
     inform("Logging you out...");
-    localStorage.removeItem('authUser');
-    setUser(null)
     setTimeout(()=> {
+      setUser(null)
+      localStorage.removeItem('authUser');
       navigateTo("/login");
     }, 2500)
   }

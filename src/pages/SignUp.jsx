@@ -57,8 +57,10 @@ const SignUp = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleSignup = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    localStorage.removeItem('authUser');
+    setUser(null);
     if (password !== confirmPassword) {
       alert("Password doesn't match")
       return;
@@ -83,11 +85,8 @@ const SignUp = () => {
         })
       })
       if (res.ok) {
-        console.log("Successful, redirecting you to login page!")
-        const dataRes = await res.json();
-        const userData = dataRes.data;
-        setUserData(userData);
-        notify("Successful, redirecting you to login page!")
+        console.log("Successful, you'll be redirected to login page!")
+        notify("Successful, redirecting you to login page")
         redirectToLogin();
       }
       if (!res.ok) {
@@ -148,7 +147,7 @@ const SignUp = () => {
                 </div>
               </div>
               {accountType === "individual" && (
-                <form onSubmit={handleSignup}>
+                <form onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                     <div className="flex flex-col mb-5">
                       <label

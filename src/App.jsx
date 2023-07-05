@@ -23,6 +23,9 @@ import {
 } from "./pages";
 
 import { AuthProvider } from "./contexts";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "./contexts/AuthContext/AuthContext";
+import { ProtectedRoute } from "./utils";
 
 
 const toastParams = {
@@ -40,18 +43,9 @@ export const notify = (val) => toast.success(`${val}`, toastParams);
 export const warn = (val) => toast.error(`${val}`, toastParams);
 export const inform = (val) => toast.info(`${val}`, toastParams);
 
-const authUser = localStorage.getItem('authUser');
-const AuthenticatedRoute = ({ Component, ...rest }) => {
-  if (!authUser) {
-    window.location.href = '/login';
-    return;
-  }
-
-  return <Component {...rest} />;
-};
-
 
 function App() {
+
   return (
     <div>
       <AuthProvider>
@@ -66,35 +60,37 @@ function App() {
           <Route path="/pricing/payment" element={<Payment />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/*" element={<Error />} />
-          {/* Pages after signing in */}
-          <Route
-            path="/home"
-            element={<AuthenticatedRoute Component={Homepage} />}
-          />
-          <Route
-            path="/mentorship"
-            element={<AuthenticatedRoute Component={MentorshipPage} />}
-          />
-          <Route
-            path="/messages"
-            element={<AuthenticatedRoute Component={MessagesPage} />}
-          />
-          <Route
-            path="/notifications"
-            element={<AuthenticatedRoute Component={NotificationsPage} />}
-          />
-          <Route
-            path="/profile"
-            element={<AuthenticatedRoute Component={ProfilePage} />}
-          />
-          <Route
-            path="/settings"
-            element={<AuthenticatedRoute Component={SettingsPage} />}
-          />
-          <Route
-            path="/services"
-            element={<AuthenticatedRoute Component={ServicesPage} />}
-          />
+          {/* Protected routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route
+              path="/home"
+              element={<Homepage />}
+            />
+            <Route
+              path="/mentorship"
+              element={<MentorshipPage />}
+            />
+            <Route
+              path="/messages"
+              element={<MessagesPage />}
+            />
+            <Route
+              path="/notifications"
+              element={<NotificationsPage />}
+            />
+            <Route
+              path="/profile"
+              element={<ProfilePage />}
+            />
+            <Route
+              path="/settings"
+              element={<SettingsPage />}
+            />
+            <Route
+              path="/services"
+              element={<ServicesPage />}
+            />
+          </Route>
         </Routes>
       </AuthProvider>
     </div>
