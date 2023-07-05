@@ -45,11 +45,7 @@ export const inform = (val) => toast.info(`${val}`, toastParams);
 
 
 function App() {
-  const { setUser } = useContext(AuthContext);
-  useEffect(() => {
-    let authUser = localStorage.getItem('authUser');
-    if (authUser) setUser(JSON.parse(authUser));
-  }, []);
+
   return (
     <div>
       <AuthProvider>

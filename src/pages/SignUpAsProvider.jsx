@@ -42,12 +42,29 @@ const SignUpAsProvider = () => {
   const [loadingBusiness, setLoadingBusiness] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const [accountType, setAccountType] = useState("individual");
-  const [serviceType, setServiceType] = useState('');
+  const [accountType, setAccountType] = useState("INDIVIDUAL");
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [representativeId, setRepresentativeId] = useState(null);
+  const [governmentId, setGovernmentId] = useState(null);
+  const [cacDocument, setCacDocument] = useState(null);
 
-  const handleChangeService = (e) => {
-    setServiceType(e.target.value);
+  const handleRepIdSelect = (file) => {
+    setRepresentativeId(file);
   }
+  const handleCacDocument = (file) => {
+    setCacDocument(file);
+  }
+  const handleGovernmentId = (file) => {
+    setGovernmentId(file);
+  }
+
+  const handleSelectChange = (event) => {
+    const { name, value } = event.target;
+    setSelectedOptions((prevSelectedOptions) => ({
+      ...prevSelectedOptions,
+      [name]: value,
+    }));
+  };
 
   const {
     firstName,
@@ -60,16 +77,17 @@ const SignUpAsProvider = () => {
     officeAddress,
   } = formFields;
 
-  const redirectToHome = () => {
+
+  const redirectToLogin = () => {
     setTimeout(() => {
-      navigateTo('/home');
+      navigateTo('/login');
     }, 2500);
   };
 
   const handleSwitchAccount = () => {
-    if (accountType === "individual") setAccountType("business");
+    if (accountType === "INDIVIDUAL") setAccountType("BUSINESS");
     else {
-      setAccountType("individual");
+      setAccountType("INDIVIDUAL");
     }
   };
   const handleChange = (e) => {
@@ -77,11 +95,56 @@ const SignUpAsProvider = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleBusinessSubmit = async (e) => {
+  const getIndividualDetails = () => {
+    const { firstName, lastName, email, phoneNumber, password } = formFields;
+    const {serviceType} = selectedOptions;
+    const data = { 
+      firstName, 
+      lastName, 
+      email, 
+      phoneNumber, 
+      password, 
+      gender: "MALE", 
+      role: "USER", 
+      governmentId: governmentId,
+      serviceType: serviceType,
+      googleSigned: true 
+    };
+    console.log("Individual data",data);
+    return data;
+  };
+  const individualDetails = getIndividualDetails();
+  const getBusinessDetails = () => {
+    const { companyName, officeAddress, phoneNumber, email, password } = formFields;
+    const { serviceType } = selectedOptions;
+    const data = {
+      companyName,
+      officeAddress,
+      phoneNumber,
+      email,
+      password,
+      gender: "MALE",
+      role: "SERVICE_PROVIDER",
+      serviceType: serviceType,
+      cacDocument: cacDocument,
+      representativeId: representativeId,
+      googleSigned: false
+    };
+    console.log("Business data", data);
+    return data;
+  };
+  const businessDetails = getBusinessDetails();
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.removeItem('authUser');
     setUser(null);
-    setLoadingBusiness(true);
+    if (accountType === "INDIVIDUAL") {
+      setLoading(true);
+    } else {
+      setLoadingBusiness(true);
+    }
     try {
       const url = 'https://askthechip-endpoint-production.up.railway.app/api/users'
       const res = await fetch(url, {
@@ -89,44 +152,30 @@ const SignUpAsProvider = () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          "companyName": formFields.companyName,
-          "officeAddress": formFields.officeAddress,
-          "phoneNumber": formFields.phoneNumber,
-          "email": formFields.email,
-          "password": formFields.password,
-          "gender": "MALE",
-          "role": "SERVICE_PROVIDER",
-          "serviceType": serviceType.toUpperCase(),
-          "cacDocument": "cacDocument",
-          "representativeId": "representativeId",
-          "googleSigned": false
-        })
+        body: JSON.stringify(accountType === "INDIVIDUAL" ? individualDetails : businessDetails)
       })
       if (res.ok) {
-        console.log("Successfully signed in to askthechip!")
-        const dataRes = await res.json();
-        const authUser = dataRes.data;
-        localStorage.setItem('authUser', JSON.stringify(authUser));
-        setUser(authUser);
-        console.log(authUser)
-        notify("Login success, you're being redirected")
-        redirectToHome();
-        setLoadingBusiness(false);
+        console.log("Successful, you'll be redirected to login page!")
+        notify("Successful, redirecting you to login page")
+        redirectToLogin();
       }
       if (!res.ok) {
-        console.log("Sign in failed,", res)
         const dataRes = await res.json();
-        console.log('dataRes',dataRes.message);
         warn(dataRes.message)
+      }
+      if (accountType === "INDIVIDUAL") {
+        setLoading(false);
+      } else {
         setLoadingBusiness(false);
       }
-      setLoadingBusiness(false);
-
     } catch (err) {
       console.log(err);
-      warn("Error ", err);
-      setLoadingBusiness(false);
+      warn("Error has occured", err ? `:${err}` : "");
+      if (accountType === "INDIVIDUAL") {
+        setLoading(false);
+      } else {
+        setLoadingBusiness(false);
+      }
     }
   }
 
@@ -156,7 +205,7 @@ const SignUpAsProvider = () => {
                   <div
                     onClick={handleSwitchAccount}
                     className={
-                      accountType === "individual"
+                      accountType === "INDIVIDUAL"
                         ? `mr-4 md:mr-[22px] px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
                         : `mr-4 md:mr-[22px] px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
                     }
@@ -166,7 +215,7 @@ const SignUpAsProvider = () => {
                   <div
                     onClick={handleSwitchAccount}
                     className={
-                      accountType === "business"
+                      accountType === "BUSINESS"
                         ? `px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
                         : `px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
                     }
@@ -175,8 +224,8 @@ const SignUpAsProvider = () => {
                   </div>
                 </div>
               </div>
-              {accountType === "individual" && (
-                <form>
+              {accountType === "INDIVIDUAL" && (
+                <form onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                     <div className="flex flex-col mb-5">
                       <label
@@ -269,19 +318,19 @@ const SignUpAsProvider = () => {
                       Service Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
-                      <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                      <select name="serviceType" value={selectedOptions.serviceType} onChange={handleSelectChange} className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
                         <option disabled defaultValue>
                           Select Service Type
                         </option>
-                        <option value="accounting">Accounting</option>
-                        <option value="administrative">Administrative</option>
-                        <option value="consulting">Consulting</option>
-                        <option value="financial">Financial</option>
-                        <option value="legal">Legal</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="mentorship">Mentorship</option>
-                        <option value="technology">Technology</option>
-                        <option value="training">Training</option>
+                        <option value="ACCOUNTING">Accounting</option>
+                        <option value="ADMINISTRATIVE">Administrative</option>
+                        <option value="CONSULTING">Consulting</option>
+                        <option value="FINANCIAL">Financial</option>
+                        <option value="LEGAL">Legal</option>
+                        <option value="MARKETING">Marketing</option>
+                        <option value="MENTORSHIP">Mentorship</option>
+                        <option value="TECHNOLOGY">Technology</option>
+                        <option value="TRAINING">Training</option>
                       </select>
                     </div>
                   </div>
@@ -351,7 +400,7 @@ const SignUpAsProvider = () => {
                   </div>
                   <div className="mb-5 mt-3">
                     <div className="font-DMSans text-sm">Government ID</div>
-                    <FileUploadInput />
+                    <FileUploadInput state={governmentId} handleState={handleGovernmentId} />
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
                     <button
@@ -378,8 +427,8 @@ const SignUpAsProvider = () => {
                   </div>
                 </form>
               )}
-              {accountType === "business" && (
-                <form onSubmit={handleBusinessSubmit}>
+              {accountType === "BUSINESS" && (
+                <form onSubmit={handleSubmit}>
                   <div className="flex flex-col mb-5">
                     <label htmlFor="email" className="font-DMSans text-sm mb-2">
                       Email Address
@@ -466,19 +515,19 @@ const SignUpAsProvider = () => {
                       Service Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
-                      <select value={serviceType} onChange={handleChangeService} className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                      <select name="serviceType" value={selectedOptions.serviceType} onChange={handleSelectChange} className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
                         <option disabled defaultValue value="">
                           Select Service Type
                         </option>
-                        <option value="Accounting">Accounting</option>
-                        <option value="Administrative">Administrative</option>
-                        <option value="Consulting">Consulting</option>
-                        <option value="Financial">Financial</option>
-                        <option value="Legal">Legal</option>
-                        <option value="Marketing">Marketing</option>
-                        <option value="Mentorship">Mentorship</option>
-                        <option value="Technology">Technology</option>
-                        <option value="Training">Training</option>
+                        <option value="ACCOUNTING">Accounting</option>
+                        <option value="ADMINISTRATIVE">Administrative</option>
+                        <option value="CONSULTING">Consulting</option>
+                        <option value="FINANCIAL">Financial</option>
+                        <option value="LEGAL">Legal</option>
+                        <option value="MARKETING">Marketing</option>
+                        <option value="MENTORSHIP">Mentorship</option>
+                        <option value="TECHNOLOGY">Technology</option>
+                        <option value="TRAINING">Training</option>
                       </select>
                     </div>
                   </div>
@@ -544,7 +593,7 @@ const SignUpAsProvider = () => {
                   </div>
                   <div className="mb-5">
                     <div className="font-DMSans text-sm">CAC Certificate</div>
-                    <FileUploadInput />
+                    <FileUploadInput state={cacDocument} handleState={handleCacDocument} />
                   </div>
                   <div>
                     <div className="flex flex-col mb-5">
@@ -556,20 +605,22 @@ const SignUpAsProvider = () => {
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full">
                         <select
+                          value={selectedOptions.documentType} onChange={handleSelectChange}
+                          name="documentType"
                           id="documentType"
                           className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
                         >
                           <option disabled defaultValue value="">
                             Select Document Type
                           </option>
-                          <option>Driver's license</option>
-                          <option>International Passport</option>
-                          <option>National Identity Card</option>
-                          <option>Voter's card</option>
+                          <option value="DRIVERS_LICENSE">Driver's license</option>
+                          <option value="INTERNATIONAL_PASSPORT">International Passport</option>
+                          <option value="NIN">National Identity Card</option>
+                          <option value="VOTERS_CARD">Voter's card</option>
                         </select>
                       </div>
                     </div>
-                    <FileUploadInput />
+                    <FileUploadInput state={representativeId} handleState={handleRepIdSelect} />
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
                     <button

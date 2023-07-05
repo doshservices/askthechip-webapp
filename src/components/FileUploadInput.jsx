@@ -1,11 +1,31 @@
-import { useState } from "react";
+import { notify, warn } from "../App";
 
-function FileUploadInput() {
-  const [selectedFile, setSelectedFile] = useState(null);
+function FileUploadInput({state, handleState}) {
 
-  const handleFileChange = (event) => {
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = reader.result;
+        resolve(base64String);
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+  
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
-    setSelectedFile(file);
+    try {
+      const base64String = await fileToBase64(file);
+      handleState(base64String);
+      notify("File uploaded successfully");
+    } catch (error) {
+      console.error('Error converting file to base64:', error);
+      warn('An error has occured, pls try again!');
+    }
   };
 
   return (
@@ -24,9 +44,9 @@ function FileUploadInput() {
           />
         </svg>
         <span className="font-DMSans mt-2 text-sm text-[#2d2d2d]/50 leading-normal">
-          {selectedFile
-            ? selectedFile.name
-            : "Click here or drop files to upload"}
+          {state
+            ? "The document file has been uploaded"
+            : "Click here to upload the document file"}
         </span>
         <input type="file" className="hidden" onChange={handleFileChange} />
       </label>
