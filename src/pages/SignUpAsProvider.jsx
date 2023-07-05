@@ -76,10 +76,6 @@ const SignUpAsProvider = () => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
-  
-  const spaceToLodash = (str) => {
-    return str.replace(/\s/g, "_");
-  }
 
   const handleBusinessSubmit = async (e) => {
     e.preventDefault();
@@ -101,7 +97,7 @@ const SignUpAsProvider = () => {
           "password": formFields.password,
           "gender": "MALE",
           "role": "SERVICE_PROVIDER",
-          "serviceType": spaceToLodash(serviceType),
+          "serviceType": serviceType.toUpperCase(),
           "cacDocument": "cacDocument",
           "representativeId": "representativeId",
           "googleSigned": false
