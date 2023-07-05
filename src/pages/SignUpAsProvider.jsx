@@ -210,8 +210,8 @@ const SignUpAsProvider = () => {
                     onClick={handleSwitchAccount}
                     className={
                       accountUser === "INDIVIDUAL"
-                        ? `mr-4 md:mr-[22px] px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
-                        : `mr-4 md:mr-[22px] px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
+                        ? `mr-2 md:mr-[22px] px-4 md:px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
+                        : `mr-2 md:mr-[22px] px-4 md:px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
                     }
                   >
                     For Individual
@@ -220,8 +220,8 @@ const SignUpAsProvider = () => {
                     onClick={handleSwitchAccount}
                     className={
                       accountUser === "BUSINESS"
-                        ? `px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
-                        : `px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
+                        ? `px-4 md:px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
+                        : `px-4 md:px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
                     }
                   >
                     For Business
