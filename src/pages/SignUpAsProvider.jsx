@@ -425,7 +425,7 @@ const SignUpAsProvider = () => {
                     <div className="ml-2 font-DMSans text-sm text-center pb-4">
                       or{" "}
                       <Link to="/sign-up" className="ml-1 font-bold text-primary90">
-                        Signup As a User
+                        User Signup
                       </Link>
                     </div>
                   </div>
@@ -636,16 +636,16 @@ const SignUpAsProvider = () => {
                     </button>
                   </div>
                   <div className="flex justify-center pt-3">
-                    <div className="font-DMSans text-sm text-center pb-4">
+                    <div className="font-DMSans text-xs sm:text-sm text-center pb-4">
                       Already have an account?{" "}
                       <Link to="/login" className="font-bold text-primary90">
                         Login
                       </Link>
                     </div>
-                    <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                    <div className="ml-1 sm:ml-2 font-DMSans text-xs sm:text-sm text-center pb-4">
                       or{" "}
-                      <Link to="/sign-up" className="ml-1 font-bold text-primary90">
-                        Signup As a user
+                      <Link to="/sign-up" className="ml-0.5 sm:ml-1 font-bold text-primary90">
+                        User Signup
                       </Link>
                     </div>
                   </div>

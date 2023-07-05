@@ -417,7 +417,7 @@ const SignUp = () => {
                         to="/provider-signup"
                         className="ml-1 font-bold text-primary90"
                       >
-                        Signup As a Provider
+                        Provider Signup
                       </Link>
                     </div>
                   </div>
@@ -579,19 +579,19 @@ const SignUp = () => {
                     </button>
                   </div>
                   <div className="flex justify-center">
-                    <div className="font-DMSans text-sm text-center pb-4">
+                    <div className="font-DMSans text-xs sm:text-sm text-center pb-4">
                       Already have an account?{" "}
                       <Link to="/login" className="font-bold text-primary90">
                         Login
                       </Link>
                     </div>
-                    <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                    <div className="ml-1 sm:ml-2 font-DMSans text-xs sm:text-sm text-center pb-4">
                       or{" "}
                       <Link
                         to="/provider-signup"
-                        className="ml-1 font-bold text-primary90"
+                        className="ml-0.5 sm:ml-1 font-bold text-primary90"
                       >
-                        Signup As a Provider
+                        Provider Signup
                       </Link>
                     </div>
                   </div>
