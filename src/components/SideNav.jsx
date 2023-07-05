@@ -218,7 +218,7 @@ const SideNav = () => {
               <span className="ml-[4px] text-sm hidden xm:flex">Settings</span>
             </div>
           </NavLink>
-          <div onClick={handleLogOut} className="flex items-center xm:items-start justify-center xm:justify-start text-sm font-medium gap-2 mt-2 ml-1 xm:ml-9 text-[#EB5757] hover:scale-90 active:scale-100 transition duration-300">
+          <div onClick={handleLogOut} className="cursor-pointer flex items-center xm:items-start justify-center xm:justify-start text-sm font-medium gap-2 mt-2 ml-1 xm:ml-9 text-[#EB5757] hover:scale-90 active:scale-100 transition duration-300">
             <img src={power} alt="Settings" className="px-0.5" />
             <span className="hidden xm:flex">Log out</span>
           </div>

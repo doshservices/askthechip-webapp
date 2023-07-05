@@ -7,7 +7,7 @@ import { FileUploadInput } from "../components";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
-import { notify, warn } from "../App";
+import { inform, notify, warn } from "../App";
 
 const defaultFormFields = {
   firstName: "",
@@ -42,7 +42,7 @@ const SignUpAsProvider = () => {
   const [loadingBusiness, setLoadingBusiness] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const [accountType, setAccountType] = useState("INDIVIDUAL");
+  const [accountUser, setAccountUser] = useState("INDIVIDUAL");
   const [selectedOptions, setSelectedOptions] = useState({});
   const [representativeId, setRepresentativeId] = useState(null);
   const [governmentId, setGovernmentId] = useState(null);
@@ -85,9 +85,9 @@ const SignUpAsProvider = () => {
   };
 
   const handleSwitchAccount = () => {
-    if (accountType === "INDIVIDUAL") setAccountType("BUSINESS");
+    if (accountUser === "INDIVIDUAL") setAccountUser("BUSINESS");
     else {
-      setAccountType("INDIVIDUAL");
+      setAccountUser("INDIVIDUAL");
     }
   };
   const handleChange = (e) => {
@@ -105,10 +105,10 @@ const SignUpAsProvider = () => {
       phoneNumber, 
       password, 
       gender: "MALE", 
-      role: "USER", 
+      role: "SERVICE_PROVIDER", 
       governmentId: governmentId,
-      serviceType: serviceType,
-      googleSigned: true 
+      serviceType,
+      googleSigned: false 
     };
     console.log("Individual data",data);
     return data;
@@ -140,7 +140,11 @@ const SignUpAsProvider = () => {
     e.preventDefault();
     localStorage.removeItem('authUser');
     setUser(null);
-    if (accountType === "INDIVIDUAL") {
+    if (accountUser === "INDIVIDUAL") {
+      if (password !== confirmPassword) {
+      inform("Password doesn't match")
+      return;
+    }
       setLoading(true);
     } else {
       setLoadingBusiness(true);
@@ -152,7 +156,7 @@ const SignUpAsProvider = () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(accountType === "INDIVIDUAL" ? individualDetails : businessDetails)
+        body: JSON.stringify(accountUser === "INDIVIDUAL" ? individualDetails : businessDetails)
       })
       if (res.ok) {
         console.log("Successful, you'll be redirected to login page!")
@@ -163,7 +167,7 @@ const SignUpAsProvider = () => {
         const dataRes = await res.json();
         warn(dataRes.message)
       }
-      if (accountType === "INDIVIDUAL") {
+      if (accountUser === "INDIVIDUAL") {
         setLoading(false);
       } else {
         setLoadingBusiness(false);
@@ -171,7 +175,7 @@ const SignUpAsProvider = () => {
     } catch (err) {
       console.log(err);
       warn("Error has occured", err ? `:${err}` : "");
-      if (accountType === "INDIVIDUAL") {
+      if (accountUser === "INDIVIDUAL") {
         setLoading(false);
       } else {
         setLoadingBusiness(false);
@@ -205,7 +209,7 @@ const SignUpAsProvider = () => {
                   <div
                     onClick={handleSwitchAccount}
                     className={
-                      accountType === "INDIVIDUAL"
+                      accountUser === "INDIVIDUAL"
                         ? `mr-4 md:mr-[22px] px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
                         : `mr-4 md:mr-[22px] px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
                     }
@@ -215,7 +219,7 @@ const SignUpAsProvider = () => {
                   <div
                     onClick={handleSwitchAccount}
                     className={
-                      accountType === "BUSINESS"
+                      accountUser === "BUSINESS"
                         ? `px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
                         : `px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
                     }
@@ -224,7 +228,7 @@ const SignUpAsProvider = () => {
                   </div>
                 </div>
               </div>
-              {accountType === "INDIVIDUAL" && (
+              {accountUser === "INDIVIDUAL" && (
                 <form onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                     <div className="flex flex-col mb-5">
@@ -427,7 +431,7 @@ const SignUpAsProvider = () => {
                   </div>
                 </form>
               )}
-              {accountType === "BUSINESS" && (
+              {accountUser === "BUSINESS" && (
                 <form onSubmit={handleSubmit}>
                   <div className="flex flex-col mb-5">
                     <label htmlFor="email" className="font-DMSans text-sm mb-2">

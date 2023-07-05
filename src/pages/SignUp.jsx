@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
 import googleLogo from "../assets/icons/google-logo.svg";
 import { FileUploadInput, Loader } from "../components";
-import { notify, warn } from "../App";
+import { inform, notify, warn } from "../App";
 import { ToastContainer } from "react-toastify";
+import { AuthContext } from "../contexts/AuthContext/AuthContext";
 
 const defaultFormFields = {
   firstName: "",
@@ -22,12 +23,13 @@ const defaultFormFields = {
 
 const SignUp = () => {
   const navigateTo = useNavigate();
-  const [userData, setUserData] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const { setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [response, setResponse] = useState('');
-  const [accountType, setAccountType] = useState("individual");
+  const [loadingBusiness, setLoadingBusiness] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [accountUser, setAccountUser] = useState("INDIVIDUAL");
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [representativeId, setRepresentativeId] = useState(null);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {
     firstName,
@@ -41,66 +43,121 @@ const SignUp = () => {
     // gender, role, googleSigned
   } = formFields;
 
+  const handleRepIdSelect = (file) => {
+    setRepresentativeId(file);
+  };
+
+  const handleSelectChange = (event) => {
+    const { name, value } = event.target;
+    setSelectedOptions((prevSelectedOptions) => ({
+      ...prevSelectedOptions,
+      [name]: value,
+    }));
+  };
+
   const redirectToLogin = () => {
     setTimeout(() => {
-      navigateTo('/login');
+      navigateTo("/login");
     }, 2500);
   };
   const handleSwitchAccount = () => {
-    if (accountType === "individual") setAccountType("business");
+    if (accountUser === "INDIVIDUAL") setAccountUser("BUSINESS");
     else {
-      setAccountType("individual");
+      setAccountUser("INDIVIDUAL");
     }
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
+  const getIndividualDetails = () => {
+    const { firstName, lastName, email, phoneNumber, password } = formFields;
+    const { accountType } = selectedOptions;
+    const data = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      password,
+      gender: "MALE",
+      role: "USER",
+      accountType,
+      googleSigned: true,
+    };
+    console.log("Individual data", data);
+    return data;
+  };
+  const individualDetails = getIndividualDetails();
+
+  const getBusinessDetails = () => {
+    const { companyName, officeAddress, phoneNumber, email, password } =
+      formFields;
+    const { accountType } = selectedOptions;
+    const data = {
+      companyName,
+      officeAddress,
+      phoneNumber,
+      email,
+      password,
+      gender: "MALE",
+      role: "USER",
+      accountType,
+      representativeId: representativeId,
+      googleSigned: true,
+    };
+    console.log("Business data", data);
+    return data;
+  };
+  const businessDetails = getBusinessDetails();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.removeItem('authUser');
+    localStorage.removeItem("authUser");
     setUser(null);
-    if (password !== confirmPassword) {
-      alert("Password doesn't match")
-      return;
+    if (accountUser === "INDIVIDUAL") {
+      if (password !== confirmPassword) {
+        inform("Password doesn't match");
+        return;
+      }
+      setLoading(true);
+    } else {
+      setLoadingBusiness(true);
     }
-    setLoading(true);
     try {
-      const url = 'https://askthechip-endpoint-production.up.railway.app/api/users'
+      const url =
+        "https://askthechip-endpoint-production.up.railway.app/api/users";
       const res = await fetch(url, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          firstName: formFields.firstName,
-          lastName: formFields.lastName,
-          email: formFields.email,
-          phoneNumber: formFields.phoneNumber,
-          password: formFields.password,
-          gender: "MALE",
-          role: "USER",
-          googleSigned: true
-        })
-      })
+        body: JSON.stringify(accountUser === "INDIVIDUAL" ? individualDetails : businessDetails),
+      });
       if (res.ok) {
-        console.log("Successful, you'll be redirected to login page!")
-        notify("Successful, redirecting you to login page")
+        console.log("Successful, you'll be redirected to login page!");
+        notify("Successful, redirecting you to login page");
         redirectToLogin();
       }
       if (!res.ok) {
-        console.log("Sign up failed,", res.message)
-        warn("Sign up failed,", res.message)
+        const dataRes = await res.json();
+        console.log("Sign up failed,", dataRes.message);
+        warn(dataRes.message)
       }
-      setLoading(false);
-
+      if (accountUser === "INDIVIDUAL") {
+        setLoading(false);
+      } else {
+        setLoadingBusiness(false);
+      }
     } catch (err) {
       console.log(err);
-      warn("Error ", err)
-      setLoading(false);
+      warn("Error has occured", err ? `:${err}` : "");
+      if (accountUser === "INDIVIDUAL") {
+        setLoading(false);
+      } else {
+        setLoadingBusiness(false);
+      }
     }
-  }
+  };
   return (
     <div className="font-Inter overflow-hidden bg-light">
       <ToastContainer />
@@ -127,7 +184,7 @@ const SignUp = () => {
                   <div
                     onClick={handleSwitchAccount}
                     className={
-                      accountType === "individual"
+                      accountUser === "INDIVIDUAL"
                         ? `mr-4 md:mr-[22px] px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
                         : `mr-4 md:mr-[22px] px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
                     }
@@ -137,7 +194,7 @@ const SignUp = () => {
                   <div
                     onClick={handleSwitchAccount}
                     className={
-                      accountType === "business"
+                      accountUser === "BUSINESS"
                         ? `px-7 bg-primary80 rounded-full py-1.5 cursor-pointer`
                         : `px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
                     }
@@ -146,7 +203,7 @@ const SignUp = () => {
                   </div>
                 </div>
               </div>
-              {accountType === "individual" && (
+              {accountUser === "INDIVIDUAL" && (
                 <form onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                     <div className="flex flex-col mb-5">
@@ -240,16 +297,21 @@ const SignUp = () => {
                       Account Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
-                      <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                      <select
+                        name="accountType"
+                        value={selectedOptions.accountType}
+                        onChange={handleSelectChange}
+                        className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
+                      >
                         <option disabled defaultValue>
                           Select Account Type
                         </option>
-                        <option value="entrepreneur">Entrepreneur</option>
-                        <option value="established_business">
+                        <option value="ENTREPRENEUR">Entrepreneur</option>
+                        <option value="ESTABLISHED_BUSINESS">
                           Established Business
                         </option>
-                        <option value="investor">Investor</option>
-                        <option value="startup">Start-up</option>
+                        <option value="INVESTOR">Investor</option>
+                        <option value="STARTUP">Start-up</option>
                       </select>
                     </div>
                   </div>
@@ -321,9 +383,13 @@ const SignUp = () => {
                     <button
                       disabled={loading}
                       type="submit"
-                      className={loading? "bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300" :`bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`}
+                      className={
+                        loading
+                          ? "bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+                          : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
+                      }
                     >
-                      {loading? <Loader />: "Create Account"} 
+                      {loading ? <Loader /> : "Create Account"}
                     </button>
                   </div>
                   <div className="flex justify-center my-2 font-DMSans font-medium text-sm">
@@ -347,15 +413,18 @@ const SignUp = () => {
                     </div>
                     <div className="ml-2 font-DMSans text-sm text-center pb-4">
                       or{" "}
-                      <Link to="/provider-signup" className="ml-1 font-bold text-primary90">
+                      <Link
+                        to="/provider-signup"
+                        className="ml-1 font-bold text-primary90"
+                      >
                         Signup As a Provider
                       </Link>
                     </div>
                   </div>
                 </form>
               )}
-              {accountType === "business" && (
-                <form>
+              {accountUser === "BUSINESS" && (
+                <form onSubmit={handleSubmit}>
                   <div className="flex flex-col mb-5">
                     <label
                       htmlFor="companyName"
@@ -443,54 +512,58 @@ const SignUp = () => {
                   </div>
                   <div className="flex flex-col mb-5">
                     <label
-                      htmlFor="serviceType"
+                      htmlFor="accountType"
                       className="font-DMSans text-sm mb-2"
                     >
                       Account Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
-                      <select className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                      <select name="accountType" value={selectedOptions.accountType} onChange={handleSelectChange} className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
                         <option disabled defaultValue>
                           Select Account Type
                         </option>
-                        <option value="entrepreneur">Entrepreneur</option>
-                        <option value="established_business">
+                        <option value="ENTREPRENEUR">Entrepreneur</option>
+                        <option value="ESTABLISHED_BUSINESS">
                           Established Business
                         </option>
-                        <option value="investor">Investor</option>
-                        <option value="startup">Start-up</option>
+                        <option value="INVESTOR">Investor</option>
+                        <option value="STARTUP">Start-up</option>
                       </select>
                     </div>
                   </div>
                   <div className="flex flex-col mb-5">
                     <label
-                      htmlFor="serviceType"
+                      htmlFor="documentType"
                       className="font-DMSans text-sm mb-2"
                     >
                       Document Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
                       <select
-                        id="serviceType"
+                        id="documentType"
+                        name="documentType"
+                        value={selectedOptions.documentType}
+                        onChange={handleSelectChange}
                         className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
                       >
                         <option disabled defaultValue>
                           Select Document Type
                         </option>
-                        <option>Driver's license</option>
-                        <option>International Passport</option>
-                        <option>National Identity Card</option>
-                        <option>Voter's card</option>
+                        <option value="DRIVERS_LICENSE">Driver's license</option>
+                          <option value="INTERNATIONAL_PASSPORT">International Passport</option>
+                          <option value="NIN">National Identity Card</option>
+                          <option value="VOTERS_CARD">Voter's card</option>
                       </select>
                     </div>
                   </div>
-                  <FileUploadInput />
+                  <FileUploadInput state={representativeId} handleState={handleRepIdSelect} />
                   <div className="flex justify-center mt-[3.75rem]">
                     <button
+                      disabled={loadingBusiness}
                       type="submit"
-                      className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
+                      className={loadingBusiness ? "bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300" : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`}
                     >
-                      Create Account
+                      {loadingBusiness ? <Loader /> : "Create Account"}
                     </button>
                   </div>
                   <div className="flex justify-center my-2 font-DMSans font-medium text-sm">
@@ -514,7 +587,10 @@ const SignUp = () => {
                     </div>
                     <div className="ml-2 font-DMSans text-sm text-center pb-4">
                       or{" "}
-                      <Link to="/provider-signup" className="ml-1 font-bold text-primary90">
+                      <Link
+                        to="/provider-signup"
+                        className="ml-1 font-bold text-primary90"
+                      >
                         Signup As a Provider
                       </Link>
                     </div>
