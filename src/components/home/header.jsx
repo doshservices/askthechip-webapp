@@ -4,7 +4,7 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
   const pathname = window.location.pathname;
 
   return (
-    <div className="flex justify-between py-5 w-[calc(100%_-_2rem)]">
+    <div className="flex flex-col sm:flex-row items-center justify-between py-5 w-[calc(100%_-_2rem)]">
       <div className="flex gap-2 cursor-pointer">
         <div className="flex justify-center text-xs rounded-full w-fit p-1">
           {pathname === "/home"
@@ -49,7 +49,7 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
           }
         </div>
       </div>
-      <div className="w-[35%]">
+      <div className="w-full mt-2 sm:mt-0 sm:w-[35%]">
         <Search background={"#FCFCFC"} />
       </div>
     </div>
