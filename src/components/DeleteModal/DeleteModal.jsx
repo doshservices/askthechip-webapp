@@ -3,7 +3,7 @@ import { CircleLoader } from '..';
 import { notify, warn } from '../../App';
 import { useAuth } from '../../contexts/AuthContext/AuthContext';
 
-const DeleteModal = ({postId, setOpenDeleteModal}) => {
+const DeleteModal = ({postId, setOpenDeleteModal, handleGetPosts}) => {
     const [deleting, setDeleting] = useState(false);
     const {user} = useAuth();
 
@@ -24,6 +24,7 @@ const DeleteModal = ({postId, setOpenDeleteModal}) => {
           console.log(resData.data);
           console.log("Post deleted successfully");
             notify("Post deleted successfully");
+            handleGetPosts();
             setDeleting(false);
             setOpenDeleteModal(false);
         }

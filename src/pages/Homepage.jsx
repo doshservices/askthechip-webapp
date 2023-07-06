@@ -173,7 +173,7 @@ const HomePage = () => {
           ) : (
             <>
               {reversedPosts?.map((post, index) => (
-                <Posts key={index} post={post} />
+                <Posts key={index} post={post} handleGetPosts={handleGetPosts} />
               ))}
             </>
           )}

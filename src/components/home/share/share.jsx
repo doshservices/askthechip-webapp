@@ -10,7 +10,7 @@ import { fileToBase64 } from "../../FileUploadInput";
 import Loader from "../../Loader/Loader";
 import { usePosts } from "../../../contexts/PostContext/PostContext";
 
-const Share = () => {
+const Share = ({handleGetPosts}) => {
   const {posts, setPosts} = usePosts();
   const fileInputRef = useRef(null);
   const [postStatus, setPostStatus] = useState("");
@@ -70,6 +70,7 @@ const Share = () => {
         notify("Successfully published a post!");
         const resData = await res.json();
         console.log(resData);
+        handleGetPosts();
       }
       setLoading(false);
     } catch (err) {

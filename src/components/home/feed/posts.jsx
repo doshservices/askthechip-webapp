@@ -31,7 +31,7 @@ const reactions = [
   },
 ];
 
-const Posts = ({ bgColor, color, post }) => {
+const Posts = ({ bgColor, color, post, handleGetPosts }) => {
   const [showMore, setShowMore] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -74,7 +74,7 @@ const Posts = ({ bgColor, color, post }) => {
           </div>
         </div>
       </div>
-      {openDeleteModal && (<DeleteModal setOpenDeleteModal={setOpenDeleteModal} postId={post?._id} />)}
+      {openDeleteModal && (<DeleteModal setOpenDeleteModal={setOpenDeleteModal} handleGetPosts={handleGetPosts} postId={post?._id} />)}
       <div className="col-span-12 ml-3 mt-3">
         <h4 className="font-medium mb-3">{post?.content}</h4>
         {post?.postImg && (
