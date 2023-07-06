@@ -52,7 +52,7 @@ const DeleteModal = ({postId, setOpenDeleteModal}) => {
               &#8203;
             </span>
             {deleting? 
-            <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all py-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <CircleLoader color='#05675A' />
           </div>:
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">

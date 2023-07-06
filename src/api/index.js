@@ -2,6 +2,26 @@ import axios from "axios";
 
 export const BASE_URL = "http://askthechip-endpoint-production.up.railway.app";
 
+export async function requestMentorship(data, token) {
+  return new Promise((resolve, reject) => {
+ fetch(`${BASE_URL}/api/users/request-mentorship`, {
+  method: "POST",
+  headers: {
+    'Content-Type': "application/json",
+    Authorization: `Bearer ${token}`
+  },
+  body: JSON.stringify(data)
+ }).then((res) => {
+        console.log(res.data);
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(new Error(err));
+      });
+  });
+}
+
 export const deletePost = async (id, token) => {
   try {
     const response = await fetch(`http://askthechip-endpoint-production.up.railway.app/api/post/delete-post?postId=${id}`, {
