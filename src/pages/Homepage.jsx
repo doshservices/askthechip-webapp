@@ -144,10 +144,9 @@ const HomePage = () => {
       warn("An error has occured, pls try again!");
     }
   };
-
   useEffect(() => {
     handleGetPosts();
-  }, []);
+  }, [setPosts]);
   return (
     <>
       <section className="hidden sm:grid grid-cols-24 justify-between bg-light">
