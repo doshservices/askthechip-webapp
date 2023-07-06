@@ -129,7 +129,7 @@ const Share = () => {
                   />
                 </div>
               </div>
-              <div className="ml-2 mr-1">
+              <div className="ml-2 mr-1 hidden sm:flex">
                 <select
                   className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
                   value={board}
@@ -150,14 +150,28 @@ const Share = () => {
               </div>
             </div>
           </div>
-          {file && (
-            <div className="flex justify-between w-full">
-              <div></div>
-              <div className="flex items-center mr-4 mb-2 text-primary">
-                File Uploaded Successfully!
+          
+            <div className="flex flex-col justify-end items-end sm:hidden sm:justify-between w-full">
+              {postStatus && (
+              <div>
+              <div className="ml-2 mr-1">
+                <select
+                  className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
+                  value={board}
+                  onChange={handleChangeBoard}
+                >
+                  <option value="WHITE_BOARD">White Board</option>
+                  <option value="BLACK_BOARD">Black Board</option>
+                </select>
               </div>
-            </div>
+              </div>
+              )}
+              {file && (
+              <div className="flex items-center mx-2 mb-2 text-primary">
+                File Uploaded<span className="hidden sm:flex"> Successfully</span>!
+              </div>
           )}
+            </div>
         </form>
 
       </div>
