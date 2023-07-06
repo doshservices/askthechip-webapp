@@ -11,7 +11,7 @@ const DeleteModal = ({postId, setOpenDeleteModal}) => {
     setDeleting(true);
     notify("Deleting post...")
     try {
-        const response = await fetch(`http://askthechip-endpoint-production.up.railway.app/api/post/delete-post?postId=${postId}`, {
+        const response = await fetch(`https://askthechip-endpoint-production.up.railway.app/api/post/delete-post?postId=${postId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

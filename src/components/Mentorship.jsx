@@ -36,7 +36,7 @@ const Mentorship = () => {
     console.log(data);
     try {
       const res = await fetch(
-        `http://askthechip-endpoint-production.up.railway.app/api/users/request-mentorship`,
+        `https://askthechip-endpoint-production.up.railway.app/api/users/request-mentorship`,
         {
           method: "POST",
           headers: {
@@ -47,13 +47,15 @@ const Mentorship = () => {
         }
       );
       if (res.ok) {
-        console.log(res.data);
+        const resData = res.json();
+        console.log("Okay", resData)
+        console.log(resData.data);
         notify("Request submitted successfully");
         setFormFields(defaultFormFields);
       }
       if (!res.ok) {
-        console.log(res.message);
-        warn(res.message);
+        console.log("Not okay");
+        warn("Something went wrong, try again!");
       }
       console.log(res);
     } catch (err) {
