@@ -98,6 +98,7 @@ import { usePosts } from "../contexts/PostContext/PostContext";
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
   const {posts, setPosts} = usePosts()
+  const reversedPosts = [...posts].reverse();
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
@@ -172,7 +173,7 @@ const HomePage = () => {
             </div>
           ) : (
             <>
-              {posts?.map((post, index) => (
+              {reversedPosts?.map((post, index) => (
                 <Posts key={index} post={post} />
               ))}
             </>

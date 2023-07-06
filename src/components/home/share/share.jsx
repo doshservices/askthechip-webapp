@@ -8,8 +8,10 @@ import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import { notify, warn } from "../../../App";
 import { fileToBase64 } from "../../FileUploadInput";
 import Loader from "../../Loader/Loader";
+import { usePosts } from "../../../contexts/PostContext/PostContext";
 
-const Share = ({handleGetPost}) => {
+const Share = () => {
+  const {posts, setPosts} = usePosts();
   const fileInputRef = useRef(null);
   const [postStatus, setPostStatus] = useState("");
   const [board, setBoard] = useState("WHITE_BOARD");
