@@ -26,6 +26,7 @@ import { AuthProvider } from "./contexts";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./contexts/AuthContext/AuthContext";
 import { ProtectedRoute } from "./utils";
+import PostProvider from "./contexts/PostContext/PostContext";
 
 
 const toastParams = {
@@ -49,6 +50,7 @@ function App() {
   return (
     <div>
       <AuthProvider>
+        <PostProvider>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<SignIn />} />
@@ -92,6 +94,7 @@ function App() {
             />
           </Route>
         </Routes>
+        </PostProvider>
       </AuthProvider>
     </div>
   );

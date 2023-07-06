@@ -5,6 +5,7 @@ import { Share } from "../components/home";
 import { CircleLoader, MobileLayout, SideNav } from "../components";
 import { warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { usePosts } from "../contexts/PostContext/PostContext";
 
 // const data = [
 //   {
@@ -96,7 +97,7 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
-  const [posts, setPosts] = useState([]);
+  const {posts, setPosts} = usePosts()
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
@@ -117,7 +118,7 @@ const HomePage = () => {
   };
 
   const handleGetPosts = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const res = await fetch(
         "https://askthechip-endpoint-production.up.railway.app/api/post",
@@ -143,7 +144,7 @@ const HomePage = () => {
     }
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     handleGetPosts();
   }, []);
   return (
@@ -164,13 +165,15 @@ const HomePage = () => {
             />
           </div>
           {loading ? (
-            <div>
+            <div className="flex justify-center items-center">
+            <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <CircleLoader color="#05675A" />
+            </div>
             </div>
           ) : (
             <>
               {posts?.map((post, index) => (
-                <Posts key={index} post={post}  />
+                <Posts key={index} post={post} />
               ))}
             </>
           )}
