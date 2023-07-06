@@ -1,4 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { warn } from "../../App";
+import { CircleLoader } from "../../components";
+import { useAuth } from "../AuthContext/AuthContext";
 
 export const PostContext = createContext({
   posts: null,
@@ -8,36 +11,38 @@ export const PostContext = createContext({
 const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    handleGetPosts();
-  }, []);
+  const {user} = useAuth();
 
-  const handleGetPosts = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        "https://askthechip-endpoint-production.up.railway.app/api/post",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      );
-      if (res.ok) {
-        const resData = await res.json();
-        console.log(resData.data.post);
-        const newPost = resData.data.post;
-        setPosts(...posts, newPost);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-      warn("An error has occured, pls try again!");
-    }
-  };
+  // const handleGetPosts = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await fetch(
+  //       "https://askthechip-endpoint-production.up.railway.app/api/post",
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${user?.token}`,
+  //         },
+  //       }
+  //     );
+  //     if (res.ok) {
+  //       const resData = await res.json();
+  //       console.log(resData.data.post);
+  //       const newPost = resData.data.post;
+  //       setPosts(newPost);
+  //       setLoading(false);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //     warn("An error has occured, pls try again!");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   handleGetPosts();
+  // }, []);
 
   const value = {
     posts,

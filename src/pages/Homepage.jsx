@@ -135,7 +135,7 @@ const HomePage = () => {
         const resData = await res.json();
         console.log(resData.data.post);
         const newPost = resData.data.post;
-        setPosts(...posts, newPost);
+        setPosts(newPost);
         setLoading(false);
       }
     } catch (error) {
