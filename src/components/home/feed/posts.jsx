@@ -35,6 +35,10 @@ const Posts = ({ bgColor, color, post }) => {
   const [showMore, setShowMore] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
+  const handleOpenDeleteModal = () => {
+    setOpenDeleteModal(true);
+    setShowMore(false)
+  }
   return (
     <section
       className="p-1 sm:p-5 mt-4 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans"
@@ -61,7 +65,7 @@ const Posts = ({ bgColor, color, post }) => {
               <img src={editIcon} alt="edit" className="w-4 mr-2 text-primary" />
               Edit
             </div>
-            <div onClick={()=>setOpenDeleteModal(!openDeleteModal)} className="hover:bg-red/20 flex cursor-pointer justify-center text-[#EB5757]">
+            <div onClick={handleOpenDeleteModal} className="hover:bg-red/20 flex cursor-pointer justify-center text-[#EB5757]">
               <img src={deleteIcon} alt="delete" className="w-4 mr-2" />
               Delete
             </div>

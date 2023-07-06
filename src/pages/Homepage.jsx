@@ -97,7 +97,7 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(!true);
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
   const handleAllPost = () => {
@@ -117,6 +117,7 @@ const HomePage = () => {
   };
 
   const handleGetPosts = async () => {
+    setLoading(true)
     try {
       const res = await fetch(
         "https://askthechip-endpoint-production.up.railway.app/api/post",
@@ -131,13 +132,12 @@ const HomePage = () => {
       if (res.ok) {
         const resData = await res.json();
         console.log(resData.data.post);
-        setPosts(resData.data.post);
+        const newPost = resData.data.post;
+        setPosts(...posts, newPost);
         setLoading(false);
       }
     } catch (error) {
-      const errData = await res.json();
       console.log(error);
-      console.log(errData);
       setLoading(false);
       warn("An error has occured, pls try again!");
     }
@@ -154,7 +154,7 @@ const HomePage = () => {
         </div>
         <div className="col-span-21 sm:col-span-21 xm:col-span-20 h-screen overflow-y-auto pl-10 pr-[3.75rem] border-r border-[#EBEEF0]">
           <div className="mt-5">
-            <Share />
+            <Share handleGetPosts={handleGetPosts} />
             <Header
               darkMode={darkMode}
               setDarkMode={setDarkMode}
@@ -195,7 +195,7 @@ const HomePage = () => {
           ) : (
             <>
               {posts?.map((post, index) => (
-                <Posts key={index} post={post} loading={loading} />
+                <Posts key={index} post={post} />
               ))}
             </>
           )}

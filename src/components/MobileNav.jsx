@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const MobileNav = () => {
   const pathname = window.location.pathname;
   return (
     <div className="mt-4">
+      <ToastContainer />
       <ul className="flex w-[92%] sm:w-[85%] mx-auto items-end justify-between">
         <li className="flex justify-center">
           <NavLink

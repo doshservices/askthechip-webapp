@@ -34,7 +34,7 @@ const DeleteModal = ({postId, setOpenDeleteModal}) => {
         setDeleting(false);
         setOpenDeleteModal(false);
       }
-    
+    setDeleting(false);
   };
 
   return (

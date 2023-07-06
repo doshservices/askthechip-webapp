@@ -9,7 +9,7 @@ import { notify, warn } from "../../../App";
 import { fileToBase64 } from "../../FileUploadInput";
 import Loader from "../../Loader/Loader";
 
-const Share = () => {
+const Share = ({handleGetPost}) => {
   const fileInputRef = useRef(null);
   const [postStatus, setPostStatus] = useState("");
   const [board, setBoard] = useState("WHITE_BOARD");
