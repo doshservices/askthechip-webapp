@@ -49,9 +49,38 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     setOpenEditModal(true);
     setShowMore(false);
   };
-  const username = profile.role === "USER" ? `${profile.firstName} ${profile.lastName}` : `${profile.companyName}`
+  const poster = post?.userId;
+  console.log(poster);
+  const username = poster.role === "USER" ? `${poster.firstName} ${poster.lastName}` : `${poster.companyName}`
   const dp = false;
-  const role = profile.role === "USER"? "Private User" : "Service Provider"
+  const role = poster.role === "USER"? "Private User" : "Service Provider"
+  
+  function getTimeAgo(timestamp) {
+    const currentTime = new Date();
+    const pastTime = new Date(timestamp);
+    const timeDifference = currentTime.getTime() - pastTime.getTime();
+  
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+  
+    if (seconds < 60) {
+      return seconds === 1 ? '1s ago' : `${seconds}s ago`;
+    } else if (minutes < 60) {
+      return minutes === 1 ? '1m ago' : `${minutes}m ago`;
+    } else if (hours < 24) {
+      return hours === 1 ? '1h ago' : `${hours}h ago`;
+    } else if (days < 30) {
+      return days === 1 ? 'Yesterday' : `${days}d ago`;
+    } else if (months < 12) {
+      return months === 1 ? '1m ago' : `${months}m ago`;
+    } else {
+      return years === 1 ? '1y ago' : `${years}y ago`;
+    }
+  }
   
   return (
     <section
@@ -74,7 +103,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         </div>
         <div className="flex">
           <div className="font-light opacity-50 mr-2 items-center flex">
-            mins ago
+            {getTimeAgo(post?.createdAt)}
           </div>
           {myPost && (
             <div
