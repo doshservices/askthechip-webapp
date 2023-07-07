@@ -50,7 +50,6 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     setShowMore(false);
   };
   const poster = post?.userId;
-  console.log(poster);
   const username = poster.role === "USER" ? `${poster.firstName} ${poster.lastName}` : `${poster.companyName}`
   const dp = false;
   const role = poster.role === "USER"? "Private User" : "Service Provider"
