@@ -62,7 +62,7 @@ const Pricing = () => {
         </div>
         <div className="flex items-center justify-center">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-[90%] mb-8">
-            {pricingNData.map((data, index) => (
+            {pricingData.map((data, index) => (
               <div
                 key={index}
                 className="max-w-[27.5rem] border border-[#00000015] rounded-lg mb-4"
