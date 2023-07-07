@@ -17,34 +17,29 @@ import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 const reactions = [
   {
     icon: comment,
-    value: 61,
+    value: 0,
   },
   {
     icon: like,
-    value: 61,
+    value: 0,
   },
   {
     icon: dislike,
-    value: 61,
-  },
-  {
-    icon: share,
-    value: 61,
-  },
+    value: 0,
+  }
 ];
 
 const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
+  const pathname = window.location.pathname;
   const [showMore, setShowMore] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const { user } = useAuth();
   const {profile} = useProfile();
   
-  const authUserId = user?.user._id;
+  const authUserId = profile?._id;
   const postUserId = post?.userId?._id;
   const myPost = authUserId === postUserId;
-  const poster = post?.userId
-  
  
   const handleOpenDeleteModal = () => {
     setOpenDeleteModal(true);
@@ -54,16 +49,13 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     setOpenEditModal(true);
     setShowMore(false);
   };
-  const username = poster.role === "USER" ? `${poster.firstName} ${poster.lastName}` : `${poster.companyName}`
+  const username = profile.role === "USER" ? `${profile.firstName} ${profile.lastName}` : `${profile.companyName}`
   const dp = false;
-  const role = poster.role === "USER"? "Private User" : "Service Provider"
-  // console.log("poster here",poster);
-  // console.log("user here",user)
-  // console.log("profile here", profile)
-  // console.log("post here", post);
+  const role = profile.role === "USER"? "Private User" : "Service Provider"
+  
   return (
     <section
-      className={index===0?`bg-[#f4f4f4] rounded-[10px] p-1 sm:p-5 mt-5 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`: `bg-[#f4f4f4] rounded-[10px] p-1 sm:p-5 mt-10 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`}
+      className={index===0 || pathname === '/profile'?`bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-0 sm:mt-5 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`: `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-5 sm:mt-10 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`}
       style={{ backgroundColor: bgColor, color: color }}
     >
       <div className="col-span-12 flex justify-between">
@@ -82,7 +74,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         </div>
         <div className="flex">
           <div className="font-light opacity-50 mr-2 items-center flex">
-            10mins ago
+            mins ago
           </div>
           {myPost && (
             <div
@@ -139,7 +131,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         />
       )}
       <div className="col-span-12 ml-3 mt-3">
-        <h4 className="font-medium mb-3">{post?.content}</h4>
+        <h4 className="text-sm text-[#2D2D2DCC] font-DMSans mb-3">{post?.content}</h4>
         {post?.postImg && (
           <img src={post?.postImg} alt="post-img" className="w-full" />
         )}

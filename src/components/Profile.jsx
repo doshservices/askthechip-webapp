@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import coverImage from "../assets/images/cover-image.png";
 import profileImage from "../assets/images/profile-picture.png";
 import gear from "../assets/icons/gear.svg";
@@ -12,11 +12,53 @@ import briefcase from "../assets/icons/briefcase-icon.svg";
 import followers from "../assets/icons/followers-icon.svg";
 import mapMarker from "../assets/icons/map-marker.svg";
 import { Posts, Share } from "./home";
+import { CircleLoader } from ".";
+import { usePosts } from "../contexts/PostContext/PostContext";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 // import Button from './Button';
 
 const Profile = () => {
   const [viewer, setViewer] = useState("self");
   const [type, setType] = useState("personal");
+  const { posts, setPosts } = usePosts();
+  const reversedPosts = [...posts].reverse();
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
+  const {profile, setProfile} = useProfile();
+
+  const handleGetPosts = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        "https://askthechip-endpoint-production.up.railway.app/api/post",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      if (res.ok) {
+        const resData = await res.json();
+        const getPosts = resData.data.post;
+        setPosts(getPosts);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      warn("An error has occured, pls refresh your browser!");
+    }
+  };
+  useEffect(() => {
+    handleGetPosts();
+  }, [setPosts]);
+  
+  const username = profile?.role === "USER" ? `${profile.firstName} ${profile.lastName}` : `${profile.companyName}`
+  const dp = false;
+  const role = profile?.role === "USER"? "Private User" : "Service Provider"
 
   return (
     <div className="mt-0 md:mt-5">
@@ -24,10 +66,10 @@ const Profile = () => {
         <div className="pl-[45%] md:pl-48 xm:pl-40 pt-10">
           <div className="text-light">
             <div className="font-DMSans font-medium text-2xl mb-2 mt-2">
-              Shai Hulud
+              {username}
             </div>
             <div className="w-[90%] text-sm font-DMSans mb-2">
-              {type === "personal" ? "Architect" : "Industry"}
+              {role}
             </div>
           </div>
         </div>
@@ -36,12 +78,13 @@ const Profile = () => {
       <div className="grid-cols-3 ml-8">
         <div className="col-span-1 -mt-[4rem] sm:-mt-[5rem] xm:-mt-[4rem]">
           <div className="relative">
+          {!dp? <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div>: 
             <img
               src={profileImage}
               alt="Profile Image"
               className="rounded-full max-w-[8rem] sm:max-w-[10rem] xm:max-w-[8rem]"
-            />
-            <img src={camera} alt="Camera" className="bottom-0 left-14 absolute bg-black/50 rounded" />
+            />}
+            <img src={camera} alt="Camera" className="bottom-0 left-12 absolute bg-black/50 rounded" />
           </div>
         </div>
 
@@ -178,14 +221,27 @@ const Profile = () => {
             </div>
           </div>
           <div className="col-span-8">
-            <div className="p-4">
-              <Share />
+            <div className="p-2 pb-0">
+              <Share handleGetPosts={handleGetPosts} />
             </div>
-            <div className="m-4 rounded-lg bg-[#f4f4f4]">
-              <Posts />
+            <div className="">
+            {loading ? (
+            <div className="flex justify-center items-center m-4">
+            <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+              <CircleLoader color="#05675A" />
             </div>
-            <div className="m-4 rounded-lg bg-[#f4f4f4]">
-              <Posts />
+            </div>
+          ) : (
+            <>
+              {reversedPosts?.map((post, index) => (
+                <Posts
+                  key={index}
+                  post={post}
+                  handleGetPosts={handleGetPosts}
+                />
+              ))}
+            </>
+          )}
             </div>
           </div>
         </div>

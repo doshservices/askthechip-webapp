@@ -106,8 +106,10 @@ const HomePage = () => {
           />
           <Share handleGetPosts={handleGetPosts} />
           {loading ? (
-            <div>
+            <div className="flex justify-center items-center">
+            <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <CircleLoader color="#05675A" />
+            </div>
             </div>
           ) : (
             <>

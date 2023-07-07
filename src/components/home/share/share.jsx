@@ -81,7 +81,7 @@ const Share = ({handleGetPosts}) => {
   const me = user?.user
   const username = me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`
   const dp = false;
-    console.log("user here",user)
+
   return (
     <section className="px-1">
       <div className="grid grid-cols-12 sm:flex bg-[#f4f4f4] py-2.5 px-5 rounded-lg">
@@ -107,15 +107,6 @@ const Share = ({handleGetPosts}) => {
                 className="bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray w-full resize-none mt-4"
               />
             </div>
-            {/* <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
-                <img src={imageIcon} alt="Image" />
-              </Link>
-              <Link className="flex text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
-                <img src={gifIcon} alt="Gif" />
-              </Link>
-              <Link className="flex text-dark2D/70 p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center">
-                <BsEmojiSmile size={18} />
-              </Link> */}
             <div className="flex items-center mr-2">
               <div>
                 <div
@@ -159,10 +150,10 @@ const Share = ({handleGetPosts}) => {
               </div>
           )}
           
-            <div className="flex flex-col justify-end items-end sm:hidden sm:justify-between w-full">
+            <div className="flex flex-col justify-end items-end sm:hidden sm:justify-between w-full mb-2">
               {postStatus && (
               <div>
-              <div className="ml-2 mr-1">
+              <div className="mx-2">
                 <select
                   className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
                   value={board}
@@ -174,11 +165,6 @@ const Share = ({handleGetPosts}) => {
               </div>
               </div>
               )}
-              {file && (
-              <div className="flex items-center mx-2 mb-2 text-primary">
-                File Uploaded<span className="hidden sm:flex"> Successfully</span>!
-              </div>
-          )}
             </div>
         </form>
 
