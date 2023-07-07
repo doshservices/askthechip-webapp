@@ -75,7 +75,7 @@ const Profile = () => {
         </div>
         {/* <img src={coverImage} alt="Cover image" className="w-full col-span-1" /> */}
       </div>
-      <div className="grid-cols-3 ml-8">
+      <div className="grid-cols-3 ml-4 sm:ml-8">
         <div className="col-span-1 -mt-[4rem] sm:-mt-[5rem] xm:-mt-[4rem]">
           <div className="relative">
           {!dp? <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div>: 
@@ -117,7 +117,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="grid grid-cols-12">
-          <div className="col-span-4 border-r border-[#ebeef0] pr-4">
+          <div className="col-span-12 sm:col-span-4 border-r border-[#ebeef0] pr-4">
             <div className="bg-[#f4f4f4] rounded-lg py-4">
               <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">About</div>
               <div className="px-4">
@@ -220,7 +220,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-8">
+          <div className="col-span-12 hidden sm:flex sm:col-span-8">
             <div className="p-2 pb-0">
               <Share handleGetPosts={handleGetPosts} />
             </div>

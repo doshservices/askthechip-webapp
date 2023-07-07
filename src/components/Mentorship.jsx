@@ -67,8 +67,8 @@ const Mentorship = () => {
 
   return (
     <div className="grid grid-cols-12 pl-8">
-      <ToastContainer />
       <div className="col-span-11 md:col-span-9 xm:col-span-7 xl:col-span-6">
+      <ToastContainer />
         <div className="font-DMSans text-2xl font-medium my-2 mt-5">
           Mentorship
         </div>
