@@ -1,6 +1,5 @@
 import { useState } from "react";
 // import profile from "../../../assets/Profile Picture.png";
-import postImg from "../../../assets/post-img.png";
 import profileImage from "../../../assets/images/profile-picture.png";
 import like from "../../../assets/icons/like-icon.svg";
 import dislike from "../../../assets/icons/dislike-icon.svg";
@@ -11,6 +10,8 @@ import threeDotsIcon from "../../../assets/icons/three-dots.svg";
 import editIcon from "../../../assets/icons/edit-icon.svg";
 import deleteIcon from "../../../assets/icons/delete-icon.svg";
 import DeleteModal from "../../DeleteModal/DeleteModal";
+import EditPost from "../../EditPost/EditPost";
+import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 
 const reactions = [
   {
@@ -31,17 +32,26 @@ const reactions = [
   },
 ];
 
-const Posts = ({ bgColor, color, post, handleGetPosts }) => {
+const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const [showMore, setShowMore] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const { user } = useAuth();
+  const authUserId = user?.user._id;
+  const postUserId = post?.userId?._id;
+  const myPost = authUserId === postUserId;
 
   const handleOpenDeleteModal = () => {
     setOpenDeleteModal(true);
-    setShowMore(false)
-  }
+    setShowMore(false);
+  };
+  const handleOpenEditModal = () => {
+    setOpenEditModal(true);
+    setShowMore(false);
+  };
   return (
     <section
-      className="p-1 sm:p-5 mt-4 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans"
+      className={index===0?`bg-[#f4f4f4] rounded-[10px] p-1 sm:p-5 mt-5 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`: `bg-[#f4f4f4] rounded-[10px] p-1 sm:p-5 mt-10 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`}
       style={{ backgroundColor: bgColor, color: color }}
     >
       <div className="col-span-12 flex justify-between">
@@ -57,24 +67,63 @@ const Posts = ({ bgColor, color, post, handleGetPosts }) => {
           </div>
         </div>
         <div className="flex">
-          <div className="font-light opacity-50 mr-2 items-center flex">10mins ago</div>
-          <div className={showMore?`flex relative text-primary p-0 mx-1/2 my-3 bg-primary/10 w-8 h-8 rounded-full justify-center items-center`: `flex relative text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center`}>
-            <img onClick={()=>setShowMore(!showMore)} src={threeDotsIcon} alt="delete" className="w-4" />
-           {showMore && <div className="absolute top-8 right-0 w-20 bg-white shadow">
-            <div className="hover:bg-primary/20 flex cursor-pointer justify-center text-primary">
-              <img src={editIcon} alt="edit" className="w-4 mr-2 text-primary" />
-              Edit
-            </div>
-            <div onClick={handleOpenDeleteModal} className="hover:bg-red/20 flex cursor-pointer justify-center text-[#EB5757]">
-              <img src={deleteIcon} alt="delete" className="w-4 mr-2" />
-              Delete
-            </div>
-           </div>
-            }
+          <div className="font-light opacity-50 mr-2 items-center flex">
+            10mins ago
           </div>
+          {myPost && (
+            <div
+              className={
+                showMore
+                  ? `flex relative text-primary p-0 mx-1/2 my-3 bg-primary/10 w-8 h-8 rounded-full justify-center items-center`
+                  : `flex relative text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center`
+              }
+            >
+              <img
+                onClick={() => setShowMore(!showMore)}
+                src={threeDotsIcon}
+                alt="delete"
+                className="w-4"
+              />
+              {showMore && (
+                <div className="absolute top-8 right-0 w-28 p-4 rounded-lg bg-white shadow">
+                  <div
+                    onClick={handleOpenEditModal}
+                    className="hover:bg-primary/20 flex cursor-pointer justify-center text-primary"
+                  >
+                    <img
+                      src={editIcon}
+                      alt="edit"
+                      className="w-4 mr-2 text-primary"
+                    />
+                    Edit
+                  </div>
+                  <div
+                    onClick={handleOpenDeleteModal}
+                    className="hover:bg-red/20 flex cursor-pointer justify-center text-[#EB5757]"
+                  >
+                    <img src={deleteIcon} alt="delete" className="w-4 mr-2" />
+                    Delete
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      {openDeleteModal && (<DeleteModal setOpenDeleteModal={setOpenDeleteModal} handleGetPosts={handleGetPosts} postId={post?._id} />)}
+      {openDeleteModal && (
+        <DeleteModal
+          setOpenDeleteModal={setOpenDeleteModal}
+          handleGetPosts={handleGetPosts}
+          postId={post?._id}
+        />
+      )}
+      {openEditModal && (
+        <EditPost
+          setOpenEditModal={setOpenEditModal}
+          handleGetPosts={handleGetPosts}
+          postId={post?._id}
+        />
+      )}
       <div className="col-span-12 ml-3 mt-3">
         <h4 className="font-medium mb-3">{post?.content}</h4>
         {post?.postImg && (

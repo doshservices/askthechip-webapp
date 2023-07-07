@@ -11,7 +11,6 @@ import Loader from "../../Loader/Loader";
 import { usePosts } from "../../../contexts/PostContext/PostContext";
 
 const Share = ({handleGetPosts}) => {
-  const {posts, setPosts} = usePosts();
   const fileInputRef = useRef(null);
   const [postStatus, setPostStatus] = useState("");
   const [board, setBoard] = useState("WHITE_BOARD");
@@ -44,10 +43,6 @@ const Share = ({handleGetPosts}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const data ={
-      postStatus, board, file
-    }
-    console.log(data);
     try {
       setLoading(true);
       const res = await fetch(
@@ -153,6 +148,11 @@ const Share = ({handleGetPosts}) => {
               </div>
             </div>
           </div>
+            {file && (
+              <div className="flex items-center mx-2 mb-2 text-primary">
+                File Uploaded Successfully!
+              </div>
+          )}
           
             <div className="flex flex-col justify-end items-end sm:hidden sm:justify-between w-full">
               {postStatus && (
@@ -183,15 +183,3 @@ const Share = ({handleGetPosts}) => {
 };
 
 export default Share;
-
-
-// {
-    // "newPost": {
-      // "userId": "64a53313f4a0282fe8e59af5",
-      // "content": "Lorem ipsum is placeholder text commonly used in t…stries for previewing layouts and visual mockups",
-      // "board": "WHITE_BOARD",
-      // "postImg": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAYCAYAAAAPtVbGAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAI8SURBVHgBrVW7blNBFJxj3SZpjEhJZJpQxpRpHCmidFJB6ZQ0BCmU8AUxoSMIkR+w+AFilxSJkFJiStM4CmUMCRJQsbmz9t59ZNe+ljLSSr7ex5xzZvasXP5TChEI5ofZ0+4p7HWBnQ1g/4lAUiTupnlIDIHB+RtBNs9BxwPgqK8wHAGXf4HqArBVBxorgvtLwF5O0HYIdjZEr5GrKZkYDC+AZx2Fk0F6TeMBvPnWmuBwe/x7JgkJNg8UzkYoDZeAyOYlaK0xakHtLvDtR65BV+nSGaznGX3Y9s/JyhJUF4GPT0UfYnDy3Scg+ufA1UQv45xKWYLurk/QDkTmGoKk7z8ruBpUyhKs3rNrOqe+TanB/mP7zTISajKysgSu1asLMtluRR6O7H8smQuP5HUvnYGb/mad4oquPW81cXZh53lnRCIkzKJzaicOW36JQtBlbnYsoQGdF82EN9mAt5iD/5TpCAzwU99+bz30dxXCG7GIxoofoRtlARmP4U+g+c5aubY0DtDLJBap9jh8m/76o/D8kb+aPaz5VhV6UMfei5snZuHBJqvwHtxZFE99logZhAShHjrp33nv4l42t+ZBvI2FvUgTBFYnQcoohSary342t0VAZCZ28za4Nibqyyp/R0QLezxQet6IrAl2pxMQRasPNZiFKEHC75UYATOiFVNYzy3+5WUkAxWMCbKQgBqY94ClOfqqiqd2fAdsNxbn7GmQ2qv/ytjQJYguTnzPIqnwsU8RSDBCBFVJ4hrWiBsRHolr/wAAAABJRU5ErkJggg==",
-      // "_id": "64a5f94ef4a0282fe8e59b27",
-      // "__v": 0
-  // }
-// }

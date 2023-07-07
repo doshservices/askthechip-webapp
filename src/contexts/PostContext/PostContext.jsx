@@ -11,7 +11,6 @@ export const PostContext = createContext({
 const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const {user} = useAuth();
 
   // const handleGetPosts = async () => {
   //   setLoading(true);
