@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import {
   Error,
@@ -22,79 +22,54 @@ import {
   Verify,
 } from "./pages";
 
-import { AuthProvider } from "./contexts";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "./contexts/AuthContext/AuthContext";
+import { AuthProvider, PostProvider, ProfileProvider } from "./contexts";
 import { ProtectedRoute } from "./utils";
-import PostProvider from "./contexts/PostContext/PostContext";
-
 
 const toastParams = {
-  position: 'top-right',
+  position: "top-right",
   autoClose: 2500,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: false,
   draggable: true,
   progress: undefined,
-  theme: 'light',
+  theme: "light",
 };
 
 export const notify = (val) => toast.success(`${val}`, toastParams);
 export const warn = (val) => toast.error(`${val}`, toastParams);
 export const inform = (val) => toast.info(`${val}`, toastParams);
 
-
 function App() {
-
   return (
     <div>
       <AuthProvider>
-        <PostProvider>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/provider-signup" element={<SignUpAsProvider />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/pricing/payment" element={<Payment />} />
-          <Route path="/verify" element={<Verify />} />
-          <Route path="/*" element={<Error />} />
-          {/* Protected routes */}
-          <Route element={<ProtectedRoute />}>
-            <Route
-              path="/home"
-              element={<Homepage />}
-            />
-            <Route
-              path="/mentorship"
-              element={<MentorshipPage />}
-            />
-            <Route
-              path="/messages"
-              element={<MessagesPage />}
-            />
-            <Route
-              path="/notifications"
-              element={<NotificationsPage />}
-            />
-            <Route
-              path="/profile"
-              element={<ProfilePage />}
-            />
-            <Route
-              path="/settings"
-              element={<SettingsPage />}
-            />
-            <Route
-              path="/services"
-              element={<ServicesPage />}
-            />
-          </Route>
-        </Routes>
-        </PostProvider>
+        <ProfileProvider>
+          <PostProvider>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<SignIn />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/provider-signup" element={<SignUpAsProvider />} />
+              <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/pricing/payment" element={<Payment />} />
+              <Route path="/verify" element={<Verify />} />
+              <Route path="/*" element={<Error />} />
+              {/* Protected routes */}
+              <Route element={<ProtectedRoute />}>
+                <Route path="/home" element={<Homepage />} />
+                <Route path="/mentorship" element={<MentorshipPage />} />
+                <Route path="/messages" element={<MessagesPage />} />
+                <Route path="/notifications" element={<NotificationsPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/services" element={<ServicesPage />} />
+              </Route>
+            </Routes>
+          </PostProvider>
+        </ProfileProvider>
       </AuthProvider>
     </div>
   );

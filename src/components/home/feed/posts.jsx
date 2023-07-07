@@ -12,6 +12,7 @@ import deleteIcon from "../../../assets/icons/delete-icon.svg";
 import DeleteModal from "../../DeleteModal/DeleteModal";
 import EditPost from "../../EditPost/EditPost";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
+import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 
 const reactions = [
   {
@@ -37,10 +38,14 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const { user } = useAuth();
+  const {profile} = useProfile();
+  
   const authUserId = user?.user._id;
   const postUserId = post?.userId?._id;
   const myPost = authUserId === postUserId;
-
+  const poster = post?.userId
+  
+ 
   const handleOpenDeleteModal = () => {
     setOpenDeleteModal(true);
     setShowMore(false);
@@ -49,6 +54,13 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     setOpenEditModal(true);
     setShowMore(false);
   };
+  const username = poster.role === "USER" ? `${poster.firstName} ${poster.lastName}` : `${poster.companyName}`
+  const dp = false;
+  const role = poster.role === "USER"? "Private User" : "Service Provider"
+  // console.log("poster here",poster);
+  // console.log("user here",user)
+  // console.log("profile here", profile)
+  // console.log("post here", post);
   return (
     <section
       className={index===0?`bg-[#f4f4f4] rounded-[10px] p-1 sm:p-5 mt-5 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`: `bg-[#f4f4f4] rounded-[10px] p-1 sm:p-5 mt-10 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`}
@@ -57,12 +69,14 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       <div className="col-span-12 flex justify-between">
         <div className="flex">
           <div className="w-10 mr-2">
+            {!dp? <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div>: 
             <img src={profileImage} alt="profile" className="rounded-[50%]" />
+            }
           </div>
           <div className="flex">
             <div className="font-bold">
-              <div>Devon Lane </div>
-              <div className="font-light opacity-70">Architect</div>
+              <div>{username}</div>
+              <div className="font-light opacity-70">{role}</div>
             </div>
           </div>
         </div>
@@ -157,9 +171,48 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
 
 export default Posts;
 
-// board: "WHITE_BOARD"
-// content: "Lorem ipsum is placeholder text commonly used in t…stries for previewing layouts and visual mockups"
-// postImg: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAYCAYAAAAPtVbGAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAI8SURBVHgBrVW7blNBFJxj3SZpjEhJZJpQxpRpHCmidFJB6ZQ0BCmU8AUxoSMIkR+w+AFilxSJkFJiStM4CmUMCRJQsbmz9t59ZNe+ljLSSr7ex5xzZvasXP5TChEI5ofZ0+4p7HWBnQ1g/4lAUiTupnlIDIHB+RtBNs9BxwPgqK8wHAGXf4HqArBVBxorgvtLwF5O0HYIdjZEr5GrKZkYDC+AZx2Fk0F6TeMBvPnWmuBwe/x7JgkJNg8UzkYoDZeAyOYlaK0xakHtLvDtR65BV+nSGaznGX3Y9s/JyhJUF4GPT0UfYnDy3Scg+ufA1UQv45xKWYLurk/QDkTmGoKk7z8ruBpUyhKs3rNrOqe+TanB/mP7zTISajKysgSu1asLMtluRR6O7H8smQuP5HUvnYGb/mad4oquPW81cXZh53lnRCIkzKJzaicOW36JQtBlbnYsoQGdF82EN9mAt5iD/5TpCAzwU99+bz30dxXCG7GIxoofoRtlARmP4U+g+c5aubY0DtDLJBap9jh8m/76o/D8kb+aPaz5VhV6UMfei5snZuHBJqvwHtxZFE99logZhAShHjrp33nv4l42t+ZBvI2FvUgTBFYnQcoohSary342t0VAZCZ28za4Nibqyyp/R0QLezxQet6IrAl2pxMQRasPNZiFKEHC75UYATOiFVNYzy3+5WUkAxWMCbKQgBqY94ClOfqqiqd2fAdsNxbn7GmQ2qv/ytjQJYguTnzPIqnwsU8RSDBCBFVJ4hrWiBsRHolr/wAAAABJRU5ErkJggg=="
-// userId: {_id: '64a53313f4a0282fe8e59af5', gender: 'MALE', email: 'abdrahmanoladimejitest@gmail.com', phoneNumber: '08109672785', password: '$2b$10$FpNudvGXYuB/GrTRPNe2cuzFktLNmdoiZ/oygCMRv1MmndPgs81Wy', …}
-// __v: 0
-// _id: "64a5f94ef4a0282fe8e59b27"
+// const ServiceProvider = {
+//   "_id": "64a53313f4a0282fe8e59af5",
+//   "gender": "MALE",
+//   "email": "abdrahmanoladimejitest@gmail.com",
+//   "phoneNumber": "08109672785",
+//   "password": "$2b$10$FpNudvGXYuB/GrTRPNe2cuzFktLNmdoiZ/oygCMRv1MmndPgs81Wy",
+//   "interest": [],
+//   "companyName": "Ladoke Akintola University Of Technology, Ogbomoso",
+//   "cacDocument": "cacDocument",
+//   "representativeId": "representativeId",
+//   "otp": "191402",
+//   "verified": false,
+//   "role": "SERVICE_PROVIDER",
+//   "googleSigned": false,
+//   "serviceType": "TRAINING",
+//   "status": "active",
+//   "followers": [],
+//   "subscription": "FREE",
+//   "__v": 0
+// }
+
+// const user = {
+//   "_id": "64a676f9f4a0282fe8e59cc8",
+//   "userId": {
+//       "_id": "64a67601f4a0282fe8e59cb6",
+//       "firstName": "Ezra",
+//       "lastName": "bernard",
+//       "gender": "MALE",
+//       "email": "bernardezra112@gmail.com",
+//       "phoneNumber": "+2349135248299",
+//       "password": "$2b$10$qguToz6cCqu1MRMaE7kJEua8IrrLifp8W0fCu/QpTBGkX/ARnknEO",
+//       "interest": [],
+//       "verified": false,
+//       "role": "USER",
+//       "googleSigned": true,
+//       "status": "active",
+//       "followers": [],
+//       "subscription": "FREE",
+//       "__v": 0
+//   },
+//   "content": "Testing testing ",
+//   "board": "WHITE_BOARD",
+//   "postImg": null,
+//   "__v": 0
+// }

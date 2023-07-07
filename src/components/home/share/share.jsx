@@ -78,15 +78,20 @@ const Share = ({handleGetPosts}) => {
     setFile(null)
     setLoading(false);
   };
+  const me = user?.user
+  const username = me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`
+  const dp = false;
+    console.log("user here",user)
   return (
     <section className="px-1">
       <div className="grid grid-cols-12 sm:flex bg-[#f4f4f4] py-2.5 px-5 rounded-lg">
-        <div className="col-span-2 justify-center items-center flex mr-1 sm:mr-2 mb-auto w-full sm:w-14 h-full">
+        <div className="col-span-2 justify-center items-center flex mr-1 sm:mr-2 my-auto w-full sm:w-14 h-full">
+        {!dp? <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div>: 
           <img
             src={profileImg}
             alt={profileImg}
             className={`rounded-full h-fit`}
-          />
+          />}
         </div>
         <form onSubmit={handleSubmit} className="col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-lg bg-grey  border border-black/10">
           <div className="flex w-full justify-between">
