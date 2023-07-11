@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import profile from "../../../assets/Profile Picture.png";
 import profileImage from "../../../assets/images/profile-picture.png";
 import like from "../../../assets/icons/like-icon.svg";
@@ -13,34 +13,65 @@ import DeleteModal from "../../DeleteModal/DeleteModal";
 import EditPost from "../../EditPost/EditPost";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
+import { warn } from "../../../App";
+import Comment from "./Comment";
 
 const reactions = [
   {
     icon: comment,
-    value: 0,
   },
   {
     icon: like,
-    value: 0,
   },
   {
     icon: dislike,
-    value: 0,
-  }
+  },
 ];
+
+function getTimeAgo(timestamp) {
+  const currentTime = new Date();
+  const pastTime = new Date(timestamp);
+  const timeDifference = currentTime.getTime() - pastTime.getTime();
+
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(months / 12);
+
+  if (seconds < 60) {
+    return seconds === 1 ? "1s ago" : `${seconds}s ago`;
+  } else if (minutes < 60) {
+    return minutes === 1 ? "1m ago" : `${minutes}m ago`;
+  } else if (hours < 24) {
+    return hours === 1 ? "1h ago" : `${hours}h ago`;
+  } else if (days < 30) {
+    return days === 1 ? "Yesterday" : `${days}d ago`;
+  } else if (months < 12) {
+    return months === 1 ? "1m ago" : `${months}m ago`;
+  } else {
+    return years === 1 ? "1y ago" : `${years}y ago`;
+  }
+}
 
 const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const pathname = window.location.pathname;
+  const [likes, setLikes] = useState(0);
+  const [comments, setComments] = useState(0);
+  const [loadingLikes, setLoadingLikes] = useState(false);
+  const [likePost, setLikePost] = useState(null);
+  const [loadingLikePost, setLoadingLikePost] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const { user } = useAuth();
-  const {profile} = useProfile();
-  
+  const { profile } = useProfile();
+
   const authUserId = profile?._id;
   const postUserId = post?.userId?._id;
   const myPost = authUserId === postUserId;
- 
+
   const handleOpenDeleteModal = () => {
     setOpenDeleteModal(true);
     setShowMore(false);
@@ -50,48 +81,93 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     setShowMore(false);
   };
   const poster = post?.userId;
-  const username = poster.role === "USER" ? `${poster.firstName} ${poster.lastName}` : `${poster.companyName}`
+  const username =
+    poster.role === "USER"
+      ? `${poster.firstName} ${poster.lastName}`
+      : `${poster.companyName}`;
   const dp = false;
-  const role = poster.role === "USER"? "Private User" : "Service Provider"
-  
-  function getTimeAgo(timestamp) {
-    const currentTime = new Date();
-    const pastTime = new Date(timestamp);
-    const timeDifference = currentTime.getTime() - pastTime.getTime();
-  
-    const seconds = Math.floor(timeDifference / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const months = Math.floor(days / 30);
-    const years = Math.floor(months / 12);
-  
-    if (seconds < 60) {
-      return seconds === 1 ? '1s ago' : `${seconds}s ago`;
-    } else if (minutes < 60) {
-      return minutes === 1 ? '1m ago' : `${minutes}m ago`;
-    } else if (hours < 24) {
-      return hours === 1 ? '1h ago' : `${hours}h ago`;
-    } else if (days < 30) {
-      return days === 1 ? 'Yesterday' : `${days}d ago`;
-    } else if (months < 12) {
-      return months === 1 ? '1m ago' : `${months}m ago`;
-    } else {
-      return years === 1 ? '1y ago' : `${years}y ago`;
+  const role = poster.role === "USER" ? "Private User" : "Service Provider";
+
+  const handleLikePost = async () => {
+    setLoadingLikePost(true);
+    try {
+      const res = await fetch(
+        `https://askthechip-endpoint-production.up.railway.app/api/post/like-post?postId=${post._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      if (res.ok) {
+        const likePostRes = await res.json();
+        const likePostData = likePostRes.data;
+        // console.log('Like post response here', likePostRes)
+        // console.log('Like post data here', likePostData)
+        // setLikePost(getPosts);
+        setLoadingLikePost(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoadingLikePost(false);
+      warn("An error has occured, pls try again!");
     }
-  }
-  
+  };
+
+  const handleLikesValue = async () => {
+    setLoadingLikes(true);
+    try {
+      const res = await fetch(
+        `https://askthechip-endpoint-production.up.railway.app/api/post/get-likes?postId=${post._id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      );
+      if (res.ok) {
+        const likesRes = await res.json();
+        const likesData = likesRes.data;
+        // console.log('Likes response here', likesRes)
+        // console.log('Likes Data here', likesData)
+        // setLikes(getPosts);
+        setLoadingLikes(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      warn("An error has occured, pls try again!");
+    }
+  };
+
+  useEffect(() => {
+    handleLikePost();
+    handleLikesValue();
+  }, [setLikes, setLikePost]);
+
   return (
     <section
-      className={index===0 || pathname === '/profile'?`bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-0 sm:mt-5 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`: `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-5 sm:mt-10 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`}
+      className={
+        index === 0 || pathname === "/profile"
+          ? `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-0 sm:mt-5 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`
+          : `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-5 sm:mt-10 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`
+      }
       style={{ backgroundColor: bgColor, color: color }}
     >
       <div className="col-span-12 flex justify-between">
         <div className="flex">
           <div className="w-10 mr-2">
-            {!dp? <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div>: 
-            <img src={profileImage} alt="profile" className="rounded-[50%]" />
-            }
+            {!dp ? (
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl">
+                <span className="text-white">{username[0]}</span>
+              </div>
+            ) : (
+              <img src={profileImage} alt="profile" className="rounded-[50%]" />
+            )}
           </div>
           <div className="flex">
             <div className="font-bold">
@@ -159,30 +235,41 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         />
       )}
       <div className="col-span-12 ml-3 mt-3">
-        <h4 className="text-sm text-[#2D2D2DCC] font-DMSans mb-3">{post?.content}</h4>
+        <h4 className="text-sm text-[#2D2D2DCC] font-DMSans mb-3">
+          {post?.content}
+        </h4>
         {post?.postImg && (
           <img src={post?.postImg} alt="post-img" className="w-full" />
         )}
       </div>
-      <div className="col-span-12 flex justify-between mt-5">
-        <div className="flex">
-          {reactions.map((rxn, index) => (
+      <div className="col-span-12 flex flex-col justify-between mt-5">
+        <div className="flex justify-between">
+          <div className="flex">
+            <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
+              <div className="ml-5 mr-1 w-5">
+                <img src={`${like}`} alt="Like" onClick={handleLikePost} />
+              </div>
+              <span className="text-center mt-1 mr-5">{likes}</span>
+            </div>
             <div
               key={index}
               className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center"
             >
               <div className="ml-5 mr-1 w-5">
-                <img src={`${rxn.icon}`} alt="Comment" />
+                <img src={`${comment}`} alt="Comment" />
               </div>
-              <span className="text-center mt-1 mr-5">{rxn.value}</span>
+              <span className="text-center mt-1 mr-5">{comments}</span>
             </div>
-          ))}
-        </div>
-        <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center">
-          <div className="mr-1">
-            <img src={reply} alt="Reply" />
           </div>
-          <span className="text-center mt-1">Reply</span>
+          <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center">
+            <div className="mr-1">
+              <img src={reply} alt="Reply" />
+            </div>
+            <span className="text-center mt-1">Reply</span>
+          </div>
+        </div>
+        <div>
+            <Comment post={post} handleGetPosts={handleGetPosts} />
         </div>
       </div>
     </section>
