@@ -58,7 +58,7 @@ function getTimeAgo(timestamp) {
 const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const pathname = window.location.pathname;
   const [likes, setLikes] = useState(0);
-  const [comments, setComments] = useState(0);
+  const [comments, setComments] = useState([]);
   const [loadingLikes, setLoadingLikes] = useState(false);
   const [likePost, setLikePost] = useState(null);
   const [loadingLikePost, setLoadingLikePost] = useState(false);
@@ -133,8 +133,8 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         const likesRes = await res.json();
         const likesData = likesRes.data;
         // console.log('Likes response here', likesRes)
-        // console.log('Likes Data here', likesData)
-        // setLikes(getPosts);
+        // console.log('Likes value Data here', likesData)
+        // setLikes(likesData);
         setLoadingLikes(false);
       }
     } catch (error) {
@@ -144,11 +144,17 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     }
   };
 
-  useEffect(() => {
-    handleLikePost();
-    handleLikesValue();
-  }, [setLikes, setLikePost]);
+  // useEffect(() => {
+  //   handleLikePost();
+  //   handleLikesValue();
+  // }, [setLikes, setLikePost]);
 
+  // useEffect(() => {
+  //   handleLikesValue();
+  // }, []);
+ console.log(comments)
+ const comm = comments.map(c=>{console.log('single comment here', c.text)})
+ console.log(comments?.slice(0,1).text)
   return (
     <section
       className={
@@ -258,7 +264,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
               <div className="ml-5 mr-1 w-5">
                 <img src={`${comment}`} alt="Comment" />
               </div>
-              <span className="text-center mt-1 mr-5">{comments}</span>
+              <span className="text-center mt-1 mr-5">{comments?.length}</span>
             </div>
           </div>
           <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center">
@@ -269,7 +275,37 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
           </div>
         </div>
         <div>
-            <Comment post={post} handleGetPosts={handleGetPosts} />
+        <div className="h-[0.062rem] w-[99%] mx-auto bg-black/10 mb-4 mt-8"></div>
+        <div className="flex">
+          <div className="w-10 mr-1">
+            {!dp ? (
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary100 font-bold text-xl">
+                <span className="text-white">{username[0]}</span>
+              </div>
+            ) : (
+              <img src={profileImage} alt="profile" className="rounded-[50%]" />
+            )}
+          </div>
+          <div className="flex">
+            <div className="flex justify-center items-center font-bold">
+              <div>{username}</div>
+            </div>
+          </div>
+        </div>
+        <div className="mx-11 mt-3">
+          {/* {comments?.slice(0, 1)} */}
+        </div>
+        <div>
+          {comments?.map((c)=><div className="mx-11 mt-3">{c.text}</div>)}
+        </div>
+        </div>
+        {comments?.length > 0 && (
+          <div className="text-primary80 ml-5 mb-2.5 mt-5 font-medium">
+            View all {comments?.length} comment(s)
+          </div>
+        )}
+        <div>
+          <Comment post={post} handleGetPosts={handleGetPosts} setComments={setComments} />
         </div>
       </div>
     </section>
