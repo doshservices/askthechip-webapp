@@ -59,6 +59,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const pathname = window.location.pathname;
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
+  const [viewAllComments, setViewAllComments] = useState(false);
   const [loadingLikes, setLoadingLikes] = useState(false);
   const [likePost, setLikePost] = useState(null);
   const [loadingLikePost, setLoadingLikePost] = useState(false);
@@ -67,6 +68,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const { user } = useAuth();
   const { profile } = useProfile();
+  const [singleCommenter, setSingleCommenter] = useState({});
 
   const authUserId = profile?._id;
   const postUserId = post?.userId?._id;
@@ -88,6 +90,20 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const dp = false;
   const role = poster.role === "USER" ? "Private User" : "Service Provider";
 
+  const singleComment = comments?.slice(0, 1);
+  useEffect(() => {
+    setSingleCommenter(singleComment[0]?.userId)
+  }, [comments]);
+  // console.log("single commenter", singleCommenter);
+  const sCommenterName =
+    singleCommenter?.role === "USER"
+      ? `${singleCommenter?.firstName} ${singleCommenter?.lastName}`
+      : `${singleCommenter?.companyName}`;
+  const getUsername = (user) => {
+    return user?.role === "USER"
+      ? `${user?.firstName} ${user?.lastName}`
+      : `${user?.companyName}`;
+  }
   const handleLikePost = async () => {
     setLoadingLikePost(true);
     try {
@@ -143,6 +159,9 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       warn("An error has occured, pls try again!");
     }
   };
+  const handleViewAllComments = () => {
+    setViewAllComments(!viewAllComments);
+  }
 
   // useEffect(() => {
   //   handleLikePost();
@@ -152,9 +171,10 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   // useEffect(() => {
   //   handleLikesValue();
   // }, []);
- console.log(comments)
- const comm = comments.map(c=>{console.log('single comment here', c.text)})
- console.log(comments?.slice(0,1).text)
+  //  console.log('comments here',comments)
+  //  const comm = comments.map(c=>{console.log('single comment here', c.text)})
+
+
   return (
     <section
       className={
@@ -274,34 +294,72 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
             <span className="text-center mt-1">Reply</span>
           </div>
         </div>
+
         <div>
-        <div className="h-[0.062rem] w-[99%] mx-auto bg-black/10 mb-4 mt-8"></div>
-        <div className="flex">
-          <div className="w-10 mr-1">
-            {!dp ? (
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary100 font-bold text-xl">
-                <span className="text-white">{username[0]}</span>
-              </div>
-            ) : (
-              <img src={profileImage} alt="profile" className="rounded-[50%]" />
-            )}
+          {comments.length > 0 &&
+            <>
+              <div className="h-[0.062rem] w-[99%] mx-auto bg-black/10 mb-4 mt-8"></div>
+              {!viewAllComments ?
+                <div>
+                  <div className="flex">
+                    <div className="w-10 mr-1">
+                      {!dp ? (
+                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary100 font-bold text-xl">
+                          <span className="text-white">{sCommenterName[0]}</span>
+                        </div>
+                      ) : (
+                        <img src={profileImage} alt="profile" className="rounded-[50%]" />
+                      )}
+                    </div>
+                    <div className="flex">
+                      <div className="flex justify-center items-center font-bold">
+                        <div>{getUsername(singleCommenter)}</div>
+                      </div>
+                    </div>
+                  </div>
+                  {!viewAllComments ?
+                    <div>
+                      <div className="mx-11 mt-3">{singleComment[0]?.text}</div>
+                    </div> :
+                    <div className="mx-11 mt-3">
+                      Nothing here
+                    </div>
+                  }
+                </div> : <>
+                  {comments.map((c, index) => (
+                    <div key={index}>
+                      <div className="flex mt-4">
+                        <div className="w-10 mr-1">
+                          {!dp ? (
+                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary100 font-bold text-xl">
+                              <span className="text-white">{getUsername(c.userId)[0]}</span>
+                            </div>
+                          ) : (
+                            <img src={profileImage} alt="profile" className="rounded-[50%]" />
+                          )}
+                        </div>
+                        <div className="flex">
+                          <div className="flex justify-center items-center font-bold">
+                            <div>{getUsername(c.userId)}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="mx-11 mt-3">{c.text}</div>
+                      </div>
+                    </div>
+                  ))}</>
+              }
+            </>
+          }
+          <div className="mx-11 mt-3">
+            {/* {comments?.slice(0, 1)} */}
           </div>
-          <div className="flex">
-            <div className="flex justify-center items-center font-bold">
-              <div>{username}</div>
-            </div>
-          </div>
-        </div>
-        <div className="mx-11 mt-3">
-          {/* {comments?.slice(0, 1)} */}
-        </div>
-        <div>
-          {comments?.map((c)=><div className="mx-11 mt-3">{c.text}</div>)}
-        </div>
+
         </div>
         {comments?.length > 0 && (
-          <div className="text-primary80 ml-5 mb-2.5 mt-5 font-medium">
-            View all {comments?.length} comment(s)
+          <div onClick={handleViewAllComments} className="text-primary80 ml-5 mb-2.5 mt-5 font-medium">
+            View {viewAllComments ? "less" : `all ${comments?.length}`} comment(s)
           </div>
         )}
         <div>
