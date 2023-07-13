@@ -96,8 +96,8 @@ const Notifications = () => {
             </div>
             <div className="flex justify-between mt-5">
               <div className="flex">
-                {reactions.map((rxn) => (
-                  <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
+                {reactions.map((rxn, index) => (
+                  <div key={index} className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
                     <div className="mr-3">
                       <img src={rxn.icon} alt="Comment" />
                     </div>

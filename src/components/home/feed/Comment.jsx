@@ -62,11 +62,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
         }
       );
       if (res.ok) {
-        // console.log("These are the comments!");
-        // notify("Successfully made a comment!");
         const resData = await res.json();
-        // console.log("Ressponse here", resData);
-        // console.log("Response data here", resData.data);
         setComments(resData.data.comment);
       }
       setLoading(false);
@@ -80,7 +76,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
 
   useEffect(()=> {
     getComments();
-  }, [])
+  }, [setComments])
   const me = user?.user;
   const username =
     me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`;

@@ -3,15 +3,15 @@ import { CircleLoader } from '..';
 import { notify, warn } from '../../App';
 import { useAuth } from '../../contexts/AuthContext/AuthContext';
 
-const DeleteModal = ({postId, setOpenDeleteModal, handleGetPosts}) => {
+const DeleteModal = ({commentId, setOpenDeleteModal }) => {
     const [deleting, setDeleting] = useState(false);
     const {user} = useAuth();
-
+  
   const handleDelete = async () => {
     setDeleting(true);
-    notify("Deleting post...")
+    notify("Deleting comment...")
     try {
-        const response = await fetch(`https://askthechip-endpoint-production.up.railway.app/api/post/delete-post?postId=${postId}`, {
+        const response = await fetch(`https://askthechip-endpoint-production.up.railway.app/api/comment/?commentId=${commentId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -22,22 +22,24 @@ const DeleteModal = ({postId, setOpenDeleteModal, handleGetPosts}) => {
           const resData = await response.json();
           console.log(resData);
           console.log(resData.data);
-          console.log("Post deleted successfully");
-            notify("Post deleted successfully");
-            handleGetPosts();
+          console.log("Comment deleted successfully");
+            notify("Comment deleted successfully");
             setDeleting(false);
             setOpenDeleteModal(false);
         }
       } catch (error) {
         console.log(error);
-        console.log("Post deletion failed");
-        warn("Post deletion failed, try again");
+        console.log("Comment deletion failed");
+        warn("Comment deletion failed, try again");
         setDeleting(false);
         setOpenDeleteModal(false);
       }
     setDeleting(false);
   };
-
+//   {
+//     "status": "error",
+//     "message": "you can not edit this comment"
+// }
   return (
     <div>
         <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -64,11 +66,11 @@ const DeleteModal = ({postId, setOpenDeleteModal, handleGetPosts}) => {
                       className="text-lg leading-6 font-medium text-gray-900"
                       id="modal-title"
                     >
-                      Delete Post
+                      Delete Comment
                     </h3>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        Are you sure you want to delete this post? This action
+                        Are you sure you want to delete this comment? This action
                         cannot be undone.
                       </p>
                     </div>

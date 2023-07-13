@@ -19,8 +19,8 @@ const Services = () => {
           <Header />
         </div>
         <div className="ml-10 grid grid-cols-12">
-          { servicesData.map(serviceData=> (
-            <Service serviceData={serviceData} />
+          { servicesData.map((serviceData, index)=> (
+            <Service key={index} serviceData={serviceData} />
             ))
           }
         </div>

@@ -16,16 +16,33 @@ import { CircleLoader } from ".";
 import { usePosts } from "../contexts/PostContext/PostContext";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { useProfile } from "../contexts/ProfileContext/ProfileContext";
+import { notify, warn } from "../App";
 // import Button from './Button';
+
+export const fileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64String = reader.result;
+      resolve(base64String);
+    };
+    reader.onerror = (error) => {
+      reject(error);
+    };
+    reader.readAsDataURL(file);
+  });
+};
 
 const Profile = () => {
   const [viewer, setViewer] = useState("self");
+  const [profileImg, setProfileImg] = useState(null);
   const [type, setType] = useState("personal");
   const { posts, setPosts } = usePosts();
   const reversedPosts = [...posts].reverse();
+  const [updatingPicture, setUpdatingPicture] = useState(false);
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  const {profile, setProfile} = useProfile();
+  const { profile, setProfile } = useProfile();
 
   const handleGetPosts = async () => {
     setLoading(true);
@@ -55,11 +72,56 @@ const Profile = () => {
   useEffect(() => {
     handleGetPosts();
   }, [setPosts]);
-  
-  const username = profile?.role === "USER" ? `${profile.firstName} ${profile.lastName}` : `${profile.companyName}`
-  const dp = false;
-  const role = profile?.role === "USER"? "Private User" : "Service Provider"
+ 
 
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    try {
+      const base64String = await fileToBase64(file);
+      setProfileImg(base64String);
+      notify("Picture uploaded successfully");
+    } catch (error) {
+      console.error('Error converting file to base64:', error);
+      warn('An error has occured, pls try again!');
+    }
+  };
+
+  const handleUpdatePicture = async () => {
+    setUpdatingPicture(true);
+    notify("Updating your profile picture...")
+    try {
+      const response = await fetch(`https://askthechip-endpoint-production.up.railway.app/api/users`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify({ profileImg })
+      });
+      if (response.ok) {
+        const resData = await response.json();
+        console.log(resData);
+        console.log(resData.data);
+        console.log("Profile picture updated successfully");
+        notify("Profile picture updated successfully");
+        setUpdatingPicture(false);
+      }
+    } catch (error) {
+      console.log(error);
+      console.log("Failed to update picture");
+      warn("Failed to update picture, try again");
+    }
+    setUpdatingPicture(false);
+  };
+  // useEffect(()=> {
+  //   handleUpdatePicture();
+  // }, [setProfileImg]);
+  
+  const username = profile?.role === "USER" ? `${profile?.firstName} ${profile?.lastName}` : `${profile?.companyName}`
+  const dp = false;
+  const role = profile?.role === "USER" ? "Private User" : "Service Provider"
+
+  // console.log(profileImg, user)
   return (
     <div className="mt-0 md:mt-5">
       <div className="grid grid-cols-1 h-[123px] bg-coverImage bg-[#2d2d2d]/60 bg-blend-overlay rounded-lg">
@@ -78,13 +140,18 @@ const Profile = () => {
       <div className="grid-cols-3 ml-4 sm:ml-8">
         <div className="col-span-1 -mt-[4rem] sm:-mt-[5rem] xm:-mt-[4rem]">
           <div className="relative">
-          {!dp? <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div>: 
-            <img
-              src={profileImage}
-              alt="Profile Image"
-              className="rounded-full max-w-[8rem] sm:max-w-[10rem] xm:max-w-[8rem]"
-            />}
-            <img src={camera} alt="Camera" className="bottom-0 left-12 absolute bg-black/50 rounded" />
+            {!dp ? <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div> :
+              <img
+                src={profileImg}
+                alt="Profile Image"
+                className="rounded-full max-w-[8rem] sm:max-w-[10rem] xm:max-w-[8rem]"
+              />}
+            <div className="flex flex-col items-center justify-center mt-2">
+              <label className="w-fullcursor-pointer">
+                <img src={camera} alt="Camera" className="bottom-0 left-12 absolute bg-black/50 rounded" />
+                <input type="file" className="hidden" onChange={handleFileChange} />
+              </label>
+            </div>
           </div>
         </div>
 
@@ -220,28 +287,28 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-12 hidden sm:flex sm:col-span-8">
+          <div className="col-span-12 hidden sm:flex flex-col sm:col-span-8">
             <div className="p-2 pb-0">
               <Share handleGetPosts={handleGetPosts} />
             </div>
-            <div className="">
-            {loading ? (
-            <div className="flex justify-center items-center m-4">
-            <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-              <CircleLoader color="#05675A" />
-            </div>
-            </div>
-          ) : (
-            <>
-              {reversedPosts?.map((post, index) => (
-                <Posts
-                  key={index}
-                  post={post}
-                  handleGetPosts={handleGetPosts}
-                />
-              ))}
-            </>
-          )}
+            <div>
+              {loading ? (
+                <div className="flex justify-center items-center m-4">
+                  <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <CircleLoader color="#05675A" />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {reversedPosts?.map((post, index) => (
+                    <Posts
+                      key={index}
+                      post={post}
+                      handleGetPosts={handleGetPosts}
+                    />
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -3,77 +3,48 @@ import { CircleLoader } from "..";
 import { notify, warn } from "../../App";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 
-const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
+const EditComment = ({ setOpenEditModal, commentId, commentText }) => {
   const { user } = useAuth();
-  //   const [postImg, setPostImg] = useState("");
+  const [text, setText] = useState("");
   const [content, setContent] = useState("");
   const [board, setBoard] = useState("WHITE_BOARD");
   const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
-    fetch(
-      `https://askthechip-endpoint-production.up.railway.app/api/post/${postId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user?.token}`,
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((res) => {
-        const resData = res?.data?.post;
-        setBoard(resData.board);
-        setContent(resData.content);
-      })
-      .catch((error) => {
-        console.error("Error retrieving post:", error);
-      });
-  }, [postId]);
+    setText(commentText)
+  }, []);
 
-  const handleBoardChange = (e) => {
-    setBoard(e.target.value);
+  const handleTextChange = (e) => {
+    setText(e.target.value);
   };
-
-  const handleContentChange = (event) => {
-    setContent(event.target.value);
-  };
-
+// console.log(commentId);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const updatedPostData = { board, content };
-
+    // console.log(text);
     try {
       setUpdating(true);
       await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/post/update-post?postId=${postId}`,
+        `https://askthechip-endpoint-production.up.railway.app/api/comment/?commentId=${commentId}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${user?.token}`,
           },
-          body: JSON.stringify(updatedPostData),
+          body: JSON.stringify({content: text}),
         }
       ).then((response) => {
+        console.log(response)
         if (response.ok) {
-          console.log("Successfully updated your post!");
-          notify("Successfully updated your post!");
-          setOpenEditModal(false);
-          handleGetPosts();
-          setUpdating(false);
-        } else {
-          console.error("Error updating post:", response.status);
-          warn("Error updating post:", response.status);
+          console.log("Successfully updated your comment!");
+          notify("Successfully updated your comment!");
           setOpenEditModal(false);
           setUpdating(false);
-        }
+        } 
       });
     } catch (error) {
-      console.error("Error updating post:", error);
-      warn("Error updating post:", error);
+      console.error("Error updating comment:", error);
+      warn("Error updating comment:", error);
       setOpenEditModal(false);
       setUpdating(false);
     }
@@ -113,8 +84,8 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
                         <div className="flex ml-2 w-[80%]">
                           <textarea
                             placeholder="Update your post"
-                            onChange={handleContentChange}
-                            value={content}
+                            onChange={handleTextChange}
+                            value={text}
                             name="post"
                             id="post"
                             cols="100"
@@ -122,16 +93,6 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
                             className="bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray w-full resize-none mt-4"
                           />
                         </div>
-                        <div className="my-auto ml-2 mr-1">
-                              <select
-                                className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
-                                value={board}
-                                onChange={handleBoardChange}
-                              >
-                                <option value="WHITE_BOARD">White Board</option>
-                                <option value="BLACK_BOARD">Black Board</option>
-                              </select>
-                            </div>
                       </div>
                     </div>
                   </div>
@@ -157,43 +118,8 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
           </div>
         </div>
       </div>
-      <form
-        onSubmit={handleSubmit}
-        className="col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-lg bg-grey  border border-black/10"
-      >
-        <div className="flex w-full justify-between">
-          <div className="flex ml-2 w-[80%]">
-            <textarea
-              placeholder="Share a post"
-              onChange={handleContentChange}
-              value={content}
-              name="post"
-              id="post"
-              cols="100"
-              rows="1"
-              className="bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray w-full resize-none mt-4"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col justify-end items-end sm:hidden sm:justify-between w-full">
-          {content && (
-            <div>
-              <div className="ml-2 mr-1">
-                <select
-                  className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
-                  value={board}
-                  onChange={handleBoardChange}
-                >
-                  <option value="WHITE_BOARD">White Board</option>
-                  <option value="BLACK_BOARD">Black Board</option>
-                </select>
-              </div>
-            </div>
-          )}
-        </div>
-      </form>
     </>
   );
 };
 
-export default EditPost;
+export default EditComment;

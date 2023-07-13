@@ -9,12 +9,13 @@ import reply from "../../../assets/icons/reply-icon.svg";
 import threeDotsIcon from "../../../assets/icons/three-dots.svg";
 import editIcon from "../../../assets/icons/edit-icon.svg";
 import deleteIcon from "../../../assets/icons/delete-icon.svg";
-import DeleteModal from "../../DeleteModal/DeleteModal";
+import DeleteModal from "../../DeleteComment/DeleteModal";
 import EditPost from "../../EditPost/EditPost";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 import { warn } from "../../../App";
 import Comment from "./Comment";
+import Comments from "./Comments";
 
 const reactions = [
   {
@@ -150,7 +151,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         const likesData = likesRes.data;
         // console.log('Likes response here', likesRes)
         // console.log('Likes value Data here', likesData)
-        // setLikes(likesData);
+        // setLikes(likesData.post);
         setLoadingLikes(false);
       }
     } catch (error) {
@@ -168,9 +169,10 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   //   handleLikesValue();
   // }, [setLikes, setLikePost]);
 
-  // useEffect(() => {
-  //   handleLikesValue();
-  // }, []);
+  useEffect(() => {
+    handleLikesValue();
+  }, []);
+  // console.log(likes);
   //  console.log('comments here',comments)
   //  const comm = comments.map(c=>{console.log('single comment here', c.text)})
 
@@ -317,37 +319,12 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
                       </div>
                     </div>
                   </div>
-                  {!viewAllComments ?
-                    <div>
-                      <div className="mx-11 mt-3">{singleComment[0]?.text}</div>
-                    </div> :
-                    <div className="mx-11 mt-3">
-                      Nothing here
-                    </div>
-                  }
+                  <div>
+                    <div className="mx-11 mt-3">{singleComment[0]?.text}</div>
+                  </div>
                 </div> : <>
                   {comments.map((c, index) => (
-                    <div key={index}>
-                      <div className="flex mt-4">
-                        <div className="w-10 mr-1">
-                          {!dp ? (
-                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary100 font-bold text-xl">
-                              <span className="text-white">{getUsername(c.userId)[0]}</span>
-                            </div>
-                          ) : (
-                            <img src={profileImage} alt="profile" className="rounded-[50%]" />
-                          )}
-                        </div>
-                        <div className="flex">
-                          <div className="flex justify-center items-center font-bold">
-                            <div>{getUsername(c.userId)}</div>
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="mx-11 mt-3">{c.text}</div>
-                      </div>
-                    </div>
+                    <Comments c={c} key={index} getUsername={getUsername} />
                   ))}</>
               }
             </>
@@ -358,7 +335,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
 
         </div>
         {comments?.length > 0 && (
-          <div onClick={handleViewAllComments} className="text-primary80 ml-5 mb-2.5 mt-5 font-medium">
+          <div onClick={handleViewAllComments} className="cursor-pointer text-primary80 ml-5 mb-2.5 mt-5 font-medium">
             View {viewAllComments ? "less" : `all ${comments?.length}`} comment(s)
           </div>
         )}
