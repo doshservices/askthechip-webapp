@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { CircleLoader } from "..";
-import { notify, warn } from "../../App";
+import { inform, notify, warn } from "../../App";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 
-const EditComment = ({ setOpenEditModal, commentId, commentText }) => {
+const EditComment = ({ setOpenEditModal, commentId, commentText, handleGetPosts }) => {
   const { user } = useAuth();
   const [text, setText] = useState("");
   const [content, setContent] = useState("");
   const [board, setBoard] = useState("WHITE_BOARD");
   const [updating, setUpdating] = useState(false);
 
+  console.log(content)
+  console.log('commentId in edit', commentId)
   useEffect(() => {
-    setText(commentText)
+    setContent(commentText)
   }, []);
 
   const handleTextChange = (e) => {
-    setText(e.target.value);
+    setContent(e.target.value);
   };
 // console.log(commentId);
   const handleSubmit = async (e) => {
@@ -31,7 +33,7 @@ const EditComment = ({ setOpenEditModal, commentId, commentText }) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${user?.token}`,
           },
-          body: JSON.stringify({content: text}),
+          body: JSON.stringify({content}),
         }
       ).then((response) => {
         console.log(response)
@@ -39,8 +41,13 @@ const EditComment = ({ setOpenEditModal, commentId, commentText }) => {
           console.log("Successfully updated your comment!");
           notify("Successfully updated your comment!");
           setOpenEditModal(false);
-          setUpdating(false);
+          handleGetPosts();
         } 
+        if(!response.ok){
+          setUpdating(false);
+          setOpenEditModal(false);
+          inform("Problem editing your comment, try again!")
+        }
       });
     } catch (error) {
       console.error("Error updating comment:", error);
@@ -54,7 +61,7 @@ const EditComment = ({ setOpenEditModal, commentId, commentText }) => {
     <>
       <div>
         <div className="fixed z-10 inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center">
+          <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-2ext-center">
             <div
               className="fixed inset-0 transition-opacity"
               aria-hidden="true"
@@ -85,9 +92,9 @@ const EditComment = ({ setOpenEditModal, commentId, commentText }) => {
                           <textarea
                             placeholder="Update your post"
                             onChange={handleTextChange}
-                            value={text}
-                            name="post"
-                            id="post"
+                            value={content}
+                            name="content"
+                            id="content"
                             cols="100"
                             rows="3"
                             className="bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray w-full resize-none mt-4"

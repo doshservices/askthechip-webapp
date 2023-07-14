@@ -9,7 +9,7 @@ import reply from "../../../assets/icons/reply-icon.svg";
 import threeDotsIcon from "../../../assets/icons/three-dots.svg";
 import editIcon from "../../../assets/icons/edit-icon.svg";
 import deleteIcon from "../../../assets/icons/delete-icon.svg";
-import DeleteModal from "../../DeleteComment/DeleteModal";
+import DeleteModal from "../../DeletePost/DeleteModal";
 import EditPost from "../../EditPost/EditPost";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
@@ -324,7 +324,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
                   </div>
                 </div> : <>
                   {comments.map((c, index) => (
-                    <Comments c={c} key={index} getUsername={getUsername} />
+                    <Comments c={c} key={index} getUsername={getUsername} handleGetPosts={handleGetPosts} />
                   ))}</>
               }
             </>
