@@ -6,7 +6,7 @@ import deleteIcon from "../../../assets/icons/delete-icon.svg";
 import DeleteComment from "../../DeleteComment/DeleteModal";
 import EditComment from "../../EditComment/EditComment";
 
-const Comments = ({ c, getUsername }) => {
+const Comments = ({ c, getUsername, handleGetPosts }) => {
   const { profile } = useProfile();
   const [showMore, setShowMore] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -15,6 +15,7 @@ const Comments = ({ c, getUsername }) => {
   const authUserId = profile?._id;
   const commentUserId = c?.userId?._id;
   const myComment = authUserId === commentUserId;
+  console.log('commentId in comments', c?._id)
 
   const handleOpenDeleteModal = () => {
     setOpenDeleteModal(true);
@@ -89,7 +90,7 @@ const Comments = ({ c, getUsername }) => {
     {openDeleteModal && (
         <DeleteComment
           setOpenDeleteModal={setOpenDeleteModal}
-          // getComments={getComments}
+          handleGetPosts={handleGetPosts}
           commentId={c?._id}
           
         />
@@ -97,7 +98,7 @@ const Comments = ({ c, getUsername }) => {
       {openEditModal && (
         <EditComment
           setOpenEditModal={setOpenEditModal}
-          // getComments={getComments}
+          handleGetPosts={handleGetPosts}
           commentId={c?._id}
           commentText={c?.text}
         />

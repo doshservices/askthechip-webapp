@@ -36,6 +36,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
         notify("Successfully made a comment!");
         const resData = await res.json();
         console.log(resData);
+        setComment("");
         handleGetPosts();
       }
       setLoading(false);
@@ -44,7 +45,6 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
       warn("Failed to post your comment!");
       setLoading(false);
     }
-    setComment("");
     setLoading(false);
   };
 
