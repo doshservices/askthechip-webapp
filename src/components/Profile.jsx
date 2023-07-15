@@ -12,7 +12,7 @@ import briefcase from "../assets/icons/briefcase-icon.svg";
 import followers from "../assets/icons/followers-icon.svg";
 import mapMarker from "../assets/icons/map-marker.svg";
 import { Posts, Share } from "./home";
-import { CircleLoader } from ".";
+import { CircleLoader, FileUploadInput } from ".";
 import { usePosts } from "../contexts/PostContext/PostContext";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { useProfile } from "../contexts/ProfileContext/ProfileContext";
@@ -79,7 +79,7 @@ const Profile = () => {
     try {
       const base64String = await fileToBase64(file);
       setProfileImg(base64String);
-      notify("Picture uploaded successfully");
+      notify("Picture uploaded, updating your profile picture...");
     } catch (error) {
       console.error('Error converting file to base64:', error);
       warn('An error has occured, pls try again!');
@@ -87,6 +87,7 @@ const Profile = () => {
   };
 
   const handleUpdatePicture = async () => {
+    if(profileImg === null) return;
     setUpdatingPicture(true);
     notify("Updating your profile picture...")
     try {
@@ -96,12 +97,14 @@ const Profile = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user?.token}`,
         },
-        body: JSON.stringify({ profileImg })
+        body: JSON.stringify({ profileImg: profileImg })
       });
       if (response.ok) {
         const resData = await response.json();
-        console.log(resData);
-        console.log(resData.data);
+        // console.log(resData.data)
+        const img = resData.data.user.profileImg
+        // console.log(img);
+        setProfileImg(img);
         console.log("Profile picture updated successfully");
         notify("Profile picture updated successfully");
         setUpdatingPicture(false);
@@ -113,15 +116,20 @@ const Profile = () => {
     }
     setUpdatingPicture(false);
   };
-  // useEffect(()=> {
-  //   handleUpdatePicture();
-  // }, [setProfileImg]);
+  useEffect(()=> {
+    handleUpdatePicture();
+  }, [profileImg]);
   
   const username = profile?.role === "USER" ? `${profile?.firstName} ${profile?.lastName}` : `${profile?.companyName}`
-  const dp = false;
   const role = profile?.role === "USER" ? "Private User" : "Service Provider"
+// useEffect(()=>  {
+//   setTimeout(()=> {
+//     console.log(user?.profileImg)
+//   }, 3000)
+// },[setProfileImg])
 
-  // console.log(profileImg, user)
+// console.log(user?.user)
+// console.log(user?.user.profileImg)
   return (
     <div className="mt-0 md:mt-5">
       <div className="grid grid-cols-1 h-[123px] bg-coverImage bg-[#2d2d2d]/60 bg-blend-overlay rounded-lg">
@@ -140,21 +148,20 @@ const Profile = () => {
       <div className="grid-cols-3 ml-4 sm:ml-8">
         <div className="col-span-1 -mt-[4rem] sm:-mt-[5rem] xm:-mt-[4rem]">
           <div className="relative">
-            {!dp ? <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div> :
+            {!profileImg ? <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div> :
               <img
-                src={profileImg}
+                src={user?.profileImage ?? profileImg}
                 alt="Profile Image"
                 className="rounded-full max-w-[8rem] sm:max-w-[10rem] xm:max-w-[8rem]"
               />}
             <div className="flex flex-col items-center justify-center mt-2">
-              <label className="w-fullcursor-pointer">
+              <label className="w-full cursor-pointer">
                 <img src={camera} alt="Camera" className="bottom-0 left-12 absolute bg-black/50 rounded" />
                 <input type="file" className="hidden" onChange={handleFileChange} />
               </label>
             </div>
           </div>
         </div>
-
         <div className="text-[#181818] mb-2 flex justify-between border-b border-[#EBEEF0] py-4">
           <div className="flex">
             <div className="bg-[#E9E9E9] rounded-full px-5 py-2 mr-5">All Post</div>
@@ -226,31 +233,31 @@ const Profile = () => {
               <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">Photos</div>
               <div className="grid grid-cols-12 gap-4 p-4">
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" />
+                  <img src={photo} alt="Photos"  className="rounded-xl flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" />
+                  <img src={photo} alt="Photos"  className="rounded-xl flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" />
+                  <img src={photo} alt="Photos"  className="rounded-xl flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" />
+                  <img src={photo} alt="Photos"  className="rounded-xl flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" />
+                  <img src={photo} alt="Photos"  className="rounded-xl flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" />
+                  <img src={photo} alt="Photos"  className="rounded-xl flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" />
+                  <img src={photo} alt="Photos"  className="rounded-xl flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" />
+                  <img src={photo} alt="Photos"  className="rounded-xl flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" />
+                  <img src={photo} alt="Photos"  className="rounded-xl flex w-full" />
                 </div>
               </div>
             </div>
@@ -258,31 +265,31 @@ const Profile = () => {
               <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">Friends</div>
               <div className="grid grid-cols-12 gap-4 p-4">
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" className="rounded-full" />
+                  <img src={photo} alt="Photos" className="rounded-full flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={profileImage} alt="Photos" />
+                  <img src={profileImage} alt="Photos" className="rounded-full flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" className="rounded-full" />
+                  <img src={photo} alt="Photos" className="rounded-full flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={profileImage} alt="Photos" />
+                  <img src={profileImage} alt="Photos" className="rounded-full flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" className="rounded-full" />
+                  <img src={photo} alt="Photos" className="rounded-full flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={profileImage} alt="Photos" />
+                  <img src={profileImage} alt="Photos" className="rounded-full flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" className="rounded-full" />
+                  <img src={photo} alt="Photos" className="rounded-full flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={profileImage} alt="Photos" />
+                  <img src={profileImage} alt="Photos" className="rounded-full flex w-full" />
                 </div>
                 <div className="col-span-4">
-                  <img src={photo} alt="Photos" className="rounded-full" />
+                  <img src={photo} alt="Photos" className="rounded-full flex w-full" />
                 </div>
               </div>
             </div>

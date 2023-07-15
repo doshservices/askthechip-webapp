@@ -83,8 +83,8 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
   const dp = false;
 
   return (
-      <div className="grid grid-cols-12 col-span-12 w-full bg-[#f4f4f4] py-2.5 px-5 rounded-lg mt-2">
-        <div className="col-span-1 justify-center items-center flex mr-1 sm:mr-2 my-auto w-full sm:w-14 h-full">
+      <div className="flex w-full bg-[#f4f4f4] py-2.5 px-5 rounded-lg mt-2">
+        <div className="justify-center items-center flex mr-1 sm:mr-2 my-auto w-full sm:w-14 h-full">
           {!dp ? (
             <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary100 font-bold text-xl">
               <span className="text-white">{username[0]}</span>
@@ -99,7 +99,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="col-span-11 flex flex-col justify-between items-center rounded-lg bg-grey border border-black/10"
+          className="flex flex-col justify-between items-center rounded-lg bg-grey border border-black/10"
         >
           <div className="flex w-full justify-between">
             <div className="flex ml-2 w-[80%]">
