@@ -121,6 +121,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       if (res.ok) {
         const likePostRes = await res.json();
         const likePostData = likePostRes.data;
+        setLikes(likes+1)
         // console.log('Like post response here', likePostRes)
         // console.log('Like post data here', likePostData)
         // setLikePost(getPosts);
@@ -148,15 +149,14 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       );
       if (res.ok) {
         const likesRes = await res.json();
-        const likesData = likesRes.data;
+        const likesData = likesRes.data.post.length;
         // console.log('Likes response here', likesRes)
-        // console.log('Likes value Data here', likesData)
-        // setLikes(likesData.post);
+        setLikes(likesData);
         setLoadingLikes(false);
       }
     } catch (error) {
       console.log(error);
-      setLoading(false);
+      setLoadingLikes(false);
       warn("An error has occured, pls try again!");
     }
   };
@@ -171,7 +171,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
 
   useEffect(() => {
     handleLikesValue();
-  }, []);
+  }, [setLikes, handleLikePost]);
   // console.log(likes);
   //  console.log('comments here',comments)
   //  const comm = comments.map(c=>{console.log('single comment here', c.text)})
@@ -274,8 +274,8 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         <div className="flex justify-between">
           <div className="flex">
             <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
-              <div className="ml-5 mr-1 w-5">
-                <img src={`${like}`} alt="Like" onClick={handleLikePost} />
+              <div className="ml-5 mr-1 w-5 cursor-pointer">
+                <img src={`${like}`} alt="Like" onClick={handleLikePost} className="hover:scale-110 active:scale-100" />
               </div>
               <span className="text-center mt-1 mr-5">{likes}</span>
             </div>
