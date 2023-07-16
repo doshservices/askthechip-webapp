@@ -95,7 +95,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   useEffect(() => {
     setSingleCommenter(singleComment[0]?.userId)
   }, [comments]);
-  // console.log("single commenter", singleCommenter);
+  
   const sCommenterName =
     singleCommenter?.role === "USER"
       ? `${singleCommenter?.firstName} ${singleCommenter?.lastName}`
@@ -189,12 +189,12 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       <div className="col-span-12 flex justify-between">
         <div className="flex">
           <div className="w-10 mr-2">
-            {!dp ? (
+            {!poster?.profileImg ? (
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl">
                 <span className="text-white">{username[0]}</span>
               </div>
             ) : (
-              <img src={profileImage} alt="profile" className="rounded-[50%]" />
+              <img src={poster?.profileImg} alt="profile" className="rounded-[50%]" />
             )}
           </div>
           <div className="flex">
