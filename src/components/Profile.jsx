@@ -103,7 +103,6 @@ const Profile = () => {
         const resData = await response.json();
         // console.log(resData.data)
         const img = resData.data.user.profileImg
-        // console.log(img);
         setProfileImg(img);
         console.log("Profile picture updated successfully");
         notify("Profile picture updated successfully");
@@ -148,9 +147,9 @@ const Profile = () => {
       <div className="grid-cols-3 ml-4 sm:ml-8">
         <div className="col-span-1 -mt-[4rem] sm:-mt-[5rem] xm:-mt-[4rem]">
           <div className="relative">
-            {!profileImg ? <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div> :
+            {!profile?.profileImg ? <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div> :
               <img
-                src={user?.profileImage ?? profileImg}
+                src={profile?.profileImg}
                 alt="Profile Image"
                 className="rounded-full max-w-[8rem] sm:max-w-[10rem] xm:max-w-[8rem]"
               />}

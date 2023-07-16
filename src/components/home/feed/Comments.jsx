@@ -11,9 +11,9 @@ const Comments = ({ c, getUsername, handleGetPosts }) => {
   const [showMore, setShowMore] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const dp = false;
   const authUserId = profile?._id;
   const commentUserId = c?.userId?._id;
+  const commenterImg = c?.userId?.profileImg;
   const myComment = authUserId === commentUserId;
 
   const handleOpenDeleteModal = () => {
@@ -30,12 +30,12 @@ const Comments = ({ c, getUsername, handleGetPosts }) => {
     <div>
       <div className="flex mt-4">
         <div className="w-10 mr-1">
-          {!dp ? (
+          {!commenterImg ? (
             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary100 font-bold text-xl">
               <span className="text-white">{getUsername(c.userId)[0]}</span>
             </div>
           ) : (
-            <img src={profileImage} alt="profile" className="rounded-[50%]" />
+            <img src={commenterImg} alt="profile" className="rounded-[50%]" />
           )}
         </div>
         <div className="flex">

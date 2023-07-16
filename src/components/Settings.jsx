@@ -51,6 +51,7 @@ const Settings = () => {
     address,
     pin,
   } = formFields;
+  console.log(user)
   // const username = profile?.role === "USER" ? `${profile.firstName} ${profile.lastName}` : `${profile.companyName}`
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -136,8 +137,8 @@ const Settings = () => {
       });
       if (response.ok) {
         const resData = await response.json();
-        console.log(resData);
-        console.log(resData.data);
+        // console.log(resData);
+        // console.log(resData.data);
         console.log("Password was reset successfuly");
         notify("Password was reset successfuly");
         setResetingPassword(false);

@@ -9,6 +9,7 @@ import { notify, warn } from "../../../App";
 import { fileToBase64 } from "../../FileUploadInput";
 import Loader from "../../Loader/Loader";
 import { usePosts } from "../../../contexts/PostContext/PostContext";
+import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 
 const Share = ({handleGetPosts}) => {
   const fileInputRef = useRef(null);
@@ -17,6 +18,7 @@ const Share = ({handleGetPosts}) => {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
   const { user } = useAuth();
+  const {profile} = useProfile();
 
   // console.log(file);
   const handleTypePost = (e) => {
@@ -86,10 +88,10 @@ const Share = ({handleGetPosts}) => {
     <section className="px-1">
       <div className="grid grid-cols-12 sm:flex bg-[#f4f4f4] py-2.5 px-5 rounded-lg">
         <div className="col-span-2 justify-center items-center flex mr-1 sm:mr-2 my-auto w-full sm:w-14 h-full">
-        {!dp? <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div>: 
+        {!profile?.profileImg ? <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div>: 
           <img
-            src={profileImg}
-            alt={profileImg}
+            src={profile?.profileImg}
+            alt={username}
             className={`rounded-full h-fit`}
           />}
         </div>
