@@ -15,7 +15,6 @@ const Comments = ({ c, getUsername, handleGetPosts }) => {
   const authUserId = profile?._id;
   const commentUserId = c?.userId?._id;
   const myComment = authUserId === commentUserId;
-  console.log('commentId in comments', c?._id)
 
   const handleOpenDeleteModal = () => {
     setOpenDeleteModal(true);

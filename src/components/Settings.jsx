@@ -59,7 +59,8 @@ const Settings = () => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
-  const handleUpdateNames = async () => {
+  const handleUpdateNames = async (e) => {
+    e.preventDefault();
     setUpdatingNames(true);
     notify("Updating your names...")
     try {
@@ -87,7 +88,8 @@ const Settings = () => {
     }
     setUpdatingNames(false)
   };
-  const handleUpdateCompany = async () => {
+  const handleUpdateCompany = async (e) => {
+    e.preventDefault();
     setUpdatingNames(true);
     notify("Updating your company name...")
     try {

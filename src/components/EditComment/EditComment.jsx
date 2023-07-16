@@ -5,13 +5,9 @@ import { useAuth } from "../../contexts/AuthContext/AuthContext";
 
 const EditComment = ({ setOpenEditModal, commentId, commentText, handleGetPosts }) => {
   const { user } = useAuth();
-  const [text, setText] = useState("");
   const [content, setContent] = useState("");
-  const [board, setBoard] = useState("WHITE_BOARD");
   const [updating, setUpdating] = useState(false);
 
-  console.log(content)
-  console.log('commentId in edit', commentId)
   useEffect(() => {
     setContent(commentText)
   }, []);
@@ -33,7 +29,7 @@ const EditComment = ({ setOpenEditModal, commentId, commentText, handleGetPosts 
             "Content-Type": "application/json",
             Authorization: `Bearer ${user?.token}`,
           },
-          body: JSON.stringify({content}),
+          body: JSON.stringify({"text": content}),
         }
       ).then((response) => {
         console.log(response)
