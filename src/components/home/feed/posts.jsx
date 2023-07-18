@@ -157,7 +157,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     } catch (error) {
       console.log(error);
       setLoadingLikes(false);
-      warn("An error has occured, pls try again!");
+      // warn("An error has occured, pls try again!");
     }
   };
   const handleViewAllComments = () => {

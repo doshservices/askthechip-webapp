@@ -141,9 +141,6 @@ const Profile = () => {
       : `${profile?.companyName}`;
   const role = profile?.role === "USER" ? "Private User" : "Service Provider";
   
-  useEffect(()=> {
-    console.log(profile);
-  }, [user])
   
   return (
     <div className="mt-0 md:mt-5">
