@@ -4,7 +4,7 @@ import { notify, warn } from "../../App";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 
 const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   //   const [postImg, setPostImg] = useState("");
   const [content, setContent] = useState("");
   const [board, setBoard] = useState("WHITE_BOARD");
@@ -17,7 +17,7 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user?.token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     )
@@ -53,7 +53,7 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(updatedPostData),
         }
@@ -123,15 +123,15 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
                           />
                         </div>
                         <div className="my-auto ml-2 mr-1">
-                              <select
-                                className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
-                                value={board}
-                                onChange={handleBoardChange}
-                              >
-                                <option value="WHITE_BOARD">White Board</option>
-                                <option value="BLACK_BOARD">Black Board</option>
-                              </select>
-                            </div>
+                          <select
+                            className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
+                            value={board}
+                            onChange={handleBoardChange}
+                          >
+                            <option value="WHITE_BOARD">White Board</option>
+                            <option value="BLACK_BOARD">Black Board</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
                   </div>

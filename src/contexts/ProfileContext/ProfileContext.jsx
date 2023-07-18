@@ -10,7 +10,7 @@ const ProfileProvider = ({children}) => {
     const {user} = useAuth();
     const [profile, setProfile] = useState({});
     useEffect(() => {
-        setProfile(user?.user);
+        setProfile(user);
     }, [user]);
     const value ={
         profile, setProfile

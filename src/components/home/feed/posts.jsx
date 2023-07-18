@@ -67,7 +67,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const [showMore, setShowMore] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const { profile } = useProfile();
   const [singleCommenter, setSingleCommenter] = useState({});
 
@@ -93,9 +93,9 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
 
   const singleComment = comments?.slice(0, 1);
   useEffect(() => {
-    setSingleCommenter(singleComment[0]?.userId)
+    setSingleCommenter(singleComment[0]?.userId);
   }, [comments]);
-  
+
   const sCommenterName =
     singleCommenter?.role === "USER"
       ? `${singleCommenter?.firstName} ${singleCommenter?.lastName}`
@@ -104,7 +104,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     return user?.role === "USER"
       ? `${user?.firstName} ${user?.lastName}`
       : `${user?.companyName}`;
-  }
+  };
   const handleLikePost = async () => {
     setLoadingLikePost(true);
     try {
@@ -114,14 +114,14 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       if (res.ok) {
         const likePostRes = await res.json();
         const likePostData = likePostRes.data;
-        setLikes(likes+1)
+        setLikes(likes + 1);
         // console.log('Like post response here', likePostRes)
         // console.log('Like post data here', likePostData)
         // setLikePost(getPosts);
@@ -143,7 +143,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -162,7 +162,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   };
   const handleViewAllComments = () => {
     setViewAllComments(!viewAllComments);
-  }
+  };
 
   // useEffect(() => {
   //   handleLikePost();
@@ -175,7 +175,6 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   // console.log(likes);
   //  console.log('comments here',comments)
   //  const comm = comments.map(c=>{console.log('single comment here', c.text)})
-
 
   return (
     <section
@@ -194,7 +193,11 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
                 <span className="text-white">{username[0]}</span>
               </div>
             ) : (
-              <img src={poster?.profileImg} alt="profile" className="rounded-[50%]" />
+              <img
+                src={poster?.profileImg}
+                alt="profile"
+                className="rounded-[50%]"
+              />
             )}
           </div>
           <div className="flex">
@@ -275,7 +278,12 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
           <div className="flex">
             <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
               <div className="ml-5 mr-1 w-5 cursor-pointer">
-                <img src={`${like}`} alt="Like" onClick={handleLikePost} className="hover:scale-110 active:scale-100" />
+                <img
+                  src={`${like}`}
+                  alt="Like"
+                  onClick={handleLikePost}
+                  className="hover:scale-110 active:scale-100"
+                />
               </div>
               <span className="text-center mt-1 mr-5">{likes}</span>
             </div>
@@ -298,19 +306,25 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         </div>
 
         <div>
-          {comments.length > 0 &&
+          {comments.length > 0 && (
             <>
               <div className="h-[0.062rem] w-[99%] mx-auto bg-black/10 mb-4 mt-8"></div>
-              {!viewAllComments ?
+              {!viewAllComments ? (
                 <div>
                   <div className="flex">
                     <div className="w-10 mr-1">
                       {!dp ? (
                         <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary100 font-bold text-xl">
-                          <span className="text-white">{sCommenterName[0]}</span>
+                          <span className="text-white">
+                            {sCommenterName[0]}
+                          </span>
                         </div>
                       ) : (
-                        <img src={profileImage} alt="profile" className="rounded-[50%]" />
+                        <img
+                          src={profileImage}
+                          alt="profile"
+                          className="rounded-[50%]"
+                        />
                       )}
                     </div>
                     <div className="flex">
@@ -322,25 +336,38 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
                   <div>
                     <div className="mx-11 mt-3">{singleComment[0]?.text}</div>
                   </div>
-                </div> : <>
+                </div>
+              ) : (
+                <>
                   {comments.map((c, index) => (
-                    <Comments c={c} key={index} getUsername={getUsername} handleGetPosts={handleGetPosts} />
-                  ))}</>
-              }
+                    <Comments
+                      c={c}
+                      key={index}
+                      getUsername={getUsername}
+                      handleGetPosts={handleGetPosts}
+                    />
+                  ))}
+                </>
+              )}
             </>
-          }
-          <div className="mx-11 mt-3">
-            {/* {comments?.slice(0, 1)} */}
-          </div>
-
+          )}
+          <div className="mx-11 mt-3">{/* {comments?.slice(0, 1)} */}</div>
         </div>
         {comments?.length > 0 && (
-          <div onClick={handleViewAllComments} className="cursor-pointer text-primary80 ml-5 mb-2.5 mt-5 font-medium">
-            View {viewAllComments ? "less" : `all ${comments?.length}`} comment(s)
+          <div
+            onClick={handleViewAllComments}
+            className="cursor-pointer text-primary80 ml-5 mb-2.5 mt-5 font-medium"
+          >
+            View {viewAllComments ? "less" : `all ${comments?.length}`}{" "}
+            comment(s)
           </div>
         )}
         <div>
-          <Comment post={post} handleGetPosts={handleGetPosts} setComments={setComments} />
+          <Comment
+            post={post}
+            handleGetPosts={handleGetPosts}
+            setComments={setComments}
+          />
         </div>
       </div>
     </section>

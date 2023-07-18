@@ -434,6 +434,26 @@ const SignUpAsProvider = () => {
               {accountUser === "BUSINESS" && (
                 <form onSubmit={handleSubmit}>
                   <div className="flex flex-col mb-5">
+                    <label
+                      htmlFor="companyName"
+                      className="font-DMSans text-sm mb-2"
+                    >
+                      Company Name
+                    </label>
+                    <div className="border border-[#2d2d2d] rounded-full">
+                      <input
+                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                        type="text"
+                        name="companyName"
+                        id="companyName"
+                        value={companyName}
+                        onChange={handleChange}
+                        placeholder="Enter Company Name Here"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col mb-5">
                     <label htmlFor="email" className="font-DMSans text-sm mb-2">
                       Email Address
                     </label>
@@ -535,26 +555,7 @@ const SignUpAsProvider = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="flex flex-col mb-5">
-                    <label
-                      htmlFor="companyName"
-                      className="font-DMSans text-sm mb-2"
-                    >
-                      Company Name
-                    </label>
-                    <div className="border border-[#2d2d2d] rounded-full">
-                      <input
-                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                        type="text"
-                        name="companyName"
-                        id="companyName"
-                        value={companyName}
-                        onChange={handleChange}
-                        placeholder="Enter Company Name Here"
-                        required
-                      />
-                    </div>
-                  </div>
+                  
                   <div className="flex flex-col mb-5">
                     <label htmlFor="phone" className="font-DMSans text-sm mb-2">
                       Phone Number{" "}

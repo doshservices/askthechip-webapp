@@ -35,10 +35,15 @@ const toastParams = {
   progress: undefined,
   theme: "light",
 };
+const loadingParams = {
+  ...toastParams, 
+  autoClose: false
+}
 
 export const notify = (val) => toast.success(`${val}`, toastParams);
 export const warn = (val) => toast.error(`${val}`, toastParams);
 export const inform = (val) => toast.info(`${val}`, toastParams);
+export const loadingToast = (val) => toast.info(`${val}`, loadingParams);
 
 function App() {
   return (

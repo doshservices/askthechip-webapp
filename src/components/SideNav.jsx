@@ -16,6 +16,7 @@ const SideNav = () => {
     setTimeout(()=> {
       setUser(null)
       localStorage.removeItem('authUser');
+      localStorage.removeItem('token');
       navigateTo("/login");
     }, 2500)
   }
