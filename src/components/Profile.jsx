@@ -88,7 +88,7 @@ const Profile = () => {
   };
 
   const handleUpdatePicture = async () => {
-    if (profileImg === null) return;
+    if (!profileImg) return;
     setUpdatingPicture(true);
     const toadId = loadingToast("Updating your profile picture...");
     try {
@@ -107,8 +107,9 @@ const Profile = () => {
         const resData = await response.json();
         // console.log(resData.data)
         const img = resData.data.user.profileImg;
+        const updatedData = resData.data.user;
         setProfileImg('');
-        localStorageUpdate({'profileImg': `${img}`});
+        localStorageUpdate(updatedData);
         console.log("Profile picture updated successfully");
         toast.update(toadId, {
           render: "Profile picture updated successfully",
@@ -120,6 +121,7 @@ const Profile = () => {
     } catch (error) {
       console.log(error);
       console.log("Failed to update picture");
+      setProfileImg('');
       toast.update(toadId, {
         render: "Failed to update picture",
         type: toast.TYPE.ERROR,
@@ -132,20 +134,17 @@ const Profile = () => {
   useEffect(() => {
     handleUpdatePicture();
   }, [profileImg]);
-
+  
   const username =
     profile?.role === "USER"
       ? `${profile?.firstName} ${profile?.lastName}`
       : `${profile?.companyName}`;
   const role = profile?.role === "USER" ? "Private User" : "Service Provider";
-  // useEffect(()=>  {
-  //   setTimeout(()=> {
-  //     console.log(user?.profileImg)
-  //   }, 3000)
-  // },[setProfileImg])
-
-  // console.log(user?.user)
-  // console.log(user?.user.profileImg)
+  
+  useEffect(()=> {
+    console.log(profile);
+  }, [user])
+  
   return (
     <div className="mt-0 md:mt-5">
       <div className="grid grid-cols-1 h-[123px] bg-coverImage bg-[#2d2d2d]/60 bg-blend-overlay rounded-lg">
