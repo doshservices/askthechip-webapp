@@ -16,7 +16,7 @@ const Mentorship = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [industry, setIndustry] = useState();
   const [loading, setLoading] = useState();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const { firstName, lastName, email, others } = formFields;
 
   const handleChange = (e) => {
@@ -41,14 +41,14 @@ const Mentorship = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
         }
       );
       if (res.ok) {
         const resData = res.json();
-        console.log("Okay", resData)
+        console.log("Okay", resData);
         console.log(resData.data);
         notify("Request submitted successfully");
         setFormFields(defaultFormFields);
@@ -68,7 +68,7 @@ const Mentorship = () => {
   return (
     <div className="grid grid-cols-12 pl-8">
       <div className="col-span-11 md:col-span-9 xm:col-span-7 xl:col-span-6">
-      <ToastContainer />
+        <ToastContainer />
         <div className="font-DMSans text-2xl font-medium my-2 mt-5">
           Mentorship
         </div>

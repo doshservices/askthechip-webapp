@@ -16,11 +16,10 @@ const defaultFormFields = {
 
 const SignIn = () => {
   const navigateTo = useNavigate();
-  const {user, setUser} = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const [error, setError] = useState('');
   const { loginId, password } = formFields;
 
   const redirectToHome = () => {
@@ -50,10 +49,11 @@ const SignIn = () => {
       if (res.ok) {
         console.log("Successfully signed in to askthechip!")
         const dataRes = await res.json();
-        const authUser = dataRes.data;
+        const authUser = dataRes.data.user;
+        const token = dataRes.data.token;
+        localStorage.setItem('token', token);
         localStorage.setItem('authUser', JSON.stringify(authUser));
         setUser(authUser);
-        // console.log(authUser)
         notify("Login success, you're being redirected")
         redirectToHome();
         setLoading(false);

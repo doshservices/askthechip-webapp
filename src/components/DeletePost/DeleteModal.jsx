@@ -5,7 +5,7 @@ import { useAuth } from "../../contexts/AuthContext/AuthContext";
 
 const DeleteModal = ({ postId, setOpenDeleteModal, handleGetPosts }) => {
   const [deleting, setDeleting] = useState(false);
-  const { user } = useAuth();
+  const { user, token } = useAuth();
 
   const handleDelete = async () => {
     setDeleting(true);
@@ -17,7 +17,7 @@ const DeleteModal = ({ postId, setOpenDeleteModal, handleGetPosts }) => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -31,10 +31,10 @@ const DeleteModal = ({ postId, setOpenDeleteModal, handleGetPosts }) => {
         setOpenDeleteModal(false);
         handleGetPosts();
       }
-      if(!response.ok){
+      if (!response.ok) {
         setDeleting(false);
         setOpenDeleteModal(false);
-        inform("Problem deleting your post, try again!")
+        inform("Problem deleting your post, try again!");
       }
     } catch (error) {
       console.log(error);
@@ -43,7 +43,6 @@ const DeleteModal = ({ postId, setOpenDeleteModal, handleGetPosts }) => {
       setDeleting(false);
       setOpenDeleteModal(false);
     }
-    
   };
   //   {
   //     "status": "error",
