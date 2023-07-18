@@ -7,7 +7,7 @@ import googleLogo from "../assets/icons/google-logo.svg";
 import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
 import { notify, warn } from "../App";
-import { AuthContext } from "../contexts/AuthContext/AuthContext";
+import { AuthContext, useAuth } from "../contexts/AuthContext/AuthContext";
 
 const defaultFormFields = {
   loginId: "",
@@ -17,6 +17,7 @@ const defaultFormFields = {
 const SignIn = () => {
   const navigateTo = useNavigate();
   const {user, setUser} = useContext(AuthContext);
+  const { setToken } = useAuth();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -51,8 +52,12 @@ const SignIn = () => {
         console.log("Successfully signed in to askthechip!")
         const dataRes = await res.json();
         const authUser = dataRes.data;
-        localStorage.setItem('authUser', JSON.stringify(authUser));
+        const token = authUser.token;
+        const userData = authUser.user;
+        localStorage.setItem('authUser', JSON.stringify(userData));
+        localStorage.setItem('token', token);
         setUser(authUser);
+        setToken(token);
         // console.log(authUser)
         notify("Login success, you're being redirected")
         redirectToHome();

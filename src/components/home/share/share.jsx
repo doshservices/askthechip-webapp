@@ -11,14 +11,14 @@ import Loader from "../../Loader/Loader";
 import { usePosts } from "../../../contexts/PostContext/PostContext";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 
-const Share = ({handleGetPosts}) => {
+const Share = ({ handleGetPosts }) => {
   const fileInputRef = useRef(null);
   const [postStatus, setPostStatus] = useState("");
   const [board, setBoard] = useState("WHITE_BOARD");
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
-  const { user } = useAuth();
-  const {profile} = useProfile();
+  const { user, token } = useAuth();
+  const { profile } = useProfile();
 
   // console.log(file);
   const handleTypePost = (e) => {
@@ -35,8 +35,8 @@ const Share = ({handleGetPosts}) => {
       setFile(base64String);
       notify("File uploaded successfully");
     } catch (error) {
-      console.error('Error converting file to base64:', error);
-      warn('An error has occured, pls try again!');
+      console.error("Error converting file to base64:", error);
+      warn("An error has occured, pls try again!");
     }
   };
   const handleChangeBoard = (e) => {
@@ -44,7 +44,7 @@ const Share = ({handleGetPosts}) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       setLoading(true);
       const res = await fetch(
@@ -53,7 +53,7 @@ const Share = ({handleGetPosts}) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             content: postStatus,
@@ -77,25 +77,33 @@ const Share = ({handleGetPosts}) => {
     }
 
     setPostStatus("");
-    setFile(null)
+    setFile(null);
     setLoading(false);
   };
-  const me = user?.user
-  const username = me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`
-  const dp = false;
+  const me = user;
+  const username =
+    me?.role === "USER" ? `${me?.firstName} ${me?.lastName}` : `${me?.companyName}`;
 
   return (
     <section className="px-1">
       <div className="grid grid-cols-12 sm:flex bg-[#f4f4f4] py-2.5 px-5 rounded-lg">
         <div className="col-span-2 justify-center items-center flex mr-1 sm:mr-2 my-auto w-full sm:w-14 h-full">
-        {!profile?.profileImg ? <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary100 font-bold text-xl"><span className="text-white">{username[0]}</span></div>: 
-          <img
-            src={profile?.profileImg}
-            alt={username}
-            className={`rounded-full h-fit`}
-          />}
+          {!profile?.profileImg ? (
+            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary100 font-bold text-xl">
+              <span className="text-white">{username[0]}</span>
+            </div>
+          ) : (
+            <img
+              src={profile?.profileImg}
+              alt={username}
+              className={`rounded-full h-fit`}
+            />
+          )}
         </div>
-        <form onSubmit={handleSubmit} className="col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-lg bg-grey  border border-black/10">
+        <form
+          onSubmit={handleSubmit}
+          className="col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-lg bg-grey  border border-black/10"
+        >
           <div className="flex w-full justify-between">
             <div className="flex ml-2 w-[80%]">
               <textarea
@@ -141,35 +149,34 @@ const Share = ({handleGetPosts}) => {
                   disabled={!postStatus || loading}
                   className={`flex bg-primary text-white text-xs hover:bg-primary/90 rounded-lg h-fit w-full px-4 py-1.5`}
                 >
-                  {loading? <Loader width="30" height="20" /> : "Post"}
+                  {loading ? <Loader width="30" height="20" /> : "Post"}
                 </button>
               </div>
             </div>
           </div>
-            {file && (
-              <div className="flex items-center mx-2 mb-2 text-primary">
-                File Uploaded Successfully!
-              </div>
-          )}
-          
-            <div className="flex flex-col justify-end items-end sm:hidden sm:justify-between w-full mb-2">
-              {postStatus && (
-              <div>
-              <div className="mx-2">
-                <select
-                  className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
-                  value={board}
-                  onChange={handleChangeBoard}
-                >
-                  <option value="WHITE_BOARD">White Board</option>
-                  <option value="BLACK_BOARD">Black Board</option>
-                </select>
-              </div>
-              </div>
-              )}
+          {file && (
+            <div className="flex items-center mx-2 mb-2 text-primary">
+              File Uploaded Successfully!
             </div>
-        </form>
+          )}
 
+          <div className="flex flex-col justify-end items-end sm:hidden sm:justify-between w-full mb-2">
+            {postStatus && (
+              <div>
+                <div className="mx-2">
+                  <select
+                    className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
+                    value={board}
+                    onChange={handleChangeBoard}
+                  >
+                    <option value="WHITE_BOARD">White Board</option>
+                    <option value="BLACK_BOARD">Black Board</option>
+                  </select>
+                </div>
+              </div>
+            )}
+          </div>
+        </form>
       </div>
     </section>
   );

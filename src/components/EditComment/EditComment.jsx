@@ -3,19 +3,24 @@ import { CircleLoader } from "..";
 import { inform, notify, warn } from "../../App";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 
-const EditComment = ({ setOpenEditModal, commentId, commentText, handleGetPosts }) => {
-  const { user } = useAuth();
+const EditComment = ({
+  setOpenEditModal,
+  commentId,
+  commentText,
+  handleGetPosts,
+}) => {
+  const { token } = useAuth();
   const [content, setContent] = useState("");
   const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
-    setContent(commentText)
+    setContent(commentText);
   }, []);
 
   const handleTextChange = (e) => {
     setContent(e.target.value);
   };
-// console.log(commentId);
+  // console.log(commentId);
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(text);
@@ -27,22 +32,22 @@ const EditComment = ({ setOpenEditModal, commentId, commentText, handleGetPosts 
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${user?.token}`,
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({"text": content}),
+          body: JSON.stringify({ text: content }),
         }
       ).then((response) => {
-        console.log(response)
+        console.log(response);
         if (response.ok) {
           console.log("Successfully updated your comment!");
           notify("Successfully updated your comment!");
           setOpenEditModal(false);
           handleGetPosts();
-        } 
-        if(!response.ok){
+        }
+        if (!response.ok) {
           setUpdating(false);
           setOpenEditModal(false);
-          inform("Problem editing your comment, try again!")
+          inform("Problem editing your comment, try again!");
         }
       });
     } catch (error) {

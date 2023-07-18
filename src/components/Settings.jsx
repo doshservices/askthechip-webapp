@@ -29,8 +29,8 @@ const defaultFormFields = {
 };
 
 const Settings = () => {
-  const {user} = useAuth();
-  const {profile} = useProfile();
+  const { token } = useAuth();
+  const { profile } = useProfile();
   const [activeButton, setActiveButton] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
   const [updatingNames, setUpdatingNames] = useState(false);
@@ -51,11 +51,11 @@ const Settings = () => {
     address,
     pin,
   } = formFields;
-  console.log(user)
+
   // const username = profile?.role === "USER" ? `${profile.firstName} ${profile.lastName}` : `${profile.companyName}`
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
-  }
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
@@ -63,16 +63,19 @@ const Settings = () => {
   const handleUpdateNames = async (e) => {
     e.preventDefault();
     setUpdatingNames(true);
-    notify("Updating your names...")
+    notify("Updating your names...");
     try {
-      const response = await fetch(`https://askthechip-endpoint-production.up.railway.app/api/users`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user?.token}`,
-        },
-        body: JSON.stringify({firstName, lastName})
-      });
+      const response = await fetch(
+        `https://askthechip-endpoint-production.up.railway.app/api/users`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ firstName, lastName }),
+        }
+      );
       if (response.ok) {
         const resData = await response.json();
         console.log(resData);
@@ -87,21 +90,24 @@ const Settings = () => {
       warn("Comment deletion failed, try again");
       setUpdatingNames(false);
     }
-    setUpdatingNames(false)
+    setUpdatingNames(false);
   };
   const handleUpdateCompany = async (e) => {
     e.preventDefault();
     setUpdatingNames(true);
-    notify("Updating your company name...")
+    notify("Updating your company name...");
     try {
-      const response = await fetch(`https://askthechip-endpoint-production.up.railway.app/api/users`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user?.token}`,
-        },
-        body: JSON.stringify({companyName})
-      });
+      const response = await fetch(
+        `https://askthechip-endpoint-production.up.railway.app/api/users`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ companyName }),
+        }
+      );
       if (response.ok) {
         const resData = await response.json();
         console.log(resData);
@@ -116,25 +122,28 @@ const Settings = () => {
       warn("Comment deletion failed, try again");
       setUpdatingNames(false);
     }
-    setUpdatingNames(false)
+    setUpdatingNames(false);
   };
   const handleResetPassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      notify("New password doesn't match, try again!")
+      notify("New password doesn't match, try again!");
       return;
-    };   
+    }
     setResetingPassword(true);
     notify("Reseting your password...");
     try {
-      const response = await fetch(`https://askthechip-endpoint-production.up.railway.app/api/users/reset-password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user?.token}`,
-        },
-        body: JSON.stringify({oldPassword, newPassword})
-      });
+      const response = await fetch(
+        `https://askthechip-endpoint-production.up.railway.app/api/users/reset-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ oldPassword, newPassword }),
+        }
+      );
       if (response.ok) {
         const resData = await response.json();
         // console.log(resData);
@@ -154,9 +163,9 @@ const Settings = () => {
   };
   const handleUpdateCard = (e) => {
     e.preventDefault();
-    inform("Sorry, this is a coming soon feature!")
+    inform("Sorry, this is a coming soon feature!");
     return;
-  }
+  };
 
   return (
     <div className="font-DMSans grid grid-cols-9">
@@ -177,81 +186,105 @@ const Settings = () => {
       <div className="col-span-5 pt-20">
         {activeButton === 1 ? (
           <>
-          {profile?.role === "USER"? 
-          <form onSubmit={handleUpdateNames} className="w-[90%] md:w-[80%] mx-auto">
-          <div className="flex flex-col mb-5">
-            <label htmlFor="firstName" className="font-DMSans text-sm mb-2">
-              First Name
-            </label>
-            <div className="border border-[#2d2d2d] rounded-full">
-              <input
-                className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                type="text"
-                name="firstName"
-                id="firstName"
-                value={firstName}
-                onChange={handleChange}
-                placeholder="First Name Here"
-                required
-              />
-            </div>
-          </div>
-          <div className="flex flex-col mb-5">
-            <label htmlFor="lastName" className="font-DMSans text-sm mb-2">
-              Last Name
-            </label>
-            <div className="border border-[#2d2d2d] rounded-full bg-transparent">
-              <input
-                className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                type="text"
-                name="lastName"
-                id="lastName"
-                value={lastName}
-                onChange={handleChange}
-                placeholder="Last Name Here"
-                required
-              />
-            </div>
-          </div>
-          <div className="flex justify-center mt-[3.75rem]">
-            <button
-              disabled={updatingNames}
-              type="submit"
-              className={updatingNames ? `bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`: `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`}
-            >
-              {updatingNames ? <Loader /> : "save"}
-            </button>
-          </div>
-        </form>
-          :
-          <form onSubmit={handleUpdateCompany} className="w-[90%] md:w-[80%] mx-auto">
-            <div className="flex flex-col mb-5">
-              <label htmlFor="companyName" className="font-DMSans text-sm mb-2">
-                Company Name
-              </label>
-              <div className="border border-[#2d2d2d] rounded-full">
-                <input
-                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                  type="text"
-                  name="companyName"
-                  id="companyName"
-                  value={companyName}
-                  onChange={handleChange}
-                  placeholder="Company Name Here"
-                  required
-                />
-              </div>
-            </div>
-            <div className="flex justify-center mt-[3.75rem]">
-              <button
-                disabled={updatingNames}
-                type="submit"
-                className={updatingNames ? `bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`: `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`}
+            {profile?.role === "USER" ? (
+              <form
+                onSubmit={handleUpdateNames}
+                className="w-[90%] md:w-[80%] mx-auto"
               >
-                {updatingNames ? <Loader /> : "save"}
-              </button>
-            </div>
-          </form>}
+                <div className="flex flex-col mb-5">
+                  <label
+                    htmlFor="firstName"
+                    className="font-DMSans text-sm mb-2"
+                  >
+                    First Name
+                  </label>
+                  <div className="border border-[#2d2d2d] rounded-full">
+                    <input
+                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                      type="text"
+                      name="firstName"
+                      id="firstName"
+                      value={firstName}
+                      onChange={handleChange}
+                      placeholder="First Name Here"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col mb-5">
+                  <label
+                    htmlFor="lastName"
+                    className="font-DMSans text-sm mb-2"
+                  >
+                    Last Name
+                  </label>
+                  <div className="border border-[#2d2d2d] rounded-full bg-transparent">
+                    <input
+                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                      type="text"
+                      name="lastName"
+                      id="lastName"
+                      value={lastName}
+                      onChange={handleChange}
+                      placeholder="Last Name Here"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-center mt-[3.75rem]">
+                  <button
+                    disabled={updatingNames}
+                    type="submit"
+                    className={
+                      updatingNames
+                        ? `bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
+                        : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
+                    }
+                  >
+                    {updatingNames ? <Loader /> : "save"}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <form
+                onSubmit={handleUpdateCompany}
+                className="w-[90%] md:w-[80%] mx-auto"
+              >
+                <div className="flex flex-col mb-5">
+                  <label
+                    htmlFor="companyName"
+                    className="font-DMSans text-sm mb-2"
+                  >
+                    Company Name
+                  </label>
+                  <div className="border border-[#2d2d2d] rounded-full">
+                    <input
+                      className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                      type="text"
+                      name="companyName"
+                      id="companyName"
+                      value={companyName}
+                      onChange={handleChange}
+                      placeholder="Company Name Here"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-center mt-[3.75rem]">
+                  <button
+                    disabled={updatingNames}
+                    type="submit"
+                    className={
+                      updatingNames
+                        ? `bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
+                        : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
+                    }
+                  >
+                    {updatingNames ? <Loader /> : "save"}
+                  </button>
+                </div>
+              </form>
+            )}
           </>
         ) : activeButton === 2 ? (
           <div>
@@ -432,10 +465,14 @@ const Settings = () => {
               </div>
             </div>
             <div className="flex justify-center mt-[3.75rem]">
-            <button
+              <button
                 disabled={resetingPassword}
                 type="submit"
-                className={resetingPassword ? `bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`: `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`}
+                className={
+                  resetingPassword
+                    ? `bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
+                    : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
+                }
               >
                 {resetingPassword ? <Loader /> : "save"}
               </button>
