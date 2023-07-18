@@ -121,11 +121,11 @@ const Profile = () => {
       console.log(error);
       console.log("Failed to update picture");
       toast.update(toadId, {
-        render: "Profile picture updated successfully",
-        type: toast.TYPE.WARNING,
+        render: "Failed to update picture",
+        type: toast.TYPE.ERROR,
         autoClose: 2500,
       });
-      warn("Failed to update picture, try again");
+      // warn("Failed to update picture, try again");
     }
     setUpdatingPicture(false);
   };
