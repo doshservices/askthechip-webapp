@@ -108,6 +108,7 @@ const Profile = () => {
         const resData = await response.json();
         // console.log(resData.data)
         const img = resData.data.user.profileImg;
+        console.log(img);
         const updatedData = resData.data.user;
         setProfileImg('');
         localStorageUpdate(updatedData);
