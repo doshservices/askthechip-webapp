@@ -25,6 +25,23 @@ const images = [
     src: header5,
   },
 ];
+const mobileImages = [
+  {
+    src: header1,
+  },
+  {
+    src: header2,
+  },
+  // {
+  //   src: header3,
+  // },
+  // {
+  //   src: header4,
+  // },
+  {
+    src: header5,
+  },
+];
 
 const Header = () => {
   return (
@@ -64,8 +81,13 @@ const Header = () => {
                   ></path>
                 </svg>
               </div>
-              <div className="grid rounded-grid grid-cols-5 gap-4">
+              <div className="hidden bg-white md:grid rounded-grid grid-cols-5 gap-4">
                 {images.map((image, index) => (
+                  <img className="h-full" src={image.src} key={index} />
+                ))}
+              </div>
+              <div className="grid bg-white md:hidden rounded-grid grid-cols-3 gap-4">
+                {mobileImages.map((image, index) => (
                   <img className="h-full" src={image.src} key={index} />
                 ))}
               </div>

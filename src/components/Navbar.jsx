@@ -1,14 +1,15 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "./../assets/ask.svg";
 
 const Navbar = () => {
-
+  const [isOpened, setIsOpened] = useState(false);
   const navRef = useRef();
   const showMenu = () => {
     navRef.current.classList.toggle("translate-x-[100%]");
+    setIsOpened(!isOpened);
   };
 
   return (
@@ -29,7 +30,7 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex font-body my-auto items-center justify-between w-full max-w-[500px]">
           <NavLink
-            to="/home"
+            to="/"
             className={({ isActive }) =>
               isActive
                 ? "px-4 underline decoration-2 underline-offset-4"
@@ -74,9 +75,9 @@ const Navbar = () => {
         <div className="hidden md:flex justify-center items-center">
           <div className="mr-[0.625rem]">
             <Link to="/provider-signup">
-            <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.875rem] py-[0.625rem] rounded-lg transition duration-200 hover:scale-90 active:100">
-              Become a Provider
-            </button>
+              <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.875rem] py-[0.625rem] rounded-lg transition duration-200 hover:scale-90 active:100">
+                Become a Provider
+              </button>
             </Link>
           </div>
           <div>
@@ -94,13 +95,15 @@ const Navbar = () => {
           onClick={showMenu}
           className="flex pt-[1.25rem] text-[#f8f8f8] absolute right-2 md:hidden p-3 transition active:scale-90"
         >
-          <FaBars size={30} />
+          {!isOpened ?
+            <FaBars size={30} />
+            : <FaTimes size={35} />}
         </button>
         <div
           ref={navRef}
-          className={`flex translate-x-[100%] z-50 bg-white md:hidden transition flex-col w-[70%] items-center font-body uppercase my-auto h-screen fixed top-0 right-0`}
+          className={`flex translate-x-[100%] z-50 bg-white md:hidden transition flex-col w-full items-left pl-12 font-DMSans font-bold text-dark2D capitalize my-auto h-full fixed top-[72px] right-0 pt-16`}
         >
-          <div className="flex justify-center mb-4 mt-[50%]" onClick={showMenu}>
+          {/* <div className="flex mb-4 mt-16" onClick={showMenu}>
             <NavLink
               to="/home"
               className="px-4 hover:underline decoration-2 underline-offset-4"
@@ -108,8 +111,8 @@ const Navbar = () => {
             >
               Home
             </NavLink>
-          </div>
-          <div className="flex justify-center my-4" onClick={showMenu}>
+          </div> */}
+          <div className="flex my-4" onClick={showMenu}>
             <HashLink
               to="/#explore"
               smooth={true}
@@ -118,7 +121,7 @@ const Navbar = () => {
               Explore
             </HashLink>
           </div>
-          <div className="flex justify-center my-4" onClick={showMenu}>
+          <div className="flex my-4" onClick={showMenu}>
             <NavLink
               to="/pricing"
               className="px-4 hover:underline decoration-2 underline-offset-4"
@@ -127,7 +130,7 @@ const Navbar = () => {
               Pricing
             </NavLink>
           </div>
-          <div className="flex justify-center my-4" onClick={showMenu}>
+          <div className="flex my-4" onClick={showMenu}>
             <HashLink
               to="/#about"
               smooth={true}
@@ -136,7 +139,7 @@ const Navbar = () => {
               About Us
             </HashLink>
           </div>
-          <div className="flex justify-center my-4" onClick={showMenu}>
+          <div className="flex my-4" onClick={showMenu}>
             <HashLink
               to="/#contact"
               smooth={true}
@@ -145,27 +148,20 @@ const Navbar = () => {
               Contact
             </HashLink>
           </div>
-
-          <div className="flex justify-center my-4">
-            <div className="px-8 border border-primary80 py-1 rounded-lg text-primary80">
-              <Link to="provider-signup">
-                Become a Provider
-              </Link> 
-            </div>
-          </div>
-          <div className="flex justify-center my-4">
+          <div className="flex my-4">
             <div className="px-8 border border-primary80 bg-primary80 py-1 rounded-lg text-white">
               <Link to="sign-up">
                 Join Now
               </Link>
             </div>
           </div>
-          <button
-            onClick={showMenu}
-            className="flex absolute right-2 md:hidden p-3 ease-in transition duration-500 active:scale-90"
-          >
-            <FaTimes size={40} />
-          </button>
+          <div className="flex my-4">
+            <div className="px-8 border border-primary80 py-1 rounded-lg text-primary80">
+              <Link to="provider-signup">
+                Become a Provider
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

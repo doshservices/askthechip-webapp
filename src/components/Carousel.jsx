@@ -63,9 +63,8 @@ const Carousel = () => {
   const Dot = ({ onClick, active }) => {
     return (
       <div
-        className={`mx-2 h-3 w-3 cursor-pointer rounded-full bg-gray-700 ${
-          active && "bg-primary"
-        }`}
+        className={`mx-2 h-3 w-3 cursor-pointer rounded-full bg-gray-700 ${active && "bg-primary"
+          }`}
         onClick={onClick}
       ></div>
     );
@@ -148,7 +147,7 @@ const Carousel = () => {
 
   return (
     <div className="-z-10 overflow-hidden pt-5" id="testimonials">
-      <div className="container mx-auto ">
+      <div className="hidden md:block container mx-auto ">
         <Slider
           {...settings}
           afterChange={(index) => setCurrentSlide(index)}
@@ -163,14 +162,14 @@ const Carousel = () => {
                 className={
                   currentSlide === testimonial.id
                     ? `bg-[#EFF4F4] border border-[#000000]/5 py-8 min-h-[253px] flex justify-start items-start rounded-lg px-6 text-DMSans`
-                    : `bg-[#EFF4F4] border border-[#000000]/5 py-4 mt-8 min-h-[179px] flex justify-start items-start rounded-lg px-6 text-DMSans`
+                    : `bg-[#EFF4F4] border border-[#000000]/5 py-4 mt-0 md:mt-8 min-h-[179px] flex justify-start items-start rounded-lg px-6 text-DMSans`
                 }
               >
-                <div className="flex justify-start w-[242px]">
+                <div className="flex justify-start w-full max-w-[6rem] md:max-w-[242px]">
                   <img
                     src={testimonial.image}
                     alt="Testimonial"
-                    className="h-[142px] w-[142px]"
+                    className="w-20 h-auto aspect-square md:h-[142px] md:w-[142px]"
                   />
                 </div>
                 <div className="flex flex-col w-full">
@@ -178,14 +177,14 @@ const Carousel = () => {
                     <div className="w-20 mr-2">
                       <img src={openQuot} alt='"' />
                     </div>
-                    <div className="my-3 text-justify mr-2">
+                    <div className="my-3 text-justify mr-2 text-[0.75rem] md:text-normal">
                       {testimonial.content}&quot;
                     </div>
                     <div className="flex mt-auto justify-end w-20 mr-2">
                       <img src={closeQuot} alt='"' />
                     </div>
                   </div>
-                  <div className="px-6 mt-[30px]">
+                  <div className="px-6 mt-[1.88rem]">
                     <div className="text-xl text-[#0A1E25] font-medium">
                       Omobolaji A.
                     </div>
@@ -198,6 +197,41 @@ const Carousel = () => {
             </div>
           ))}
         </Slider>
+      </div>
+      <div className="block md:hidden container mx-auto ">
+        {testimonials.slice(0, 2).map((testimonial) => (
+          <div key={testimonial.id} className="mb-16 px-4">
+            <div
+              className={`bg-[#EFF4F4] border border-[#000000]/5 py-8 min-h-[253px] flex justify-start items-start rounded-lg px-6 text-DMSans`}
+            >
+              <div className="flex justify-start w-20 md:max-w-[242px]">
+                <img
+                  src={testimonial.image}
+                  alt="Testimonial"
+                  className="w-32 h-auto aspect-square md:h-[142px] md:w-[142px]"
+                />
+              </div>
+              <div className="flex flex-col w-full max-w-[100%_-_6rem]">
+                <div className="flex">
+                  <div className="w-full max-w-[1rem] mx-2">
+                    <img src={openQuot} alt='"' />
+                  </div>
+                  <div className="my-3 text-justify mr-2 text-[0.75rem] md:text-normal">
+                    {testimonial.content}&quot;
+                  </div>
+                </div>
+                <div className="ml-2 px-6 mt-[1.88rem]">
+                  <div className="text-xl text-[#0A1E25] font-medium">
+                    Omobolaji A.
+                  </div>
+                  <div className="text-xl text-primary80">
+                    Founder of Adunab Designs
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

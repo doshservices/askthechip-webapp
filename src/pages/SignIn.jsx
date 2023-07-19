@@ -34,7 +34,8 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.removeItem('authUser');
+    localStorage.removeItem("authUser");
+    localStorage.removeItem("token");
     setUser(null);
     setLoading(true);
     try {

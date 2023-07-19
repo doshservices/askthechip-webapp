@@ -84,7 +84,6 @@ const SignUp = () => {
       accountType,
       googleSigned: true,
     };
-    console.log("Individual data", data);
     return data;
   };
   const individualDetails = getIndividualDetails();
@@ -105,7 +104,6 @@ const SignUp = () => {
       representativeId: representativeId,
       googleSigned: true,
     };
-    console.log("Business data", data);
     return data;
   };
   const businessDetails = getBusinessDetails();
@@ -113,6 +111,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.removeItem("authUser");
+    localStorage.removeItem("token");
     setUser(null);
     if (accountUser === "INDIVIDUAL") {
       if (password !== confirmPassword) {

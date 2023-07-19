@@ -67,35 +67,6 @@ const MobileNav = () => {
           </NavLink>
         </li>
         <li className="flex justify-center">
-          <NavLink to="/notifications"
-            className={({ isActive }) =>
-              isActive
-                ? "flex flex-col justify-center text-[10px] sm:text-xs font-semibold font-tertiary items-center gap-2 active"
-                : "flex flex-col justify-center text-[10px] sm:text-xs font-semibold font-tertiary items-center gap-2"
-            }
-          >
-            {pathname === "/notifications" ? (
-              <svg className="-mb-0.5" width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 20C9.1 20 10 19.1 10 18H6C6 19.1 6.89 20 8 20ZM14 14V9C14 5.93 12.36 3.36 9.5 2.68V2C9.5 1.17 8.83 0.5 8 0.5C7.17 0.5 6.5 1.17 6.5 2V2.68C3.63 3.36 2 5.92 2 9V14L0 16V17H16V16L14 14Z" fill="#068978" />
-              </svg>
-            )
-              : (<svg className="-mb-0.5"
-                width="16"
-                height="20"
-                viewBox="0 0 16 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0 17V15.5H2.1V7.85C2.1 6.45 2.5125 5.20417 3.3375 4.1125C4.1625 3.02083 5.25 2.33333 6.6 2.05V1.325C6.6 0.941667 6.7375 0.625 7.0125 0.375C7.2875 0.125 7.61667 0 8 0C8.38333 0 8.7125 0.125 8.9875 0.375C9.2625 0.625 9.4 0.941667 9.4 1.325V2.05C10.75 2.33333 11.8417 3.02083 12.675 4.1125C13.5083 5.20417 13.925 6.45 13.925 7.85V15.5H16V17H0ZM8 20C7.46667 20 7 19.8042 6.6 19.4125C6.2 19.0208 6 18.55 6 18H10C10 18.55 9.80417 19.0208 9.4125 19.4125C9.02083 19.8042 8.55 20 8 20ZM3.6 15.5H12.425V7.85C12.425 6.61667 12 5.56667 11.15 4.7C10.3 3.83333 9.25833 3.4 8.025 3.4C6.79167 3.4 5.74583 3.83333 4.8875 4.7C4.02917 5.56667 3.6 6.61667 3.6 7.85V15.5Z"
-                  fill="#2d2d2d"
-                  fillOpacity="0.8"
-                />
-              </svg>)}
-            <span className="font-Raleway w-14 sm:w-20 mt-1 text-center">Notifications</span>
-          </NavLink>
-        </li>
-        <li className="flex justify-center">
           <NavLink to="/mentorship"
             className={({ isActive }) =>
               isActive
@@ -125,6 +96,35 @@ const MobileNav = () => {
             )}
 
             <span className="font-Raleway w-12 sm:w-16 text-center">Mentorship</span>
+          </NavLink>
+        </li>
+        <li className="flex justify-center">
+          <NavLink to="/notifications"
+            className={({ isActive }) =>
+              isActive
+                ? "flex flex-col justify-center text-[10px] sm:text-xs font-semibold font-tertiary items-center gap-2 active"
+                : "flex flex-col justify-center text-[10px] sm:text-xs font-semibold font-tertiary items-center gap-2"
+            }
+          >
+            {pathname === "/notifications" ? (
+              <svg className="-mb-0.5" width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 20C9.1 20 10 19.1 10 18H6C6 19.1 6.89 20 8 20ZM14 14V9C14 5.93 12.36 3.36 9.5 2.68V2C9.5 1.17 8.83 0.5 8 0.5C7.17 0.5 6.5 1.17 6.5 2V2.68C3.63 3.36 2 5.92 2 9V14L0 16V17H16V16L14 14Z" fill="#068978" />
+              </svg>
+            )
+              : (<svg className="-mb-0.5"
+                width="16"
+                height="20"
+                viewBox="0 0 16 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 17V15.5H2.1V7.85C2.1 6.45 2.5125 5.20417 3.3375 4.1125C4.1625 3.02083 5.25 2.33333 6.6 2.05V1.325C6.6 0.941667 6.7375 0.625 7.0125 0.375C7.2875 0.125 7.61667 0 8 0C8.38333 0 8.7125 0.125 8.9875 0.375C9.2625 0.625 9.4 0.941667 9.4 1.325V2.05C10.75 2.33333 11.8417 3.02083 12.675 4.1125C13.5083 5.20417 13.925 6.45 13.925 7.85V15.5H16V17H0ZM8 20C7.46667 20 7 19.8042 6.6 19.4125C6.2 19.0208 6 18.55 6 18H10C10 18.55 9.80417 19.0208 9.4125 19.4125C9.02083 19.8042 8.55 20 8 20ZM3.6 15.5H12.425V7.85C12.425 6.61667 12 5.56667 11.15 4.7C10.3 3.83333 9.25833 3.4 8.025 3.4C6.79167 3.4 5.74583 3.83333 4.8875 4.7C4.02917 5.56667 3.6 6.61667 3.6 7.85V15.5Z"
+                  fill="#2d2d2d"
+                  fillOpacity="0.8"
+                />
+              </svg>)}
+            <span className="font-Raleway w-14 sm:w-20 mt-1 text-center">Notifications</span>
           </NavLink>
         </li>
         <li className="flex justify-center">

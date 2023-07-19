@@ -313,18 +313,14 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
                 <div>
                   <div className="flex">
                     <div className="w-10 mr-1">
-                      {!dp ? (
+                      {!singleCommenter?.profileImg ? (
                         <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary100 font-bold text-xl">
                           <span className="text-white">
                             {sCommenterName[0]}
                           </span>
                         </div>
                       ) : (
-                        <img
-                          src={profileImage}
-                          alt="profile"
-                          className="rounded-[50%]"
-                        />
+                        <img src={singleCommenter?.profileImg} alt="profile" className="rounded-[50%]" />
                       )}
                     </div>
                     <div className="flex">
@@ -375,49 +371,3 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
 };
 
 export default Posts;
-
-// const ServiceProvider = {
-//   "_id": "64a53313f4a0282fe8e59af5",
-//   "gender": "MALE",
-//   "email": "abdrahmanoladimejitest@gmail.com",
-//   "phoneNumber": "08109672785",
-//   "password": "$2b$10$FpNudvGXYuB/GrTRPNe2cuzFktLNmdoiZ/oygCMRv1MmndPgs81Wy",
-//   "interest": [],
-//   "companyName": "Ladoke Akintola University Of Technology, Ogbomoso",
-//   "cacDocument": "cacDocument",
-//   "representativeId": "representativeId",
-//   "otp": "191402",
-//   "verified": false,
-//   "role": "SERVICE_PROVIDER",
-//   "googleSigned": false,
-//   "serviceType": "TRAINING",
-//   "status": "active",
-//   "followers": [],
-//   "subscription": "FREE",
-//   "__v": 0
-// }
-
-// const user = {
-//   "_id": "64a676f9f4a0282fe8e59cc8",
-//   "userId": {
-//       "_id": "64a67601f4a0282fe8e59cb6",
-//       "firstName": "Ezra",
-//       "lastName": "bernard",
-//       "gender": "MALE",
-//       "email": "bernardezra112@gmail.com",
-//       "phoneNumber": "+2349135248299",
-//       "password": "$2b$10$qguToz6cCqu1MRMaE7kJEua8IrrLifp8W0fCu/QpTBGkX/ARnknEO",
-//       "interest": [],
-//       "verified": false,
-//       "role": "USER",
-//       "googleSigned": true,
-//       "status": "active",
-//       "followers": [],
-//       "subscription": "FREE",
-//       "__v": 0
-//   },
-//   "content": "Testing testing ",
-//   "board": "WHITE_BOARD",
-//   "postImg": null,
-//   "__v": 0
-// }

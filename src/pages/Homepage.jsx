@@ -96,7 +96,7 @@ const HomePage = () => {
         </div>
       </section>
       <MobileLayout>
-        <div className="overflow-x-hidden px-1 sm:px-4">
+        <div className="overflow-x-hidden px-0 sm:px-4">
           <Header
             darkMode={darkMode}
             setDarkMode={setDarkMode}

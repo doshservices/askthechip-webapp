@@ -21,20 +21,6 @@ const defaultFormFields = {
   officeAddress: "",
 };
 
-// {
-//   "companyName": "Human TECH",
-//   "officeAddress": "lekki face 23",
-//   "phoneNumber": "05335248299",
-//   "email": "oyasync03@gmail.com",
-//   "password": "123456",
-//   "gender": "MALE",
-//   "role": "SERVICE_PROVIDER",
-//   "serviceType": "ACCOUNTING_SERVICES",
-//   "cacDocument": "cacDocument",
-//   "representativeId": "representativeId",
-//   "googleSigned": true
-// }
-
 const SignUpAsProvider = () => {
   const navigateTo = useNavigate();
   const { setUser } = useContext(AuthContext);
@@ -110,7 +96,6 @@ const SignUpAsProvider = () => {
       serviceType,
       googleSigned: false 
     };
-    console.log("Individual data",data);
     return data;
   };
   const individualDetails = getIndividualDetails();
@@ -130,7 +115,6 @@ const SignUpAsProvider = () => {
       representativeId: representativeId,
       googleSigned: false
     };
-    console.log("Business data", data);
     return data;
   };
   const businessDetails = getBusinessDetails();
@@ -138,7 +122,8 @@ const SignUpAsProvider = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.removeItem('authUser');
+    localStorage.removeItem("authUser");
+    localStorage.removeItem("token");
     setUser(null);
     if (accountUser === "INDIVIDUAL") {
       if (password !== confirmPassword) {
