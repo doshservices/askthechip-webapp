@@ -12,7 +12,7 @@ const AuthProvider = ({children}) => {
 
   useEffect(()=> {
     checkUserStatus();
-  }, [user]);
+  }, [setUser]);
 
   const checkUserStatus = () => {
     let token = localStorage.getItem('token');

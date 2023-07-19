@@ -7,11 +7,11 @@ export const ProfileContext = createContext({
 });
 
 const ProfileProvider = ({children}) => {
-    const {user} = useAuth();
+    const {user, setUser} = useAuth();
     const [profile, setProfile] = useState({});
     useEffect(() => {
         setProfile(user);
-    }, [user]);
+    }, [setUser]);
     const value ={
         profile, setProfile
     }

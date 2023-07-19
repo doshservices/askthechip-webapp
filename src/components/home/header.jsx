@@ -53,15 +53,15 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
               <img
                 src={user?.profileImg}
                 alt={username}
-                className={` w-[29.39px] h-auto aspect-square rounded-full`}
+                className={` w-[49.39px] h-auto aspect-square rounded-full`}
               />}
           </button>
           {isOpened && (
             <div className="absolute top-11 right-1 w-32 p-4 rounded-lg bg-white shadow">
-              <Link to='/profile'>
+              <Link to='/profile' className="mb-2">
                 <div
                   onClick={showOthers}
-                  className="hover:bg-primary/20 flex cursor-pointer justify-start text-primary"
+                  className="hover:bg-primary/20 flex cursor-pointer justify-start text-primary mb-2"
                 >
                   {pathname === "/profile"
                   ?
@@ -85,10 +85,10 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
                   Profile
                 </div>
               </Link>
-              <Link to='/settings'>
+              <Link to='/settings' className="mb-2">
                 <div
                   onClick={showOthers}
-                  className="hover:bg-primary/20 flex cursor-pointer justify-start text-primary"
+                  className="hover:bg-primary/20 flex cursor-pointer justify-start text-primary mb-1.5"
                 >
                   <svg
                     className="mr-1.5"
