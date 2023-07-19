@@ -19,6 +19,7 @@ import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 import { loadingToast, notify, warn } from "../App";
 import { localStorageUpdate } from "../utils/localStorageUpdate";
 import { toast } from "react-toastify";
+import { reloadBrowser } from "./Settings";
 // import Button from './Button';
 
 export const fileToBase64 = (file) => {
@@ -117,6 +118,7 @@ const Profile = () => {
           autoClose: 2500,
         });
         setUpdatingPicture(false);
+        reloadBrowser();
       }
     } catch (error) {
       console.log(error);
@@ -141,9 +143,6 @@ const Profile = () => {
       : `${profile?.companyName}`;
   const role = profile?.role === "USER" ? "Private User" : "Service Provider";
   
-  useEffect(()=> {
-    console.log(profile);
-  }, [user])
   
   return (
     <div className="mt-0 md:mt-5">
