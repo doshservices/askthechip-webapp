@@ -19,6 +19,7 @@ import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 import { loadingToast, notify, warn } from "../App";
 import { localStorageUpdate } from "../utils/localStorageUpdate";
 import { toast } from "react-toastify";
+import { reloadBrowser } from "./Settings";
 // import Button from './Button';
 
 export const fileToBase64 = (file) => {
@@ -117,6 +118,7 @@ const Profile = () => {
           autoClose: 2500,
         });
         setUpdatingPicture(false);
+        reloadBrowser();
       }
     } catch (error) {
       console.log(error);

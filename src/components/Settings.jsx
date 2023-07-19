@@ -29,6 +29,9 @@ const defaultFormFields = {
   address: "",
   pin: "",
 };
+export const reloadBrowser = () => {
+  window.location.reload();
+}
 
 const Settings = () => {
   const { user, token } = useAuth();
@@ -57,7 +60,8 @@ const Settings = () => {
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
-  const handleChange = (e) => {
+  
+    const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
@@ -88,6 +92,7 @@ const Settings = () => {
         toast.update(toadId, {render: "Updated username successfully", autoClose: 2500, type: 'success'})
         setUpdatingNames(false);
         resetFormFields();
+        reloadBrowser();
       }
     } catch (error) {
       console.log(error);
@@ -124,6 +129,7 @@ const Settings = () => {
         toast.update(toastId, {render: "Updated company name successfully", autoClose: 2500, type: 'success'});
         setUpdatingNames(false);
         resetFormFields();
+        reloadBrowser();
       }
     } catch (error) {
       console.log(error);
