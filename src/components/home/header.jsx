@@ -6,7 +6,7 @@ import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import power from "../../assets/icons/power-icon.svg";
 import { inform } from "../../App";
 const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) => {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const pathname = window.location.pathname;
   const [isOpened, setIsOpened] = useState(false);
   const showOthers = () => {
@@ -23,8 +23,8 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
       navigateTo("/login");
     }, 2500)
   }
-  const me = user?.user
-  const username = me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`
+  const me = user
+  const username = me?.role === "USER" ? `${me?.firstName} ${me?.lastName}` : `${me?.companyName}`
 
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between w-full">
