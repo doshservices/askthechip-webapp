@@ -47,13 +47,13 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
         <div className="flex relative md:hidden">
           <button
             onClick={showOthers}
-            className="flex text-[#f8f8f8] right-2 md:hidden m-3 transition active:scale-90"
+            className="flex justify-center items-center text-[#f8f8f8] right-2 md:hidden m-3 transition active:scale-90"
           >
             {!user?.profileImg ? <div className="flex items-center justify-center w-[29.39px] h-auto aspect-square rounded-full bg-primary80 font-medium"><span className="text-white">{username[0]}</span></div> :
               <img
                 src={user?.profileImg}
                 alt={username}
-                className={` w-[49.39px] h-auto aspect-square rounded-full`}
+                className={`w-[52px] h-auto aspect-square rounded-full`}
               />}
           </button>
           {isOpened && (
@@ -119,7 +119,7 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
         </div>
       </nav>
       <div className="hiddem md:flex gap-2 cursor-pointer">
-        <div className="hidden md:flex justify-center text-xs rounded-full w-fit p-1">
+        <div className="hidden md:flex justify-center text-xs rounded-full w-fit pl-0 p-1">
           {pathname === "/home"
             ? <>
               <div
@@ -162,7 +162,7 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
           }
         </div>
       </div>
-      <div className="hidden md:flex w-full mt-2 sm:mt-0 sm:w-[35%]">
+      <div className="hidden -mr-5 md:flex w-full mt-2 sm:mt-0 sm:w-[35%]">
         <Search background={"#FCFCFC"} />
       </div>
     </div>

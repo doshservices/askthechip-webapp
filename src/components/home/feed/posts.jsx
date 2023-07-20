@@ -16,6 +16,8 @@ import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 import { warn } from "../../../App";
 import Comment from "./Comment";
 import Comments from "./Comments";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const reactions = [
   {
@@ -88,7 +90,6 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     poster.role === "USER"
       ? `${poster.firstName} ${poster.lastName}`
       : `${poster.companyName}`;
-  const dp = false;
   const role = poster.role === "USER" ? "Private User" : "Service Provider";
 
   const singleComment = comments?.slice(0, 1);
@@ -171,23 +172,20 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
 
   useEffect(() => {
     handleLikesValue();
-  }, [setLikes, handleLikePost]);
-  // console.log(likes);
-  //  console.log('comments here',comments)
-  //  const comm = comments.map(c=>{console.log('single comment here', c.text)})
+  }, [likes]);
 
   return (
     <section
       className={
         index === 0 || pathname === "/profile"
-          ? `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-0 sm:mt-5 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`
-          : `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-5 sm:mt-10 mx-1 sm:mx-2.5 grid grid-cols-12 font-DMSans`
+          ? `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-0 sm:mt-5 mx-1 sm:mx-0 grid grid-cols-12 font-DMSans`
+          : `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-5 sm:mt-10 mx-1 sm:mx-0 grid grid-cols-12 font-DMSans`
       }
       style={{ backgroundColor: bgColor, color: color }}
     >
       <div className="col-span-12 flex justify-between">
         <div className="flex">
-          <div className="w-10 mr-2">
+          <div className="w-full mr-2">
             {!poster?.profileImg ? (
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl">
                 <span className="text-white">{username[0]}</span>
@@ -196,7 +194,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
               <img
                 src={poster?.profileImg}
                 alt="profile"
-                className="rounded-[50%]"
+                className="rounded-[50%] w-[52px] h-auto aspect-square"
               />
             )}
           </div>
@@ -269,9 +267,15 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         <h4 className="text-sm text-[#2D2D2DCC] font-DMSans mb-3">
           {post?.content}
         </h4>
-        {post?.postImg && (
-          <img src={post?.postImg} alt="post-img" className="w-full" />
-        )}
+        <div className="flex justify-center">
+          {post?.postImg && (
+            <LazyLoadImage
+              effect='blur'
+              src={post?.postImg}
+              alt="post-img"
+              className="w-auto max-h-[400px] sm:max-h-[600px]" />
+          )}
+        </div>
       </div>
       <div className="col-span-12 flex flex-col justify-between mt-5">
         <div className="flex justify-between">
@@ -330,7 +334,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
                     </div>
                   </div>
                   <div>
-                    <div className="mx-11 mt-3">{singleComment[0]?.text}</div>
+                    <div className="mx-11 mt-3 text-sm text-[#2D2D2DCC] font-DMSans">{singleComment[0]?.text}</div>
                   </div>
                 </div>
               ) : (

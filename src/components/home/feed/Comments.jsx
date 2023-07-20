@@ -29,13 +29,13 @@ const Comments = ({ c, getUsername, handleGetPosts }) => {
     <>
     <div>
       <div className="flex mt-4">
-        <div className="w-10 mr-1">
+        <div className="w-full mr-1">
           {!commenterImg ? (
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary100 font-bold text-xl">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl">
               <span className="text-white">{getUsername(c.userId)[0]}</span>
             </div>
           ) : (
-            <img src={commenterImg} alt="profile" className="rounded-[50%]" />
+            <img src={commenterImg} alt="profile" className="rounded-[50%] w-10 aspect-square" />
           )}
         </div>
         <div className="flex">
@@ -45,7 +45,7 @@ const Comments = ({ c, getUsername, handleGetPosts }) => {
         </div>
       </div>
       <div className='flex items-center'>
-        <div className="ml-11 mr-8">{c.text}</div>
+        <div className="ml-11 mr-8 text-sm text-[#2D2D2DCC] font-DMSans">{c.text}</div>
         {myComment && (
           <div
             className={

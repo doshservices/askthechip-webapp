@@ -136,7 +136,7 @@ const Profile = () => {
   };
   useEffect(() => {
     handleUpdatePicture();
-  }, [setProfileImg]);
+  }, [profileImg]);
   
   const username =
     profile?.role === "USER"

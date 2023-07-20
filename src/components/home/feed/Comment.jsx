@@ -15,7 +15,6 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       setLoading(true);
       const res = await fetch(
@@ -83,22 +82,22 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
 
   return (
     <div className="flex w-full bg-[#f4f4f4] py-2.5 px-5 rounded-lg mt-2">
-      <div className="justify-center items-center flex mr-1 sm:mr-2 my-auto w-full sm:w-14 h-full">
+      <div className="justify-center items-center flex mr-2 my-auto w-full max-w-fit h-full">
         {!user?.profileImg ? (
-          <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary100 font-bold text-xl">
+          <div className="flex items-center justify-center w-[52px] h-[52px] rounded-full bg-primary100 font-bold text-xl">
             <span className="text-white">{username[0]}</span>
           </div>
         ) : (
           <img
             src={user?.profileImg}
             alt={username[0]}
-            className={`rounded-full h-fit`}
+            className={`rounded-full w-[52px] h-auto aspect-square`}
           />
         )}
       </div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col justify-between items-center rounded-lg bg-grey border border-black/10"
+        className="flex flex-col justify-between items-center rounded-lg bg-grey border border-black/10 w-full"
       >
         <div className="flex w-full justify-between">
           <div className="flex ml-2 w-[80%]">
@@ -118,10 +117,10 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
               <div className="flex items-center ml-2">
                 <button
                   type="submit"
-                  disabled={!comment || loading}
+                  disabled={loading}
                   className={`flex bg-primary text-white text-xs hover:bg-primary/90 rounded-lg h-fit w-full px-4 py-1.5`}
                 >
-                  {loading ? <Loader width="30" height="20" /> : "Comment"}
+                  {!loading ? <Loader width="30" height="20" /> : "Comment"}
                 </button>
               </div>
             </div>

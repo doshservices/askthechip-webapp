@@ -6,11 +6,13 @@ import { CircleLoader, MobileLayout, SideNav } from "../components";
 import { warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
+import {data} from '../components/home/feed/data';
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
   const { posts, setPosts } = usePosts();
   const reversedPosts = [...posts].reverse();
+  // const reversedPosts = [...data].reverse();
   const [loading, setLoading] = useState(false);
   const { user, token } = useAuth();
 
@@ -55,6 +57,7 @@ const HomePage = () => {
       warn("An error has occured, pls refresh your browser!");
     }
   };
+  // Uncomment the next 3 lines when I'm about to push
   useEffect(() => {
     handleGetPosts();
   }, [setPosts]);
