@@ -7,14 +7,15 @@ import { warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
 import {data} from '../components/home/feed/data';
+import BoardMobile from "../components/home/BoardMobile";
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
   const { posts, setPosts } = usePosts();
-  const reversedPosts = [...posts].reverse();
-  // const reversedPosts = [...data].reverse();
+  // const reversedPosts = [...posts].reverse();
+  const reversedPosts = [...data].reverse();
   const [loading, setLoading] = useState(false);
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   const handleAllPost = () => {
     if (darkMode !== "All Posts") {
@@ -58,9 +59,9 @@ const HomePage = () => {
     }
   };
   // Uncomment the next 3 lines when I'm about to push
-  useEffect(() => {
-    handleGetPosts();
-  }, [setPosts]);
+  // useEffect(() => {
+  //   handleGetPosts();
+  // }, [setPosts]);
   return (
     <>
       <section className="hidden sm:grid grid-cols-24 justify-between bg-light">
@@ -100,13 +101,14 @@ const HomePage = () => {
       </section>
       <MobileLayout>
         <div className="overflow-x-hidden px-0 sm:px-4">
-          <Header
+          {/* <Header
             darkMode={darkMode}
             setDarkMode={setDarkMode}
             handleAllPost={handleAllPost}
             handleDarkMode={handleDarkMode}
             handleLightMode={handleLightMode}
-          />
+              /> */}
+          <BoardMobile />
           <Share handleGetPosts={handleGetPosts} />
           {loading ? (
             <div className="flex justify-center items-center">

@@ -73,9 +73,10 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    getComments();
-  }, [setComments]);
+  // useEffect(() => {
+  //   getComments();
+  // }, [setComments]);
+  
   const me = user;
   const username =
     me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`;

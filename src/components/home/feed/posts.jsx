@@ -170,9 +170,9 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   //   handleLikesValue();
   // }, [setLikes, setLikePost]);
 
-  useEffect(() => {
-    handleLikesValue();
-  }, [likes]);
+  // useEffect(() => {
+  //   handleLikesValue();
+  // }, [likes]);
 
   return (
     <section
@@ -185,7 +185,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     >
       <div className="col-span-12 flex justify-between">
         <div className="flex">
-          <div className="w-full mr-2">
+          <div className="mr-2">
             {!poster?.profileImg ? (
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl">
                 <span className="text-white">{username[0]}</span>
