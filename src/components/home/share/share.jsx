@@ -92,11 +92,11 @@ const Share = ({ handleGetPosts }) => {
   const dp = false;
 
   return (
-    <section className="px-1 sm:px-0">
-      <div className="grid grid-cols-12 sm:flex bg-[#f4f4f4] py-2.5 px-5 rounded-lg mb-0 sm:mb-5">
+    <section className="px-1 sm:px-0 border-b-[3px] sm:border-b-0 border-[#bebebe]">
+      <div className="grid grid-cols-12 sm:flex sm:bg-[#f4f4f4] py-2.5 px-5 rounded-lg mb-0 sm:mb-5">
         <div className="col-span-2 justify-center items-center flex mr-1 sm:mr-2 my-auto w-full sm:w-14 h-full">
           {!profile?.profileImg ? (
-            <div className="flex items-center justify-center w-[52px] h-[52px] rounded-full bg-primary100 font-bold text-xl">
+            <div className="flex items-center justify-center w-[52px] h-fit aspect-square rounded-full bg-primary100 font-bold text-xl">
               <span className="text-white">{username[0]}</span>
             </div>
           ) : (
@@ -109,7 +109,7 @@ const Share = ({ handleGetPosts }) => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-lg bg-grey  border border-black/10"
+          className={postStatus ? "col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-2xl bg-grey  border border-black/10":"col-span-10 ml-2 pt-2 pl-5 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-full sm:bg-grey border border-black/10" }
         >
           <div className="flex w-full justify-between">
             <div className="flex ml-2 w-[80%]">
@@ -121,7 +121,7 @@ const Share = ({ handleGetPosts }) => {
                 id="post"
                 cols="100"
                 rows="1"
-                className="bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray placeholder:text-xs w-full resize-none mt-2 mb-2 sm:mb-3 sm:mt-4"
+                className="bg-transparent sm:bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray placeholder:text-xs w-full resize-none mt-2 mb-2 sm:mb-3 sm:mt-4"
               />
             </div>
             <div className="flex items-center mr-2">

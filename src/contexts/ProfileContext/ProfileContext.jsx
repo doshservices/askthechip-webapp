@@ -11,8 +11,8 @@ const ProfileProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   useEffect(() => {
     setProfile(user);
-    // }, [user]);
-  }, []);
+    }, [user]);
+  // }, []);
   const value = {
     profile,
     setProfile,
