@@ -6,7 +6,8 @@ import { CircleLoader, MobileLayout, SideNav } from "../components";
 import { warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
-import {data} from '../components/home/feed/data';
+// import {data} from '../components/home/feed/data';
+import BoardMobile from "../components/home/BoardMobile";
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
@@ -14,7 +15,7 @@ const HomePage = () => {
   const reversedPosts = [...posts].reverse();
   // const reversedPosts = [...data].reverse();
   const [loading, setLoading] = useState(false);
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   const handleAllPost = () => {
     if (darkMode !== "All Posts") {
@@ -99,14 +100,15 @@ const HomePage = () => {
         </div>
       </section>
       <MobileLayout>
-        <div className="overflow-x-hidden px-0 sm:px-4">
+        <div className="overflow-x-hidden px-0 bg-light sm:px-4">
           <Header
             darkMode={darkMode}
             setDarkMode={setDarkMode}
             handleAllPost={handleAllPost}
             handleDarkMode={handleDarkMode}
             handleLightMode={handleLightMode}
-          />
+              />
+          <BoardMobile />
           <Share handleGetPosts={handleGetPosts} />
           {loading ? (
             <div className="flex justify-center items-center">

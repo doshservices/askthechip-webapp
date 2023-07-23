@@ -179,13 +179,13 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       className={
         index === 0 || pathname === "/profile"
           ? `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-0 sm:mt-5 mx-1 sm:mx-0 grid grid-cols-12 font-DMSans`
-          : `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-5 sm:mt-10 mx-1 sm:mx-0 grid grid-cols-12 font-DMSans`
+          : `sm:bg-[#f4f4f4] sm:rounded-[10px] p-3 sm:p-5 mt-5 sm:mt-10 mx-1 sm:mx-0 grid grid-cols-12 font-DMSans border-b-[3px] sm:border-b-0 border-[#bebebe]`
       }
       style={{ backgroundColor: bgColor, color: color }}
     >
       <div className="col-span-12 flex justify-between">
         <div className="flex">
-          <div className="w-full mr-2">
+          <div className="mr-2">
             {!poster?.profileImg ? (
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl">
                 <span className="text-white">{username[0]}</span>
