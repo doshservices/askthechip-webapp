@@ -184,7 +184,7 @@ const Settings = () => {
 
   return (
     <div className="font-DMSans grid grid-cols-9">
-      <div className="col-span-4 min-h-screen ml-6 pr-6 pt-6 border-r border-[#EBEEF0]">
+      <div className="col-span-12 sm:col-span-4 min-h-full sm:min-h-screen ml-6 pr-6 pt-6 border-r border-[#EBEEF0]">
         <div className="font-DMSans font-medium mb-10 text-2xl">Settings</div>
         {settingsButtons.map((button) => (
           <div className="my-4" key={button.id}>
@@ -198,7 +198,7 @@ const Settings = () => {
           </div>
         ))}
       </div>
-      <div className="col-span-5 pt-20">
+      <div className="col-span-12 sm:col-span-5 pt-10 sm:pt-20">
         {activeButton === 1 ? (
           <>
             {profile?.role === "USER" ? (

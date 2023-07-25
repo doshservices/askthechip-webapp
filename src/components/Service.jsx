@@ -7,7 +7,7 @@ const Service = ({serviceData}) => {
     setExpand(!expand);
   }
   return (
-    <div className="col-span-8 mb-3">
+    <div className="col-span-12 sm:col-span-8 mb-3">
       <div onClick={handleClick} className="flex justify-between border border-[#000000]/10 rounded py-3 px-7">
         <div>
         {serviceData.category}
@@ -18,7 +18,7 @@ const Service = ({serviceData}) => {
       </div>
       {expand && <div className="grid grid-cols-12 gap-0">
         {serviceData.data.map((service, index) => (
-          <div key={index} className="col-span-6 grid grid-cols-12 pt-5 pb-4 my-2 border-b border-[#000000]/20 w-[85%] mx-auto">
+          <div key={index} className="col-span-12 sm:col-span-6 grid grid-cols-12 pt-5 pb-4 my-2 border-b border-[#000000]/20 w-[85%] mx-auto">
             <div className="col-span-3 ml-auto mr-3">
               <img src={service.image} alt="blog" className="rounded" />
             </div>
