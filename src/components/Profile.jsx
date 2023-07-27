@@ -147,9 +147,9 @@ const Profile = () => {
   
   return (
     <div className="mt-0 md:mt-5">
-      <div className="grid grid-cols-1 h-[123px] bg-coverImage bg-[#2d2d2d]/60 bg-blend-overlay rounded-lg">
-        <div className="pl-[45%] md:pl-48 xm:pl-40 pt-10">
-          <div className="text-light">
+      <div className="grid grid-cols-1 h-[7.6875rem] bg-coverImage bg-[#2d2d2d]/60 bg-blend-overlay rounded-lg">
+        <div className="pl-40 sm:pl-44 md:pl-48 xm:pl-48 pt-10">
+          <div className="text-light mt-6 sm:mt-4">
             <div className="font-DMSans font-medium text-2xl mb-2 mt-2">
               {username}
             </div>
@@ -159,7 +159,7 @@ const Profile = () => {
         {/* <img src={coverImage} alt="Cover image" className="w-full col-span-1" /> */}
       </div>
       <div className="grid-cols-3 ml-4 sm:ml-8">
-        <div className="col-span-1 -mt-[4rem] sm:-mt-[5rem] xm:-mt-[4rem]">
+        <div className="col-span-1 -mt-[4.5rem] sm:-mt-[4rem] xm:-mt-[4rem]">
           <div className="relative">
             {!profile?.profileImg ? (
               <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl">
@@ -169,7 +169,7 @@ const Profile = () => {
               <img
                 src={profile?.profileImg}
                 alt="Profile Image"
-                className="rounded-full max-w-[8rem] sm:max-w-[10rem] xm:max-w-[8rem]"
+                className="rounded-full max-w-[8rem] sm:max-w-[8rem] xm:max-w-[8rem] h-auto aspect-square"
               />
             )}
             <div className="flex flex-col items-center justify-center mt-2">

@@ -21,6 +21,7 @@ export { default as SideNav } from "./SideNav";
 export { default as Service } from "./Service";
 export { default as Services } from "./Services";
 export { default as ServicesMobile } from "./ServicesMobile";
+export { default as SettingsMobile } from "./SettingsMobile";
 export { default as Settings } from "./Settings";
 export { default as Socials } from "./Socials";
 export { default as WhyJoining } from "./WhyJoining";
