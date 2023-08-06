@@ -18,7 +18,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/comment?postId=${post._id}`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/comment?postId=${post._id}`,
         {
           method: "POST",
           headers: {
@@ -51,7 +51,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/comment?postId=${post._id}`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/comment?postId=${post._id}`,
         {
           method: "GET",
           headers: {
@@ -76,7 +76,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
   useEffect(() => {
     getComments();
   }, [setComments]);
-  
+
   const me = user;
   const username =
     me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`;

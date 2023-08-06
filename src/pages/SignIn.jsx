@@ -39,7 +39,7 @@ const SignIn = () => {
     setUser(null);
     setLoading(true);
     try {
-      const url = 'https://askthechip-endpoint-production.up.railway.app/api/users/login'
+      const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users/login'
       const res = await fetch(url, {
         method: "POST",
         headers: {

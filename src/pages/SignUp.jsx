@@ -124,7 +124,7 @@ const SignUp = () => {
     }
     try {
       const url =
-        "https://askthechip-endpoint-production.up.railway.app/api/users";
+        "https://askthechip-hvp93.ondigitalocean.app/api/users";
       const res = await fetch(url, {
         method: "POST",
         headers: {
@@ -549,9 +549,9 @@ const SignUp = () => {
                           Select Document Type
                         </option>
                         <option value="DRIVERS_LICENSE">Driver's license</option>
-                          <option value="INTERNATIONAL_PASSPORT">International Passport</option>
-                          <option value="NIN">National Identity Card</option>
-                          <option value="VOTERS_CARD">Voter's card</option>
+                        <option value="INTERNATIONAL_PASSPORT">International Passport</option>
+                        <option value="NIN">National Identity Card</option>
+                        <option value="VOTERS_CARD">Voter's card</option>
                       </select>
                     </div>
                   </div>

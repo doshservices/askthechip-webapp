@@ -83,18 +83,18 @@ const SignUpAsProvider = () => {
 
   const getIndividualDetails = () => {
     const { firstName, lastName, email, phoneNumber, password } = formFields;
-    const {serviceType} = selectedOptions;
-    const data = { 
-      firstName, 
-      lastName, 
-      email, 
-      phoneNumber, 
-      password, 
-      gender: "MALE", 
-      role: "SERVICE_PROVIDER", 
+    const { serviceType } = selectedOptions;
+    const data = {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      password,
+      gender: "MALE",
+      role: "SERVICE_PROVIDER",
       governmentId: governmentId,
       serviceType,
-      googleSigned: false 
+      googleSigned: false
     };
     return data;
   };
@@ -127,15 +127,15 @@ const SignUpAsProvider = () => {
     setUser(null);
     if (accountUser === "INDIVIDUAL") {
       if (password !== confirmPassword) {
-      inform("Password doesn't match")
-      return;
-    }
+        inform("Password doesn't match")
+        return;
+      }
       setLoading(true);
     } else {
       setLoadingBusiness(true);
     }
     try {
-      const url = 'https://askthechip-endpoint-production.up.railway.app/api/users'
+      const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users'
       const res = await fetch(url, {
         method: "POST",
         headers: {
@@ -540,7 +540,7 @@ const SignUpAsProvider = () => {
                       </select>
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-col mb-5">
                     <label htmlFor="phone" className="font-DMSans text-sm mb-2">
                       Phone Number{" "}

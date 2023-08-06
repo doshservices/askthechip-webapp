@@ -60,8 +60,8 @@ const Settings = () => {
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
-  
-    const handleChange = (e) => {
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
@@ -71,7 +71,7 @@ const Settings = () => {
     const toastId = loadingToast("Updating your names...");
     try {
       const response = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/users`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/users`,
         {
           method: "PUT",
           headers: {
@@ -89,7 +89,7 @@ const Settings = () => {
         console.log(updatedData);
         localStorageUpdate(updatedData);
         console.log("Updated username successfully");
-        toast.update(toadId, {render: "Updated username successfully", autoClose: 2500, type: 'success'})
+        toast.update(toadId, { render: "Updated username successfully", autoClose: 2500, type: 'success' })
         setUpdatingNames(false);
         resetFormFields();
         reloadBrowser();
@@ -97,7 +97,7 @@ const Settings = () => {
     } catch (error) {
       console.log(error);
       console.log("Failed to update username, try again!");
-      toast.update(toadId, {render: "Failed to update username, try again!", autoClose: 2500, type: 'error'})
+      toast.update(toadId, { render: "Failed to update username, try again!", autoClose: 2500, type: 'error' })
       setUpdatingNames(false);
     }
     setUpdatingNames(false);
@@ -108,7 +108,7 @@ const Settings = () => {
     const toastId = loadingToast("Updating your company name...");
     try {
       const response = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/users`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/users`,
         {
           method: "PUT",
           headers: {
@@ -126,7 +126,7 @@ const Settings = () => {
         console.log(updatedData);
         localStorageUpdate(updatedData);
         console.log("Updated company name successfully");
-        toast.update(toastId, {render: "Updated company name successfully", autoClose: 2500, type: 'success'});
+        toast.update(toastId, { render: "Updated company name successfully", autoClose: 2500, type: 'success' });
         setUpdatingNames(false);
         resetFormFields();
         reloadBrowser();
@@ -134,7 +134,7 @@ const Settings = () => {
     } catch (error) {
       console.log(error);
       console.log("Failed to update your company name");
-      toast.update(toastId, {render: "Failed to update your company name", autoClose: 2500, type: 'error'});
+      toast.update(toastId, { render: "Failed to update your company name", autoClose: 2500, type: 'error' });
       setUpdatingNames(false);
     }
     setUpdatingNames(false);
@@ -149,7 +149,7 @@ const Settings = () => {
     const toastId = notify("Reseting your password...");
     try {
       const response = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/users/reset-password`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/users/reset-password`,
         {
           method: "POST",
           headers: {
@@ -164,14 +164,14 @@ const Settings = () => {
         // console.log(resData);
         // console.log(resData.data);
         console.log("Password was reset successfuly");
-        toast.update(toastId, {render: "Password was reset successfuly", autoClose: 2500, type: 'error'});
+        toast.update(toastId, { render: "Password was reset successfuly", autoClose: 2500, type: 'error' });
         setResetingPassword(false);
       }
       resetFormFields();
     } catch (error) {
       console.log(error);
       console.log("Password reset failed");
-      toast.update(toastId, {render: "Password reset failed", autoClose: 2500, type: 'error'})
+      toast.update(toastId, { render: "Password reset failed", autoClose: 2500, type: 'error' })
       setResetingPassword(false);
     }
     setResetingPassword(false);

@@ -54,7 +54,7 @@ const Share = ({ handleGetPosts }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        "https://askthechip-endpoint-production.up.railway.app/api/create-post",
+        "https://askthechip-hvp93.ondigitalocean.app/api/create-post",
         {
           method: "POST",
           headers: {
@@ -109,7 +109,7 @@ const Share = ({ handleGetPosts }) => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className={postStatus ? "col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-2xl bg-grey  border border-black/10":"col-span-10 ml-2 pt-2 pl-5 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-full sm:rounded-lg sm:bg-grey border border-black/10" }
+          className={postStatus ? "col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-2xl bg-grey  border border-black/10" : "col-span-10 ml-2 pt-2 pl-5 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-full sm:rounded-lg sm:bg-grey border border-black/10"}
         >
           <div className="flex w-full justify-between">
             <div className="flex ml-2 w-[80%]">

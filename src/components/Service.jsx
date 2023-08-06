@@ -16,7 +16,7 @@ const Service = ({serviceData}) => {
           <img className={expand ? `rotate-180 transition duration-200`: `rotate-0 transition`} src={`${expandIcon}`} alt="" />
         </div>
       </div>
-      {expand && <div className="grid grid-cols-12 gap-0">
+      {expand && <div className="grid grid-cols-12 gap-0 mb-16">
         {serviceData.data.map((service, index) => (
           <div key={index} className="col-span-12 sm:col-span-6 grid grid-cols-12 pt-5 pb-4 my-2 border-b border-[#000000]/20 w-[85%] mx-auto">
             <div className="col-span-3 ml-auto mr-3">

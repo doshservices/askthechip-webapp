@@ -9,7 +9,7 @@ const ServicesMobile = () => {
   const handleServiceType = (service) => {
     setServiceType(service);
   };
-
+ 
   return (
     <div className="grid grid-cols-12 bg-light">
       <div className="flex md:hidden flex-col col-span-12 xm:pr-16 border-r border-[#EBEEF0]">

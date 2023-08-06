@@ -27,7 +27,7 @@ const EditComment = ({
     try {
       setUpdating(true);
       await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/comment/?commentId=${commentId}`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/comment/?commentId=${commentId}`,
         {
           method: "PATCH",
           headers: {

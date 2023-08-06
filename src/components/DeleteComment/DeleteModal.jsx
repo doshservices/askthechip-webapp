@@ -12,7 +12,7 @@ const DeleteModal = ({ commentId, setOpenDeleteModal, handleGetPosts }) => {
     notify("Deleting comment...");
     try {
       const response = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/comment/?commentId=${commentId}`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/comment/?commentId=${commentId}`,
         {
           method: "DELETE",
           headers: {

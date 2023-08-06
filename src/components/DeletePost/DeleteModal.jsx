@@ -12,7 +12,7 @@ const DeleteModal = ({ postId, setOpenDeleteModal, handleGetPosts }) => {
     notify("Deleting your post...");
     try {
       const response = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/post/delete-post?postId=${postId}`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/post/delete-post?postId=${postId}`,
         {
           method: "DELETE",
           headers: {

@@ -36,7 +36,7 @@ const Mentorship = () => {
     console.log(data);
     try {
       const res = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/users/request-mentorship`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/users/request-mentorship`,
         {
           method: "POST",
           headers: {

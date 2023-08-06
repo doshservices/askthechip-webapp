@@ -37,7 +37,7 @@ const HomePage = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://askthechip-endpoint-production.up.railway.app/api/post",
+        "https://askthechip-hvp93.ondigitalocean.app/api/post",
         {
           method: "GET",
           headers: {
@@ -107,7 +107,7 @@ const HomePage = () => {
             handleAllPost={handleAllPost}
             handleDarkMode={handleDarkMode}
             handleLightMode={handleLightMode}
-              />
+          />
           <BoardMobile />
           <Share handleGetPosts={handleGetPosts} />
           {loading ? (

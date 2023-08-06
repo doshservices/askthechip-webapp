@@ -110,7 +110,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     setLoadingLikePost(true);
     try {
       const res = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/post/like-post?postId=${post._id}`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/post/like-post?postId=${post._id}`,
         {
           method: "POST",
           headers: {
@@ -139,7 +139,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     setLoadingLikes(true);
     try {
       const res = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/post/get-likes?postId=${post._id}`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/post/get-likes?postId=${post._id}`,
         {
           method: "GET",
           headers: {

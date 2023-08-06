@@ -51,7 +51,7 @@ const Profile = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://askthechip-endpoint-production.up.railway.app/api/post",
+        "https://askthechip-hvp93.ondigitalocean.app/api/post",
         {
           method: "GET",
           headers: {
@@ -94,7 +94,7 @@ const Profile = () => {
     const toadId = loadingToast("Updating your profile picture...");
     try {
       const response = await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/users`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/users`,
         {
           method: "PUT",
           headers: {
@@ -137,14 +137,14 @@ const Profile = () => {
   useEffect(() => {
     handleUpdatePicture();
   }, [profileImg]);
-  
+
   const username =
     profile?.role === "USER"
       ? `${profile?.firstName} ${profile?.lastName}`
       : `${profile?.companyName}`;
   const role = profile?.role === "USER" ? "Private User" : "Service Provider";
-  
-  
+
+
   return (
     <div className="mt-0 md:mt-5">
       <div className="grid grid-cols-1 h-[7.6875rem] bg-coverImage bg-[#2d2d2d]/60 bg-blend-overlay rounded-lg">

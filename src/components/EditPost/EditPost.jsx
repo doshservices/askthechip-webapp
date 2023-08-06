@@ -12,7 +12,7 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
 
   useEffect(() => {
     fetch(
-      `https://askthechip-endpoint-production.up.railway.app/api/post/${postId}`,
+      `https://askthechip-hvp93.ondigitalocean.app/api/post/${postId}`,
       {
         method: "GET",
         headers: {
@@ -48,7 +48,7 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
     try {
       setUpdating(true);
       await fetch(
-        `https://askthechip-endpoint-production.up.railway.app/api/post/update-post?postId=${postId}`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/post/update-post?postId=${postId}`,
         {
           method: "PATCH",
           headers: {
