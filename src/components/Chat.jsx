@@ -1,105 +1,169 @@
 import send from "../assets/icons/send-icon.svg";
 import emoji from "../assets/icons/emoji.svg";
 import camera from "../assets/icons/camera.svg";
-import { io } from "socket.io-client";
-import { useEffect } from "react";
 import { useSelectedChat } from "../contexts/ChatContext/ChatContext";
 import { useSocket } from "../contexts/SocketContext/SocketContext";
+import { useParams } from 'react-router-dom';
+import {CircleLoader} from '../components'
 
-const Chat = () => {
+const Chat = ({ activeReceiverId }) => {
+  const { id } = useParams();
   const { selectedChat, setSelectedChat } = useSelectedChat()
-  const {socket}=useSocket()
+  const { socket } = useSocket()
   console.log('socket here:', socket)
+  const [, setConversation] = useState({});
+  // const [conversation, setConversation] = useState([]);
+  const [loadingConversations, setLoadingConversations] = useState(true);
 
+  const conversation = {
+    "message": "success",
+    "data": {
+      "conversation": []
+    }
+  }
 
+  const receiverId = activeReceiverId || id;
   // if selectedChat is null, show empty space.if not,show chat space 
+  const getConversation = async (receiverId) => {
+    try {
+      const res = await fetch(
+        `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?${receiverId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res.ok) {
+        console.log("Successful!");
+        const resData = await res.json();
+        setConversation(resData.data)
+        console.log('conversation', conversation);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+    setLoadingConversations(false);
+  };
+  useEffect(() => {
+    getConversation(receiverId)
+  }, [receiverId])
 
   return (
-    !selectedChat ? (
-
-      <div className="h-[calc(100vh_-_4.5rem)] sm:h-screen overflow-y-hidden font-DMSans">
-        <div className="h-16 w-full shadow pl-4">
-          <div className="font-medium text-xl sm:text-2xl mt-0 pt-1">Shai Hulud</div>
-          <div className="text-[#303030] text-xs sm:text-sm font-light">
-            Last seen, 2:02pm
-          </div>
-        </div>
-        <div className="h-[calc(100vh_-_14.5rem)] sm:h-[calc(100vh_-_10rem)] overflow-y-auto pt-2 px-2">
-          <div className="px-1 md:pr-4 xm:pr-2">
-            <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
-              Hey there
-            </div>
-            <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
-              Hii
-            </div>
-            <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
-              How are you?
-            </div>
-            <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
-              I'm fine what about you?
-            </div>
-            <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
-              I'm fine too
-            </div>
-            <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
-              Long time no see
-            </div>
-            <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
-              Hey there
-            </div>
-            <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
-              How are you?
-            </div>
-            <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
-              Hii
-            </div>
-            <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
-              I'm fine what about you?
-            </div>
-            <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
-              I'm fine too
-            </div>
-            <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
-              Long time no see
-            </div>
-            <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
-              Hey there
-            </div>
-            <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
-              How are you?
-            </div>
-            <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
-              Hii
-            </div>
-            <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
-              I'm fine what about you?
-            </div>
-            <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
-              I'm fine too
-            </div>
-            <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
-              Long time no see
-            </div>
-          </div>
-        </div>
-        <div className="h-16 bg-white pb-3 ml-4 pr-10 pt-2 grid grid-cols-12">
-          <div className="col-span-11 grid grid-cols-12 gap-2 bg-[#eff6fcde] px-4 rounded-3xl mr-3">
-            <img src={emoji} className="col-span-1 mt-4" alt="Emoji" />
-            <textarea
-              className="col-span-10 resize-none w-full min-h-fit text-sm bg-transparent outline-none my-4"
-              placeholder="Type your message here..."
+    !loadingConversations ? (
+      <>{conversation?.message === 'success' 
+        ? (conversation?.data ? conversation?.data?.conversation.map(conv => conv)
+        : <div className="flex flex-col w-full justify-center items-center">
+        <div>
+          <svg
+            width="80"
+            height="80"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M4 12.025H11.825V10.525H4V12.025ZM4 8.775H16V7.275H4V8.775ZM4 5.525H16V4.025H4V5.525ZM0 20V1.5C0 1.11667 0.15 0.770833 0.45 0.4625C0.75 0.154167 1.1 0 1.5 0H18.5C18.8833 0 19.2292 0.154167 19.5375 0.4625C19.8458 0.770833 20 1.11667 20 1.5V14.5C20 14.8833 19.8458 15.2292 19.5375 15.5375C19.2292 15.8458 18.8833 16 18.5 16H4L0 20ZM1.5 16.375L3.375 14.5H18.5V1.5H1.5V16.375Z"
+              fill={"#2d2d2d"}
+              fillOpacity={"0.5"}
             />
-
-            <img src={camera} className="col-span-1 mt-4 mr-4" alt="Camera" />
+          </svg>
+        </div>
+        <div className="text-center justify-center opacity-50 mt-4">
+          Chat on Askthechip <br /> You can start by clicking on a chat head <br /> (if any user is online)
+        </div>
+      </div>)
+        : 'Something went wrong'}
+        <div className="h-[calc(100vh_-_4.5rem)] sm:h-screen overflow-y-hidden font-DMSans">
+          <div className="h-16 w-full shadow pl-4">
+            <div className="font-medium text-xl sm:text-2xl mt-0 pt-1">Shai Hulud</div>
+            <div className="text-[#303030] text-xs sm:text-sm font-light">
+              Last seen, 2:02pm
+            </div>
           </div>
-          <div className="col-span-1 my-auto ml-auto bg-primary80 rounded-full p-2 cursor-pointer">
-            <img src={send} alt="Send Message" />
+          <div className="h-[calc(100vh_-_14.5rem)] sm:h-[calc(100vh_-_10rem)] overflow-y-auto pt-2 px-2">
+            <div className="px-1 md:pr-4 xm:pr-2">
+              <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
+                Hey there
+              </div>
+              <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+                Hii
+              </div>
+              <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
+                How are you?
+              </div>
+              <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+                I'm fine what about you?
+              </div>
+              <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
+                I'm fine too
+              </div>
+              <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+                Long time no see
+              </div>
+              <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
+                Hey there
+              </div>
+              <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+                How are you?
+              </div>
+              <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
+                Hii
+              </div>
+              <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
+                I'm fine what about you?
+              </div>
+              <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+                I'm fine too
+              </div>
+              <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+                Long time no see
+              </div>
+              <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
+                Hey there
+              </div>
+              <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+                How are you?
+              </div>
+              <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
+                Hii
+              </div>
+              <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
+                I'm fine what about you?
+              </div>
+              <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+                I'm fine too
+              </div>
+              <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+                Long time no see
+              </div>
+            </div>
+          </div>
+          <div className="h-16 bg-white pb-3 ml-4 pr-10 pt-2 grid grid-cols-12">
+            <div className="col-span-11 grid grid-cols-12 gap-2 bg-[#eff6fcde] px-4 rounded-3xl mr-3">
+              <img src={emoji} className="col-span-1 mt-4" alt="Emoji" />
+              <textarea
+                className="col-span-10 resize-none w-full min-h-fit text-sm bg-transparent outline-none my-4"
+                placeholder="Type your message here..."
+              />
+
+              <img src={camera} className="col-span-1 mt-4 mr-4" alt="Camera" />
+            </div>
+            <div className="col-span-1 my-auto ml-auto bg-primary80 rounded-full p-2 cursor-pointer">
+              <img src={send} alt="Send Message" />
+            </div>
           </div>
         </div>
-      </div>
+      </>
     ) : (
-      <div>
-        <h1>Loading</h1>
+      <div className="flex flex-col w-full justify-center items-center">
+        <CircleLoader />
+        <div className="text-center justify-center opacity-50 mt-4">
+          Loading your conversations...
+        </div>
       </div>
     )
   );

@@ -1,10 +1,11 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import {
+  ChatPage,
   Error,
   ForgotPassword,
   LandingPage,
@@ -75,6 +76,7 @@ function App() {
                   <Route path="/home" element={<Homepage />} />
                   <Route path="/mentorship" element={<MentorshipPage />} />
                   <Route path="/messages" element={<MessagesPage />} />
+                  <Route path="/messages/:id" element={window.innerWidth <= 990 ? <ChatPage /> : <Navigate to="/messages" />} />
                   <Route path="/notifications" element={<NotificationsPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/settings" element={<SettingsPage />} />

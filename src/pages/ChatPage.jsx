@@ -1,13 +1,13 @@
-import { DesktopLayout, Messages, MobileLayout } from "../components";
+import { Chat, DesktopLayout, MobileLayout } from "../components";
 
 const MessagesPage = () => {
   return (
     <>
       <DesktopLayout>
-        <Messages />
+        <Chat />
       </DesktopLayout>
       <MobileLayout>
-        <Messages />
+        <Chat />
       </MobileLayout>
     </>
   );
