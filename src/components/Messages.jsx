@@ -20,7 +20,7 @@ const Messages = () => {
   // https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation
 
   const { socket } = useSocket()
-
+  console.log("scket here",socket)
   // const onlineUsers = [
   //   {
   //     "user": {
@@ -50,11 +50,9 @@ const Messages = () => {
   // ]
 
   useEffect(() => {
-    // console.log('bfore user here', user, socket)
-    socket.emit("addUser", user._id)
-    // console.log(socket)
-    // getConversation()
-  }, [])
+    activeReceiverId && socket.emit("addUser", activeReceiverId)
+  }, [activeReceiverId])
+
   useEffect(()=> {
     socket.on("getOnlineUsers", (users) => {
       setOnlineUsers(users)
@@ -62,7 +60,7 @@ const Messages = () => {
     })
   }, [onlineUsers])
 
-  // console.log(onlineUsers)
+  console.log(onlineUsers, activeReceiverId)
  
   
 
@@ -122,7 +120,7 @@ const Messages = () => {
               </> :
               <div className="font-DMSans pl-4">
                 {onlineUsers?.map((onlineUser, index) => (
-                  <>
+                  <React.Fragment key={index}>
                     <div
                       key={index}
                       onClick={() => handleActiveConversation(onlineUser?.user?._id)}
@@ -187,7 +185,7 @@ const Messages = () => {
                         </div>
                       </div>
                     </Link>
-                  </>
+                  </React.Fragment>
                 ))}
               </div>}</>
               }

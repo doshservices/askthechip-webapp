@@ -4,16 +4,16 @@ import { io } from "socket.io-client";
 
 export const SocketContext = createContext({
   socket: null,
-  setSocket: ()=>{}
+  setSocket: () => { }
 });
 
 
 const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const URL = "https://askthechip-hvp93.ondigitalocean.app";
-useEffect(()=> {
-  setSocket(io(URL));
-}, [])
+  useEffect(() => {
+    setSocket(io(URL));
+  }, [])
   // console.log('socket here:', socket)
 
   const value = {
