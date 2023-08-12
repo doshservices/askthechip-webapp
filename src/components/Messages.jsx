@@ -14,13 +14,13 @@ const Messages = () => {
   // const [, setOnlineUsers] = useState([])
   const [onlineUsers, setOnlineUsers] = useState([])
   const [activeReceiverId, setActiveReceiverId] = useState(null);
-  const [loadingOnlineUsers, setLoadingOnlineUsers] = useState(true);
+  const [loadingOnlineUsers, setLoadingOnlineUsers] = useState(false);
 
   const { user, token } = useAuth()
   // https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation
 
   const { socket } = useSocket()
-  console.log("scket here",socket)
+  // console.log("scket here",socket)
   // const onlineUsers = [
   //   {
   //     "user": {
@@ -54,10 +54,11 @@ const Messages = () => {
   }, [activeReceiverId])
 
   useEffect(()=> {
+    setLoadingOnlineUsers(true)
     socket.on("getOnlineUsers", (users) => {
       setOnlineUsers(users)
-      setLoadingOnlineUsers(false)
     })
+    setLoadingOnlineUsers(false)
   }, [onlineUsers])
 
   console.log(onlineUsers, activeReceiverId)
@@ -114,7 +115,7 @@ const Messages = () => {
             </div>
                 <div className="text-center">Loading users that are online...</div>
               </>: <>
-            {!onlineUsers ?
+            {onlineUsers.length === 0 ?
               <>
                 <div className="text-center">There's no user online at the moment</div>
               </> :
