@@ -5,6 +5,7 @@ import Chat from "./Chat";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { useSocket } from "../contexts/SocketContext/SocketContext";
 import { Link } from "react-router-dom";
+import { CircleLoader } from ".";
 
 //import { useEffect } from "react";
 
@@ -13,7 +14,7 @@ const Messages = () => {
   // const [, setOnlineUsers] = useState([])
   const [onlineUsers, setOnlineUsers] = useState([])
   const [activeReceiverId, setActiveReceiverId] = useState(null);
-
+  const [loadingOnlineUsers, setLoadingOnlineUsers] = useState(true);
 
   const { user, token } = useAuth()
   // https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation
@@ -56,8 +57,8 @@ const Messages = () => {
   }, [])
   useEffect(()=> {
     socket.on("getOnlineUsers", (users) => {
-      console.log("real online users",users)
       setOnlineUsers(users)
+      setLoadingOnlineUsers(false)
     })
   }, [onlineUsers])
 
@@ -89,6 +90,7 @@ const Messages = () => {
     }
   };
   const handleActiveConversation = (id) => {
+    console.log('id', id)
     createConversation(id)
     setActiveReceiverId(id)
   }
@@ -99,7 +101,6 @@ const Messages = () => {
         : `${data?.user?.companyName}`;
     return username;
   }
-  console.log(onlineUsers[0])
 
   return (
     <div className="grid grid-cols-12 pl-0 xm:pl-4">
@@ -109,17 +110,23 @@ const Messages = () => {
             <Search background={`#fcfcfc`} placeholder={"Search People"} />
           </div>
           <div className="mt-7">
+            {loadingOnlineUsers ? <>
+            <div className="py-2">
+                <CircleLoader color="#05675A" />
+            </div>
+                <div className="text-center">Loading users that are online...</div>
+              </>: <>
             {!onlineUsers ?
               <>
                 <div className="text-center">There's no user online at the moment</div>
               </> :
               <div className="font-DMSans pl-4">
-                {onlineUsers?.map((onlineUser) => (
+                {onlineUsers?.map((onlineUser, index) => (
                   <>
                     <div
-                      key={onlineUser?.user?.userId}
-                      onClick={() => handleActiveConversation(onlineUser?.user?.userId)}
-                      className="hidden lg:grid grid-cols-12 pt-1 pb-3 my-2 border-b border-[#B4abab]/60 mr-4"
+                      key={index}
+                      onClick={() => handleActiveConversation(onlineUser?.user?._id)}
+                      className="cursor-pointer hidden lg:grid grid-cols-12 pt-1 pb-3 my-2 border-b border-[#B4abab]/60 mr-4"
                     >
                       <div className="col-span-2 ml-auto mr-2">
                         <img
@@ -148,9 +155,8 @@ const Messages = () => {
                         </div>
                       </div>
                     </div>
-                    <Link to={`/messages/${onlineUser?.user?.userId}`}>
+                    <Link key={onlineUser?.user?._id} to={`/messages/${onlineUser?.user?._id}`}>
                       <div
-                        key={onlineUser?.user?.userId}
                         className="grid grid-cols-12 lg:hidden pt-1 pb-3 my-2 border-b border-[#B4abab]/60 mr-4"
                       >
                         <div className="col-span-2 ml-auto mr-2">
@@ -183,7 +189,8 @@ const Messages = () => {
                     </Link>
                   </>
                 ))}
-              </div>}
+              </div>}</>
+              }
           </div>
         </div>
       </div>

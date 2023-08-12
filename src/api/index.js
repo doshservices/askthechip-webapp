@@ -1,6 +1,33 @@
 import axios from "axios";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
+
 
 export const BASE_URL = "http://askthechip-endpoint-production.up.railway.app";
+
+export const getUserById = async (userId) => {
+  const { token } = useAuth();
+  try {
+    const res = await fetch(
+      `https://askthechip-hvp93.ondigitalocean.app/api/users/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.ok) {
+      console.log("Successful!");
+      const resData = await res.json();
+      return {response: resData.data, loading: false}
+    }
+    return `Something went wrong ${res}`
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+}
 
 export async function requestMentorship(data, token) {
   return new Promise((resolve, reject) => {
