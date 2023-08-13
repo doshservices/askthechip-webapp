@@ -37,14 +37,19 @@ const Chat = ({ activeReceiverId }) => {
     e.preventDefault();
     setSendingMessage(true);
     console.log(user._id, receiverId, message)
-    socket.emit('sendMessage', {
-      senderId: user._id,
-      recieverId: receiverId,
-      text: message
-    });
+    if(message){
+      socket.emit('sendMessage', {
+        // senderId: `${user._id}`,
+        senderId: `64a53313f4a0282fe8e59af5`,
+        recieverId: `64a53313f4a0282fe8e59af5`,
+        // recieverId: `${receiverId}`,
+        text: message
+      });
+    }
     setSendingMessage(false);
     setMessage("")
   }
+
   const handleReceiveMessage = () => {
     console.log(user._id, receiverId, message)
     socket.on('getMessage', function ({ senderId, text }) {
@@ -68,7 +73,6 @@ const Chat = ({ activeReceiverId }) => {
       if (res.ok) {
         const resData = await res.json();
         setConversation(resData.data)
-        console.log('conversation', conversation);
       }
 
     } catch (error) {
@@ -175,7 +179,7 @@ const Chat = ({ activeReceiverId }) => {
 
                 <img src={camera} className="col-span-1 mt-4 mr-4" alt="Camera" />
               </div>
-              <button type="submit" className="col-span-1 my-auto ml-auto bg-primary80 rounded-full p-2 cursor-pointer">
+              <button disabled={!message} type="submit" className="col-span-1 my-auto ml-auto bg-primary80 rounded-full p-2 cursor-pointer">
                 {sendingMessage ? <Loader /> :
                   <img src={send} alt="Send Message" />
                 }
