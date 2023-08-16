@@ -1,33 +1,33 @@
 import send from "../assets/icons/send-icon.svg";
 import emoji from "../assets/icons/emoji.svg";
 import camera from "../assets/icons/camera.svg";
-import { useSelectedChat } from "../contexts/ChatContext/ChatContext";
 import { useSocket } from "../contexts/SocketContext/SocketContext";
 import { useParams } from 'react-router-dom';
 import { CircleLoader, Loader } from '../components'
 import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { getUsername } from "../utils/getUsername";
+import { useConversation } from "../contexts/ConversationContext/ConversationContext";
 
 const Chat = ({ activeReceiverId }) => {
   const { id } = useParams();
-  const { selectedChat, setSelectedChat } = useSelectedChat()
+  const { conversation, loadingConversations } = useConversation();
   const { socket } = useSocket()
   const { user, token } = useAuth();
-  // const [, setConversation] = useState({});
-  const [conversation, setConversation] = useState([]);
-  const [loadingUsername, setLoadingUsername] = useState(true)
-  const [loadingConversations, setLoadingConversations] = useState(true);
+  const [receiverId, setReceiverId] = useState(null);
+  const [loadingUsername, setLoadingUsername] = useState(false)
   const [sendingMessage, setSendingMessage] = useState(false);
   const [message, setMessage] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
 
-  // const conversation = {
-  //   "message": "success",
-  //   "data": {
-  //     "conversation": []
-  //   }
-  // }
+  console.log(id, activeReceiverId)
+  useEffect(()=> {
+    setReceiverId(activeReceiverId)
+  }, [activeReceiverId])
+  useEffect(()=> {
+    setReceiverId(id)
+  }, [id])
+
 
   const handleTyping = (e) => {
     setMessage(e.target.value)
@@ -37,12 +37,12 @@ const Chat = ({ activeReceiverId }) => {
     e.preventDefault();
     setSendingMessage(true);
     console.log(user._id, receiverId, message)
-    if(message){
+    if (message) {
       socket.emit('sendMessage', {
-        // senderId: `${user._id}`,
-        senderId: `64a53313f4a0282fe8e59af5`,
-        recieverId: `64a53313f4a0282fe8e59af5`,
-        // recieverId: `${receiverId}`,
+        senderId: `${user._id}`,
+        recieverId: `${receiverId}`,
+        // senderId: `64a53313f4a0282fe8e59af5`,
+        // recieverId: `64a53313f4a0282fe8e59af5`,
         text: message
       });
     }
@@ -50,61 +50,72 @@ const Chat = ({ activeReceiverId }) => {
     setMessage("")
   }
 
-  const handleReceiveMessage = () => {
+  const getMessages = async () =>  {
+
+  }
+
+  useEffect(() => {
     console.log(user._id, receiverId, message)
     socket.on('getMessage', function ({ senderId, text }) {
+      console.log("getMessages here",senderId, text);
       console.log(senderId, text);
     });
-  }
-  const receiverId = activeReceiverId || id;
-  // if selectedChat is null, show empty space.if not,show chat space 
-  const getConversation = async (receiverId) => {
-    try {
-      const res = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?${receiverId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (res.ok) {
-        const resData = await res.json();
-        setConversation(resData.data)
-      }
+  }, [])
 
-    } catch (error) {
-      console.log(error);
-    }
-    setLoadingConversations(false);
-  };
-  const getUserById = async () => {
-    try {
-      const res = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/users/${receiverId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+  // const receiverId = activeReceiverId || id;
+
+  // if selectedChat is null, show empty space.if not,show chat space 
+  // const getConversation = async (receiverId) => {
+  //   try {
+  //     const res = await fetch(
+  //       `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?${receiverId}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     if (res.ok) {
+  //       const resData = await res.json();
+  //       setConversation(resData.data)
+  //     }
+
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   setLoadingConversations(false);
+  // };
+  const getUserById = async (id) => {
+    setLoadingUsername(true)
+      try {
+        const res = await fetch(
+          `https://askthechip-hvp93.ondigitalocean.app/api/users/${id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (res.ok) {
+          const resData = await res.json();
+          console.log("resData.data here", resData.data)
+          setSelectedUser(resData.data);
+          setLoadingUsername(false);
         }
-      );
-      if (res.ok) {
-        const resData = await res.json();
-        setSelectedUser(resData.data);
-        setLoadingUsername(false);
+      } catch (error) {
+        console.log("Failed to get user data using their ID")
+        console.log(error);
       }
-    } catch (error) {
-      console.log("Failed to get user data using their ID")
-      console.log(error);
+      setLoadingUsername(false);
     }
-  }
   useEffect(() => {
-    getConversation(receiverId)
-    getUserById()
+    setReceiverId(receiverId)
+    getUserById(receiverId)
+    setMessage("");
   }, [receiverId]);
 
   return (

@@ -7,21 +7,37 @@ import { useSocket } from "../contexts/SocketContext/SocketContext";
 import { Link } from "react-router-dom";
 import { CircleLoader } from ".";
 import { getUserInitial } from "../utils/getUsername";
+import { useConversation } from "../contexts/ConversationContext/ConversationContext";
 
 //import { useEffect } from "react";
 
 const Messages = () => {
-
   // const [, setOnlineUsers] = useState([])
+
   const [onlineUsers, setOnlineUsers] = useState([])
+  const [usersDetails, setUsersDetails] = useState([]);
   const [activeReceiverId, setActiveReceiverId] = useState(null);
   const [loadingOnlineUsers, setLoadingOnlineUsers] = useState(false);
-
+  const [receiverId, setReceiverId] = useState(null);
+  // const { setConversation, loadingConversations, setLoadingConversations} =  useConversation();
+  const { conversation, setConversation, loadingConversations, setLoadingConversations } = useConversation();
   const { user, token } = useAuth()
+
   // https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation
 
   const { socket } = useSocket()
   // console.log("scket here",socket)
+
+  // const onlineUsers = [
+  //   {
+  //     "userId": "64a53313f4a0282fe8e59af5",
+  //     "socketId": "dGXOAog--J34XPPmAAAH"
+  //   },
+  //   {
+  //     "userId": "64a2fc4bf4a0282fe8e59a77",
+  //     "socketId": "dGXOAog--J34XPPmAAAH"
+  //   }
+  // ]
   // const onlineUsers = [
   //   {
   //     "user": {
@@ -52,57 +68,168 @@ const Messages = () => {
 
   useEffect(() => {
     socket.emit("addUser", user._id)
+    socket.emit("addUser", "64a2fc4bf4a0282fe8e59a77")
     socket.emit("addUser", "64a33027f4a0282fe8e59aa4")
-    // socket.emit("addUser", "64a53313f4a0282fe8e59af5")
-    // socket.emit("addUser", "64b845fdb440fd13fa45dbf5")
   }, [])
 
+  // console.log("user here", user)
+  // console.log("user id here", user?._id)
+
   useEffect(() => {
-    setLoadingOnlineUsers(true)
     socket.on("getOnlineUsers", (users) => {
       setOnlineUsers(users)
     })
-    setLoadingOnlineUsers(false)
-  }, [])
-
-  console.log(onlineUsers, activeReceiverId)
-
-
-
-  const createConversation = async (receiverId) => {
-    // console.log('receiverId here in creation', receiverId, user._id)
-    try {
-      const res = await fetch(
-        "https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            "members": [
-              `${receiverId}`,
-              `${user._id}`
-            ]
-          }),
-          // body: { "members": [`${receiverId}`, `${user._id}`] },
+  }, []);
+  useEffect(()=> {
+    getUserDetails(onlineUsers)
+  }, [onlineUsers])
+  console.log("usersDetails", usersDetails)
+  
+  const getUserById = async (id) => {
+    setLoadingOnlineUsers(true)
+    if (id) {
+      try {
+        const res = await fetch(
+          `https://askthechip-hvp93.ondigitalocean.app/api/users/${id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (res.ok) {
+          const resData = await res.json();
+          console.log(resData.data)
+          setLoadingOnlineUsers(false)
+          return resData.data;
         }
-      );
-      if (res.ok) {
-        console.log("Successful!");
-        const resData = await res.json();
-        console.log(resData)
+      } catch (error) {
+        console.log("Failed to get user data using their ID")
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+      setLoadingOnlineUsers(false)
+    }
+  }
+
+  // const getUsersIds = async (onlineUsers) => {
+  //   console.log("online users in get details func", onlineUsers)
+  //   try {
+  //     const userIds = onlineUsers?.map(user => user.userId);
+  //     console.log("userIds", userIds)
+  //     console.log(userIds?.forEach(element => {
+  //       getUserById(element)
+  //     }))
+  //     const userPromises = userIds?.map(userId => getUserById(userId));
+  //     console.log("userPromises", userPromises)
+  //     const usersDetails = await Promise.all(userPromises);
+  //     setUsersDetails(usersDetails);
+  //     console.log("usersDetails inside the get func", usersDetails)
+  //     return usersDetails;
+  //   } catch (error) {
+  //     console.error("Error getting users' details:", error);
+  //     throw error; // Rethrow the error to be handled by the caller
+  //   }
+  // }
+  async function getUserDetails(onlineUsers) {
+    const userDetailsArray = [];
+  const userIds = onlineUsers?.map(user => user.userId);
+    for (const userId of userIds) {
+      if(userId !== user._id){
+        try {
+          const userDetails = await getUserById(userId); // Assuming getUserById is an async function
+          userDetailsArray.push(userDetails);
+        } catch (error) {
+          console.error(`Error fetching details for userId ${userId}:`, error);
+          // You can handle errors here, like skipping the user or pushing a default value
+        }
+      }
 
     }
+
+    setUsersDetails(userDetailsArray);
+    return userDetailsArray;
+  }
+
+
+  const getConversation = async () => {
+    setLoadingConversations(true)
+    if (user?._id) {
+      try {
+        const res = await fetch(
+          `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?userId=${user._id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (res.ok) {
+          const resData = await res.json();
+          setConversation(resData.data)
+          console.log("Successfully gotten convs")
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    setLoadingConversations(false);
   };
+
+  useEffect(() => {
+    getConversation();
+  }, []);
+
+  const createConversation = async (receiverId) => {
+    const existingConversation = conversation.find(conversation => (
+      conversation.members.includes(user._id) && conversation.members.includes(receiverId)
+    ));
+    console.log("Existing conversation?", existingConversation)
+    if (!existingConversation) {
+      try {
+        const res = await fetch(
+          "https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              "members": [
+                `${receiverId}`,
+                `${user._id}`
+              ]
+            }),
+            // body: { "members": [`${receiverId}`, `${user._id}`] },
+          }
+        );
+        if (res.ok) {
+          console.log("Successfully created a new conversation!");
+          const resData = await res.json();
+          console.log(resData)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  useEffect(() => {
+    if (receiverId) createConversation(receiverId)
+  }, [receiverId])
+
+  // console.log("OnlineUsers", onlineUsers)
+  // console.log("conversation here", conversation)
+  // console.log("usersDetails here", usersDetails)
+
   const handleActiveConversation = (id) => {
     console.log('id', id)
-    createConversation(id)
     setActiveReceiverId(id)
+    setReceiverId(id)
   }
   const getUsername = (data) => {
     const username =
@@ -126,12 +253,12 @@ const Messages = () => {
               </div>
               <div className="text-center">Loading users that are online...</div>
             </> : <>
-              {onlineUsers.length === 0 ?
+              {usersDetails.length === 0 ?
                 <>
                   <div className="text-center">There's no user online at the moment</div>
                 </> :
                 <div className="font-DMSans pl-4">
-                  {onlineUsers?.map((onlineUser, index) => (
+                  {usersDetails?.map((onlineUser, index) => (
                     <React.Fragment key={index}>
                       <div
                         key={index}
@@ -156,7 +283,7 @@ const Messages = () => {
                           </div>
                           <div className="text-[#303030] font-light text-xs">
                             {/* See your conversations with {getUsername(onlineUser)}  */}
-                            See your conversations
+                            See your conversations {onlineUser?.user?._id}
                           </div>
                         </div>
                         <div className="col-span-4 ml-auto mr-3">
