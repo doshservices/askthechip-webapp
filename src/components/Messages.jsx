@@ -83,7 +83,6 @@ const Messages = () => {
   useEffect(()=> {
     getUserDetails(onlineUsers)
   }, [onlineUsers])
-  console.log("usersDetails", usersDetails)
   
   const getUserById = async (id) => {
     setLoadingOnlineUsers(true)
@@ -185,10 +184,9 @@ const Messages = () => {
   }, []);
 
   const createConversation = async (receiverId) => {
-    const existingConversation = conversation.find(conversation => (
+    const existingConversation = conversation?.conversation.find(conversation => (
       conversation.members.includes(user._id) && conversation.members.includes(receiverId)
     ));
-    console.log("Existing conversation?", existingConversation)
     if (!existingConversation) {
       try {
         const res = await fetch(

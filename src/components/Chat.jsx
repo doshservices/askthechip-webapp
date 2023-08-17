@@ -18,16 +18,16 @@ const Chat = ({ activeReceiverId }) => {
   const [loadingUsername, setLoadingUsername] = useState(false)
   const [sendingMessage, setSendingMessage] = useState(false);
   const [message, setMessage] = useState("");
+  const [myConversation, setMyConversation] = useState([]);
+  const [messages, setMessages] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
 
-  console.log(id, activeReceiverId)
   useEffect(()=> {
     setReceiverId(activeReceiverId)
   }, [activeReceiverId])
   useEffect(()=> {
     setReceiverId(id)
   }, [id])
-
 
   const handleTyping = (e) => {
     setMessage(e.target.value)
@@ -41,53 +41,89 @@ const Chat = ({ activeReceiverId }) => {
       socket.emit('sendMessage', {
         senderId: `${user._id}`,
         recieverId: `${receiverId}`,
-        // senderId: `64a53313f4a0282fe8e59af5`,
-        // recieverId: `64a53313f4a0282fe8e59af5`,
         text: message
       });
+      saveMessages('', user._id, message)
     }
     setSendingMessage(false);
     setMessage("")
   }
 
-  const getMessages = async () =>  {
-
+  const getMessages = async (conversationId) =>  {
+    try {
+      const res = await fetch(
+        `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({"conversationId": conversationId})
+        }
+      );
+      if (res.ok) {
+        const resData = await res.json();
+        console.log("getMessagesData from api here",resData.data)
+        setMessages(resData.data)
+        setLoadingOnlineUsers(false)
+        return resData.data;
+      }
+    } catch (error) {
+      console.log("Failed to get messages data")
+      console.log(error);
+    }
   }
+  const saveMessages = async (conversationId, senderId, text) =>  {
+    try {
+      const res = await fetch(
+        `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({"conversationId": conversationId, "senderId": senderId, "text": text})
+        }
+      );
+      if (res.ok) {
+        const resData = await res.json();
+        console.log("savedMessagesData here",resData.data)
+        return resData.data;
+      }
+    } catch (error) {
+      console.log("Failed to save messages")
+      console.log(error);
+    }
+  }
+  function getSingleConversation() {
+    for (const conv of conversation) {
+      if (conv.members.includes(user._id) && conv.members.includes(receiverId)) {
+        setMyConversation(conv);
+      }
+    }
+    return null;
+  }
+  
+  console.log("conversation here")
+  console.log(conversation)
+  console.log("my conversation here")
+  console.log(myConversation)
 
   useEffect(() => {
-    console.log(user._id, receiverId, message)
     socket.on('getMessage', function ({ senderId, text }) {
-      console.log("getMessages here",senderId, text);
+      console.log("getMessages from socket here",senderId, text);
       console.log(senderId, text);
     });
-  }, [])
+    getMessages("conversationId")
+  }, []);
+  useEffect(()=> {
+    getSingleConversation()
+  }, [myConversation])
 
-  // const receiverId = activeReceiverId || id;
-
-  // if selectedChat is null, show empty space.if not,show chat space 
-  // const getConversation = async (receiverId) => {
-  //   try {
-  //     const res = await fetch(
-  //       `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?${receiverId}`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     if (res.ok) {
-  //       const resData = await res.json();
-  //       setConversation(resData.data)
-  //     }
-
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   setLoadingConversations(false);
-  // };
   const getUserById = async (id) => {
+    console.log(id);
     setLoadingUsername(true)
       try {
         const res = await fetch(
@@ -113,6 +149,7 @@ const Chat = ({ activeReceiverId }) => {
       setLoadingUsername(false);
     }
   useEffect(() => {
+    console.log(receiverId)
     setReceiverId(receiverId)
     getUserById(receiverId)
     setMessage("");
