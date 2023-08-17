@@ -24,8 +24,10 @@ const Chat = ({ activeReceiverId }) => {
 
   useEffect(()=> {
     setReceiverId(activeReceiverId)
+    console.log("activeReceiverId", activeReceiverId);
   }, [activeReceiverId])
   useEffect(()=> {
+    console.log("Id", id);
     setReceiverId(id)
   }, [id])
 
@@ -43,38 +45,39 @@ const Chat = ({ activeReceiverId }) => {
         recieverId: `${receiverId}`,
         text: message
       });
-      saveMessages('', user._id, message)
+      saveMessages()
     }
     setSendingMessage(false);
     setMessage("")
   }
 
-  const getMessages = async (conversationId) =>  {
-    try {
-      const res = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({"conversationId": conversationId})
+  const getMessages = async () =>  {
+    if(myConversation){
+      try {
+        const res = await fetch(
+          `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages?conversationId=${myConversation._id}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            }
+          }
+        );
+        if (res.ok) {
+          const resData = await res.json();
+          console.log("getMessagesData from api here",resData.data)
+          setMessages(resData.data)
+          setLoadingOnlineUsers(false)
+          return resData.data;
         }
-      );
-      if (res.ok) {
-        const resData = await res.json();
-        console.log("getMessagesData from api here",resData.data)
-        setMessages(resData.data)
-        setLoadingOnlineUsers(false)
-        return resData.data;
+      } catch (error) {
+        console.log("Failed to get messages data")
+        console.log(error);
       }
-    } catch (error) {
-      console.log("Failed to get messages data")
-      console.log(error);
     }
   }
-  const saveMessages = async (conversationId, senderId, text) =>  {
+  const saveMessages = async () =>  {
     try {
       const res = await fetch(
         `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages`,
@@ -84,7 +87,7 @@ const Chat = ({ activeReceiverId }) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({"conversationId": conversationId, "senderId": senderId, "text": text})
+          body: JSON.stringify({"conversationId": `${myConversation?._id}`, "senderId": `${user?._id}`, "text": `${message}`})
         }
       );
       if (res.ok) {
@@ -98,7 +101,7 @@ const Chat = ({ activeReceiverId }) => {
     }
   }
   function getSingleConversation() {
-    for (const conv of conversation) {
+    for (const conv of conversation?.conversation) {
       if (conv.members.includes(user._id) && conv.members.includes(receiverId)) {
         setMyConversation(conv);
       }
@@ -112,18 +115,17 @@ const Chat = ({ activeReceiverId }) => {
   console.log(myConversation)
 
   useEffect(() => {
+    getSingleConversation()
     socket.on('getMessage', function ({ senderId, text }) {
       console.log("getMessages from socket here",senderId, text);
       console.log(senderId, text);
     });
-    getMessages("conversationId")
-  }, []);
-  useEffect(()=> {
-    getSingleConversation()
-  }, [myConversation])
+    getMessages()
+  }, [receiverId]);
 
   const getUserById = async (id) => {
     console.log(id);
+    console.log("receiverId", receiverId)
     setLoadingUsername(true)
       try {
         const res = await fetch(
@@ -149,11 +151,12 @@ const Chat = ({ activeReceiverId }) => {
       setLoadingUsername(false);
     }
   useEffect(() => {
-    console.log(receiverId)
     setReceiverId(receiverId)
     getUserById(receiverId)
     setMessage("");
   }, [receiverId]);
+
+  console.log("messages here", messages);
 
   return (
     <>
