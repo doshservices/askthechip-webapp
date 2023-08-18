@@ -72,13 +72,14 @@ const Chat = ({ activeReceiverId }) => {
           const resData = await res.json();
           console.log("getMessagesData from api here", resData.data)
           setMessages(resData.data)
+          setLoadingMessages(false);
           return resData.data;
         }
       } catch (error) {
         console.log("Failed to get messages data")
         console.log(error);
+        setLoadingMessages(false);
       }
-      setLoadingMessages(false);
     }
   }
   const saveMessages = async () => {
@@ -115,8 +116,8 @@ const Chat = ({ activeReceiverId }) => {
 
   useEffect(() => {
     getSingleConversation()
-    socket.on('getMessage', function ({ receiverId, text }) {
-      console.log("getMessages from socket here", receiverId, text);
+    socket.on('getMessage', function ({ senderId, text }) {
+      console.log("getMessages from socket here", senderId, text);
       console.log(senderId, text);
     });
     getMessages()
