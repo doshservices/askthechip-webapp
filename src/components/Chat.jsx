@@ -16,17 +16,20 @@ const Chat = ({ activeReceiverId }) => {
   const { user, token } = useAuth();
   const [receiverId, setReceiverId] = useState(null);
   const [loadingUsername, setLoadingUsername] = useState(false)
+  const [loadingMessages, setLoadingMessages] = useState(false)
   const [sendingMessage, setSendingMessage] = useState(false);
   const [message, setMessage] = useState("");
   const [myConversation, setMyConversation] = useState([]);
+  // const [, setMessages] = useState("");
   const [messages, setMessages] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
 
-  useEffect(()=> {
+  
+  useEffect(() => {
     setReceiverId(activeReceiverId)
     console.log("activeReceiverId", activeReceiverId);
   }, [activeReceiverId])
-  useEffect(()=> {
+  useEffect(() => {
     console.log("Id", id);
     setReceiverId(id)
   }, [id])
@@ -51,13 +54,14 @@ const Chat = ({ activeReceiverId }) => {
     setMessage("")
   }
 
-  const getMessages = async () =>  {
-    if(myConversation){
+  const getMessages = async () => {
+    if (myConversation) {
+      setLoadingMessages(true)
       try {
         const res = await fetch(
           `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages?conversationId=${myConversation._id}`,
           {
-            method: "POST",
+            method: "GET",
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
@@ -66,18 +70,18 @@ const Chat = ({ activeReceiverId }) => {
         );
         if (res.ok) {
           const resData = await res.json();
-          console.log("getMessagesData from api here",resData.data)
+          console.log("getMessagesData from api here", resData.data)
           setMessages(resData.data)
-          setLoadingOnlineUsers(false)
           return resData.data;
         }
       } catch (error) {
         console.log("Failed to get messages data")
         console.log(error);
       }
+      setLoadingMessages(false);
     }
   }
-  const saveMessages = async () =>  {
+  const saveMessages = async () => {
     try {
       const res = await fetch(
         `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages`,
@@ -87,12 +91,12 @@ const Chat = ({ activeReceiverId }) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({"conversationId": `${myConversation?._id}`, "senderId": `${user?._id}`, "text": `${message}`})
+          body: JSON.stringify({ "conversationId": `${myConversation?._id}`, "senderId": `${user?._id}`, "text": `${message}` })
         }
       );
       if (res.ok) {
         const resData = await res.json();
-        console.log("savedMessagesData here",resData.data)
+        console.log("savedMessagesData here", resData.data)
         return resData.data;
       }
     } catch (error) {
@@ -108,48 +112,41 @@ const Chat = ({ activeReceiverId }) => {
     }
     return null;
   }
-  
-  console.log("conversation here")
-  console.log(conversation)
-  console.log("my conversation here")
-  console.log(myConversation)
 
   useEffect(() => {
     getSingleConversation()
-    socket.on('getMessage', function ({ senderId, text }) {
-      console.log("getMessages from socket here",senderId, text);
+    socket.on('getMessage', function ({ receiverId, text }) {
+      console.log("getMessages from socket here", receiverId, text);
       console.log(senderId, text);
     });
     getMessages()
   }, [receiverId]);
 
   const getUserById = async (id) => {
-    console.log(id);
-    console.log("receiverId", receiverId)
     setLoadingUsername(true)
-      try {
-        const res = await fetch(
-          `https://askthechip-hvp93.ondigitalocean.app/api/users/${id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (res.ok) {
-          const resData = await res.json();
-          console.log("resData.data here", resData.data)
-          setSelectedUser(resData.data);
-          setLoadingUsername(false);
+    try {
+      const res = await fetch(
+        `https://askthechip-hvp93.ondigitalocean.app/api/users/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
-        console.log("Failed to get user data using their ID")
-        console.log(error);
+      );
+      if (res.ok) {
+        const resData = await res.json();
+        console.log("resData.data here", resData.data)
+        setSelectedUser(resData.data);
+        setLoadingUsername(false);
       }
-      setLoadingUsername(false);
+    } catch (error) {
+      console.log("Failed to get user data using their ID")
+      console.log(error);
     }
+    setLoadingUsername(false);
+  }
   useEffect(() => {
     setReceiverId(receiverId)
     getUserById(receiverId)
@@ -173,8 +170,49 @@ const Chat = ({ activeReceiverId }) => {
             </div>
             <div className="h-[calc(100vh_-_14.5rem)] sm:h-[calc(100vh_-_10rem)] overflow-y-auto pt-2 px-2">
               {/* Chat starts */}
-              <>{conversation
-                ? (conversation?.data ? conversation?.data?.conversation.map(conv => <>{conv}</>)
+              {loadingMessages ? <div className="flex flex-col w-full justify-center items-center">
+                <div className="mt-4">
+                  <CircleLoader color="#05675A" />
+                </div>
+                <div className="text-center justify-center opacity-50 mt-4">
+                  Loading messages...
+                </div>
+              </div> :
+                <>{conversation
+                  ? (messages ? messages?.message?.map(message =>
+                    <>
+                      {
+                        (message?.senderId === user._id ?
+                          <div className="text-white text-sm bg-tertiary w-fit px-3 py-1 rounded-full mb-[0.625rem] ml-auto">
+                            {message?.text}
+                          </div> :
+                          <div className="text-[#303030] text-sm bg-[#e7e7e7] w-fit px-3 py-1 rounded-full mb-[0.625rem] mr-auto">
+                            {message?.text}
+                          </div>
+                        )
+                      }
+                    </>
+                  )
+                    : <div className="flex flex-col w-full justify-center items-center h-full">
+                      <div>
+                        <svg
+                          width="80"
+                          height="80"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M4 12.025H11.825V10.525H4V12.025ZM4 8.775H16V7.275H4V8.775ZM4 5.525H16V4.025H4V5.525ZM0 20V1.5C0 1.11667 0.15 0.770833 0.45 0.4625C0.75 0.154167 1.1 0 1.5 0H18.5C18.8833 0 19.2292 0.154167 19.5375 0.4625C19.8458 0.770833 20 1.11667 20 1.5V14.5C20 14.8833 19.8458 15.2292 19.5375 15.5375C19.2292 15.8458 18.8833 16 18.5 16H4L0 20ZM1.5 16.375L3.375 14.5H18.5V1.5H1.5V16.375Z"
+                            fill={"#2d2d2d"}
+                            fillOpacity={"0.5"}
+                          />
+                        </svg>
+                      </div>
+                      <div className="mx-4 text-center justify-center opacity-50 mt-4">
+                        Chat on Askthechip <br /> You can start by sending a message to this user
+                      </div>
+                    </div>)
                   : <div className="flex flex-col w-full justify-center items-center h-full">
                     <div>
                       <svg
@@ -192,30 +230,11 @@ const Chat = ({ activeReceiverId }) => {
                       </svg>
                     </div>
                     <div className="mx-4 text-center justify-center opacity-50 mt-4">
-                      Chat on Askthechip <br /> You can start by sending a message to this user
+                      Aww snap! <br /> Something went wrong, pls try again.
                     </div>
-                  </div>)
-                : <div className="flex flex-col w-full justify-center items-center h-full">
-                  <div>
-                    <svg
-                      width="80"
-                      height="80"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M4 12.025H11.825V10.525H4V12.025ZM4 8.775H16V7.275H4V8.775ZM4 5.525H16V4.025H4V5.525ZM0 20V1.5C0 1.11667 0.15 0.770833 0.45 0.4625C0.75 0.154167 1.1 0 1.5 0H18.5C18.8833 0 19.2292 0.154167 19.5375 0.4625C19.8458 0.770833 20 1.11667 20 1.5V14.5C20 14.8833 19.8458 15.2292 19.5375 15.5375C19.2292 15.8458 18.8833 16 18.5 16H4L0 20ZM1.5 16.375L3.375 14.5H18.5V1.5H1.5V16.375Z"
-                        fill={"#2d2d2d"}
-                        fillOpacity={"0.5"}
-                      />
-                    </svg>
-                  </div>
-                  <div className="mx-4 text-center justify-center opacity-50 mt-4">
-                    Aww snap! <br /> Something went wrong, pls try again.
-                  </div>
-                </div>}
-              </>
+                  </div>}
+                </>
+              }
               {/* Chat ends */}
             </div>
             <form onSubmit={handleSendMessage} className="h-16 bg-white pb-3 ml-4 pr-10 pt-2 grid grid-cols-12">
