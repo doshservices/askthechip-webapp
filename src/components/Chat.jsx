@@ -106,12 +106,15 @@ const Chat = ({ activeReceiverId }) => {
     }
   }
   function getSingleConversation() {
-    for (const conv of conversation?.conversation) {
-      if (conv.members.includes(user._id) && conv.members.includes(receiverId)) {
-        setMyConversation(conv);
+    console.log(conversation)
+    if(conversation){
+      for (const conv of conversation?.conversation) {
+        if (conv.members.includes(user._id) && conv.members.includes(receiverId)) {
+          setMyConversation(conv);
+        }
       }
+      return null;
     }
-    return null;
   }
 
   useEffect(() => {

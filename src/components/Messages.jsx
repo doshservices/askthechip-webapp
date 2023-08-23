@@ -31,8 +31,8 @@ const Messages = () => {
 
   useEffect(() => {
     socket.emit("addUser", user._id)
-    // socket.emit("addUser", "64a2fc4bf4a0282fe8e59a77")
-    // socket.emit("addUser", "64a33027f4a0282fe8e59aa4")
+    socket.emit("addUser", "64a2fc4bf4a0282fe8e59a77")
+    socket.emit("addUser", "64a33027f4a0282fe8e59aa4")
   }, [])
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const Messages = () => {
   }, [onlineUsers])
   
   const getUserById = async (id) => {
-    setLoadingOnlineUsers(true)
+    // setLoadingOnlineUsers(true)
     if (id) {
       try {
         const res = await fetch(
@@ -60,8 +60,8 @@ const Messages = () => {
         );
         if (res.ok) {
           const resData = await res.json();
-          console.log(resData.data)
           setLoadingOnlineUsers(false)
+          console.log(resData.data)
           return resData.data;
         }
       } catch (error) {
@@ -85,10 +85,9 @@ const Messages = () => {
           // You can handle errors here, like skipping the user or pushing a default value
         }
       }
-
     }
-
     setUsersDetails(userDetailsArray);
+    console.log(usersDetails)
     return userDetailsArray;
   }
 
@@ -109,6 +108,7 @@ const Messages = () => {
         );
         if (res.ok) {
           const resData = await res.json();
+          console.log("conversation here",resData.data);
           setConversation(resData.data)
           console.log("Successfully gotten convs")
         }
