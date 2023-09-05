@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
@@ -57,7 +57,7 @@ const SignUp = () => {
 
   const redirectToLogin = () => {
     setTimeout(() => {
-      navigateTo("/login");
+      navigateTo("/verify");
     }, 2500);
   };
   const handleSwitchAccount = () => {
@@ -129,10 +129,17 @@ const SignUp = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+
         },
         body: JSON.stringify(accountUser === "INDIVIDUAL" ? individualDetails : businessDetails),
       });
       if (res.ok) {
+        const dataRes = await res.json();
+        const authUser = dataRes.data.user;
+        const token = dataRes.data.token;
+        localStorage.setItem('token', token);
+        localStorage.setItem('authUser', JSON.stringify(authUser));
+        setUser(authUser);
         console.log("Successful, you'll be redirected to login page!");
         notify("Successful, redirecting you to login page");
         redirectToLogin();

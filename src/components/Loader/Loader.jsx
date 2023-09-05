@@ -1,5 +1,5 @@
 import { ThreeDots } from 'react-loader-spinner';
-const Loader = ({ color = '#ffffff', width="70", height="24" }) => {
+const Loader = ({ color = '#ffffff', width = "70", height = "24" }) => {
   return (
     <div className="flex h-fit justify-center items-center">
       <ThreeDots

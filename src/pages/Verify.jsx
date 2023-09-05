@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import { Footer, Navbar } from "../components";
+import { notify, warn } from "../App";
 
 const Verify = () => {
   const [num1, setNum1] = useState("");
@@ -10,7 +11,10 @@ const Verify = () => {
   const [num4, setNum4] = useState("");
   const [num5, setNum5] = useState("");
   const [num6, setNum6] = useState("");
-  const [OTP, setOTP] = useState("");
+  const [otp, setOtp] = useState("");
+
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
   const num1Ref = useRef(null);
   const num2Ref = useRef(null);
@@ -22,6 +26,7 @@ const Verify = () => {
   // window.onload = function () {
   //     num1Ref.current.focus();
   // };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
@@ -59,10 +64,18 @@ const Verify = () => {
   };
   useEffect(() => {
     const sumValue = num1 + num2 + num3 + num4 + num5 + num6;
-    setOTP(sumValue);
+    setOtp(sumValue);
   }, [num1, num2, num3, num4, num5, num6]);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate()
+
+  const redirectToHome = () => {
+    setTimeout(() => {
+      navigate("/home");
+    }, 2500);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     num1Ref.current.value = "";
     num2Ref.current.value = "";
@@ -70,19 +83,68 @@ const Verify = () => {
     num4Ref.current.value = "";
     num5Ref.current.value = "";
     num6Ref.current.value = "";
-    const confirmationResult = window.confirmationResult;
+    if (otp.length === 6) {
+      setLoading(true);
+      try {
+        const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users/verify'
+        const res = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ opt: otp })
+        })
+        if (res.ok) {
+          console.log("Successfully signed in to askthechip!", res.message)
+          notify("Email verification successful, you're being redirected")
+          redirectToHome();
+          setLoading(false);
+        }
+        if (!res.ok) {
+          console.log("Sign in failed,", res.message)
+          warn("Sign in failed,", res.message)
+          setLoading(false);
+        }
+        setLoading(false);
 
-    confirmationResult
-      .confirm(OTP)
-      .then((result) => {
-        // User signed in successfully.
-        const user = result.user;
-        console.log("Verification successful, redirecting you");
-      })
-      .catch((error) => {
-        console.log("An error occured", error);
-      });
+      } catch (err) {
+        console.log(err);
+        warn("Error ", err);
+        setLoading(false);
+      }
+    } else {
+      setError("Fill in all feilds completley!!!")
+    }
   };
+
+  const userEmail = JSON.parse(localStorage.getItem("authUser"))
+
+  const verifyAccount = async (e) => {
+    try {
+      const url = `https://askthechip-hvp93.ondigitalocean.app/api/send-otp?${userEmail.email}`
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+      if (res.ok) {
+        notify("OTP has been sent to your mail")
+      }
+      if (!res.ok) {
+        console.log("Sign in failed,", res.message)
+        warn("OTP failed in failed,", res.message)
+      }
+
+    } catch (err) {
+      console.log(err);
+      warn("Error ", err);
+    }
+  }
+
+  useEffect(() => {
+    verifyAccount()
+  }, [])
 
   return (
     <div className="font-Inter overflow-hidden">
@@ -107,12 +169,15 @@ const Verify = () => {
                   Verify account
                 </h1>
                 <p className="font-DMSans text-[#2d2d2d90] text-center">
-                  A One-Time Password has been sent to shai****d@gmail.com
+                  A One-Time Password has been sent to {userEmail.email}
                 </p>
               </div>
+              {error ? <p className="font-DMSans text-[1.2rem] text-[#FF3B30] text-center">
+                {error}
+              </p> : ""}
               <div>
                 <form className="flex flex-col items-center justify-center">
-                  <div className="mt-4 md:my-8 w-full flex items-center justify-between p-4">
+                  <div className="mt-4 md:my-8 w-full flex items-center justify-between xs:p-4">
                     <input
                       type="number"
                       name="num1"
@@ -120,7 +185,8 @@ const Verify = () => {
                       onChange={handleChange}
                       ref={num1Ref}
                       autoComplete="off"
-                      className="mx-4 h-[70px] md:h-[87px] w-[70px] md:w-[87px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      required
+                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -129,7 +195,8 @@ const Verify = () => {
                       onChange={handleChange}
                       ref={num2Ref}
                       autoComplete="off"
-                      className="mx-4 h-[70px] md:h-[87px] w-[70px] md:w-[87px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      required
+                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -138,7 +205,8 @@ const Verify = () => {
                       onChange={handleChange}
                       ref={num3Ref}
                       autoComplete="off"
-                      className="mx-4 h-[70px] md:h-[87px] w-[70px] md:w-[87px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      required
+                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -147,7 +215,28 @@ const Verify = () => {
                       onChange={handleChange}
                       ref={num4Ref}
                       autoComplete="off"
-                      className="mx-4 h-[70px] md:h-[87px] w-[70px] md:w-[87px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      required
+                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                    />
+                    <input
+                      type="number"
+                      name="num5"
+                      value={num5}
+                      onChange={handleChange}
+                      ref={num5Ref}
+                      autoComplete="off"
+                      required
+                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                    />
+                    <input
+                      type="number"
+                      name="num6"
+                      value={num6}
+                      onChange={handleChange}
+                      ref={num6Ref}
+                      autoComplete="off"
+                      required
+                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                     />
                   </div>
                 </form>
@@ -159,7 +248,7 @@ const Verify = () => {
                     type="submit"
                     className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
                   >
-                    Verify
+                    {loading ? "Verifying..." : "Verify"}
                   </button>
                 </div>
                 <div className="font-DMSans text-sm text-center pb-4">

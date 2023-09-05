@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 
-
-export const BASE_URL = "http://askthechip-endpoint-production.up.railway.app";
+export const BASE_URL = "https://askthechip-hvp93.ondigitalocean.app/";
 
 export const getUserById = async (userId) => {
   const { token } = useAuth();
@@ -20,7 +19,7 @@ export const getUserById = async (userId) => {
     if (res.ok) {
       console.log("Successful!");
       const resData = await res.json();
-      return {response: resData.data, loading: false}
+      return { response: resData.data, loading: false }
     }
     return `Something went wrong ${res}`
   } catch (error) {
@@ -31,17 +30,17 @@ export const getUserById = async (userId) => {
 
 export async function requestMentorship(data, token) {
   return new Promise((resolve, reject) => {
- fetch(`${BASE_URL}/api/users/request-mentorship`, {
-  method: "POST",
-  headers: {
-    'Content-Type': "application/json",
-    Authorization: `Bearer ${token}`
-  },
-  body: JSON.stringify(data)
- }).then((res) => {
-        console.log(res.data);
-        resolve(res.data);
-      })
+    fetch(`${BASE_URL}/api/users/request-mentorship`, {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(data)
+    }).then((res) => {
+      console.log(res.data);
+      resolve(res.data);
+    })
       .catch((err) => {
         console.log(err);
         reject(new Error(err));
@@ -51,14 +50,14 @@ export async function requestMentorship(data, token) {
 
 export const deletePost = async (id, token) => {
   try {
-    const response = await fetch(`http://askthechip-endpoint-production.up.railway.app/api/post/delete-post?postId=${id}`, {
+    const response = await fetch(`https://askthechip-hvp93.ondigitalocean.app/api/post/delete-post?postId=${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       }
     });
-    if(response.ok) {
+    if (response.ok) {
       const resData = await response.json();
       console.log(resData);
       console.log(resData.data);
