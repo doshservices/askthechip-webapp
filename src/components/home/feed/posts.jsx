@@ -59,6 +59,7 @@ function getTimeAgo(timestamp) {
 }
 
 const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
+  // console.log(post, "postsss");
   const pathname = window.location.pathname;
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
@@ -86,6 +87,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     setShowMore(false);
   };
   const poster = post?.userId;
+  // console.log(poster, "hellooo");
   const username =
     poster.role === "USER"
       ? `${poster.firstName} ${poster.lastName}`

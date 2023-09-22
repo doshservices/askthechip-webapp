@@ -16,7 +16,6 @@ export const fileToBase64 = (file) => {
 
 function FileUploadInput({state, handleState}) {
 
-  
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     try {

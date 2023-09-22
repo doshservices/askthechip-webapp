@@ -123,7 +123,7 @@ const SignIn = () => {
                     placeholder="Password here"
                     value={password}
                     onChange={handleChange}
-                    minLength={8}
+                    minLength={6}
                     required
                   />
                   <span
