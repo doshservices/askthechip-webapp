@@ -51,7 +51,7 @@ const Profile = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://askthechip-hvp93.ondigitalocean.app/api/post",
+        "https://askthechip-hvp93.ondigitalocean.app/api/post?limit=0&skip=0",
         {
           method: "GET",
           headers: {
