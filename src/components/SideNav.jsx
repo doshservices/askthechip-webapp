@@ -10,10 +10,10 @@ import { ToastContainer } from "react-toastify";
 const SideNav = () => {
   const navigateTo = useNavigate();
   const pathname = window.location.pathname;
-  const {user, setUser} = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const handleLogOut = () => {
     inform("Logging you out...");
-    setTimeout(()=> {
+    setTimeout(() => {
       setUser(null)
       localStorage.removeItem('authUser');
       localStorage.removeItem('token');
@@ -157,6 +157,22 @@ const SideNav = () => {
                 />
               </svg>
               <span className="ml-[4px] text-sm hidden xm:flex">Messages</span>
+            </li>
+          </NavLink>
+          <NavLink
+            to="/search"
+            className={({ isActive }) =>
+              isActive
+                ? "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 active text-primary80 border-l-4 h-11 pl-0 xm:pl-6"
+                : "flex justify-center xm:justify-start text-sm font-medium items-center gap-2 ml-1 xm:ml-7 h-11"
+            }
+          >
+            <li className="flex justify-center xm:justify-start text-base font-medium items-center gap-2 my-6">
+              <svg width="20" height="20" fill={pathname === "/messages" ? "#068978" : "#2d2d2d"}
+                fillOpacity={pathname === "/messages" ? "1" : "0.8"} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m21.75 20.063-5.816-5.818a7.523 7.523 0 0 0 1.44-4.433c0-4.17-3.393-7.562-7.562-7.562-4.17 0-7.562 3.392-7.562 7.562s3.392 7.562 7.562 7.562a7.523 7.523 0 0 0 4.433-1.44l5.818 5.816 1.687-1.688ZM9.812 14.986a5.174 5.174 0 1 1-.002-10.35 5.174 5.174 0 0 1 0 10.349Z"></path>
+              </svg>
+              <span className="ml-[4px] text-sm hidden xm:flex">Search</span>
             </li>
           </NavLink>
           <NavLink

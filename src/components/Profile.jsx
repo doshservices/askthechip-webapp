@@ -144,7 +144,6 @@ const Profile = () => {
       : `${profile?.companyName}`;
   const role = profile?.role === "USER" ? "Private User" : "Service Provider";
 
-
   return (
     <div className="mt-0 md:mt-5">
       <div className="grid grid-cols-1 h-[7.6875rem] bg-coverImage bg-[#2d2d2d]/60 bg-blend-overlay rounded-lg">

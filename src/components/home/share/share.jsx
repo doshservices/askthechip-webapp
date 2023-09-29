@@ -30,7 +30,9 @@ const Share = ({ handleGetPosts }) => {
   };
 
   useEffect(() => {
-    cloudinary.setCloudName('pebbles-signature');
+    if (cloudinary) {
+      cloudinary.setCloudName('pebbles-signature');
+    }
 
     const handleUpload = () => {
       cloudinary.openUploadWidget(
@@ -132,10 +134,10 @@ const Share = ({ handleGetPosts }) => {
         </div>
         <form
           onSubmit={handleSubmit}
-          className={postStatus ? "col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-2xl bg-grey  border border-black/10" : "col-span-10 ml-2 pt-2 pl-5 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-lg sm:rounded-lg sm:bg-grey border border-black/10"}
+          className={postStatus ? "col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-2xl bg-grey  border border-black/10" : "col-span-10 ml-2 pt-0 pl-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-lg sm:rounded-lg sm:bg-grey border border-black/10"}
         >
           <div className="flex w-full justify-between">
-            <div className="flex ml-2 w-[80%]">
+            <div className="flex items-center ml-2 w-[80%]">
               <textarea
                 placeholder="Share a post"
                 onChange={handleTypePost}
@@ -144,14 +146,14 @@ const Share = ({ handleGetPosts }) => {
                 id="post"
                 cols="100"
                 rows="1"
-                className="bg-transparent sm:bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray placeholder:text-xs w-full resize-none mt-2 mb-2 sm:mb-3 sm:mt-4"
+                className="bg-transparent sm:bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray placeholder:text-xs w-full resize-none mt-2 mb-2 sm:mb-2 sm:mt-2"
               />
             </div>
             <div className="flex items-center mr-2">
               <div className="hidden sm:flex">
                 <div
                   id="upload-button"
-                  className="flex text-primary p-0 mx-0 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
+                  className="flex text-primary p-0 mx-0 my-2 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
                 >
                   <img src={imageIcon} alt="Image" />
                   <input
@@ -163,12 +165,12 @@ const Share = ({ handleGetPosts }) => {
                 </div>
                 <div
                   onClick={handleUploadClick}
-                  className="flex text-dark2D p-0 mx-0 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
+                  className="flex text-dark2D p-0 mx-0 my-2 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
                 >
                   <BsEmojiSmile />
                 </div>
                 <div
-                  className="flex text-primary p-0 mx-0 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
+                  className="flex text-primary p-0 mx-0 my-2 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
                 >
                   <img src={gifIcon} alt="Image" />
                 </div>

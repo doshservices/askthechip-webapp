@@ -30,6 +30,7 @@ import { AuthProvider, PostProvider, ProfileProvider, SocketProvider } from "./c
 import { ProtectedRoute } from "./utils";
 import ConversationProvider from "./contexts/ConversationContext/ConversationContext";
 import UserProfile from "./pages/UserProfile";
+import Search from "./pages/Search";
 //import { useAuth } from "./contexts/AuthContext/AuthContext";
 //import { useEffect } from "react";
 
@@ -85,6 +86,7 @@ function App() {
                   <Route path="/users-profile" element={<UserProfile />} />
                   <Route path="/settings" element={<SettingsPage />} />
                   <Route path="/services" element={<ServicesPage />} />
+                  <Route path="/search" element={<Search />} />
                 </Route>
               </Routes>
             </ConversationProvider>
