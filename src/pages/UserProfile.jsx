@@ -17,6 +17,7 @@ import photo from "../assets/images/photo.svg";
 import profileImage from "../assets/images/profile-picture.png";
 
 const UserProfile = () => {
+    const [profileImage, setProfileImg] = useState("")
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         try {
