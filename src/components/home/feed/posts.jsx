@@ -89,7 +89,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const poster = post?.userId;
   // console.log(poster, "hellooo");
   const username =
-    poster.role === "USER"
+    poster?.role === "USER"
       ? `${poster.firstName} ${poster.lastName}`
       : `${poster.companyName}`;
   const role = poster.role === "USER" ? "Private User" : "Service Provider";

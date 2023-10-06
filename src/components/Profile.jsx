@@ -21,6 +21,7 @@ import { localStorageUpdate } from "../utils/localStorageUpdate";
 import { toast } from "react-toastify";
 import { reloadBrowser } from "./Settings";
 // import Button from './Button';
+import axios from "axios";
 
 export const fileToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -92,36 +93,27 @@ const Profile = () => {
     if (!profileImg) return;
     setUpdatingPicture(true);
     const toadId = loadingToast("Updating your profile picture...");
-    try {
-      const response = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/users`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ profileImg: profileImg }),
-        }
-      );
-      if (response.ok) {
-        const resData = await response.json();
-        // console.log(resData.data)
-        const img = resData.data.user.profileImg;
-        console.log(img);
-        const updatedData = resData.data.user;
-        setProfileImg('');
-        localStorageUpdate(updatedData);
-        console.log("Profile picture updated successfully");
-        toast.update(toadId, {
-          render: "Profile picture updated successfully",
-          type: toast.TYPE.SUCCESS,
-          autoClose: 2500,
-        });
-        setUpdatingPicture(false);
-        reloadBrowser();
-      }
-    } catch (error) {
+    await axios.put(`https://askthechip-hvp93.ondigitalocean.app/api/users`, profileImg, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      console.log(response);
+      const img = response.data.user.profileImg;
+      const updatedData = response.data.user;
+      console.log(img);
+      setProfileImg('');
+      localStorageUpdate(updatedData);
+      console.log("Profile picture updated successfully");
+      toast.update(toadId, {
+        render: "Profile picture updated successfully",
+        type: toast.TYPE.SUCCESS,
+        autoClose: 2500,
+      });
+      setUpdatingPicture(false);
+      // reloadBrowser();
+    }).catch((error) => {
       console.log(error);
       console.log("Failed to update picture");
       setProfileImg('');
@@ -130,12 +122,13 @@ const Profile = () => {
         type: toast.TYPE.ERROR,
         autoClose: 2500,
       });
-      // warn("Failed to update picture, try again");
-    }
+    })
     setUpdatingPicture(false);
   };
   useEffect(() => {
-    handleUpdatePicture();
+    setTimeout(() => {
+      handleUpdatePicture();
+    }, 1000)
   }, [profileImg]);
 
   const username =

@@ -6,6 +6,7 @@ import { CircleLoader, MobileLayout, SideNav } from "../components";
 import { warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
+import axios from "axios";
 // import {data} from '../components/home/feed/data';
 import BoardMobile from "../components/home/BoardMobile";
 
@@ -13,7 +14,8 @@ const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
   const { posts, setPosts } = usePosts();
   const reversedPosts = [...posts].reverse();
-  // const reversedPosts = [...data].reverse();
+  console.log(reversedPosts.length);
+
   const [loading, setLoading] = useState(false);
   const { token } = useAuth();
 
@@ -35,29 +37,21 @@ const HomePage = () => {
 
   const handleGetPosts = async () => {
     setLoading(true);
-    try {
-      const res = await fetch(
-        "https://askthechip-hvp93.ondigitalocean.app/api/post?limit=0&skip=0",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (res.ok) {
-        const resData = await res.json();
-        const getPosts = resData.data.post;
-        setPosts(getPosts);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
+    const url = "https://askthechip-hvp93.ondigitalocean.app/api/post?limit=0&skip=0";
+    await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      const getPosts = response.data.data.post;
+      setPosts(getPosts);
+      setLoading(false);
+    }).catch((error) => {
       setLoading(false);
       warn("An error has occured, pls refresh your browser!");
-    }
-  };
+    })
+  }
   // Uncomment the next 3 lines when I'm about to push
   useEffect(() => {
     handleGetPosts();
@@ -87,14 +81,22 @@ const HomePage = () => {
             </div>
           ) : (
             <>
-              {reversedPosts?.map((post, index) => (
-                <Posts
-                  key={index}
-                  index={index}
-                  post={post}
-                  handleGetPosts={handleGetPosts}
-                />
-              ))}
+              {reversedPosts.length > 0 ?
+                <>
+                  {reversedPosts?.map((post, index) => (
+                    <Posts
+                      key={index}
+                      index={index}
+                      post={post}
+                      handleGetPosts={handleGetPosts}
+                    />
+                  ))}
+                </> :
+                <>
+                  <h2 className="mt-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
+                  <p className="mt-2 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
+                </>
+              }
             </>
           )}
         </div>
@@ -118,13 +120,24 @@ const HomePage = () => {
             </div>
           ) : (
             <>
-              {reversedPosts?.map((post, index) => (
-                <Posts
-                  key={index}
-                  post={post}
-                  handleGetPosts={handleGetPosts}
-                />
-              ))}
+              {reversedPosts.length > 0 ?
+                <>
+                  {reversedPosts?.map((post, index) => (
+                    <>
+                      <Posts
+                        key={index}
+                        post={post}
+                        handleGetPosts={handleGetPosts}
+                      />
+                    </>
+                  ))}
+                </>
+                :
+                <>
+                  <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
+                  <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
+                </>
+              }
             </>
           )}
         </div>

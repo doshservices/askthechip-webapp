@@ -163,7 +163,7 @@ const Share = ({ handleGetPosts }) => {
                     className="hidden"
                   />
                 </div>
-                <div
+                {/* <div
                   onClick={handleUploadClick}
                   className="flex text-dark2D p-0 mx-0 my-2 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
                 >
@@ -173,7 +173,7 @@ const Share = ({ handleGetPosts }) => {
                   className="flex text-primary p-0 mx-0 my-2 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
                 >
                   <img src={gifIcon} alt="Image" />
-                </div>
+                </div> */}
                 {postStatus && (
                   <div className="ml-2 mr-1 hidden sm:flex">
                     <select
@@ -237,7 +237,7 @@ const Share = ({ handleGetPosts }) => {
                     className="hidden"
                   />
                 </div>
-                <div
+                {/* <div
                   onClick={handleUploadClick}
                   className="flex text-dark2D p-0 mx-0 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
                 >
@@ -247,7 +247,7 @@ const Share = ({ handleGetPosts }) => {
                   className="flex text-primary p-0 mx-0 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
                 >
                   <img src={gifIcon} alt="Image" />
-                </div>
+                </div> */}
               </div>
               {postStatus &&
                 <div className="flex items-center ml-2">
