@@ -1,9 +1,9 @@
-import {
-    ProfileDesktop,
-    Profile,
-    DesktopLayout,
-    MobileLayout,
-} from "../components";
+// import {
+//     ProfileDesktop,
+//     Profile,
+//     DesktopLayout,
+//     MobileLayout,
+// } from "../components";
 import camera from "../assets/icons/camera-icon.svg"
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
@@ -14,7 +14,7 @@ import briefcase from "../assets/icons/briefcase-icon.svg";
 import followers from "../assets/icons/followers-icon.svg";
 import mapMarker from "../assets/icons/map-marker.svg";
 import photo from "../assets/images/photo.svg";
-import profileImage from "../assets/images/profile-picture.png";
+// import profileImage from "../assets/images/profile-picture.png";
 
 const UserProfile = () => {
     const [profileImage, setProfileImg] = useState("")

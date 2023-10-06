@@ -8,6 +8,7 @@ import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
 import { notify, warn } from "../App";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
+import axios from "axios";
 
 const defaultFormFields = {
   loginId: "",
@@ -38,40 +39,28 @@ const SignIn = () => {
     localStorage.removeItem("token");
     setUser(null);
     setLoading(true);
-    try {
-      const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users/login'
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formFields)
-      })
-      if (res.ok) {
-        console.log("Successfully signed in to askthechip!")
-        const dataRes = await res.json();
-        const authUser = dataRes.data.user;
-        const token = dataRes.data.token;
+    const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users/login'
+    axios.post(url, formFields, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then((res) => {
+        const authUser = res.data.data.user;
+        const token = res.data.data.token;
         localStorage.setItem('token', token);
         localStorage.setItem('authUser', JSON.stringify(authUser));
         setUser(authUser);
         notify("Login success, you're being redirected")
         redirectToHome();
         setLoading(false);
-      }
-      if (!res.ok) {
-        console.log("Sign in failed,", res.message)
-        warn("Sign in failed,", res.message)
+      })
+      .catch((err) => {
+        warn(err.response.data.message);
         setLoading(false);
-      }
-      setLoading(false);
-
-    } catch (err) {
-      console.log(err);
-      warn("Error ", err);
-      setLoading(false);
-    }
+      })
   }
+
   return (
     <div className="font-Inter overflow-hidden bg-light">
       <ToastContainer />

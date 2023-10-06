@@ -8,6 +8,7 @@ import { FileUploadInput, Loader } from "../components";
 import { inform, notify, warn } from "../App";
 import { ToastContainer } from "react-toastify";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
+import axios from "axios";
 
 const defaultFormFields = {
   firstName: "",
@@ -113,57 +114,37 @@ const SignUp = () => {
     localStorage.removeItem("authUser");
     localStorage.removeItem("token");
     setUser(null);
+    setLoading(true);
     if (accountUser === "INDIVIDUAL") {
       if (password !== confirmPassword) {
         inform("Password doesn't match");
         return;
       }
-      setLoading(true);
     } else {
       setLoadingBusiness(true);
     }
-    try {
-      const url =
-        "https://askthechip-hvp93.ondigitalocean.app/api/users";
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-
-        },
-        body: JSON.stringify(accountUser === "INDIVIDUAL" ? individualDetails : businessDetails),
-      });
-      if (res.ok) {
-        const dataRes = await res.json();
-        const authUser = dataRes.data.user;
-        const token = dataRes.data.token;
+    const url = "https://askthechip-hvp93.ondigitalocean.app/api/users";
+    axios.post(url, accountUser === "INDIVIDUAL" ? individualDetails : businessDetails, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        setLoading(false)
+        const authUser = response.data.data.user;
+        const token = response.data.data.token;
         localStorage.setItem('token', token);
         localStorage.setItem('authUser', JSON.stringify(authUser));
         setUser(authUser);
-        console.log("Successful, you'll be redirected to login page!");
-        notify("Successful, redirecting you to login page");
+        notify("Sign up Successful, you'll be redirected to verification page!");
         redirectToLogin();
-      }
-      if (!res.ok) {
-        const dataRes = await res.json();
-        console.log("Sign up failed,", dataRes.message);
-        warn(dataRes.message)
-      }
-      if (accountUser === "INDIVIDUAL") {
+      })
+      .catch((error) => {
         setLoading(false);
-      } else {
-        setLoadingBusiness(false);
-      }
-    } catch (err) {
-      console.log(err);
-      warn("Error has occured", err ? `:${err}` : "");
-      if (accountUser === "INDIVIDUAL") {
-        setLoading(false);
-      } else {
-        setLoadingBusiness(false);
-      }
-    }
-  };
+        warn(error.response.data.message);
+      })
+  }
+
   return (
     <div className="font-Inter overflow-hidden bg-light">
       <ToastContainer />

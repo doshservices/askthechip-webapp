@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import { Footer, Navbar } from "../components";
 import { notify, warn } from "../App";
+import axios from "axios";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
 
 const Verify = () => {
   const [num1, setNum1] = useState("");
@@ -12,6 +14,7 @@ const Verify = () => {
   const [num5, setNum5] = useState("");
   const [num6, setNum6] = useState("");
   const [otp, setOtp] = useState("");
+  console.log(otp);
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -26,6 +29,7 @@ const Verify = () => {
   // window.onload = function () {
   //     num1Ref.current.focus();
   // };
+  const { user, token } = useAuth()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,7 +76,7 @@ const Verify = () => {
   const redirectToHome = () => {
     setTimeout(() => {
       navigate("/home");
-    }, 2500);
+    }, 7500);
   };
 
   const handleSubmit = async (e) => {
@@ -83,35 +87,24 @@ const Verify = () => {
     num4Ref.current.value = "";
     num5Ref.current.value = "";
     num6Ref.current.value = "";
+    const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users/verify'
     if (otp.length === 6) {
       setLoading(true);
-      try {
-        const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users/verify'
-        const res = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ opt: otp })
+      axios.post(url, { otp }, {
+        // mode: 'no-cors',
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+      }).then((response) => {
+        notify("Email verification successful, you're being redirected")
+        redirectToHome();
+        setLoading(false);
+      })
+        .catch((error) => {
+          setLoading(false);
+          notify(error.message);
         })
-        if (res.ok) {
-          console.log("Successfully signed in to askthechip!", res.message)
-          notify("Email verification successful, you're being redirected")
-          redirectToHome();
-          setLoading(false);
-        }
-        if (!res.ok) {
-          console.log("Sign in failed,", res.message)
-          warn("Sign in failed,", res.message)
-          setLoading(false);
-        }
-        setLoading(false);
-
-      } catch (err) {
-        console.log(err);
-        warn("Error ", err);
-        setLoading(false);
-      }
     } else {
       setError("Fill in all feilds completley!!!")
     }
@@ -120,30 +113,26 @@ const Verify = () => {
   const userEmail = JSON.parse(localStorage.getItem("authUser"))
 
   const verifyAccount = async (e) => {
-    try {
-      const url = `https://askthechip-hvp93.ondigitalocean.app/api/send-otp?${userEmail.email}`
-      const res = await fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        },
-      })
-      if (res.ok) {
+    const url = `https://askthechip-hvp93.ondigitalocean.app/api/send-otp?email=${userEmail.email}`
+    axios.get(url, {
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then((response) => {
+        console.log(response);
         notify("OTP has been sent to your mail")
-      }
-      if (!res.ok) {
-        console.log("Sign in failed,", res.message)
-        warn("OTP failed in failed,", res.message)
-      }
-
-    } catch (err) {
-      console.log(err);
-      warn("Error ", err);
-    }
+      }).catch((error) => {
+        console.log(error);
+        warn("OTP failed in failed,", error)
+      })
   }
 
   useEffect(() => {
-    verifyAccount()
+    setTimeout(() => {
+      verifyAccount()
+    }, 2000)
   }, [])
 
   return (
@@ -153,10 +142,7 @@ const Verify = () => {
       </div>
       <div className="flex flex-col md:flex-row w-full">
         <div className="w-full md:w-[50%] h-full md:h-screen">
-          <Link
-            to="/"
-            className="hidden md:flex items-center h-16 ml-4 md:ml-20 my-7"
-          >
+          <Link to="/" className="hidden md:flex items-center h-16 ml-4 md:ml-20 my-7">
             <div>
               <img src={logo} alt="Ask the chip" />
             </div>
@@ -261,7 +247,7 @@ const Verify = () => {
             </div>
           </div>
         </div>
-        <div className="flex md:hidden">
+        <div className="md:hidden">
           <Footer />
         </div>
         <div className="hidden md:flex w-[50%] h-screen relative">
