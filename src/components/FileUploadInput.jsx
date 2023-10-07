@@ -14,17 +14,17 @@ export const fileToBase64 = (file) => {
   });
 };
 
-function FileUploadInput({state, handleState}) {
+function FileUploadInput({ state, handleState }) {
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     try {
       const base64String = await fileToBase64(file);
       handleState(base64String);
-      notify("File uploaded successfully");
+      // notify("File uploaded successfully");
     } catch (error) {
-      console.error('Error converting file to base64:', error);
-      warn('An error has occured, pls try again!');
+      // console.error('Error converting file to base64:', error);
+      // warn('An error has occured, pls try again!');
     }
   };
 

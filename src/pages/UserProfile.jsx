@@ -23,10 +23,10 @@ const UserProfile = () => {
         try {
             const base64String = await fileToBase64(file);
             setProfileImg(base64String);
-            notify("Picture uploaded, updating your profile picture...");
+            // notify("Picture uploaded, updating your profile picture...");
         } catch (error) {
-            console.error("Error converting file to base64:", error);
-            warn("An error has occured, pls try again!");
+            // console.error("Error converting file to base64:", error);
+            // warn("An error has occured, pls try again!");
         }
     };
     const { token } = useAuth()

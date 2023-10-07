@@ -31,17 +31,17 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
         }
       );
       if (res.ok) {
-        console.log("Successfully made a comment!");
-        notify("Successfully made a comment!");
+        // console.log("Successfully made a comment!");
+        // notify("Successfully made a comment!");
         const resData = await res.json();
-        console.log(resData);
+        // console.log(resData);
         setComment("");
         handleGetPosts();
       }
       setLoading(false);
     } catch (err) {
       console.log(err);
-      warn("Failed to post your comment!");
+      // warn("Failed to post your comment!");
       setLoading(false);
     }
     setLoading(false);
@@ -67,7 +67,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
       setLoading(false);
     } catch (err) {
       console.log(err);
-      warn("Something went wrong!");
+      // warn("Something went wrong!");
       setLoading(false);
     }
     setLoading(false);
@@ -121,7 +121,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
                   disabled={loading}
                   className={`flex bg-primary text-white text-xs hover:bg-primary/90 rounded-lg h-fit w-full px-4 py-1.5`}
                 >
-                  {!loading ? <Loader width="30" height="20" /> : "Comment"}
+                  {loading ? <Loader width="30" height="20" /> : "Comment"}
                 </button>
               </div>
             </div>

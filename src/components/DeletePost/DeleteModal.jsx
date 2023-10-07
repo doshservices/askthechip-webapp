@@ -25,8 +25,8 @@ const DeleteModal = ({ postId, setOpenDeleteModal, handleGetPosts }) => {
         const resData = await response.json();
         console.log(resData);
         console.log(resData.data);
-        console.log("Post deleted successfully");
-        notify("Post deleted successfully");
+        // console.log("Post deleted successfully");
+        // notify("Post deleted successfully");
         setDeleting(false);
         setOpenDeleteModal(false);
         handleGetPosts();
@@ -34,12 +34,12 @@ const DeleteModal = ({ postId, setOpenDeleteModal, handleGetPosts }) => {
       if (!response.ok) {
         setDeleting(false);
         setOpenDeleteModal(false);
-        inform("Problem deleting your post, try again!");
+        // inform("Problem deleting your post, try again!");
       }
     } catch (error) {
       console.log(error);
-      console.log("Post deletion failed");
-      warn("Post deletion failed, try again");
+      // console.log("Post deletion failed");
+      // warn("Post deletion failed, try again");
       setDeleting(false);
       setOpenDeleteModal(false);
     }

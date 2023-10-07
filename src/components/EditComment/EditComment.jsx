@@ -39,20 +39,20 @@ const EditComment = ({
       ).then((response) => {
         console.log(response);
         if (response.ok) {
-          console.log("Successfully updated your comment!");
-          notify("Successfully updated your comment!");
+          // console.log("Successfully updated your comment!");
+          // notify("Successfully updated your comment!");
           setOpenEditModal(false);
           handleGetPosts();
         }
         if (!response.ok) {
           setUpdating(false);
           setOpenEditModal(false);
-          inform("Problem editing your comment, try again!");
+          // inform("Problem editing your comment, try again!");
         }
       });
     } catch (error) {
       console.error("Error updating comment:", error);
-      warn("Error updating comment:", error);
+      // warn("Error updating comment:", error);
       setOpenEditModal(false);
       setUpdating(false);
     }

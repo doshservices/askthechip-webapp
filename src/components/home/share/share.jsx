@@ -91,10 +91,10 @@ const Share = ({ handleGetPosts }) => {
         }
       );
       if (res.ok) {
-        console.log("Successfully published a post!");
-        notify("Successfully published a post!");
+        // console.log("Successfully published a post!");
+        // notify("Successfully published a post!");
         const resData = await res.json();
-        console.log(resData);
+        // console.log(resData);
         handleGetPosts();
         setTimeout(() => {
           localStorage.removeItem("upk")
@@ -103,7 +103,7 @@ const Share = ({ handleGetPosts }) => {
       setLoading(false);
     } catch (err) {
       console.log(err);
-      warn("Failed to publish your post!");
+      // warn("Failed to publish your post!");
       setLoading(false);
     }
 

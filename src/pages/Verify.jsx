@@ -97,7 +97,7 @@ const Verify = () => {
           Authorization: `Bearer ${token}`
         },
       }).then((response) => {
-        notify("Email verification successful, you're being redirected")
+        // notify("Email verification successful, you're being redirected")
         redirectToHome();
         setLoading(false);
       })

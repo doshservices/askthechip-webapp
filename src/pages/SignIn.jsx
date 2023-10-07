@@ -51,7 +51,7 @@ const SignIn = () => {
         localStorage.setItem('token', token);
         localStorage.setItem('authUser', JSON.stringify(authUser));
         setUser(authUser);
-        notify("Login success, you're being redirected")
+        // notify("Login success, you're being redirected")
         redirectToHome();
         setLoading(false);
       })

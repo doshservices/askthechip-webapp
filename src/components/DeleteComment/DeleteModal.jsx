@@ -23,18 +23,18 @@ const DeleteModal = ({ commentId, setOpenDeleteModal, handleGetPosts }) => {
       );
       if (response.ok) {
         const resData = await response.json();
-        console.log(resData);
-        console.log(resData.data);
-        console.log("Comment deleted successfully");
-        notify("Comment deleted successfully");
+        // console.log(resData);
+        // console.log(resData.data);
+        // console.log("Comment deleted successfully");
+        // notify("Comment deleted successfully");
         setDeleting(false);
         setOpenDeleteModal(false);
         handleGetPosts();
       }
     } catch (error) {
-      console.log(error);
-      console.log("Comment deletion failed");
-      warn("Comment deletion failed, try again");
+      // console.log(error);
+      // console.log("Comment deletion failed");
+      // warn("Comment deletion failed, try again");
       setDeleting(false);
       setOpenDeleteModal(false);
     }
