@@ -1,10 +1,10 @@
 import search from "../../../assets/search.svg";
 import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 
 const Search = ({ background, placeholder }) => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   return (
     <div
@@ -17,7 +17,7 @@ const Search = ({ background, placeholder }) => {
         className="bg-transparent w-full py-[0.375rem] outline-none"
         type="search"
         placeholder={placeholder ? placeholder : "Search Askthechip"}
-        onClick={() => navigate("/search")}
+      // onClick={() => navigate("/search")}
       />
       <label htmlFor="search" className="cursor-pointer pl-1">
         <img src={search} alt="search" />

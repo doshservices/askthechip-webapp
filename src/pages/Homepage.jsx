@@ -14,7 +14,6 @@ const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
   const { posts, setPosts } = usePosts();
   const reversedPosts = [...posts].reverse();
-  console.log(reversedPosts.length);
 
   const [loading, setLoading] = useState(false);
   const { token } = useAuth();
@@ -123,13 +122,11 @@ const HomePage = () => {
               {reversedPosts.length > 0 ?
                 <>
                   {reversedPosts?.map((post, index) => (
-                    <>
-                      <Posts
-                        key={index}
-                        post={post}
-                        handleGetPosts={handleGetPosts}
-                      />
-                    </>
+                    <Posts
+                      key={index}
+                      post={post}
+                      handleGetPosts={handleGetPosts}
+                    />
                   ))}
                 </>
                 :
