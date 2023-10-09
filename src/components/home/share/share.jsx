@@ -20,7 +20,6 @@ const Share = ({ handleGetPosts }) => {
   const [file, setFile] = useState(null);
   const { user, token } = useAuth();
   const { profile } = useProfile();
-  // console.log(postStatus);
 
   const handleTypePost = (e) => {
     setPostStatus(e.target.value);

@@ -70,7 +70,7 @@ const Profile = () => {
     } catch (error) {
       console.log(error);
       setLoading(false);
-      warn("An error has occured, pls refresh your browser!");
+      // warn("An error has occured, pls refresh your browser!");
     }
   };
   useEffect(() => {
@@ -82,17 +82,17 @@ const Profile = () => {
     try {
       const base64String = await fileToBase64(file);
       setProfileImg(base64String);
-      notify("Picture uploaded, updating your profile picture...");
+      // notify("Picture uploaded, updating your profile picture...");
     } catch (error) {
       console.error("Error converting file to base64:", error);
-      warn("An error has occured, pls try again!");
+      // warn("An error has occured, pls try again!");
     }
   };
 
   const handleUpdatePicture = async () => {
     if (!profileImg) return;
     setUpdatingPicture(true);
-    const toadId = loadingToast("Updating your profile picture...");
+    // const toadId = loadingToast("Updating your profile picture...");
     await axios.put(`https://askthechip-hvp93.ondigitalocean.app/api/users`, profileImg, {
       headers: {
         "Content-Type": "application/json",
@@ -106,22 +106,22 @@ const Profile = () => {
       setProfileImg('');
       localStorageUpdate(updatedData);
       console.log("Profile picture updated successfully");
-      toast.update(toadId, {
-        render: "Profile picture updated successfully",
-        type: toast.TYPE.SUCCESS,
-        autoClose: 2500,
-      });
+      // toast.update(toadId, {
+      //   render: "Profile picture updated successfully",
+      //   type: toast.TYPE.SUCCESS,
+      //   autoClose: 2500,
+      // });
       setUpdatingPicture(false);
       // reloadBrowser();
     }).catch((error) => {
       console.log(error);
       console.log("Failed to update picture");
       setProfileImg('');
-      toast.update(toadId, {
-        render: "Failed to update picture",
-        type: toast.TYPE.ERROR,
-        autoClose: 2500,
-      });
+      // toast.update(toadId, {
+      //   render: "Failed to update picture",
+      //   type: toast.TYPE.ERROR,
+      //   autoClose: 2500,
+      // });
     })
     setUpdatingPicture(false);
   };

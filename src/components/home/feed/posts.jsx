@@ -18,6 +18,7 @@ import Comment from "./Comment";
 import Comments from "./Comments";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { useNavigate } from "react-router-dom";
 
 const reactions = [
   {
@@ -176,6 +177,15 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     handleLikesValue();
   }, [likes]);
 
+  const navigate = useNavigate()
+
+  const navigateToProfile = () => {
+    localStorage.setItem("ask-un-id", JSON.stringify(postUserId))
+    setTimeout(() => {
+      navigate("/users-profile")
+    }, 1000)
+  }
+
   return (
     <section
       className={
@@ -187,7 +197,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     >
       <div className="col-span-12 flex justify-between">
         <div className="flex">
-          <div className="mr-2">
+          <div className="mr-2 cursor-pointer" onClick={navigateToProfile}>
             {!poster?.profileImg ? (
               <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl">
                 <span className="text-white">{username[0]}</span>
@@ -202,7 +212,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
           </div>
           <div className="flex">
             <div className="font-bold">
-              <div>{username}</div>
+              <div className="cursor-pointer" onClick={navigateToProfile}>{username}</div>
               <div className="font-light opacity-70">{role}</div>
             </div>
           </div>

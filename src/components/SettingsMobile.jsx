@@ -69,7 +69,7 @@ const Settings = () => {
   const handleUpdateNames = async (e) => {
     e.preventDefault();
     setUpdatingNames(true);
-    const toastId = loadingToast("Updating your names...");
+    // const toastId = loadingToast("Updating your names...");
     try {
       const response = await fetch(
         `https://askthechip-hvp93.ondigitalocean.app/api/users`,
@@ -89,16 +89,16 @@ const Settings = () => {
         const updatedData = resData.data.user;
         console.log(updatedData);
         localStorageUpdate(updatedData);
-        console.log("Updated username successfully");
-        toast.update(toadId, { render: "Updated username successfully", autoClose: 2500, type: 'success' })
+        // console.log("Updated username successfully");
+        // toast.update(toadId, { render: "Updated username successfully", autoClose: 2500, type: 'success' })
         setUpdatingNames(false);
         resetFormFields();
         reloadBrowser();
       }
     } catch (error) {
       console.log(error);
-      console.log("Failed to update username, try again!");
-      toast.update(toadId, { render: "Failed to update username, try again!", autoClose: 2500, type: 'error' })
+      // console.log("Failed to update username, try again!");
+      // toast.update(toadId, { render: "Failed to update username, try again!", autoClose: 2500, type: 'error' })
       setUpdatingNames(false);
     }
     setUpdatingNames(false);
@@ -106,7 +106,7 @@ const Settings = () => {
   const handleUpdateCompany = async (e) => {
     e.preventDefault();
     setUpdatingNames(true);
-    const toastId = loadingToast("Updating your company name...");
+    // const toastId = loadingToast("Updating your company name...");
     try {
       const response = await fetch(
         `https://askthechip-hvp93.ondigitalocean.app/api/users`,
@@ -126,8 +126,8 @@ const Settings = () => {
         const updatedData = resData.data.user;
         console.log(updatedData);
         localStorageUpdate(updatedData);
-        console.log("Updated company name successfully");
-        toast.update(toastId, { render: "Updated company name successfully", autoClose: 2500, type: 'success' });
+        // console.log("Updated company name successfully");
+        // toast.update(toastId, { render: "Updated company name successfully", autoClose: 2500, type: 'success' });
         setUpdatingNames(false);
         resetFormFields();
         reloadBrowser();
@@ -135,19 +135,19 @@ const Settings = () => {
     } catch (error) {
       console.log(error);
       console.log("Failed to update your company name");
-      toast.update(toastId, { render: "Failed to update your company name", autoClose: 2500, type: 'error' });
-      setUpdatingNames(false);
+      // toast.update(toastId, { render: "Failed to update your company name", autoClose: 2500, type: 'error' });
+      // setUpdatingNames(false);
     }
     setUpdatingNames(false);
   };
   const handleResetPassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      notify("New password doesn't match, try again!");
+      // notify("New password doesn't match, try again!");
       return;
     }
     setResetingPassword(true);
-    const toastId = notify("Reseting your password...");
+    // const toastId = notify("Reseting your password...");
     try {
       const response = await fetch(
         `https://askthechip-hvp93.ondigitalocean.app/api/users/reset-password`,
@@ -165,14 +165,14 @@ const Settings = () => {
         // console.log(resData);
         // console.log(resData.data);
         console.log("Password was reset successfuly");
-        toast.update(toastId, { render: "Password was reset successfuly", autoClose: 2500, type: 'error' });
+        // toast.update(toastId, { render: "Password was reset successfuly", autoClose: 2500, type: 'error' });
         setResetingPassword(false);
       }
       resetFormFields();
     } catch (error) {
       console.log(error);
       console.log("Password reset failed");
-      toast.update(toastId, { render: "Password reset failed", autoClose: 2500, type: 'error' })
+      // toast.update(toastId, { render: "Password reset failed", autoClose: 2500, type: 'error' })
       setResetingPassword(false);
     }
     setResetingPassword(false);
