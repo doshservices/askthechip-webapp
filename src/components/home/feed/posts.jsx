@@ -134,7 +134,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     } catch (error) {
       console.log(error);
       setLoadingLikePost(false);
-      warn("An error has occured, pls try again!");
+      // warn("An error has occured, pls try again!");
     }
   };
 

@@ -163,7 +163,7 @@ const Settings = () => {
         const resData = await response.json();
         // console.log(resData);
         // console.log(resData.data);
-        console.log("Password was reset successfuly");
+        // console.log("Password was reset successfuly");
         // toast.update(toastId, { render: "Password was reset successfuly", autoClose: 2500, type: 'error' });
         setResetingPassword(false);
       }
