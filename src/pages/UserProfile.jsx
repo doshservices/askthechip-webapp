@@ -1,9 +1,3 @@
-// import {
-//     ProfileDesktop,
-//     Profile,
-//     DesktopLayout,
-//     MobileLayout,
-// } from "../components";
 import camera from "../assets/icons/camera-icon.svg"
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
@@ -14,36 +8,75 @@ import briefcase from "../assets/icons/briefcase-icon.svg";
 import followers from "../assets/icons/followers-icon.svg";
 import mapMarker from "../assets/icons/map-marker.svg";
 import photo from "../assets/images/photo.svg";
-// import profileImage from "../assets/images/profile-picture.png";
+import { Posts } from "../components/home";
+import { CircleLoader } from "../components";
+import { usePosts } from "../contexts/PostContext/PostContext";
 
 const UserProfile = () => {
     const [profileImage, setProfileImg] = useState("")
+    const [loading, setLoading] = useState(false)
+    const { posts, setPosts } = usePosts();
+    const reversedPosts = [...posts].reverse();
+    const userId = JSON.parse(localStorage.getItem("ask-un-id"))
+
+    const filteredPosts = reversedPosts.filter((postItem) => postItem?.userId?._id === userId);
+
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         try {
             const base64String = await fileToBase64(file);
             setProfileImg(base64String);
-            // notify("Picture uploaded, updating your profile picture...");
         } catch (error) {
-            // console.error("Error converting file to base64:", error);
-            // warn("An error has occured, pls try again!");
         }
     };
+
     const { token } = useAuth()
     const id = JSON.parse(localStorage.getItem("ask-un-id"))
     const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/${id}`
     const [profileDetails, setProfileDetails] = useState([])
 
+    const handleGetPosts = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch(
+                "https://askthechip-hvp93.ondigitalocean.app/api/post?limit=0&skip=0",
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            if (res.ok) {
+                const resData = await res.json();
+                // console.log(resData);
+                const getPosts = resData.data.post;
+                setPosts(getPosts);
+                setLoading(false);
+            }
+        } catch (error) {
+            console.log(error);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        handleGetPosts();
+    }, [setPosts]);
+
     const getUserDetails = () => {
+        setLoading(true)
         axios.get(url, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
         })
             .then((response) => {
-                // console.log(response);
+                setLoading(false)
                 setProfileDetails(response?.data?.data?.user)
             }).catch((error) => {
+                setLoading(false)
                 console.log(error);
             })
     }
@@ -319,23 +352,29 @@ const UserProfile = () => {
                                         {/* <Share handleGetPosts={handleGetPosts} /> */}
                                     </div>
                                     <div>
-                                        {/* {loading ? (
-                                        <div className="flex justify-center items-center m-4">
-                                            <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                                <CircleLoader color="#05675A" />
+                                        {loading ? (
+                                            <div className="flex justify-center items-center m-4">
+                                                <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                                                    <CircleLoader color="#05675A" />
+                                                </div>
                                             </div>
-                                        </div>
-                                    ) : (
-                                        <>
-                                            {reversedPosts?.map((post, index) => (
-                                                <Posts
-                                                    key={index}
-                                                    post={post}
-                                                    handleGetPosts={handleGetPosts}
-                                                />
-                                            ))}
-                                        </>
-                                    )} */}
+                                        ) : (
+                                            <>
+                                                {filteredPosts.length > 0 ?
+                                                    <>
+                                                        {filteredPosts?.map((post, index) => (
+                                                            <Posts
+                                                                key={index}
+                                                                post={post}
+                                                                handleGetPosts={handleGetPosts}
+                                                            />
+                                                        ))}
+                                                    </>
+                                                    :
+                                                    <h2 className="m-5 text-[#8C8C8C]">No Posts Yet</h2>
+                                                }
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </div>

@@ -88,7 +88,7 @@ const Settings = () => {
         const updatedData = resData.data.user;
         console.log(updatedData);
         localStorageUpdate(updatedData);
-        console.log("Updated username successfully");
+        // console.log("Updated username successfully");
         // toast.update(toadId, { render: "Updated username successfully", autoClose: 2500, type: 'success' })
         setUpdatingNames(false);
         resetFormFields();

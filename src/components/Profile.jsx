@@ -20,6 +20,7 @@ import { loadingToast, notify, warn } from "../App";
 import { localStorageUpdate } from "../utils/localStorageUpdate";
 import { toast } from "react-toastify";
 import { reloadBrowser } from "./Settings";
+import { useNavigate } from "react-router-dom";
 // import Button from './Button';
 import axios from "axios";
 
@@ -47,6 +48,9 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const { user, token } = useAuth();
   const { profile, setProfile } = useProfile();
+  const navigate = useNavigate()
+
+  const filteredPosts = reversedPosts.filter((postItem) => postItem?.userId?._id === profile?._id);
 
   const handleGetPosts = async () => {
     setLoading(true);
@@ -192,7 +196,7 @@ const Profile = () => {
             {viewer === "self" ? (
               <div className="flex">
                 <div>
-                  <button className="bg-tertiary border-[0.3px] mr-4 text-white text-center border-tertiary flex px-4 py-[0.2rem] hover:scale-110 transition duration-200 rounded-lg items-center text-sm">
+                  <button onClick={() => navigate("/settings")} className="bg-tertiary border-[0.3px] mr-4 text-white text-center border-tertiary flex px-4 py-[0.2rem] hover:scale-110 transition duration-200 rounded-lg items-center text-sm">
                     <img src={edit} alt="Edit Profile" className="p-1" />
                     Edit Profile
                   </button>
@@ -407,7 +411,7 @@ const Profile = () => {
                 </div>
               ) : (
                 <>
-                  {reversedPosts?.map((post, index) => (
+                  {filteredPosts?.map((post, index) => (
                     <Posts
                       key={index}
                       post={post}

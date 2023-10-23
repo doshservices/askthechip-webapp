@@ -5,12 +5,14 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { UserSearch } from "../components/home/search/userSearch";
 import { UserResults } from "../components/search/UserResults";
 import { ThreeDots } from "react-loader-spinner";
+import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 
 const Search = () => {
     const [users, setUsers] = useState([])
     const [userValue, setUserValue] = useState("")
     const [results, setResults] = useState("all")
     const [isFetching, setIsFetching] = useState(false)
+    const profile = useProfile()
 
     const handleChange = (e) => setUserValue(e.target.value)
 

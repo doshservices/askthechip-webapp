@@ -1,12 +1,18 @@
 import { useNavigate } from "react-router-dom"
+import { useProfile } from "../../contexts/ProfileContext/ProfileContext"
 
 export const UserResults = ({ users }) => {
+    const profile = useProfile()
 
     const navigate = useNavigate()
     const getUserId = () => {
-        localStorage.setItem("ask-un-id", JSON.stringify(users._id))
+        localStorage.setItem("ask-un-id", JSON.stringify(users?._id))
         setTimeout(() => {
-            navigate("/users-profile")
+            if (users?._id === profile?.profile?._id) {
+                navigate("/profile")
+            } else {
+                navigate("/users-profile")
+            }
         }, 1000)
     }
 

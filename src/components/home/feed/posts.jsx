@@ -18,7 +18,7 @@ import Comment from "./Comment";
 import Comments from "./Comments";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const reactions = [
   {
@@ -74,6 +74,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const { user, token } = useAuth();
   const { profile } = useProfile();
   const [singleCommenter, setSingleCommenter] = useState({});
+  const location = useLocation()
 
   const authUserId = profile?._id;
   const postUserId = post?.userId?._id;
@@ -182,7 +183,11 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const navigateToProfile = () => {
     localStorage.setItem("ask-un-id", JSON.stringify(postUserId))
     setTimeout(() => {
-      navigate("/users-profile")
+      if (postUserId === profile?._id) {
+        navigate("/profile")
+      } else {
+        navigate("/users-profile")
+      }
     }, 1000)
   }
 
