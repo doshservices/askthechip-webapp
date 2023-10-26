@@ -7,19 +7,21 @@ import googleLogo from "../assets/icons/google-logo.svg";
 
 const defaultFormFields = {
   password: "",
-  confirmPassword: "",
+  email: "",
 };
 
 const ForgotPassword = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
-
-  const { password, confirmPassword } = formFields;
+  const { email } = formFields;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
+
+  const sendOtp = () => {
+    console.log("sent");
+  }
 
   return (
     <div className="font-Inter overflow-hidden bg-light">
@@ -32,80 +34,41 @@ const ForgotPassword = () => {
             <div className="font-bold text-primary90 ml-2">Askthechip</div>
           </Link>
           <div className=" h-[calc(100vh_-_10rem)] overflow-y-auto">
-            <form className="w-[90%] max-w-[468px] mx-auto h-full">
-              <div className="flex flex-col items-center mb-20">
-                <h1 className="font-DMSans text-[30px] font-bold mb-2 uppercase text-[#2d2d2d]">
+            <form onSubmit={sendOtp} className="w-[90%] max-w-[468px] mx-auto h-full">
+              <div className="flex flex-col items-center mb-10">
+                <h1 className="font-DMSans text-[30px] font-bold uppercase text-[#2d2d2d]">
                   Forgot Password
                 </h1>
                 <p className="font-DMSans text-[#2d2d2d90]">
                   Forgot Password? No worries, input your email below
                 </p>
               </div>
-              <div className="flex flex-col mb-5">
-                <label htmlFor="password" className="font-DMSans text-sm mb-2">
-                  Password
-                </label>
-                <div className="flex border border-[#2d2d2d] rounded-full">
-                  <input
-                    className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    id="password"
-                    placeholder="Enter your new password"
-                    value={password}
-                    onChange={handleChange}
-                    minLength={8}
-                    required
-                  />
-                  <span
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="flex justify-center items-center mx-3 cursor-pointer"
-                  >
-                    <img
-                      className="h-6"
-                      src={showPassword ? crossedEye : eye}
-                      alt="Show Password"
-                    />
-                  </span>
-                </div>
-              </div>
               <div className="flex flex-col mb-2">
                 <label
-                  htmlFor="confirmPassword"
+                  htmlFor="email"
                   className="font-DMSans text-sm mb-2"
                 >
-                  Confirm Password
+                  Email
                 </label>
                 <div className="flex border border-[#2d2d2d] rounded-full">
                   <input
                     className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                    type={showPassword ? "text" : "password"}
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    placeholder="Confirm new password"
-                    value={confirmPassword}
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Enter email"
+                    value={email}
                     onChange={handleChange}
-                    minLength={8}
                     required
                   />
-                  <span
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="flex justify-center items-center mx-3 cursor-pointer"
-                  >
-                    <img
-                      className="h-6"
-                      src={showPassword ? crossedEye : eye}
-                      alt="Show Password"
-                    />
-                  </span>
                 </div>
               </div>
-              <div className="flex justify-center mt-20">
+              <div className="flex justify-center mt-10">
                 <button
                   type="submit"
                   className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
                 >
-                  Reset Password
+                  Confirm Email Address
                 </button>
               </div>
             </form>

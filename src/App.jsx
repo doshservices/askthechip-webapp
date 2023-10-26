@@ -31,6 +31,7 @@ import { ProtectedRoute } from "./utils";
 import ConversationProvider from "./contexts/ConversationContext/ConversationContext";
 import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
+import ResetPassword from "./pages/resetPassword";
 //import { useAuth } from "./contexts/AuthContext/AuthContext";
 //import { useEffect } from "react";
 
@@ -74,6 +75,7 @@ function App() {
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/pricing/payment" element={<Payment />} />
                 <Route path="/verify" element={<Verify />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/*" element={<Error />} />
                 {/* Protected routes */}
                 <Route element={<ProtectedRoute />}>
