@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "./../assets/ask.svg";
+import eye from "./../assets/icons/eye.svg";
+import crossedEye from "./../assets/icons/crossed-eye.svg";
 
 const ResetPassword = () => {
+
+    const [showPassword, setShowPassword] = useState(false);
     const defaultFormFields = {
         password: "",
-        email: "",
+        confirmPassword: "",
     };
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const { email } = formFields;
+    const { password, confirmPassword } = formFields;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,30 +36,72 @@ const ResetPassword = () => {
                         <form onSubmit={sendOtp} className="w-[90%] max-w-[468px] mx-auto h-full">
                             <div className="flex flex-col items-center mb-10">
                                 <h1 className="font-DMSans text-[30px] font-bold uppercase text-[#2d2d2d]">
-                                    Forgot Password
+                                    Reset Password
                                 </h1>
-                                <p className="font-DMSans text-[#2d2d2d90]">
+                                {/* <p className="font-DMSans text-[#2d2d2d90]">
                                     Forgot Password? No worries, input your email below
-                                </p>
+                                </p> */}
                             </div>
                             <div className="flex flex-col mb-2">
                                 <label
-                                    htmlFor="email"
+                                    htmlFor="password"
                                     className="font-DMSans text-sm mb-2"
                                 >
-                                    Email
+                                    Password
                                 </label>
                                 <div className="flex border border-[#2d2d2d] rounded-full">
                                     <input
                                         className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        placeholder="Enter email"
-                                        value={email}
+                                        type={showPassword ? "text" : "password"}
+                                        name="password"
+                                        id="password"
+                                        placeholder="Password here"
+                                        value={password}
                                         onChange={handleChange}
+                                        minLength={8}
                                         required
                                     />
+                                    <span
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="flex justify-center items-center mx-3 cursor-pointer"
+                                    >
+                                        <img
+                                            className="h-6"
+                                            src={showPassword ? crossedEye : eye}
+                                            alt="Show Password"
+                                        />
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="flex flex-col mb-2">
+                                <label
+                                    htmlFor="confirmPassword"
+                                    className="font-DMSans text-sm mb-2"
+                                >
+                                    Confirm Password
+                                </label>
+                                <div className="flex border border-[#2d2d2d] rounded-full">
+                                    <input
+                                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                                        type={showPassword ? "text" : "password"}
+                                        name="confirmPassword"
+                                        id="confirmPassword"
+                                        placeholder="Confirm new password"
+                                        value={confirmPassword}
+                                        onChange={handleChange}
+                                        minLength={8}
+                                        required
+                                    />
+                                    <span
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="flex justify-center items-center mx-3 cursor-pointer"
+                                    >
+                                        <img
+                                            className="h-6"
+                                            src={showPassword ? crossedEye : eye}
+                                            alt="Show Password"
+                                        />
+                                    </span>
                                 </div>
                             </div>
                             <div className="flex justify-center mt-10">
@@ -63,7 +109,7 @@ const ResetPassword = () => {
                                     type="submit"
                                     className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
                                 >
-                                    Confirm Email Address
+                                    Reset Password
                                 </button>
                             </div>
                         </form>

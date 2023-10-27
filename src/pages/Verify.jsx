@@ -14,7 +14,6 @@ const Verify = () => {
   const [num5, setNum5] = useState("");
   const [num6, setNum6] = useState("");
   const [otp, setOtp] = useState("");
-  console.log(otp);
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -113,7 +112,7 @@ const Verify = () => {
   const userEmail = JSON.parse(localStorage.getItem("authUser"))
 
   const verifyAccount = async (e) => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/send-otp?email=${userEmail.email}`
+    const url = `https://askthechip-hvp93.ondigitalocean.app/api/send-otp?email=${userEmail?.email}`
     axios.get(url, {
       mode: "no-cors",
       headers: {
@@ -121,10 +120,10 @@ const Verify = () => {
       },
     })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         notify("OTP has been sent to your mail")
       }).catch((error) => {
-        console.log(error);
+        // console.log(error);
         warn("OTP failed in failed,", error)
       })
   }
@@ -155,7 +154,7 @@ const Verify = () => {
                   Verify account
                 </h1>
                 <p className="font-DMSans text-[#2d2d2d90] text-center">
-                  A One-Time Password has been sent to {userEmail.email}
+                  A One-Time Password has been sent to {userEmail?.email}
                 </p>
               </div>
               {error ? <p className="font-DMSans text-[1.2rem] text-[#FF3B30] text-center">

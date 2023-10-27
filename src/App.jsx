@@ -32,6 +32,7 @@ import ConversationProvider from "./contexts/ConversationContext/ConversationCon
 import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
 import ResetPassword from "./pages/resetPassword";
+import VerifyMail from "./pages/verifyMail";
 //import { useAuth } from "./contexts/AuthContext/AuthContext";
 //import { useEffect } from "react";
 
@@ -75,6 +76,7 @@ function App() {
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/pricing/payment" element={<Payment />} />
                 <Route path="/verify" element={<Verify />} />
+                <Route path="/verify-mail" element={<VerifyMail />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/*" element={<Error />} />
                 {/* Protected routes */}
