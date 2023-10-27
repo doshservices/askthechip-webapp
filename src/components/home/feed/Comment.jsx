@@ -40,7 +40,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
       }
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       // warn("Failed to post your comment!");
       setLoading(false);
     }
@@ -66,7 +66,7 @@ const Comment = ({ post, handleGetPosts, setComments }) => {
       }
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       // warn("Something went wrong!");
       setLoading(false);
     }

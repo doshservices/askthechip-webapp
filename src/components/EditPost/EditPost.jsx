@@ -59,20 +59,20 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
         }
       ).then((response) => {
         if (response.ok) {
-          console.log("Successfully updated your post!");
+          // console.log("Successfully updated your post!");
           notify("Successfully updated your post!");
           setOpenEditModal(false);
           handleGetPosts();
           setUpdating(false);
         } else {
-          console.error("Error updating post:", response.status);
+          // console.error("Error updating post:", response.status);
           warn("Error updating post:", response.status);
           setOpenEditModal(false);
           setUpdating(false);
         }
       });
     } catch (error) {
-      console.error("Error updating post:", error);
+      // console.error("Error updating post:", error);
       warn("Error updating post:", error);
       setOpenEditModal(false);
       setUpdating(false);

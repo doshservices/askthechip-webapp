@@ -11,15 +11,15 @@ const Pricing = () => {
   const navigateTo = useNavigate();
   const [selectedVal, setSelectedVal] = useState("Pick a plan");
   const handleChange = (e) => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setSelectedVal(e.target.value);
   }
   const handleNavigate = (link) => {
-    if(selectedVal !== "Pick a plan"){
+    if (selectedVal !== "Pick a plan") {
       navigateTo(link)
     }
   }
-  
+
   // const [modal, setModal] = useState(false);
   // const [cardNum, setCardNum] = useState("");
   // const [CVVNum, setCVVNum] = useState("");
@@ -97,7 +97,7 @@ const Pricing = () => {
                           style={{ color: data.priceBg }}
                           className={`text-[52px] md:text-[62px] font-semibold leading-6 mr-[0.625rem]`}
                         >
-                         <s>N</s>{data.price}
+                          <s>N</s>{data.price}
                         </span>{" "}
                         <div className="flex flex-col">
                           <span>Per member</span>
@@ -115,8 +115,8 @@ const Pricing = () => {
                   </div>
                   {data.title === "Custom" ?
                     <div className="mb-2">
-                      <button onClick={()=>handleNavigate(data.link)} disabled={selectedVal === "Pick a plan"} className="bg-primary80 hover:scale-95 disabled:bg-primary80/40 transition duration-200 rounded-full text-white w-full py-2">
-                          {data.buttonVal}
+                      <button onClick={() => handleNavigate(data.link)} disabled={selectedVal === "Pick a plan"} className="bg-primary80 hover:scale-95 disabled:bg-primary80/40 transition duration-200 rounded-full text-white w-full py-2">
+                        {data.buttonVal}
                       </button>
                     </div>
                     :

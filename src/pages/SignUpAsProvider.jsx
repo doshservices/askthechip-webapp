@@ -144,7 +144,7 @@ const SignUpAsProvider = () => {
         body: JSON.stringify(accountUser === "INDIVIDUAL" ? individualDetails : businessDetails)
       })
       if (res.ok) {
-        console.log("Successful, you'll be redirected to login page!")
+        // console.log("Successful, you'll be redirected to login page!")
         notify("Successful, redirecting you to login page")
         redirectToLogin();
       }
@@ -158,7 +158,7 @@ const SignUpAsProvider = () => {
         setLoadingBusiness(false);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       warn("Error has occured", err ? `:${err}` : "");
       if (accountUser === "INDIVIDUAL") {
         setLoading(false);

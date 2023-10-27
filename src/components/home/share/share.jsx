@@ -101,7 +101,7 @@ const Share = ({ handleGetPosts }) => {
       }
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       // warn("Failed to publish your post!");
       setLoading(false);
     }

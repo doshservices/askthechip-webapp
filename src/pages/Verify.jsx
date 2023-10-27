@@ -7,6 +7,7 @@ import axios from "axios";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 
 const Verify = () => {
+
   const [num1, setNum1] = useState("");
   const [num2, setNum2] = useState("");
   const [num3, setNum3] = useState("");
@@ -25,10 +26,7 @@ const Verify = () => {
   const num5Ref = useRef(null);
   const num6Ref = useRef(null);
 
-  // window.onload = function () {
-  //     num1Ref.current.focus();
-  // };
-  const { user, token } = useAuth()
+  const { token } = useAuth()
 
   const handleChange = (e) => {
     const { name, value } = e.target;

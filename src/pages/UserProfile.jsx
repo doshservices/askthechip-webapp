@@ -56,7 +56,7 @@ const UserProfile = () => {
                 setLoading(false);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             setLoading(false);
         }
     };
@@ -77,7 +77,7 @@ const UserProfile = () => {
                 setProfileDetails(response?.data?.data?.user)
             }).catch((error) => {
                 setLoading(false)
-                console.log(error);
+                // console.log(error);
             })
     }
 

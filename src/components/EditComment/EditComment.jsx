@@ -37,7 +37,7 @@ const EditComment = ({
           body: JSON.stringify({ text: content }),
         }
       ).then((response) => {
-        console.log(response);
+        // console.log(response);
         if (response.ok) {
           // console.log("Successfully updated your comment!");
           // notify("Successfully updated your comment!");

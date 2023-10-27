@@ -83,10 +83,10 @@ const Settings = () => {
       );
       if (response.ok) {
         const resData = await response.json();
-        console.log(resData);
-        console.log(resData.data.user);
+        // console.log(resData);
+        // console.log(resData.data.user);
         const updatedData = resData.data.user;
-        console.log(updatedData);
+        // console.log(updatedData);
         localStorageUpdate(updatedData);
         // console.log("Updated username successfully");
         // toast.update(toadId, { render: "Updated username successfully", autoClose: 2500, type: 'success' })
@@ -95,8 +95,8 @@ const Settings = () => {
         reloadBrowser();
       }
     } catch (error) {
-      console.log(error);
-      console.log("Failed to update username, try again!");
+      // console.log(error);
+      // console.log("Failed to update username, try again!");
       // toast.update(toadId, { render: "Failed to update username, try again!", autoClose: 2500, type: 'error' })
       setUpdatingNames(false);
     }
@@ -120,20 +120,20 @@ const Settings = () => {
       );
       if (response.ok) {
         const resData = await response.json();
-        console.log(resData);
-        console.log(resData.data);
+        // console.log(resData);
+        // console.log(resData.data);
         const updatedData = resData.data.user;
-        console.log(updatedData);
+        // console.log(updatedData);
         localStorageUpdate(updatedData);
-        console.log("Updated company name successfully");
+        // console.log("Updated company name successfully");
         // toast.update(toastId, { render: "Updated company name successfully", autoClose: 2500, type: 'success' });
         setUpdatingNames(false);
         resetFormFields();
         reloadBrowser();
       }
     } catch (error) {
-      console.log(error);
-      console.log("Failed to update your company name");
+      // console.log(error);
+      // console.log("Failed to update your company name");
       // toast.update(toastId, { render: "Failed to update your company name", autoClose: 2500, type: 'error' });
       setUpdatingNames(false);
     }
@@ -169,8 +169,8 @@ const Settings = () => {
       }
       resetFormFields();
     } catch (error) {
-      console.log(error);
-      console.log("Password reset failed");
+      // console.log(error);
+      // console.log("Password reset failed");
       // toast.update(toastId, { render: "Password reset failed", autoClose: 2500, type: 'error' })
       setResetingPassword(false);
     }

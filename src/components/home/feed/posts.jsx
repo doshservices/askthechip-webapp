@@ -133,7 +133,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         setLoadingLikePost(false);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setLoadingLikePost(false);
       // warn("An error has occured, pls try again!");
     }
@@ -160,7 +160,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
         setLoadingLikes(false);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setLoadingLikes(false);
       // warn("An error has occured, pls try again!");
     }

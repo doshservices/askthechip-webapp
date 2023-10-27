@@ -14,7 +14,7 @@ const SocketProvider = ({ children }) => {
   useEffect(() => {
     setSocket(io(URL));
   }, [])
-  console.log('socket here:', socket)
+  // console.log('socket here:', socket)
 
   const value = {
     socket

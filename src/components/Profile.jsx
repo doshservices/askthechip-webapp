@@ -72,7 +72,7 @@ const Profile = () => {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setLoading(false);
       // warn("An error has occured, pls refresh your browser!");
     }
@@ -103,13 +103,13 @@ const Profile = () => {
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
-      console.log(response);
+      // console.log(response);
       const img = response.data.user.profileImg;
       const updatedData = response.data.user;
-      console.log(img);
+      // console.log(img);
       setProfileImg('');
       localStorageUpdate(updatedData);
-      console.log("Profile picture updated successfully");
+      // console.log("Profile picture updated successfully");
       // toast.update(toadId, {
       //   render: "Profile picture updated successfully",
       //   type: toast.TYPE.SUCCESS,
@@ -118,8 +118,8 @@ const Profile = () => {
       setUpdatingPicture(false);
       // reloadBrowser();
     }).catch((error) => {
-      console.log(error);
-      console.log("Failed to update picture");
+      // console.log(error);
+      // console.log("Failed to update picture");
       setProfileImg('');
       // toast.update(toadId, {
       //   render: "Failed to update picture",

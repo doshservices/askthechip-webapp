@@ -26,7 +26,7 @@ export default () => {
   } else {
     perView = 3;
   }
-  console.log(perView);
+  // console.log(perView);
   return (
     <Swiper
       // install Swiper modules
@@ -42,8 +42,8 @@ export default () => {
       loop={true}
       freeMode={true}
       pagination={{ clickable: true }}
-      // onSwiper={(swiper) => console.log(swiper)}
-      // onSlideChange={() => console.log("slide change")}
+    // onSwiper={(swiper) => console.log(swiper)}
+    // onSlideChange={() => console.log("slide change")}
     >
       <SwiperSlide>
         {({ isActive }) => (

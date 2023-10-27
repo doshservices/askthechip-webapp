@@ -31,7 +31,7 @@ const Search = () => {
                 setUsers(response?.data?.data)
             }).catch((error) => {
                 setIsFetching(false)
-                console.log(error);
+                // console.log(error);
             })
     }
 

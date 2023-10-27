@@ -22,7 +22,7 @@ const Messages = () => {
   // https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation
 
   const { socket } = useSocket()
-  console.log("scket here", socket)
+  // console.log("scket here", socket)
   useEffect(() => {
     if (socket) {
       socket.emit("addUser", user._id);
@@ -60,12 +60,12 @@ const Messages = () => {
         if (res.ok) {
           const resData = await res.json();
           setLoadingOnlineUsers(false)
-          console.log(resData.data)
+          // console.log(resData.data)
           return resData.data;
         }
       } catch (error) {
-        console.log("Failed to get user data using their ID")
-        console.log(error);
+        // console.log("Failed to get user data using their ID")
+        // console.log(error);
       }
       setLoadingOnlineUsers(false)
     }
@@ -86,7 +86,7 @@ const Messages = () => {
       }
     }
     setUsersDetails(userDetailsArray);
-    console.log(usersDetails)
+    // console.log(usersDetails)
     return userDetailsArray;
   }
 
@@ -106,13 +106,13 @@ const Messages = () => {
         );
         if (res.ok) {
           const resData = await res.json();
-          console.log("conversation here", resData.data);
+          // console.log("conversation here", resData.data);
           setConversation(resData.data)
-          console.log("Successfully gotten convs")
+          // console.log("Successfully gotten convs")
         }
 
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
     setLoadingConversations(false);
@@ -146,12 +146,12 @@ const Messages = () => {
           }
         );
         if (res.ok) {
-          console.log("Successfully created a new conversation!");
+          // console.log("Successfully created a new conversation!");
           const resData = await res.json();
-          console.log(resData)
+          // console.log(resData)
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
   };

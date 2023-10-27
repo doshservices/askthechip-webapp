@@ -17,13 +17,13 @@ export const getUserById = async (userId) => {
       }
     );
     if (res.ok) {
-      console.log("Successful!");
+      // console.log("Successful!");
       const resData = await res.json();
       return { response: resData.data, loading: false }
     }
     return `Something went wrong ${res}`
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw new Error(error);
   }
 }
@@ -38,11 +38,11 @@ export async function requestMentorship(data, token) {
       },
       body: JSON.stringify(data)
     }).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       resolve(res.data);
     })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         reject(new Error(err));
       });
   });
@@ -59,13 +59,13 @@ export const deletePost = async (id, token) => {
     });
     if (response.ok) {
       const resData = await response.json();
-      console.log(resData);
-      console.log(resData.data);
-      console.log("Post deleted successfully");
+      // console.log(resData);
+      // console.log(resData.data);
+      // console.log("Post deleted successfully");
       return resData;
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 }
 
@@ -74,12 +74,12 @@ export async function signUp(data) {
     axios
       .post(`/api/users/`, data)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         resolve(res.data);
       })
       .catch((err) => {
         reject(new Error(err));
-        console.log(err);
+        // console.log(err);
       });
   });
 }
@@ -88,12 +88,12 @@ export async function getUsers(data) {
     axios
       .get(`${BASE_URL}/api/users/`, data)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         resolve(res.data);
       })
       .catch((err) => {
         reject(new Error(err));
-        console.log(err);
+        // console.log(err);
       });
   });
 }
@@ -103,11 +103,11 @@ export async function login(data) {
     axios
       .get(`${BASE_URL}/api/users/login`, data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         resolve(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         reject(new Error(err));
       });
   });

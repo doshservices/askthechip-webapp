@@ -24,13 +24,13 @@ const Chat = ({ activeReceiverId }) => {
   const [messages, setMessages] = useState("");
   const [selectedUser, setSelectedUser] = useState({});
 
-  
+
   useEffect(() => {
     setReceiverId(activeReceiverId)
-    console.log("activeReceiverId", activeReceiverId);
+    // console.log("activeReceiverId", activeReceiverId);
   }, [activeReceiverId])
   useEffect(() => {
-    console.log("Id", id);
+    // console.log("Id", id);
     setReceiverId(id)
   }, [id])
 
@@ -41,7 +41,7 @@ const Chat = ({ activeReceiverId }) => {
   const handleSendMessage = (e) => {
     e.preventDefault();
     setSendingMessage(true);
-    console.log(user._id, receiverId, message)
+    // console.log(user._id, receiverId, message)
     if (message) {
       socket.emit('sendMessage', {
         senderId: `${user._id}`,
@@ -70,14 +70,14 @@ const Chat = ({ activeReceiverId }) => {
         );
         if (res.ok) {
           const resData = await res.json();
-          console.log("getMessagesData from api here", resData.data)
+          // console.log("getMessagesData from api here", resData.data)
           setMessages(resData.data)
           setLoadingMessages(false);
           return resData.data;
         }
       } catch (error) {
-        console.log("Failed to get messages data")
-        console.log(error);
+        // console.log("Failed to get messages data")
+        // console.log(error);
         setLoadingMessages(false);
       }
     }
@@ -97,17 +97,17 @@ const Chat = ({ activeReceiverId }) => {
       );
       if (res.ok) {
         const resData = await res.json();
-        console.log("savedMessagesData here", resData.data)
+        // console.log("savedMessagesData here", resData.data)
         return resData.data;
       }
     } catch (error) {
-      console.log("Failed to save messages")
-      console.log(error);
+      // console.log("Failed to save messages")
+      // console.log(error);
     }
   }
   function getSingleConversation() {
-    console.log(conversation)
-    if(conversation){
+    // console.log(conversation)
+    if (conversation) {
       for (const conv of conversation?.conversation) {
         if (conv.members.includes(user._id) && conv.members.includes(receiverId)) {
           setMyConversation(conv);
@@ -120,8 +120,8 @@ const Chat = ({ activeReceiverId }) => {
   useEffect(() => {
     getSingleConversation()
     socket.on('getMessage', function ({ senderId, text }) {
-      console.log("getMessages from socket here", senderId, text);
-      console.log(senderId, text);
+      // console.log("getMessages from socket here", senderId, text);
+      // console.log(senderId, text);
     });
     getMessages()
   }, [receiverId]);
@@ -141,13 +141,13 @@ const Chat = ({ activeReceiverId }) => {
       );
       if (res.ok) {
         const resData = await res.json();
-        console.log("resData.data here", resData.data)
+        // console.log("resData.data here", resData.data)
         setSelectedUser(resData.data);
         setLoadingUsername(false);
       }
     } catch (error) {
-      console.log("Failed to get user data using their ID")
-      console.log(error);
+      // console.log("Failed to get user data using their ID")
+      // console.log(error);
     }
     setLoadingUsername(false);
   }
@@ -157,7 +157,7 @@ const Chat = ({ activeReceiverId }) => {
     setMessage("");
   }, [receiverId]);
 
-  console.log("messages here", messages);
+  // console.log("messages here", messages);
 
   return (
     <>

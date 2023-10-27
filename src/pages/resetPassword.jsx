@@ -8,6 +8,7 @@ import axios from "axios";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 
 const ResetPassword = () => {
+
     const [num1, setNum1] = useState("");
     const [num2, setNum2] = useState("");
     const [num3, setNum3] = useState("");
@@ -15,9 +16,10 @@ const ResetPassword = () => {
     const [num5, setNum5] = useState("");
     const [num6, setNum6] = useState("");
     const [otp, setOtp] = useState("");
+    const navigate = useNavigate();
 
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const num1Ref = useRef(null);
     const num2Ref = useRef(null);
@@ -26,18 +28,22 @@ const ResetPassword = () => {
     const num5Ref = useRef(null);
     const num6Ref = useRef(null);
 
-    const defaultFormFields = {
-        otp: otp,
-        newPassword: "",
-    };
-
     const [showPassword, setShowPassword] = useState(false);
-    const [formFields, setFormFields] = useState(defaultFormFields);
-    console.log(formFields);
-    const { opt, newPassword } = formFields;
+    const [formFields, setFormFields] = useState({
+        newPassword: "",
+    });
+
+    const { newPassword } = formFields;
+
+    useEffect(() => {
+        const sumValue = num1 + num2 + num3 + num4 + num5 + num6;
+        setOtp(sumValue);
+    }, [num1, num2, num3, num4, num5, num6]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        setFormFields({ ...formFields, [name]: value });
+
         switch (name) {
             case "num1":
                 setNum1(value.slice(0, 1));
@@ -71,23 +77,35 @@ const ResetPassword = () => {
                 break;
         }
     };
-    const { user, token } = useAuth()
 
-    useEffect(() => {
-        const sumValue = num1 + num2 + num3 + num4 + num5 + num6;
-        setOtp(sumValue);
-    }, [otp]);
 
-    const reset = (e) => {
+
+    const url = "https://askthechip-hvp93.ondigitalocean.app/api/users/set-new-password";
+
+    const reset = async (e) => {
+        setLoading(true)
         e.preventDefault();
+        await axios.post("https://askthechip-hvp93.ondigitalocean.app/api/users/set-new-password", {
+            otp: otp,
+            newPassword: formFields.newPassword
+        })
+            .then((response) => {
+                setLoading(false);
+                setTimeout(() => {
+                    navigate("/login")
+                }, 2000)
+
+            })
+            .catch((error) => {
+                setLoading(false)
+            })
         num1Ref.current.value = "";
         num2Ref.current.value = "";
         num3Ref.current.value = "";
         num4Ref.current.value = "";
         num5Ref.current.value = "";
         num6Ref.current.value = "";
-        console.log(otp);
-    }
+    };
 
     return (
         <div className="font-Inter overflow-hidden bg-light">
@@ -105,8 +123,8 @@ const ResetPassword = () => {
                                 <h1 className="font-DMSans text-[20px] sm:text-[30px] font-bold uppercase text-[#2d2d2d] text-center">
                                     Reset Password
                                 </h1>
-                                <p className="font-DMSans text-[#2d2d2d90]">
-                                    A six digit OPT has been sent to your account. Input OTP below to reset your password
+                                <p className="font-DMSans text-[#2d2d2d90] text-center">
+                                    A six digit OPT has been sent to your email. Input OTP below to reset your password
                                 </p>
                             </div>
                             <div className="md:my-4 w-full flex items-center justify-between xs:p-4">
@@ -203,9 +221,10 @@ const ResetPassword = () => {
                             <div className="flex justify-center mt-10">
                                 <button
                                     type="submit"
+                                    disabled={loading}
                                     className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
                                 >
-                                    Reset Password
+                                    {loading ? "Reseting Password..." : "Reset Password"}
                                 </button>
                             </div>
                         </form>
