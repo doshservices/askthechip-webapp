@@ -76,7 +76,6 @@ function App() {
                 <Route path="/pricing" element={<Pricing />} />
                 <Route path="/pricing/payment" element={<Payment />} />
                 <Route path="/verify" element={<Verify />} />
-                <Route path="/verify-mail" element={<VerifyMail />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/*" element={<Error />} />
                 {/* Protected routes */}

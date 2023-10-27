@@ -1,27 +1,94 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
+import { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { notify, warn } from "../App";
+import axios from "axios";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
 
 const ResetPassword = () => {
+    const [num1, setNum1] = useState("");
+    const [num2, setNum2] = useState("");
+    const [num3, setNum3] = useState("");
+    const [num4, setNum4] = useState("");
+    const [num5, setNum5] = useState("");
+    const [num6, setNum6] = useState("");
+    const [otp, setOtp] = useState("");
+
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
+
+    const num1Ref = useRef(null);
+    const num2Ref = useRef(null);
+    const num3Ref = useRef(null);
+    const num4Ref = useRef(null);
+    const num5Ref = useRef(null);
+    const num6Ref = useRef(null);
+
+    const defaultFormFields = {
+        otp: otp,
+        newPassword: "",
+    };
 
     const [showPassword, setShowPassword] = useState(false);
-    const defaultFormFields = {
-        password: "",
-        confirmPassword: "",
-    };
     const [formFields, setFormFields] = useState(defaultFormFields);
-    const { password, confirmPassword } = formFields;
+    console.log(formFields);
+    const { opt, newPassword } = formFields;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormFields({ ...formFields, [name]: value });
+        switch (name) {
+            case "num1":
+                setNum1(value.slice(0, 1));
+                if (value.length === 1) num2Ref.current.focus();
+                break;
+            case "num2":
+                setNum2(value.slice(0, 1));
+                if (value.length === 1) num3Ref.current.focus();
+                if (value.length === 0) num1Ref.current.focus();
+                break;
+            case "num3":
+                setNum3(value.slice(0, 1));
+                if (value.length === 1) num4Ref.current.focus();
+                if (value.length === 0) num2Ref.current.focus();
+                break;
+            case "num4":
+                setNum4(value.slice(0, 1));
+                if (value.length === 1) num5Ref.current.focus();
+                if (value.length === 0) num3Ref.current.focus();
+                break;
+            case "num5":
+                setNum5(value.slice(0, 1));
+                if (value.length === 1) num6Ref.current.focus();
+                if (value.length === 0) num4Ref.current.focus();
+                break;
+            case "num6":
+                setNum6(value.slice(0, 1));
+                if (value.length === 0) num5Ref.current.focus();
+                break;
+            default:
+                break;
+        }
     };
+    const { user, token } = useAuth()
 
-    const sendOtp = () => {
-        console.log("sent");
+    useEffect(() => {
+        const sumValue = num1 + num2 + num3 + num4 + num5 + num6;
+        setOtp(sumValue);
+    }, [otp]);
+
+    const reset = (e) => {
+        e.preventDefault();
+        num1Ref.current.value = "";
+        num2Ref.current.value = "";
+        num3Ref.current.value = "";
+        num4Ref.current.value = "";
+        num5Ref.current.value = "";
+        num6Ref.current.value = "";
+        console.log(otp);
     }
+
     return (
         <div className="font-Inter overflow-hidden bg-light">
             <div className="flex flex-col md:flex-row w-full">
@@ -32,70 +99,99 @@ const ResetPassword = () => {
                         </div>
                         <div className="font-bold text-primary90 ml-2">Askthechip</div>
                     </Link>
-                    <div className=" h-[calc(100vh_-_10rem)] overflow-y-auto">
-                        <form onSubmit={sendOtp} className="w-[90%] max-w-[468px] mx-auto h-full">
+                    <div className="h-[calc(100vh_-_10rem)] overflow-y-auto">
+                        <form onSubmit={reset} className="w-[90%] max-w-[468px] mx-auto h-full">
                             <div className="flex flex-col items-center mb-10">
-                                <h1 className="font-DMSans text-[30px] font-bold uppercase text-[#2d2d2d]">
+                                <h1 className="font-DMSans text-[20px] sm:text-[30px] font-bold uppercase text-[#2d2d2d] text-center">
                                     Reset Password
                                 </h1>
-                                {/* <p className="font-DMSans text-[#2d2d2d90]">
-                                    Forgot Password? No worries, input your email below
-                                </p> */}
+                                <p className="font-DMSans text-[#2d2d2d90]">
+                                    A six digit OPT has been sent to your account. Input OTP below to reset your password
+                                </p>
                             </div>
-                            <div className="flex flex-col mb-2">
+                            <div className="md:my-4 w-full flex items-center justify-between xs:p-4">
+                                <input
+                                    type="number"
+                                    name="num1"
+                                    value={num1}
+                                    onChange={handleChange}
+                                    ref={num1Ref}
+                                    autoComplete="off"
+                                    required
+                                    className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                                />
+                                <input
+                                    type="number"
+                                    name="num2"
+                                    value={num2}
+                                    onChange={handleChange}
+                                    ref={num2Ref}
+                                    autoComplete="off"
+                                    required
+                                    className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                                />
+                                <input
+                                    type="number"
+                                    name="num3"
+                                    value={num3}
+                                    onChange={handleChange}
+                                    ref={num3Ref}
+                                    autoComplete="off"
+                                    required
+                                    className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                                />
+                                <input
+                                    type="number"
+                                    name="num4"
+                                    value={num4}
+                                    onChange={handleChange}
+                                    ref={num4Ref}
+                                    autoComplete="off"
+                                    required
+                                    className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                                />
+                                <input
+                                    type="number"
+                                    name="num5"
+                                    value={num5}
+                                    onChange={handleChange}
+                                    ref={num5Ref}
+                                    autoComplete="off"
+                                    required
+                                    className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                                />
+                                <input
+                                    type="number"
+                                    name="num6"
+                                    value={num6}
+                                    onChange={handleChange}
+                                    ref={num6Ref}
+                                    autoComplete="off"
+                                    required
+                                    className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                                />
+                            </div>
+                            <div className="flex flex-col mb-2 mt-8">
                                 <label
                                     htmlFor="password"
-                                    className="font-DMSans text-sm mb-2"
-                                >
-                                    Password
+                                    className="font-DMSans text-sm mb-2">
+                                    New Password
                                 </label>
                                 <div className="flex border border-[#2d2d2d] rounded-full">
                                     <input
                                         className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                                         type={showPassword ? "text" : "password"}
-                                        name="password"
-                                        id="password"
+                                        name="newPassword"
+                                        id="newPassword"
                                         placeholder="Password here"
-                                        value={password}
+                                        value={newPassword}
                                         onChange={handleChange}
                                         minLength={8}
                                         required
                                     />
                                     <span
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="flex justify-center items-center mx-3 cursor-pointer"
-                                    >
-                                        <img
-                                            className="h-6"
-                                            src={showPassword ? crossedEye : eye}
-                                            alt="Show Password"
-                                        />
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="flex flex-col mb-2">
-                                <label
-                                    htmlFor="confirmPassword"
-                                    className="font-DMSans text-sm mb-2"
-                                >
-                                    Confirm Password
-                                </label>
-                                <div className="flex border border-[#2d2d2d] rounded-full">
-                                    <input
-                                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                                        type={showPassword ? "text" : "password"}
-                                        name="confirmPassword"
-                                        id="confirmPassword"
-                                        placeholder="Confirm new password"
-                                        value={confirmPassword}
-                                        onChange={handleChange}
-                                        minLength={8}
-                                        required
-                                    />
-                                    <span
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        className="flex justify-center items-center mx-3 cursor-pointer"
-                                    >
+                                        className="flex justify-center items-center mx-3 cursor-pointer">
                                         <img
                                             className="h-6"
                                             src={showPassword ? crossedEye : eye}

@@ -6,7 +6,7 @@ import { notify, warn } from "../App";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 
-const VerifyMail = () => {
+const SetNewPassword = () => {
     const [num1, setNum1] = useState("");
     const [num2, setNum2] = useState("");
     const [num3, setNum3] = useState("");
@@ -15,8 +15,17 @@ const VerifyMail = () => {
     const [num6, setNum6] = useState("");
     const [otp, setOtp] = useState("");
 
+    const defaultFormFields = {
+        otp: otp,
+        newPassword: "",
+    };
+
+    const [formFields, setFormFields] = useState(defaultFormFields);
+    const { opt, newPassword } = formFields;
+
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState("")
+    const [showPassword, setShowPassword] = useState(false);
 
     const num1Ref = useRef(null);
     const num2Ref = useRef(null);
@@ -25,13 +34,14 @@ const VerifyMail = () => {
     const num5Ref = useRef(null);
     const num6Ref = useRef(null);
 
-    // window.onload = function () {
-    //     num1Ref.current.focus();
-    // };
     const { user, token } = useAuth()
+
+    const userMail = JSON.parse(localStorage.getItem("ask-u-mail"))
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        setFormFields({ ...formFields, [name]: value });
+
         switch (name) {
             case "num1":
                 setNum1(value.slice(0, 1));
@@ -74,8 +84,8 @@ const VerifyMail = () => {
 
     const redirectToHome = () => {
         setTimeout(() => {
-            navigate("/home");
-        }, 7500);
+            navigate("/reset-password");
+        }, 3000);
     };
 
     const handleSubmit = async (e) => {
@@ -90,13 +100,13 @@ const VerifyMail = () => {
         if (otp.length === 6) {
             setLoading(true);
             axios.post(url, { otp }, {
-                // mode: 'no-cors',
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
             }).then((response) => {
-                // notify("Email verification successful, you're being redirected")
+                // console.log(response);
+                notify("Email verification successful, you're being redirected")
                 redirectToHome();
                 setLoading(false);
             })
@@ -108,31 +118,6 @@ const VerifyMail = () => {
             setError("Fill in all feilds completley!!!")
         }
     };
-
-    const userEmail = JSON.parse(localStorage.getItem("authUser"))
-
-    const verifyAccount = async (e) => {
-        const url = `https://askthechip-hvp93.ondigitalocean.app/api/send-otp?email=${userEmail?.email}`
-        axios.get(url, {
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
-            .then((response) => {
-                // console.log(response);
-                notify("OTP has been sent to your mail")
-            }).catch((error) => {
-                // console.log(error);
-                warn("OTP failed in failed,", error)
-            })
-    }
-
-    useEffect(() => {
-        setTimeout(() => {
-            verifyAccount()
-        }, 2000)
-    }, [])
 
     return (
         <div className="font-Inter overflow-hidden">
@@ -151,10 +136,10 @@ const VerifyMail = () => {
                         <div className="w-[90%] max-w-[468px] mx-auto h-full flex flex-col justify-between">
                             <div className="flex flex-col items-center mb-[1.875rem]">
                                 <h1 className="font-DMSans text-[30px] font-bold mb-2 uppercase text-[#2d2d2d]">
-                                    Verify Email
+                                    Set New Pasword
                                 </h1>
                                 <p className="font-DMSans text-[#2d2d2d90] text-center">
-                                    A One-Time Password has been sent to {userEmail?.email}
+                                    A One-Time Password has been sent to {userMail}
                                 </p>
                             </div>
                             {error ? <p className="font-DMSans text-[1.2rem] text-[#FF3B30] text-center">
@@ -224,6 +209,37 @@ const VerifyMail = () => {
                                             className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                                         />
                                     </div>
+                                    <div className="flex flex-col mb-2">
+                                        <label
+                                            htmlFor="password"
+                                            className="font-DMSans text-sm mb-2"
+                                        >
+                                            Password
+                                        </label>
+                                        <div className="flex border border-[#2d2d2d] rounded-full">
+                                            <input
+                                                className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                                                type={showPassword ? "text" : "password"}
+                                                name="password"
+                                                id="password"
+                                                placeholder="Password here"
+                                                value={password}
+                                                onChange={handleChange}
+                                                minLength={8}
+                                                required
+                                            />
+                                            <span
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                className="flex justify-center items-center mx-3 cursor-pointer"
+                                            >
+                                                <img
+                                                    className="h-6"
+                                                    src={showPassword ? crossedEye : eye}
+                                                    alt="Show Password"
+                                                />
+                                            </span>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <div>
@@ -233,7 +249,7 @@ const VerifyMail = () => {
                                         type="submit"
                                         className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
                                     >
-                                        {loading ? "Verifying..." : "Verify"}
+                                        {loading ? "Setting Password..." : "Set Password"}
                                     </button>
                                 </div>
                                 <div className="font-DMSans text-sm text-center pb-4">
@@ -259,4 +275,4 @@ const VerifyMail = () => {
     );
 };
 
-export default VerifyMail;
+export default SetNewPassword;

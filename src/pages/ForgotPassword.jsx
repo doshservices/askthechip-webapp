@@ -1,27 +1,49 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import logo from "./../assets/ask.svg";
-import eye from "./../assets/icons/eye.svg";
-import crossedEye from "./../assets/icons/crossed-eye.svg";
-import googleLogo from "../assets/icons/google-logo.svg";
-
-const defaultFormFields = {
-  password: "",
-  email: "",
-};
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { useState } from "react";
 
 const ForgotPassword = () => {
+
+  const defaultFormFields = {
+    email: "",
+  };
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email } = formFields;
+
+  const url = "https://askthechip-hvp93.ondigitalocean.app/api/users/forgot-password";
+
+  const token = useAuth();
+  const navigate = useNavigate()
+  const [submiting, setSubmiting] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const sendOtp = () => {
-    console.log("sent");
-  }
+  const sendOtp = async (e) => {
+    setSubmiting(true)
+    localStorage.setItem("ask-u-mail", JSON.stringify(formFields.email))
+    e.preventDefault();
+    await axios.post(url, formFields, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      setSubmiting(false)
+      // console.log(response);
+      if (response.data.data.status === "success") {
+        navigate("/reset-password")
+      }
+    }).catch((error) => {
+      setSubmiting(false)
+      // console.log(error);
+    });
+  };
 
   return (
     <div className="font-Inter overflow-hidden bg-light">
@@ -66,9 +88,8 @@ const ForgotPassword = () => {
               <div className="flex justify-center mt-10">
                 <button
                   type="submit"
-                  className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300"
-                >
-                  Confirm Email Address
+                  className="bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300">
+                  {submiting ? "Confirming Email Address..." : "Confirm Email Address"}
                 </button>
               </div>
             </form>
