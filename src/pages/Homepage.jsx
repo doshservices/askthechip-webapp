@@ -43,6 +43,7 @@ const HomePage = () => {
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
+      // console.log(response);
       const getPosts = response.data.data.post;
       setPosts(getPosts);
       setLoading(false);

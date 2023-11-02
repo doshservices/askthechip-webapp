@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-// import profile from "../../../assets/Profile Picture.png";
-import profileImage from "../../../assets/images/profile-picture.png";
 import like from "../../../assets/icons/like-icon.svg";
 import dislike from "../../../assets/icons/dislike-icon.svg";
-import share from "../../../assets/icons/share-icon.svg";
 import comment from "../../../assets/icons/comment-icon.svg";
 import reply from "../../../assets/icons/reply-icon.svg";
 import threeDotsIcon from "../../../assets/icons/three-dots.svg";
@@ -13,12 +10,12 @@ import DeleteModal from "../../DeletePost/DeleteModal";
 import EditPost from "../../EditPost/EditPost";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
-import { warn } from "../../../App";
 import Comment from "./Comment";
 import Comments from "./Comments";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 const reactions = [
   {
@@ -60,9 +57,9 @@ function getTimeAgo(timestamp) {
 }
 
 const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
-  // console.log(post, "postsss");
   const pathname = window.location.pathname;
   const [likes, setLikes] = useState(0);
+  const [usersLikes, setUsersLikes] = useState(null)
   const [comments, setComments] = useState([]);
   const [viewAllComments, setViewAllComments] = useState(false);
   const [loadingLikes, setLoadingLikes] = useState(false);
@@ -89,7 +86,6 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     setShowMore(false);
   };
   const poster = post?.userId;
-  // console.log(poster, "hellooo");
   const username =
     poster?.role === "USER"
       ? `${poster.firstName} ${poster.lastName}`
@@ -110,11 +106,31 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       ? `${user?.firstName} ${user?.lastName}`
       : `${user?.companyName}`;
   };
+
+  const getLikesById = async () => {
+    await axios.get(`https://askthechip-hvp93.ondigitalocean.app/api/post/get-likes?postId=${post._id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }).then((res) => {
+      setUsersLikes(res?.data?.data?.post.map(item => item?.userId?._id))
+    }).catch((err) => {
+      console.log(err);
+      setLoadingLikePost(false);
+    })
+  };
+
+  useEffect(() => {
+    getLikesById()
+  }, [])
+
   const handleLikePost = async () => {
-    setLoadingLikePost(true);
+    const searchString = user?._id;
+    const likeAction = usersLikes.includes(searchString) ? "unlike" : "like";
     try {
       const res = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/post/like-post?postId=${post._id}`,
+        `https://askthechip-hvp93.ondigitalocean.app/api/post/${likeAction}-post?postId=${post._id}`,
         {
           method: "POST",
           headers: {
@@ -126,21 +142,16 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       if (res.ok) {
         const likePostRes = await res.json();
         const likePostData = likePostRes.data;
-        setLikes(likes + 1);
-        // console.log('Like post response here', likePostRes)
-        // console.log('Like post data here', likePostData)
-        // setLikePost(getPosts);
-        setLoadingLikePost(false);
+        console.log('Like post response here', likePostRes)
+        console.log('Like post data here', likePostData)
+        setLikes(likeAction === "like" ? likes + 1 : likes - 1);
       }
     } catch (error) {
-      // console.log(error);
-      setLoadingLikePost(false);
-      // warn("An error has occured, pls try again!");
+      console.log(error);
     }
   };
 
   const handleLikesValue = async () => {
-    setLoadingLikes(true);
     try {
       const res = await fetch(
         `https://askthechip-hvp93.ondigitalocean.app/api/post/get-likes?postId=${post._id}`,
@@ -152,19 +163,22 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
           },
         }
       );
+
       if (res.ok) {
         const likesRes = await res.json();
         const likesData = likesRes.data.post.length;
         // console.log('Likes response here', likesRes)
         setLikes(likesData);
-        setLoadingLikes(false);
       }
     } catch (error) {
-      // console.log(error);
-      setLoadingLikes(false);
-      // warn("An error has occured, pls try again!");
     }
   };
+
+  useEffect(() => {
+    handleLikesValue()
+    getLikesById()
+  }, [likes])
+
   const handleViewAllComments = () => {
     setViewAllComments(!viewAllComments);
   };
