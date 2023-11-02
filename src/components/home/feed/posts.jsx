@@ -142,8 +142,8 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       if (res.ok) {
         const likePostRes = await res.json();
         const likePostData = likePostRes.data;
-        console.log('Like post response here', likePostRes)
-        console.log('Like post data here', likePostData)
+        // console.log('Like post response here', likePostRes)
+        // console.log('Like post data here', likePostData)
         setLikes(likeAction === "like" ? likes + 1 : likes - 1);
       }
     } catch (error) {

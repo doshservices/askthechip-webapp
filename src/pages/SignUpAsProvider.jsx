@@ -8,17 +8,19 @@ import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
 import { inform, notify, warn } from "../App";
+import axios from "axios";
 
 const defaultFormFields = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  phoneNumber: "",
-  type: "",
-  password: "",
-  confirmPassword: "",
   companyName: "",
   officeAddress: "",
+  phoneNumber: "",
+  email: "",
+  password: "",
+  gender: "MALE",
+  role: "SERVICE_PROVIDER",
+  serviceType: "",
+  confirmPassword: "",
+  googleSigned: true,
 };
 
 const SignUpAsProvider = () => {
@@ -53,20 +55,17 @@ const SignUpAsProvider = () => {
   };
 
   const {
-    firstName,
-    lastName,
-    email,
-    phoneNumber,
-    password,
-    confirmPassword,
     companyName,
     officeAddress,
+    phoneNumber,
+    email,
+    password,
+    confirmPassword,
   } = formFields;
 
-
-  const redirectToLogin = () => {
+  const redirectToHome = () => {
     setTimeout(() => {
-      navigateTo('/login');
+      navigateTo('/profile');
     }, 2500);
   };
 
@@ -82,18 +81,18 @@ const SignUpAsProvider = () => {
   };
 
   const getIndividualDetails = () => {
-    const { firstName, lastName, email, phoneNumber, password } = formFields;
+    const { companyName, officeAddress, phoneNumber, email, password } = formFields;
     const { serviceType } = selectedOptions;
     const data = {
-      firstName,
-      lastName,
-      email,
+      companyName,
+      officeAddress,
       phoneNumber,
+      email,
       password,
       gender: "MALE",
       role: "SERVICE_PROVIDER",
-      governmentId: governmentId,
-      serviceType,
+      serviceType: serviceType,
+      representativeId: representativeId,
       googleSigned: false
     };
     return data;
@@ -119,7 +118,6 @@ const SignUpAsProvider = () => {
   };
   const businessDetails = getBusinessDetails();
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.removeItem("authUser");
@@ -134,38 +132,30 @@ const SignUpAsProvider = () => {
     } else {
       setLoadingBusiness(true);
     }
-    try {
-      const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users'
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(accountUser === "INDIVIDUAL" ? individualDetails : businessDetails)
-      })
-      if (res.ok) {
-        // console.log("Successful, you'll be redirected to login page!")
-        notify("Successful, redirecting you to login page")
-        redirectToLogin();
-      }
-      if (!res.ok) {
-        const dataRes = await res.json();
-        warn(dataRes.message)
-      }
+    const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users'
+    axios.post(url, accountUser === "INDIVIDUAL" ? individualDetails : businessDetails, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then((response) => {
+      console.log(response);
+      console.log("Successful, you'll be redirected to login page!")
+      notify("Successful, redirecting you to login page")
       if (accountUser === "INDIVIDUAL") {
         setLoading(false);
       } else {
         setLoadingBusiness(false);
       }
-    } catch (err) {
-      // console.log(err);
-      warn("Error has occured", err ? `:${err}` : "");
+      redirectToHome()
+    }).catch((error) => {
+      console.log(error);
+      warn(error);
       if (accountUser === "INDIVIDUAL") {
         setLoading(false);
       } else {
         setLoadingBusiness(false);
       }
-    }
+    })
   }
 
   return (
@@ -182,8 +172,8 @@ const SignUpAsProvider = () => {
           <div className="h-[calc(100vh_-_8rem)] md:h-[calc(100vh_-_10rem)] overflow-y-auto">
             <div className="w-[90%] max-w-[468px] mx-auto h-full">
               <div className="flex flex-col items-center mb-[1.875rem]">
-                <h1 className="font-DMSans text-[30px] font-bold mb-2 uppercase text-[#2d2d2d]">
-                  Create an account
+                <h1 className="font-DMSans text-[1.6rem] text-center font-bold mb-2 uppercase text-[#2d2d2d]">
+                  CREATE ACCOUNT AS A SERVICE PROVIDER
                 </h1>
                 <p className="font-DMSans text-[#2d2d2d90]">
                   Fill out the fields below to create your account as a service provider
@@ -199,7 +189,7 @@ const SignUpAsProvider = () => {
                         : `mr-2 md:mr-[22px] px-4 md:px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
                     }
                   >
-                    For Individual
+                    As Individual
                   </div>
                   <div
                     onClick={handleSwitchAccount}
@@ -209,7 +199,7 @@ const SignUpAsProvider = () => {
                         : `px-4 md:px-7 text-[#2d2d2d] rounded-full py-1.5 cursor-pointer`
                     }
                   >
-                    For Business
+                    As Business
                   </div>
                 </div>
               </div>
@@ -218,40 +208,40 @@ const SignUpAsProvider = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                     <div className="flex flex-col mb-5">
                       <label
-                        htmlFor="firstName"
+                        htmlFor="companyName"
                         className="font-DMSans text-sm mb-2"
                       >
-                        First Name
+                        Company Name
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full">
                         <input
                           className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                           type="text"
-                          name="firstName"
-                          id="firstName"
-                          value={firstName}
+                          name="companyName"
+                          id="companyName"
+                          value={companyName}
                           onChange={handleChange}
-                          placeholder="First Name Here"
+                          placeholder="Company Name Here"
                           required
                         />
                       </div>
                     </div>
                     <div className="flex flex-col mb-5">
                       <label
-                        htmlFor="lastName"
+                        htmlFor="officeAddress"
                         className="font-DMSans text-sm mb-2"
                       >
-                        Last Name
+                        Office Address
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full bg-transparent">
                         <input
                           className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                           type="text"
-                          name="lastName"
-                          id="lastName"
-                          value={lastName}
+                          name="officeAddress"
+                          id="officeAddress"
+                          value={officeAddress}
                           onChange={handleChange}
-                          placeholder="Last Name Here"
+                          placeholder="Office Address Here"
                           required
                         />
                       </div>
@@ -280,7 +270,7 @@ const SignUpAsProvider = () => {
                     </div>
                     <div className="flex flex-col mb-5">
                       <label
-                        htmlFor="phone"
+                        htmlFor="phoneNumber"
                         className="font-DMSans text-sm mb-2"
                       >
                         Phone Number{" "}
@@ -291,9 +281,9 @@ const SignUpAsProvider = () => {
                       <div className="border border-[#2d2d2d] rounded-full">
                         <input
                           className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                          type="number"
+                          type="tel"
                           name="phoneNumber"
-                          id="phone"
+                          id="phoneNumber"
                           value={phoneNumber}
                           onChange={handleChange}
                           placeholder="+234 902 360 0083"
@@ -388,8 +378,8 @@ const SignUpAsProvider = () => {
                     </div>
                   </div>
                   <div className="mb-5 mt-3">
-                    <div className="font-DMSans text-sm">Government ID</div>
-                    <FileUploadInput state={governmentId} handleState={handleGovernmentId} />
+                    <div className="font-DMSans text-sm">Valid ID</div>
+                    <FileUploadInput name="representativeId" id="representativeId" state={governmentId} handleState={handleGovernmentId} />
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
                     <button
@@ -418,43 +408,115 @@ const SignUpAsProvider = () => {
               )}
               {accountUser === "BUSINESS" && (
                 <form onSubmit={handleSubmit}>
-                  <div className="flex flex-col mb-5">
-                    <label
-                      htmlFor="companyName"
-                      className="font-DMSans text-sm mb-2"
-                    >
-                      Company Name
-                    </label>
-                    <div className="border border-[#2d2d2d] rounded-full">
-                      <input
-                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                        type="text"
-                        name="companyName"
-                        id="companyName"
-                        value={companyName}
-                        onChange={handleChange}
-                        placeholder="Enter Company Name Here"
-                        required
-                      />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
+                    <div className="flex flex-col mb-5">
+                      <label
+                        htmlFor="companyName"
+                        className="font-DMSans text-sm mb-2"
+                      >
+                        Company Name
+                      </label>
+                      <div className="border border-[#2d2d2d] rounded-full">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type="text"
+                          name="companyName"
+                          id="companyName"
+                          value={companyName}
+                          onChange={handleChange}
+                          placeholder="Company Name Here"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col mb-5">
+                      <label
+                        htmlFor="officeAddress"
+                        className="font-DMSans text-sm mb-2"
+                      >
+                        Office Address
+                      </label>
+                      <div className="border border-[#2d2d2d] rounded-full bg-transparent">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type="text"
+                          name="officeAddress"
+                          id="officeAddress"
+                          value={officeAddress}
+                          onChange={handleChange}
+                          placeholder="Office Address Here"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
+                    <div className="flex flex-col mb-5">
+                      <label
+                        htmlFor="email"
+                        className="font-DMSans text-sm mb-2"
+                      >
+                        Email Address
+                      </label>
+                      <div className="border border-[#2d2d2d] rounded-full bg-transparent">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type="email"
+                          name="email"
+                          id="email"
+                          value={email}
+                          onChange={handleChange}
+                          placeholder="Email Address Here"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col mb-5">
+                      <label
+                        htmlFor="phoneNumber"
+                        className="font-DMSans text-sm mb-2"
+                      >
+                        Phone Number{" "}
+                        <span className="text-[0.5625rem]">
+                          (Add country code)
+                        </span>
+                      </label>
+                      <div className="border border-[#2d2d2d] rounded-full">
+                        <input
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          type="tel"
+                          name="phoneNumber"
+                          id="phoneNumber"
+                          value={phoneNumber}
+                          onChange={handleChange}
+                          placeholder="+234 902 360 0083"
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-col mb-5">
                     <label htmlFor="email" className="font-DMSans text-sm mb-2">
-                      Email Address
+                      Service Type
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
-                      <input
-                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                        type="email"
-                        name="email"
-                        id="email"
-                        value={email}
-                        onChange={handleChange}
-                        placeholder="Email Address Here"
-                        required
-                      />
+                      <select name="serviceType" value={selectedOptions.serviceType} onChange={handleSelectChange} className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
+                        <option disabled defaultValue value="">
+                          Select Service Type
+                        </option>
+                        <option value="ACCOUNTING">Accounting</option>
+                        <option value="ADMINISTRATIVE">Administrative</option>
+                        <option value="CONSULTING">Consulting</option>
+                        <option value="FINANCIAL">Financial</option>
+                        <option value="LEGAL">Legal</option>
+                        <option value="MARKETING">Marketing</option>
+                        <option value="MENTORSHIP">Mentorship</option>
+                        <option value="TECHNOLOGY">Technology</option>
+                        <option value="TRAINING">Training</option>
+                      </select>
                     </div>
                   </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 mb-3">
                     <div className="flex flex-col mb-2">
                       <label
@@ -519,74 +581,13 @@ const SignUpAsProvider = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col mb-5">
-                    <label htmlFor="email" className="font-DMSans text-sm mb-2">
-                      Service Type
-                    </label>
-                    <div className="border border-[#2d2d2d] rounded-full">
-                      <select name="serviceType" value={selectedOptions.serviceType} onChange={handleSelectChange} className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                        <option disabled defaultValue value="">
-                          Select Service Type
-                        </option>
-                        <option value="ACCOUNTING">Accounting</option>
-                        <option value="ADMINISTRATIVE">Administrative</option>
-                        <option value="CONSULTING">Consulting</option>
-                        <option value="FINANCIAL">Financial</option>
-                        <option value="LEGAL">Legal</option>
-                        <option value="MARKETING">Marketing</option>
-                        <option value="MENTORSHIP">Mentorship</option>
-                        <option value="TECHNOLOGY">Technology</option>
-                        <option value="TRAINING">Training</option>
-                      </select>
-                    </div>
-                  </div>
 
-                  <div className="flex flex-col mb-5">
-                    <label htmlFor="phone" className="font-DMSans text-sm mb-2">
-                      Phone Number{" "}
-                      <span className="text-[0.5625rem]">
-                        (Add country code)
-                      </span>
-                    </label>
-                    <div className="border border-[#2d2d2d] rounded-full">
-                      <input
-                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                        type="text"
-                        name="phoneNumber"
-                        id="phone"
-                        value={phoneNumber}
-                        onChange={handleChange}
-                        placeholder="+234 902 360 0083"
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col mb-5">
-                    <label
-                      htmlFor="officeAddress"
-                      className="font-DMSans text-sm mb-2"
-                    >
-                      Office Address
-                    </label>
-                    <div className="border border-[#2d2d2d] rounded-full">
-                      <input
-                        className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                        type="text"
-                        name="officeAddress"
-                        id="officeAddress"
-                        value={officeAddress}
-                        onChange={handleChange}
-                        placeholder="Enter Office Address Here"
-                        required
-                      />
-                    </div>
-                  </div>
                   <div className="mb-5">
                     <div className="font-DMSans text-sm">CAC Certificate</div>
-                    <FileUploadInput state={cacDocument} handleState={handleCacDocument} />
+                    <FileUploadInput name="cacDocument" id="cacDocument" state={cacDocument} handleState={handleCacDocument} />
                   </div>
                   <div>
-                    <div className="flex flex-col mb-5">
+                    {/* <div className="flex flex-col mb-5">
                       <label
                         htmlFor="serviceType"
                         className="font-DMSans text-sm mb-2"
@@ -609,8 +610,11 @@ const SignUpAsProvider = () => {
                           <option value="VOTERS_CARD">Voter's card</option>
                         </select>
                       </div>
+                    </div> */}
+                    <div className="mb-5">
+                      <div className="font-DMSans text-sm">Valid ID</div>
+                      <FileUploadInput name="representativeId" id="representativeId" state={governmentId} handleState={handleGovernmentId} />
                     </div>
-                    <FileUploadInput state={representativeId} handleState={handleRepIdSelect} />
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
                     <button

@@ -14,7 +14,7 @@ export const fileToBase64 = (file) => {
   });
 };
 
-function FileUploadInput({ state, handleState }) {
+function FileUploadInput({ state, handleState, name, id }) {
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -48,7 +48,7 @@ function FileUploadInput({ state, handleState }) {
             ? "The document file has been uploaded"
             : "Click here to upload the document file"}
         </span>
-        <input type="file" className="hidden" onChange={handleFileChange} />
+        <input type="file" name={name} id={id} className="hidden" onChange={handleFileChange} />
       </label>
     </div>
   );

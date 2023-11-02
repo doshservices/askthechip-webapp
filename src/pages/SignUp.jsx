@@ -159,14 +159,14 @@ const SignUp = () => {
           <div className="h-[calc(100vh_-_8rem)] md:h-[calc(100vh_-_10rem)] overflow-y-auto">
             <div className="w-[90%] max-w-[468px] mx-auto h-full">
               <div className="flex flex-col items-center mb-[1.875rem]">
-                <h1 className="font-DMSans text-[30px] font-bold mb-2 uppercase text-[#2d2d2d]">
-                  Create an account
+                <h1 className="font-DMSans text-[1.6rem] font-bold mb-2 uppercase text-[#2d2d2d]">
+                  CREATE ACCOUNT AS A USER
                 </h1>
                 <p className="font-DMSans text-[#2d2d2d90]">
                   Fill out the fields below to create your account as a user
                 </p>
               </div>
-              <div className="flex justify-center mb-10">
+              {/* <div className="flex justify-center mb-10">
                 <div className="flex justify-center text-light text-sm rounded-full border-[0.0694rem] border-[#2d2d2d] w-fit p-[0.375rem]">
                   <div
                     onClick={handleSwitchAccount}
@@ -189,7 +189,7 @@ const SignUp = () => {
                     For Business
                   </div>
                 </div>
-              </div>
+              </div> */}
               {accountUser === "INDIVIDUAL" && (
                 <form onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
