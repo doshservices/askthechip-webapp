@@ -46,6 +46,7 @@ const SignIn = () => {
       },
     })
       .then((res) => {
+        // console.log(res);
         const authUser = res.data.data.user;
         const token = res.data.data.token;
         localStorage.setItem('token', token);

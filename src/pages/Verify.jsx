@@ -94,11 +94,13 @@ const Verify = () => {
           Authorization: `Bearer ${token}`
         },
       }).then((response) => {
+        // console.log(response);
         // notify("Email verification successful, you're being redirected")
         redirectToHome();
         setLoading(false);
       })
         .catch((error) => {
+          // console.log(error);
           setLoading(false);
           notify(error.message);
         })

@@ -63,9 +63,9 @@ const SignUpAsProvider = () => {
     confirmPassword,
   } = formFields;
 
-  const redirectToHome = () => {
+  const redirectToVerify = () => {
     setTimeout(() => {
-      navigateTo('/profile');
+      navigateTo('/verify');
     }, 2500);
   };
 
@@ -138,18 +138,23 @@ const SignUpAsProvider = () => {
         "Content-Type": "application/json"
       },
     }).then((response) => {
-      console.log(response);
-      console.log("Successful, you'll be redirected to login page!")
-      notify("Successful, redirecting you to login page")
+      // console.log(response);
+      // console.log("Successful, you'll be redirected to login page!")
+      // notify("Successful, redirecting you to login page")
+      const authUser = response.data.data.user;
+      const token = response.data.data.token;
+      localStorage.setItem('token', token);
+      localStorage.setItem('authUser', JSON.stringify(authUser));
+      setUser(authUser);
       if (accountUser === "INDIVIDUAL") {
         setLoading(false);
       } else {
         setLoadingBusiness(false);
       }
-      redirectToHome()
+      redirectToVerify()
     }).catch((error) => {
-      console.log(error);
-      warn(error);
+      // console.log(error);
+      warn(error.message);
       if (accountUser === "INDIVIDUAL") {
         setLoading(false);
       } else {
