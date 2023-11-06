@@ -17,60 +17,92 @@ const Share = ({ handleGetPosts }) => {
   const [postStatus, setPostStatus] = useState("");
   const [board, setBoard] = useState("WHITE_BOARD");
   const [loading, setLoading] = useState(false);
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState("");
   const { user, token } = useAuth();
   const { profile } = useProfile();
+  const [compressedImage, setCompressedImage] = useState(null);
+  // console.log(compressedImage);
 
   const handleTypePost = (e) => {
     setPostStatus(e.target.value);
   };
+
   const handleUploadClick = () => {
     fileInputRef.current.click();
   };
 
-  useEffect(() => {
-    if (cloudinary) {
-      cloudinary.setCloudName('pebbles-signature');
+  const handleFileSelect = async (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      try {
+        const image = new Image();
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          image.src = e.target.result;
+
+          image.onload = function () {
+            const maxWidth = 800; // Set the maximum width for the compressed image
+            const maxHeight = 800; // Set the maximum height for the compressed image
+            let imageWidth = image.width;
+            let imageHeight = image.height;
+
+            if (imageWidth > maxWidth || imageHeight > maxHeight) {
+              if (imageWidth > imageHeight) {
+                imageHeight = (maxWidth / imageWidth) * imageHeight;
+                imageWidth = maxWidth;
+              } else {
+                imageWidth = (maxHeight / imageHeight) * imageWidth;
+                imageHeight = maxHeight;
+              }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = imageWidth;
+            canvas.height = imageHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
+
+            // You can set the image quality as a value between 0 (poor quality) and 1 (highest quality)
+            const imageQuality = 0.7;
+            const compressedImageData = canvas.toDataURL('image/jpeg', imageQuality);
+
+            setCompressedImage(compressedImageData);
+
+          };
+
+          image.src = e.target.result;
+        };
+        reader.readAsDataURL(selectedFile);
+      } catch (error) {
+        console.error("Error compressing image:", error);
+      }
+      // try {
+      //   const base64String = await fileToBase64(selectedFile);
+      //   setFile(base64String);
+      //   localStorage.setItem("upk", JSON.stringify(file))
+      //   console.log(base64String);
+      // } catch (error) {
+      //   console.error("Error converting file to base64:", error);
+      // }
+    } else {
+      console.error("No file selected.");
     }
+  };
 
-    const handleUpload = () => {
-      cloudinary.openUploadWidget(
-        {
-          cloudName: 'pebbles-signature',
-          uploadPreset: 'pebbles',
-          sources: ['local', 'url', 'camera'],
-          showAdvancedOptions: true,
-        }, (error, result) => {
-          if (!error && result && result.event === 'success') {
-            // console.log('Uploaded image URL:', result.info.secure_url);
-            localStorage.setItem("upk", JSON.stringify(result.info.secure_url))
-          }
-        }
-      );
-    };
-    const uploadButton = document.getElementById('upload-button');
-    uploadButton.addEventListener('click', handleUpload);
-  }, []);
-
-  // const handleFileSelect = async (e) => {
-  // const selectedFile = e.target.files[0];
-  // try {
-  //   const base64String = await fileToBase64(selectedFile);
-  //   console.log(base64String);
-  // notify("File uploaded successfully");
-  // } catch (error) {
-  //   console.error("Error converting file to base64:", error);
-  //   inform("File not uploaded, try again!");
-  // }
-  // };
+  useEffect(() => {
+    localStorage.setItem("upk", JSON.stringify(compressedImage))
+    console.log(compressedImage);
+  }, [compressedImage])
 
   const handleChangeBoard = (e) => {
     setBoard(e.target.value);
   };
 
   const handleSubmit = async (e) => {
+    // console.log(token);
     e.preventDefault();
-
     try {
       setLoading(true);
       const res = await fetch(
@@ -90,7 +122,7 @@ const Share = ({ handleGetPosts }) => {
         }
       );
       if (res.ok) {
-        // console.log("Successfully published a post!");
+        // console.log("Successfully published a post!", res);
         // notify("Successfully published a post!");
         const resData = await res.json();
         // console.log(resData);
@@ -101,7 +133,7 @@ const Share = ({ handleGetPosts }) => {
       }
       setLoading(false);
     } catch (err) {
-      // console.log(err);
+      console.log(err);
       // warn("Failed to publish your post!");
       setLoading(false);
     }
@@ -113,7 +145,7 @@ const Share = ({ handleGetPosts }) => {
   const me = user;
   const username =
     me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`;
-  const dp = false;
+  // const dp = false;
 
   return (
     <section className="px-1 sm:px-0 border-b-[3px] sm:border-b-0 border-[#bebebe]">
@@ -133,6 +165,7 @@ const Share = ({ handleGetPosts }) => {
         </div>
         <form
           onSubmit={handleSubmit}
+          onChange={handleFileSelect}
           className={postStatus ? "col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-2xl bg-grey  border border-black/10" : "col-span-10 ml-2 pt-0 pl-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-lg sm:rounded-lg sm:bg-grey border border-black/10"}
         >
           <div className="flex w-full justify-between">
@@ -141,8 +174,8 @@ const Share = ({ handleGetPosts }) => {
                 placeholder="Share a post"
                 onChange={handleTypePost}
                 value={postStatus}
-                name="post"
-                id="post"
+                name="content"
+                id="content"
                 cols="100"
                 rows="1"
                 className="bg-transparent sm:bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray placeholder:text-xs w-full resize-none mt-2 mb-2 sm:mb-2 sm:mt-2"
@@ -150,7 +183,7 @@ const Share = ({ handleGetPosts }) => {
             </div>
             <div className="flex items-center mr-2">
               <div className="hidden sm:flex">
-                <div
+                <div onClick={handleUploadClick}
                   id="upload-button"
                   className="flex text-primary p-0 mx-0 my-2 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
                 >
@@ -158,7 +191,7 @@ const Share = ({ handleGetPosts }) => {
                   <input
                     type="file"
                     ref={fileInputRef}
-                    onChange={handleUploadClick}
+
                     className="hidden"
                   />
                 </div>
