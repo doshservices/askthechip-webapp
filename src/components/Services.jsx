@@ -1,15 +1,34 @@
-import React, { useState } from "react";
-import { servicesData } from "../data";
-import ServicesMobile from "./ServicesMobile";
-import { Header, Share } from "./home";
+import axios from "axios";
 import Service from "./Service";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { Header, Share } from "./home";
+import React, { useEffect, useState } from "react";
 
 const Services = () => {
-  const [serviceType, setServiceType] = useState("Accounting");
 
-  const handleServiceType = (service) => {
-    setServiceType(service);
-  };
+  const { token } = useAuth()
+
+  const [getAcc, setGetAcc] = useState([])
+
+  const searchProviders = async () => {
+    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=ACCOUNTING`
+    await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      // console.log(response.data.data);
+      setGetAcc(response.data.data)
+    }).catch((error) => {
+      // console.log(error);
+      throw error
+    })
+  }
+
+  useEffect(() => {
+    searchProviders();
+  }, [])
 
   return (
     <div className="grid grid-cols-12 bg-light">
@@ -19,13 +38,14 @@ const Services = () => {
           <Header />
         </div>
         <div className="ml-10 grid grid-cols-12">
-          { servicesData.map((serviceData, index)=> (
-            <Service key={index} serviceData={serviceData} />
-            ))
+          {getAcc.length > 0 ?
+            <>
+              <Service serviceData={getAcc} type="ACCOUNTING" />
+            </>
+            : null
           }
         </div>
       </div>
-      {/* <ServicesMobile serviceType={serviceType} /> */}
     </div>
   );
 };

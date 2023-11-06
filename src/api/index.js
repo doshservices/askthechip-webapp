@@ -1,7 +1,24 @@
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { useState } from "react";
 
 export const BASE_URL = "https://askthechip-hvp93.ondigitalocean.app/";
+
+export const searchProviders = async (type, token) => {
+  const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=${type}`
+  await axios.get(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((response) => {
+    // console.log({ dataRes: response.data.data });
+    return response.data.data;
+  }).catch((error) => {
+    // console.log(error);
+    // throw error
+  })
+}
 
 export const getUserById = async (userId) => {
   const { token } = useAuth();
