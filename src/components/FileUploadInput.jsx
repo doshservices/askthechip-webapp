@@ -1,5 +1,3 @@
-import { notify, warn } from "../App";
-
 export const fileToBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

@@ -1,15 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import profileImg from "../../../assets/images/profile-picture.png";
-import { BsEmojiSmile } from "react-icons/bs";
-import attachIcon from "../../../assets/icons/gif-icon.svg";
-import gifIcon from "../../../assets/icons/gif-icon.svg";
 import imageIcon from "../../../assets/icons/image-icon.svg";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
-import { notify, warn, inform } from "../../../App";
-import { fileToBase64 } from "../../FileUploadInput";
 import Loader from "../../Loader/Loader";
-import { usePosts } from "../../../contexts/PostContext/PostContext";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 
 const Share = ({ handleGetPosts }) => {
@@ -17,131 +9,84 @@ const Share = ({ handleGetPosts }) => {
   const [postStatus, setPostStatus] = useState("");
   const [board, setBoard] = useState("WHITE_BOARD");
   const [loading, setLoading] = useState(false);
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(null);
   const { user, token } = useAuth();
   const { profile } = useProfile();
-  const [compressedImage, setCompressedImage] = useState(null);
-  // console.log(compressedImage);
 
   const handleTypePost = (e) => {
     setPostStatus(e.target.value);
   };
+
+  // useEffect(() => {
+  // console.log(file);
+  // }, [file])
 
   const handleUploadClick = () => {
     fileInputRef.current.click();
   };
 
   const handleFileSelect = async (e) => {
-    const selectedFile = e.target.files[0];
+    try {
+      if (e.target.files && e.target.files.length > 0) {
+        const selectedFile = e.target.files[0];
 
-    if (selectedFile) {
-      try {
-        const image = new Image();
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-          image.src = e.target.result;
-
-          image.onload = function () {
-            const maxWidth = 800; // Set the maximum width for the compressed image
-            const maxHeight = 800; // Set the maximum height for the compressed image
-            let imageWidth = image.width;
-            let imageHeight = image.height;
-
-            if (imageWidth > maxWidth || imageHeight > maxHeight) {
-              if (imageWidth > imageHeight) {
-                imageHeight = (maxWidth / imageWidth) * imageHeight;
-                imageWidth = maxWidth;
-              } else {
-                imageWidth = (maxHeight / imageHeight) * imageWidth;
-                imageHeight = maxHeight;
-              }
-            }
-
-            const canvas = document.createElement('canvas');
-            canvas.width = imageWidth;
-            canvas.height = imageHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
-
-            // You can set the image quality as a value between 0 (poor quality) and 1 (highest quality)
-            const imageQuality = 0.7;
-            const compressedImageData = canvas.toDataURL('image/jpeg', imageQuality);
-
-            setCompressedImage(compressedImageData);
-
-          };
-
-          image.src = e.target.result;
-        };
-        reader.readAsDataURL(selectedFile);
-      } catch (error) {
-        console.error("Error compressing image:", error);
+        if (!selectedFile) {
+          // console.error("No file selected.");
+          return;
+        }
+        setFile(selectedFile);
+        setFile(selectedFile);
+      } else {
+        // console.error("No file selected.");
       }
-      // try {
-      //   const base64String = await fileToBase64(selectedFile);
-      //   setFile(base64String);
-      //   localStorage.setItem("upk", JSON.stringify(file))
-      //   console.log(base64String);
-      // } catch (error) {
-      //   console.error("Error converting file to base64:", error);
-      // }
-    } else {
-      console.error("No file selected.");
+    } catch (error) {
+      // console.error("Error selecting file:", error);
     }
   };
 
-  useEffect(() => {
-    localStorage.setItem("upk", JSON.stringify(compressedImage))
-    console.log(compressedImage);
-  }, [compressedImage])
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("content", postStatus);
+      formData.append("board", board);
+      if (file) {
+        formData.append("postImg", file);
+      }
+
+      const res = await fetch(
+        "https://askthechip-hvp93.ondigitalocean.app/api/create-post",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (res.ok) {
+        const resData = await res.json();
+        handleGetPosts();
+        setTimeout(() => {
+          localStorage.removeItem("upk");
+        }, 1000);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+      setPostStatus("");
+      setFile(null);
+    }
+  };
 
   const handleChangeBoard = (e) => {
     setBoard(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    // console.log(token);
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const res = await fetch(
-        "https://askthechip-hvp93.ondigitalocean.app/api/create-post",
-        {
-          method: "POST",
-          // mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            content: postStatus,
-            board,
-            postImg: JSON.parse(localStorage.getItem("upk")),
-          }),
-        }
-      );
-      if (res.ok) {
-        // console.log("Successfully published a post!", res);
-        // notify("Successfully published a post!");
-        const resData = await res.json();
-        // console.log(resData);
-        handleGetPosts();
-        setTimeout(() => {
-          localStorage.removeItem("upk")
-        }, 1000)
-      }
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      // warn("Failed to publish your post!");
-      setLoading(false);
-    }
-
-    setPostStatus("");
-    setFile(null);
-    setLoading(false);
-  };
   const me = user;
   const username =
     me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`;
@@ -191,8 +136,10 @@ const Share = ({ handleGetPosts }) => {
                   <input
                     type="file"
                     ref={fileInputRef}
-
                     className="hidden"
+                    onChange={handleFileSelect}
+                    name="postImg"
+                    id="postImg"
                   />
                 </div>
                 {/* <div
@@ -212,6 +159,7 @@ const Share = ({ handleGetPosts }) => {
                       className="text-sm bg-transparent my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
                       value={board}
                       onChange={handleChangeBoard}
+                      name="board"
                     >
                       <option value="WHITE_BOARD">White Board</option>
                       <option value="BLACK_BOARD">Black Board</option>
