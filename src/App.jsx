@@ -1,9 +1,8 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
 import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
+import "./App.scss";
 import {
   ChatPage,
   Error,

@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./Button/Button";
-import "../App.css";
+import "../App.scss";
 
 import header1 from "./../assets/images/header1_1.png";
 import header2 from "./../assets/images/header2.png";

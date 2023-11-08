@@ -1,12 +1,17 @@
+@import "./styles/pageLayout.scss";
+
 .testing {
     background-color: #75b8c880;
 }
+
 .swiper {
     z-index: 1 !important;
 }
+
 .swiper-pagination-bullets {
     align-items: center;
 }
+
 .swiper-pagination-bullet {
     color: white !important;
     background-color: white !important;
@@ -14,9 +19,11 @@
     opacity: 1 !important;
     padding: 6px !important;
 }
-.swiper-pagination-bullet:not(.swiper-pagination-bullet-active){
+
+.swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
     margin-bottom: 3px !important;
 }
+
 .swiper-pagination-bullet-active {
     outline: white !important;
     border: 1px solid white !important;
@@ -24,7 +31,8 @@
     padding: 10px !important;
     position: relative;
 }
-.swiper-pagination-bullet-active::before{
+
+.swiper-pagination-bullet-active::before {
     content: '○';
     color: white !important;
     border-radius: 50%;
@@ -33,6 +41,7 @@
     left: -1.4px;
     font-size: 38px;
 }
+
 .active {
     color: #068978;
     font-weight: 500;
@@ -78,39 +87,47 @@
 .custom-shape-divider-bottom .shape-fill {
     fill: #F8F8F8;
 }
+
 @media (max-width: 1024px) {
-    .custom-shape-divider-top svg { 
+    .custom-shape-divider-top svg {
         height: 4rem;
-    } 
-    .custom-shape-divider-bottom svg { 
+    }
+
+    .custom-shape-divider-bottom svg {
         height: 4rem;
-    } 
+    }
 }
+
 @media (max-width: 768px) {
-    .custom-shape-divider-top svg { 
+    .custom-shape-divider-top svg {
         height: 2.5rem;
-    } 
+    }
+
     .custom-shape-divider-bottom {
         bottom: -7px;
     }
-    .custom-shape-divider-bottom svg { 
+
+    .custom-shape-divider-bottom svg {
         height: 2.5rem;
-    } 
+    }
 }
 
 @media (max-width: 640px) {
-    .custom-shape-divider-top svg { 
+    .custom-shape-divider-top svg {
         height: 2rem;
     }
-    .custom-shape-divider-bottom svg { 
+
+    .custom-shape-divider-bottom svg {
         height: 2rem;
     }
 }
+
 @media (max-width: 576px) {
-    .custom-shape-divider-top svg { 
+    .custom-shape-divider-top svg {
         height: 1.5rem;
     }
-    .custom-shape-divider-bottom svg { 
+
+    .custom-shape-divider-bottom svg {
         height: 2rem;
     }
 }
