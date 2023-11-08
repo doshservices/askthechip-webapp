@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
-import { requestMentorship } from "../api";
 import { notify, warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import Loader from "./Loader/Loader";
 import axios from "axios";
 
 const defaultFormFields = {
-  email: "",
-  phoneNumber: "",
   others: "",
 };
 
@@ -17,18 +14,19 @@ const Mentorship = () => {
   const [industry, setIndustry] = useState();
   const [loading, setLoading] = useState();
   const { user, token } = useAuth();
-  const { email, phoneNumber, others } = formFields;
+  const { others } = formFields;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
+
   const handleIndustryChange = (e) => {
     setIndustry(e.target.value);
   };
 
-
   const handleSubmit = async (e) => {
+    // console.log(industry, formFields);
     e.preventDefault();
     setLoading(true);
     const data = {
@@ -41,10 +39,12 @@ const Mentorship = () => {
         Authorization: `Bearer ${token}`,
       }
     }).then((response) => {
+      // console.log(response);
       setFormFields(defaultFormFields);
       notify("Mentor Request successful");
       setLoading(false);
     }).catch((error) => {
+      console.log(error);
       warn("Something went wrong, try again!");
       setLoading(false);
     })
@@ -62,7 +62,7 @@ const Mentorship = () => {
         </div>
         <div className="mt-6 ml-0 md:ml-6 mr-0 md:mr-8">
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col mb-5">
+            {/* <div className="flex flex-col mb-5">
               <label htmlFor="email" className="font-DMSans text-sm mb-2">
                 Email
               </label>
@@ -78,8 +78,8 @@ const Mentorship = () => {
                   required
                 />
               </div>
-            </div>
-            <div className="flex flex-col mb-5">
+            </div> */}
+            {/* <div className="flex flex-col mb-5">
               <label htmlFor="phoneNumber" className="font-DMSans text-sm mb-2">
                 Phone Number
               </label>
@@ -95,7 +95,7 @@ const Mentorship = () => {
                   required
                 />
               </div>
-            </div>
+            </div> */}
             <div className="flex flex-col mb-5">
               <label htmlFor="email" className="font-DMSans text-sm mb-2">
                 Select Industry

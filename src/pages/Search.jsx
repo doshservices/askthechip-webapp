@@ -5,14 +5,13 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { UserSearch } from "../components/home/search/userSearch";
 import { UserResults } from "../components/search/UserResults";
 import { ThreeDots } from "react-loader-spinner";
-import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 
 const Search = () => {
     const [users, setUsers] = useState([])
     const [userValue, setUserValue] = useState("")
     const [results, setResults] = useState("all")
     const [isFetching, setIsFetching] = useState(false)
-    const profile = useProfile()
+    const [error, setError] = useState("")
 
     const handleChange = (e) => setUserValue(e.target.value)
 
@@ -30,8 +29,9 @@ const Search = () => {
                 setIsFetching(false)
                 setUsers(response?.data?.data)
             }).catch((error) => {
+                console.log(error);
                 setIsFetching(false)
-                // console.log(error);
+                setError(error.message)
             })
     }
 
@@ -92,7 +92,8 @@ const Search = () => {
                                 }
                             </>
                         }
-                    </> : <p className="font-OpenSans mt-2 text-[1rem] font-[500] text-secondary">No User Found</p>
+
+                    </> : <p className="font-OpenSans mt-2 text-[1rem] font-[500] text-secondary">{error}</p>
                 }
             </div>
         </section>
