@@ -90,7 +90,7 @@ const SignUpAsProvider = () => {
       email,
       password,
       gender: "MALE",
-      role: "BUSINESS",
+      role: "INDIVIDUAL",
       serviceType: serviceType,
       representativeId: representativeId,
       googleSigned: false
@@ -108,7 +108,7 @@ const SignUpAsProvider = () => {
       email,
       password,
       gender: "MALE",
-      role: "SERVICE_PROVIDER",
+      role: "BUSINESS",
       serviceType: serviceType,
       cacDocument: cacDocument,
       representativeId: representativeId,
@@ -155,6 +155,7 @@ const SignUpAsProvider = () => {
     }).catch((error) => {
       console.log(error);
       warn(error.response.data.message);
+      setLoadingBusiness(false);
       if (accountUser === "INDIVIDUAL") {
         setLoading(false);
       } else {

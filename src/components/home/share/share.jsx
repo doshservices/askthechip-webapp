@@ -206,6 +206,7 @@ const Share = ({ handleGetPosts }) => {
                   />
                 </div> */}
                 <div
+                  onClick={handleUploadClick}
                   id="upload-button"
                   className="flex text-primary p-0 mx-0 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center"
                 >
@@ -213,8 +214,10 @@ const Share = ({ handleGetPosts }) => {
                   <input
                     type="file"
                     ref={fileInputRef}
-                    onChange={handleUploadClick}
                     className="hidden"
+                    onChange={handleFileSelect}
+                    name="postImg"
+                    id="postImg"
                   />
                 </div>
                 {/* <div

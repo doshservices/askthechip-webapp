@@ -116,7 +116,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     }).then((res) => {
       setUsersLikes(res?.data?.data?.post.map(item => item?.userId?._id))
     }).catch((err) => {
-      console.log(err);
+      // console.log(err);
       setLoadingLikePost(false);
     })
   };
