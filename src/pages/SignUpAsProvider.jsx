@@ -90,7 +90,7 @@ const SignUpAsProvider = () => {
       email,
       password,
       gender: "MALE",
-      role: "SERVICE_PROVIDER",
+      role: "BUSINESS",
       serviceType: serviceType,
       representativeId: representativeId,
       googleSigned: false
@@ -138,7 +138,7 @@ const SignUpAsProvider = () => {
         "Content-Type": "application/json"
       },
     }).then((response) => {
-      // console.log(response);
+      console.log(response);
       // console.log("Successful, you'll be redirected to login page!")
       // notify("Successful, redirecting you to login page")
       const authUser = response.data.data.user;
@@ -153,8 +153,8 @@ const SignUpAsProvider = () => {
       }
       redirectToVerify()
     }).catch((error) => {
-      // console.log(error);
-      warn(error.message);
+      console.log(error);
+      warn(error.response.data.message);
       if (accountUser === "INDIVIDUAL") {
         setLoading(false);
       } else {

@@ -29,7 +29,7 @@ const Search = () => {
                 setIsFetching(false)
                 setUsers(response?.data?.data)
             }).catch((error) => {
-                console.log(error);
+                console.log(error, "hdfh");
                 setIsFetching(false)
                 setError(error.message)
             })
