@@ -128,11 +128,12 @@ const SignUpAsProvider = () => {
       gender: "MALE",
       role: "INDIVIDUAL",
       serviceType: serviceType,
-      representativeId: representativeId,
+      files: representativeId,
       googleSigned: false
     };
     return data;
   };
+
   const individualDetails = getIndividualDetails();
   const getBusinessDetails = () => {
     const { companyName, officeAddress, phoneNumber, email, password } = formFields;
@@ -146,8 +147,8 @@ const SignUpAsProvider = () => {
       gender: "MALE",
       role: "BUSINESS",
       serviceType: serviceType,
-      cacDocument: cacDocument,
-      representativeId: governmentId,
+      files: cacDocument,
+      files: governmentId,
       googleSigned: false
     };
     return data;
@@ -418,7 +419,7 @@ const SignUpAsProvider = () => {
                   </div>
                   <div className="mb-5 mt-3">
                     <div className="font-DMSans text-sm">Valid ID</div>
-                    <FileUploadInput name="representativeId" id="representativeId" state={governmentId} handleState={handleGovernmentId} />
+                    <FileUploadInput name="files" id="representativeId" state={governmentId} handleState={handleGovernmentId} />
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
                     <button
@@ -623,7 +624,7 @@ const SignUpAsProvider = () => {
 
                   <div className="mb-5">
                     <div className="font-DMSans text-sm">CAC Certificate</div>
-                    <FileUploadInput name="cacDocument" id="cacDocument" state={cacDocument} handleState={handleCac} />
+                    <FileUploadInput name="files" id="cacDocument" state={cacDocument} handleState={handleCac} />
                   </div>
                   <div>
                     {/* <div className="flex flex-col mb-5">
@@ -652,7 +653,7 @@ const SignUpAsProvider = () => {
                     </div> */}
                     <div className="mb-5">
                       <div className="font-DMSans text-sm">Valid ID</div>
-                      <FileUploadInput name="representativeId" id="representativeId" state={governmentId} handleState={handleGovId} />
+                      <FileUploadInput name="files" id="representativeId" state={governmentId} handleState={handleGovId} />
                     </div>
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
