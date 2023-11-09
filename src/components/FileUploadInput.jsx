@@ -1,30 +1,4 @@
-export const fileToBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64String = reader.result;
-      resolve(base64String);
-    };
-    reader.onerror = (error) => {
-      reject(error);
-    };
-    reader.readAsDataURL(file);
-  });
-};
-
 function FileUploadInput({ state, handleState, name, id }) {
-
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
-    try {
-      const base64String = await fileToBase64(file);
-      handleState(base64String);
-      // notify("File uploaded successfully");
-    } catch (error) {
-      // console.error('Error converting file to base64:', error);
-      // warn('An error has occured, pls try again!');
-    }
-  };
 
   return (
     <div className="flex flex-col items-center justify-center mt-2">
@@ -46,7 +20,7 @@ function FileUploadInput({ state, handleState, name, id }) {
             ? "The document file has been uploaded"
             : "Click here to upload the document file"}
         </span>
-        <input type="file" name={name} id={id} className="hidden" onChange={handleFileChange} />
+        <input type="file" name={name} id={id} className="hidden" onChange={handleState} />
       </label>
     </div>
   );

@@ -17,7 +17,7 @@ const defaultFormFields = {
   email: "",
   password: "",
   gender: "MALE",
-  role: "SERVICE_PROVIDER",
+  role: "",
   serviceType: "",
   confirmPassword: "",
   googleSigned: true,
@@ -35,6 +35,42 @@ const SignUpAsProvider = () => {
   const [representativeId, setRepresentativeId] = useState(null);
   const [governmentId, setGovernmentId] = useState(null);
   const [cacDocument, setCacDocument] = useState(null);
+
+  const handleGovId = async (e) => {
+    try {
+      if (e.target.files && e.target.files.length > 0) {
+        const selectedFile = e.target.files[0];
+
+        if (!selectedFile) {
+          // console.error("No file selected.");
+          return;
+        }
+        setGovernmentId(selectedFile);
+      } else {
+        // console.error("No file selected.");
+      }
+    } catch (error) {
+      // console.error("Error selecting file:", error);
+    }
+  };
+
+  const handleCac = async (e) => {
+    try {
+      if (e.target.files && e.target.files.length > 0) {
+        const selectedFile = e.target.files[0];
+
+        if (!selectedFile) {
+          // console.error("No file selected.");
+          return;
+        }
+        setCacDocument(selectedFile);
+      } else {
+        // console.error("No file selected.");
+      }
+    } catch (error) {
+      // console.error("Error selecting file:", error);
+    }
+  };
 
   const handleRepIdSelect = (file) => {
     setRepresentativeId(file);
@@ -111,7 +147,7 @@ const SignUpAsProvider = () => {
       role: "BUSINESS",
       serviceType: serviceType,
       cacDocument: cacDocument,
-      representativeId: representativeId,
+      representativeId: governmentId,
       googleSigned: false
     };
     return data;
@@ -138,9 +174,7 @@ const SignUpAsProvider = () => {
         "Content-Type": "application/json"
       },
     }).then((response) => {
-      console.log(response);
-      // console.log("Successful, you'll be redirected to login page!")
-      // notify("Successful, redirecting you to login page")
+      // console.log(response);
       const authUser = response.data.data.user;
       const token = response.data.data.token;
       localStorage.setItem('token', token);
@@ -153,9 +187,8 @@ const SignUpAsProvider = () => {
       }
       redirectToVerify()
     }).catch((error) => {
-      console.log(error);
-      warn(error.response.data.message);
-      setLoadingBusiness(false);
+      // console.log(error);
+      // warn(error.response.data.message);
       if (accountUser === "INDIVIDUAL") {
         setLoading(false);
       } else {
@@ -590,7 +623,7 @@ const SignUpAsProvider = () => {
 
                   <div className="mb-5">
                     <div className="font-DMSans text-sm">CAC Certificate</div>
-                    <FileUploadInput name="cacDocument" id="cacDocument" state={cacDocument} handleState={handleCacDocument} />
+                    <FileUploadInput name="cacDocument" id="cacDocument" state={cacDocument} handleState={handleCac} />
                   </div>
                   <div>
                     {/* <div className="flex flex-col mb-5">
@@ -619,7 +652,7 @@ const SignUpAsProvider = () => {
                     </div> */}
                     <div className="mb-5">
                       <div className="font-DMSans text-sm">Valid ID</div>
-                      <FileUploadInput name="representativeId" id="representativeId" state={governmentId} handleState={handleGovernmentId} />
+                      <FileUploadInput name="representativeId" id="representativeId" state={governmentId} handleState={handleGovId} />
                     </div>
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">

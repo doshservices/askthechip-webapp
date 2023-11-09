@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import imageIcon from "../../../assets/icons/image-icon.svg";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import Loader from "../../Loader/Loader";
