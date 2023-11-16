@@ -3,6 +3,7 @@ import Service from "./Service";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { Header, Share } from "./home";
 import React, { useEffect, useState } from "react";
+import SideNav from "./SideNav";
 
 const Services = () => {
 
@@ -167,8 +168,9 @@ const Services = () => {
   }, [])
 
   return (
-    <div className="grid grid-cols-12 bg-light">
-      <div className="hidden md:flex flex-col col-span-12 h-screen pt-4 overflow-y-auto xm:pr-16 border-r border-[#EBEEF0]">
+    <div className="pageLayout">
+      <SideNav />
+      <div>
         <div className="ml-10 mb-11">
           <Share />
           <Header />

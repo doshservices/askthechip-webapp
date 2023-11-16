@@ -16,7 +16,6 @@ import {
   Payment,
   Pricing,
   ProfilePage,
-  ServicesPage,
   SettingsPage,
   SignIn,
   SignUp,
@@ -32,6 +31,7 @@ import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
 import ResetPassword from "./pages/resetPassword";
 import VerifyMail from "./pages/verifyMail";
+import { Services } from "./components";
 //import { useAuth } from "./contexts/AuthContext/AuthContext";
 //import { useEffect } from "react";
 
@@ -87,7 +87,7 @@ function App() {
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/users-profile" element={<UserProfile />} />
                   <Route path="/settings" element={<SettingsPage />} />
-                  <Route path="/services" element={<ServicesPage />} />
+                  <Route path="/services" element={<Services />} />
                   <Route path="/search" element={<Search />} />
                 </Route>
               </Routes>
