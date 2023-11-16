@@ -1,0 +1,31 @@
+#contact {
+    .wrapper {
+        padding: $p-fluid;
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+
+        .links {
+            @media (max-width: 580px) {
+                justify-content: space-between;
+                flex-grow: 1;
+            }
+        }
+
+        .logo {
+            @media (max-width: 580px) {
+                margin: 0 auto;
+            }
+        }
+
+        .form-section {
+            flex-grow: 1;
+            max-width: 600px;
+
+            @media (max-width: 1120px) {
+                margin: 0 auto;
+            }
+        }
+    }
+}

@@ -55,8 +55,8 @@ const supportLinks = [
 const Footer = () => {
   return (
     <footer id="contact">
-      <div className="grid grid-cols-9 gap-0 md:gap-20 min-h-[383px] px-6 md:px-20 py-8 md:py-[3.75rem] border-t border-[#2d2d2d60]">
-        <div className="col-span-9 md:col-span-2">
+      <div className="wrapper min-h-[383px] border-t border-[#2d2d2d60]">
+        <div className="logo">
           <div className="flex justify-center md:justify-start mb-6">
             <Link to="/" className={`flex items-center`}>
               <div>
@@ -71,7 +71,7 @@ const Footer = () => {
             <Socials />
           </div>
         </div>
-        <div className="col-span-9 md:col-span-3 flex justify-between">
+        <div className="links flex gap-[4rem]">
           <div>
             <div className="font-DMSans font-medium text-sm text-[#05675A70] mb-6">
               Quick Links
@@ -103,7 +103,7 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="col-span-9 md:col-span-4">
+        <div className="form-section">
           <div className="flex items-center mb-[1.875rem] md:mb-12">
             <div>
               <img src={envelopePrimary} alt="Newsletter" />
