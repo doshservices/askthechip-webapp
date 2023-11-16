@@ -21,7 +21,8 @@
 
         .form-section {
             flex-grow: 1;
-            max-width: 600px;
+            max-width: 500px;
+            flex-basis: 400px;
 
             @media (max-width: 1120px) {
                 margin: 0 auto;
