@@ -21,7 +21,7 @@ const SideNav = () => {
     }, 2500)
   }
   return (
-    <header className="min-h-screen grow">
+    <header className="side__nav min-h-screen grow">
       <ToastContainer />
       <nav className="font-Inter">
         <Link to="/" className="flex items-center ml-6 md:ml-8 pt-4 mb-11">
