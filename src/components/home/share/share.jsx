@@ -3,6 +3,7 @@ import imageIcon from "../../../assets/icons/image-icon.svg";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import Loader from "../../Loader/Loader";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
+import axios from "axios";
 
 const Share = ({ handleGetPosts }) => {
   const fileInputRef = useRef(null);
@@ -17,10 +18,6 @@ const Share = ({ handleGetPosts }) => {
     setPostStatus(e.target.value);
   };
 
-  // useEffect(() => {
-  // console.log(file);
-  // }, [file])
-
   const handleUploadClick = () => {
     fileInputRef.current.click();
   };
@@ -31,16 +28,12 @@ const Share = ({ handleGetPosts }) => {
         const selectedFile = e.target.files[0];
 
         if (!selectedFile) {
-          // console.error("No file selected.");
           return;
         }
         setFile(selectedFile);
-        setFile(selectedFile);
       } else {
-        // console.error("No file selected.");
       }
     } catch (error) {
-      // console.error("Error selecting file:", error);
     }
   };
 
@@ -56,32 +49,25 @@ const Share = ({ handleGetPosts }) => {
         formData.append("postImg", file);
       }
 
-      const res = await fetch(
-        "https://askthechip-hvp93.ondigitalocean.app/api/create-post",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
+      const url = "https://askthechip-hvp93.ondigitalocean.app/api/create-post";
 
-      if (res.ok) {
-        const resData = await res.json();
-        handleGetPosts();
-        setTimeout(() => {
-          localStorage.removeItem("upk");
-        }, 1000);
-      }
-    } catch (err) {
-      console.log(err);
+      const response = await axios.post(url, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // console.log(response);
+      handleGetPosts();
+    } catch (error) {
+      // console.error(error);
     } finally {
       setLoading(false);
       setPostStatus("");
       setFile(null);
     }
   };
+
 
   const handleChangeBoard = (e) => {
     setBoard(e.target.value);
