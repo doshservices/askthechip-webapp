@@ -7,8 +7,8 @@ import { warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
 import axios from "axios";
+import { checkWidth } from "../utils/windowWidth";
 // import {data} from '../components/home/feed/data';
-import BoardMobile from "../components/home/BoardMobile";
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
@@ -56,21 +56,24 @@ const HomePage = () => {
   useEffect(() => {
     handleGetPosts();
   }, [setPosts]);
+
+  const width = checkWidth()
+
   return (
     <>
       <section className="pageLayout homepage bg-light">
         <SideNav />
         <div className=" border-r border-[#EBEEF0]">
-          <div className="mt-5">
-            <Share handleGetPosts={handleGetPosts} />
+          {width < 480 ?
             <Header
               darkMode={darkMode}
               setDarkMode={setDarkMode}
               handleAllPost={handleAllPost}
               handleDarkMode={handleDarkMode}
               handleLightMode={handleLightMode}
-            />
-          </div>
+            /> : <></>
+          }
+          <Share handleGetPosts={handleGetPosts} />
           {loading ? (
             <div className="flex justify-center items-center">
               <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
