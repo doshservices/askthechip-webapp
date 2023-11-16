@@ -7,7 +7,7 @@ import { FileUploadInput } from "../components";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
-import { inform, notify, warn } from "../App";
+import { inform } from "../App";
 import axios from "axios";
 
 const defaultFormFields = {
@@ -148,7 +148,7 @@ const SignUpAsProvider = () => {
       role: "BUSINESS",
       serviceType: serviceType,
       files: cacDocument,
-      files: governmentId,
+      // files: governmentId,
       googleSigned: false
     };
     return data;
