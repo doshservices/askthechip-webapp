@@ -1,3 +1,187 @@
 .side__nav {
-    // width: 400px;
+    position: relative;
+
+    &__nav {
+        position: fixed;
+        z-index: 9999;
+        padding-bottom: 4rem;
+        width: 100%;
+        max-width: 220px;
+        border-right: 1px solid hsla(204, 14%, 93%, 1);
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding: 0 3px $big 0;
+        min-height: 100vh;
+        max-height: 100vh;
+        overflow-y: scroll;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem;
+            gap: 9px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: $primary;
+            font-family: "DM Sans", sans-serif;
+
+            img {
+                height: 45px;
+                width: 45px;
+                display: block;
+            }
+        }
+
+        ul {
+            a {
+                display: flex;
+                align-items: center;
+                gap: $base;
+                padding: $tiny 1.3rem;
+                margin-bottom: 3px;
+                position: relative;
+                font-family: "DM Sans", sans-serif;
+                font-weight: 500;
+                font-size: $sm;
+                transition: all .3s ease-in-out;
+            }
+
+            .active {
+                color: $primary;
+                font-weight: 600;
+
+                &::after {
+                    display: inline-block;
+                    content: "";
+                    position: absolute;
+                    background: $primary;
+                    width: 4px;
+                    height: 100%;
+                    left: -3px;
+                    border-radius: 2px;
+                }
+            }
+
+            .divider {
+                background: rgba(45, 45, 45, 0.40);
+                height: 1px;
+                margin: 1.6rem 1.4rem;
+            }
+        }
+
+        .logout {
+            display: flex;
+            align-items: center;
+            gap: $base;
+            padding: $sm 1.5rem;
+
+            img {
+                height: 24px;
+            }
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (max-width: 990px) {
+            max-width: 70px;
+
+            li {
+                a {
+                    span {
+                        display: none;
+                    }
+                }
+            }
+
+            .logout,
+            .settings {
+                span {
+                    display: none;
+                }
+            }
+
+            .logo {
+                margin: 14px;
+
+                img {
+                    margin: 0 auto;
+                }
+
+                span {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        &__nav {
+            position: fixed;
+            bottom: 0;
+            background: $light100;
+            box-shadow: 1px 1px 2px 0px hsla(201, 78%, 36%, 0.15);
+            box-shadow: -1px -1px 2px 0px hsla(201, 78%, 36%, 0.1);
+            padding-bottom: 0;
+            width: 100%;
+            max-width: 100%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            min-height: fit-content;
+            max-height: fit-content;
+            overflow-y: hidden;
+            gap: 10px;
+
+            .logo {
+                display: none;
+            }
+
+            ul {
+                display: flex;
+                justify-content: space-between;
+                flex-grow: 1;
+
+                a {
+                    flex-direction: column;
+                    gap: 2px;
+                    padding: 8px;
+                    font-family: "Raleway", sans-serif;
+                    font-weight: 600;
+                    font-size: $thin;
+
+                    .active {
+                        &::after {
+                            display: none;
+                        }
+                    }
+
+                    span {
+                        display: block;
+                    }
+
+                }
+
+                .profile,
+                .search,
+                .logout,
+                .settings {
+                    display: none;
+                    scale: 0;
+                }
+            }
+
+            .logout {
+                display: none;
+            }
+
+            .divider {
+                display: none;
+            }
+        }
+
+    }
 }

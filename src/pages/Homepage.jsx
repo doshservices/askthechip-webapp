@@ -58,11 +58,9 @@ const HomePage = () => {
   }, [setPosts]);
   return (
     <>
-      <section className="hidden sm:grid grid-cols-24 justify-between bg-light">
-        <div className="col-span-3 sm:col-span-3 xm:col-span-4 h-screen overflow-y-auto border-r border-[#EBEEF0]">
-          <SideNav />
-        </div>
-        <div className="col-span-21 sm:col-span-21 xm:col-span-20 h-screen overflow-y-auto pl-10 pr-[3.75rem] border-r border-[#EBEEF0]">
+      <section className="pageLayout homepage bg-light">
+        <SideNav />
+        <div className=" border-r border-[#EBEEF0]">
           <div className="mt-5">
             <Share handleGetPosts={handleGetPosts} />
             <Header
@@ -101,45 +99,6 @@ const HomePage = () => {
           )}
         </div>
       </section>
-      <MobileLayout>
-        <div className="overflow-x-hidden px-0 bg-light sm:px-4">
-          <Header
-            darkMode={darkMode}
-            setDarkMode={setDarkMode}
-            handleAllPost={handleAllPost}
-            handleDarkMode={handleDarkMode}
-            handleLightMode={handleLightMode}
-          />
-          <BoardMobile />
-          <Share handleGetPosts={handleGetPosts} />
-          {loading ? (
-            <div className="flex justify-center items-center">
-              <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <CircleLoader color="#05675A" />
-              </div>
-            </div>
-          ) : (
-            <>
-              {reversedPosts.length > 0 ?
-                <>
-                  {reversedPosts?.map((post, index) => (
-                    <Posts
-                      key={index}
-                      post={post}
-                      handleGetPosts={handleGetPosts}
-                    />
-                  ))}
-                </>
-                :
-                <>
-                  <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
-                  <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
-                </>
-              }
-            </>
-          )}
-        </div>
-      </MobileLayout>
     </>
   );
 };
