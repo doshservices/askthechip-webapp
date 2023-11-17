@@ -3,6 +3,11 @@
     margin: $base 0;
     padding: $base;
     border: 1px solid hsla(0, 0%, 0%, 0.05);
+    margin: $base;
+
+    @media (max-width: 480px) {
+        margin: $mb;
+    }
 
     * {
         font-family: "DM Sans", sans-serif;

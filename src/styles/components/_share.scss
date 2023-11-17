@@ -1,4 +1,10 @@
 .share {
+    margin: $base;
+
+    @media (max-width: 480px) {
+        margin: $mb;
+    }
+
     &__container {
         display: flex;
         border: 1px solid hsla(0, 0%, 0%, 0.05);

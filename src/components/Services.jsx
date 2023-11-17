@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { Header, Share } from "./home";
 import React, { useEffect, useState } from "react";
 import SideNav from "./SideNav";
+import { checkWidth } from "../utils/windowWidth";
 
 const Services = () => {
 
@@ -154,7 +155,7 @@ const Services = () => {
       throw error
     })
   }
-
+  const width = checkWidth()
   useEffect(() => {
     accountingProviders();
     adminProviders();
@@ -168,13 +169,18 @@ const Services = () => {
   }, [])
 
   return (
-    <div className="pageLayout">
+    <div className="pageLayout services bg-light">
       <SideNav />
-      <div>
-        <div className="ml-10 mb-11">
-          <Share />
-          <Header />
-        </div>
+      <div className="border-r border-[#EBEEF0] pageLayout__wrapper__container">
+        {width < 480 ?
+          <Header
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+            handleAllPost={handleAllPost}
+            handleDarkMode={handleDarkMode}
+            handleLightMode={handleLightMode}
+          /> : <></>
+        }
         <div className="mx-4 grid grid-cols-12">
           {getAcc.length > 0 ?
             <>

@@ -68,7 +68,6 @@ const Share = ({ handleGetPosts }) => {
     }
   };
 
-
   const handleChangeBoard = (e) => {
     setBoard(e.target.value);
   };
@@ -81,7 +80,6 @@ const Share = ({ handleGetPosts }) => {
     <section className="share">
       <div>
         <div className="share__container">
-
           <figure className="profile__dp">
             {!profile?.profileImg ? (
               <p className="text-white">{username[0]}</p>
