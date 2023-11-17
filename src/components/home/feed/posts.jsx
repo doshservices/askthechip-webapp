@@ -16,6 +16,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { CommentIcon, LikeIcon, ShareIcon, UnLikeIcon } from "../../../assets/icons";
 
 const reactions = [
   {
@@ -56,10 +57,10 @@ function getTimeAgo(timestamp) {
   }
 }
 
-const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
+const Posts = ({ index, post, handleGetPosts }) => {
   const pathname = window.location.pathname;
   const [likes, setLikes] = useState(0);
-  const [usersLikes, setUsersLikes] = useState(null)
+  const [usersLikes, setUsersLikes] = useState([])
   const [comments, setComments] = useState([]);
   const [viewAllComments, setViewAllComments] = useState(false);
   const [loadingLikes, setLoadingLikes] = useState(false);
@@ -71,11 +72,20 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   const { user, token } = useAuth();
   const { profile } = useProfile();
   const [singleCommenter, setSingleCommenter] = useState({});
-  const location = useLocation()
 
   const authUserId = profile?._id;
   const postUserId = post?.userId?._id;
   const myPost = authUserId === postUserId;
+
+  const myArray = [2, 3, 4, 2];
+
+  // if (myArray.includes(2)) {
+  //   console.log("The array contains 2.");
+  // } else {
+  //   console.log("The array does not contain 2.");
+  // }
+
+  const myId = user?._id;
 
   const handleOpenDeleteModal = () => {
     setOpenDeleteModal(true);
@@ -125,32 +135,6 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
     getLikesById()
   }, [])
 
-  const handleLikePost = async () => {
-    const searchString = user?._id;
-    const likeAction = usersLikes.includes(searchString) ? "unlike" : "like";
-    try {
-      const res = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/post/${likeAction}-post?postId=${post._id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (res.ok) {
-        const likePostRes = await res.json();
-        const likePostData = likePostRes.data;
-        // console.log('Like post response here', likePostRes)
-        // console.log('Like post data here', likePostData)
-        setLikes(likeAction === "like" ? likes + 1 : likes - 1);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleLikesValue = async () => {
     try {
       const res = await fetch(
@@ -172,6 +156,38 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       }
     } catch (error) {
     }
+  };
+
+  const handleLikePost = async () => {
+    axios.post(`https://askthechip-hvp93.ondigitalocean.app/api/post/like-post?postId=${post._id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      console.log(response);
+      setTimeout(() => {
+        handleLikesValue()
+      }, 1000)
+    }).catch((error) => {
+      console.log(error);
+    })
+  };
+
+  const handleUnLikePost = async () => {
+    axios.post(`https://askthechip-hvp93.ondigitalocean.app/api/post/unlike-post?postId=${post._id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      console.log(response);
+      setTimeout(() => {
+        handleLikesValue()
+      }, 1000)
+    }).catch((error) => {
+      console.log(error);
+    })
   };
 
   useEffect(() => {
@@ -206,21 +222,12 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
   }
 
   return (
-    <section
-      className={
-        index === 0 || pathname === "/profile"
-          ? `bg-[#f4f4f4] rounded-[10px] p-3 sm:p-5 mt-0 sm:mt-5 mx-1 sm:mx-0 grid grid-cols-12 font-DMSans`
-          : `sm:bg-[#f4f4f4] sm:rounded-[10px] p-3 sm:p-5 mt-5 sm:mt-10 mx-1 sm:mx-0 grid grid-cols-12 font-DMSans border-b-[3px] sm:border-b-0 border-[#bebebe]`
-      }
-      style={{ backgroundColor: bgColor, color: color }}
-    >
-      <div className="col-span-12 flex justify-between">
-        <div className="flex">
-          <div className="mr-2 cursor-pointer" onClick={navigateToProfile}>
+    <article className={index === 0 || pathname === "/profile" ? `bg-[#f4f4f4] posts` : `posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "#2f2f2f" : "#f4f4f4", color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }}>
+      <div className="posts__poster">
+        <div className="posts__poster__details">
+          <div className="dp" onClick={navigateToProfile}>
             {!poster?.profileImg ? (
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl">
-                <span className="text-white">{username[0]}</span>
-              </div>
+              <p>{username[0]}</p>
             ) : (
               <img
                 src={poster?.profileImg}
@@ -229,30 +236,28 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
               />
             )}
           </div>
-          <div className="flex">
-            <div className="font-bold">
-              <div className="cursor-pointer" onClick={navigateToProfile}>{username}</div>
-              <div className="font-light opacity-70">{role}</div>
-            </div>
+          <div className="user">
+            <p className="user__name" onClick={navigateToProfile}>{username}</p>
+            <p className="user__role">{role}</p>
           </div>
         </div>
-        <div className="flex">
-          <div className="font-light opacity-50 mr-2 items-center flex">
+        <div className="post__actions">
+          <p role="time" className="post__actions__time">
             {getTimeAgo(post?.createdAt)}
-          </div>
+          </p>
           {myPost && (
             <div
               className={
                 showMore
-                  ? `flex relative text-primary p-0 mx-1/2 my-3 bg-primary/10 w-8 h-8 rounded-full justify-center items-center`
-                  : `flex relative text-primary p-0 mx-1/2 my-3 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center`
+                  ? `post__actions__actions flex relative text-primary p-0 mx-1/2 bg-primary/10 w-8 h-8 rounded-full justify-center items-center`
+                  : `post__actions__actions flex relative text-primary p-0 mx-1/2 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center`
               }
             >
               <img
                 onClick={() => setShowMore(!showMore)}
                 src={threeDotsIcon}
                 alt="delete"
-                className="w-4"
+                className="actions__toggler"
               />
               {showMore && (
                 <div className="absolute top-8 right-0 w-28 p-4 rounded-lg bg-white shadow">
@@ -311,25 +316,32 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
       <div className="col-span-12 flex flex-col justify-between mt-5">
         <div className="flex justify-between">
           <div className="flex">
-            <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
-              <div className="ml-5 mr-1 w-5 cursor-pointer">
-                <img
-                  src={`${like}`}
-                  alt="Like"
-                  onClick={handleLikePost}
-                  className="hover:scale-110 active:scale-100"
-                />
-              </div>
-              <span className="text-center mt-1 mr-5">{likes}</span>
-            </div>
             <div
               key={index}
-              className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center"
+              className="flex items-center text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center"
             >
-              <div className="ml-5 mr-1 w-5">
-                <img src={`${comment}`} alt="Comment" />
+              <div className="mr-1">
+                <CommentIcon />
               </div>
-              <span className="text-center mt-1 mr-5">{comments?.length}</span>
+              <span className="mt-1">{comments?.length}</span>
+            </div>
+            <div style={{ background: usersLikes.includes(myId) ? "#068978" : "", color: usersLikes.includes(myId) ? "#f8f8f8" : "#2d2d2" }} className="rounded-[4px] flex ml-3 px-3 py-1 text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
+              <div onClick={handleLikePost} className="mr-1 w-5 cursor-pointer">
+                <LikeIcon fill={usersLikes.includes(myId) ? "#fff" : "#2d2d2d"} />
+              </div>
+              <span className="text-center mt-1">{likes}</span>
+            </div>
+            <div className="rounded-[4px] flex ml-3 px-3 py-1 text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
+              <div onClick={handleUnLikePost} className="mr-1 w-5 cursor-pointer">
+                <UnLikeIcon />
+              </div>
+              <span className="text-center mt-1"></span>
+            </div>
+            <div className={`ml-3 flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center`}>
+              <div className="cursor-pointer mt-1">
+                <ShareIcon />
+              </div>
+              <span className={`mt-1`}></span>
             </div>
           </div>
           <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center">
@@ -401,7 +413,7 @@ const Posts = ({ bgColor, color, index, post, handleGetPosts }) => {
           />
         </div>
       </div>
-    </section>
+    </article>
   );
 };
 
