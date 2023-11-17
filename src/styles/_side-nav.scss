@@ -50,15 +50,17 @@
                 color: $primary;
                 font-weight: 600;
 
-                &::after {
-                    display: inline-block;
-                    content: "";
-                    position: absolute;
-                    background: $primary;
-                    width: 4px;
-                    height: 100%;
-                    left: -3px;
-                    border-radius: 2px;
+                @media (min-width: 480px) {
+                    &::after {
+                        display: inline-block;
+                        content: "";
+                        position: absolute;
+                        background: $primary;
+                        width: 4px;
+                        height: 100%;
+                        left: 0px;
+                        border-radius: 2px;
+                    }
                 }
             }
 
@@ -66,6 +68,11 @@
                 background: rgba(45, 45, 45, 0.40);
                 height: 1px;
                 margin: 1.6rem 1.4rem;
+                display: none;
+
+                @media (min-width: 480px) {
+                    display: block;
+                }
             }
         }
 
@@ -144,6 +151,7 @@
                 display: flex;
                 justify-content: space-between;
                 flex-grow: 1;
+                max-width: 400px;
 
                 a {
                     flex-direction: column;
@@ -152,10 +160,21 @@
                     font-family: "Raleway", sans-serif;
                     font-weight: 600;
                     font-size: $thin;
+                    margin-bottom: 0;
+
+                    @media (max-width: 350px) {
+                        font-size: $mb;
+                        padding: 5px;
+                    }
+
+                    svg {
+                        height: 20px;
+                    }
 
                     .active {
                         &::after {
                             display: none;
+                            opacity: 0;
                         }
                     }
 
@@ -177,9 +196,6 @@
                 display: none;
             }
 
-            .divider {
-                display: none;
-            }
         }
 
     }

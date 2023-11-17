@@ -63,7 +63,7 @@ const HomePage = () => {
     <>
       <section className="pageLayout homepage bg-light">
         <SideNav />
-        <div className=" border-r border-[#EBEEF0]">
+        <div className="border-r border-[#EBEEF0] pageLayout__wrapper__container">
           {width < 480 ?
             <Header
               darkMode={darkMode}

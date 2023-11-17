@@ -140,7 +140,7 @@ const SideNav = () => {
               <span>Messages</span>
             </NavLink>
           </li>
-          <li>
+          <li className="search">
             <NavLink to="/search" className={({ isActive }) => isActive ? "search active" : "search"}>
               {pathname === "/search"
                 ?
@@ -155,7 +155,7 @@ const SideNav = () => {
               <span>Search</span>
             </NavLink>
           </li>
-          <li>
+          <li className="profile">
             <NavLink to="/profile" className={({ isActive }) => isActive ? "profile active" : "profile"}>
               {pathname === "/profile"
                 ?
