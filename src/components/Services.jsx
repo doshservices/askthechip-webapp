@@ -5,7 +5,6 @@ import { Header, Share } from "./home";
 import React, { useEffect, useState } from "react";
 import SideNav from "./SideNav";
 import { checkWidth } from "../utils/windowWidth";
-
 const Services = () => {
 
   const { token } = useAuth()
@@ -19,6 +18,23 @@ const Services = () => {
   const [getMentorship, setGetMentorship] = useState([])
   const [getTechnology, setGetTechnology] = useState([])
   const [getTraining, setGetTraining] = useState([])
+  const [darkMode, setDarkMode] = useState("All Posts");
+
+  const handleAllPost = () => {
+    if (darkMode !== "All Posts") {
+      setDarkMode("All Posts");
+    }
+  };
+  const handleLightMode = () => {
+    if (darkMode !== "White Board") {
+      setDarkMode("White Board");
+    }
+  };
+  const handleDarkMode = () => {
+    if (darkMode !== "Black Board") {
+      setDarkMode("Black Board");
+    }
+  };
 
   const accountingProviders = async () => {
     const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=ACCOUNTING`
