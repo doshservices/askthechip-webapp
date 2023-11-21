@@ -311,9 +311,9 @@ const Posts = ({ index, post, handleGetPosts }) => {
         />
       )}
       <div className="col-span-12 ml-3 mt-3">
-        <h4 className="text-sm text-[#2D2D2DCC] font-DMSans mb-3">
+        <p className="text-sm font-DMSans mb-3 text-inherit">
           {post?.content}
-        </h4>
+        </p>
         <div className="flex justify-center">
           {post?.postImg && (
             <LazyLoadImage
@@ -332,25 +332,25 @@ const Posts = ({ index, post, handleGetPosts }) => {
               className="flex items-center text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center"
             >
               <div className="mr-1">
-                <CommentIcon />
+                <CommentIcon fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d"} />
               </div>
               <span className="mt-1">{comments?.length}</span>
             </div>
-            <div style={{ background: usersLikes.includes(myId) ? "#068978" : "", color: usersLikes.includes(myId) ? "#f8f8f8" : "#2d2d2" }} className="rounded-[4px] flex ml-3 px-3 py-1 text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
+            <div style={{ background: usersLikes.includes(myId) ? "#068978" : "transparent", color: usersLikes.includes(myId) ? "#f8f8f8" : "#2d2d2" }} className="rounded-[4px] flex ml-3 px-3 py-1 text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
               <div onClick={handleLikePost} className="mr-1 w-5 cursor-pointer">
-                <LikeIcon fill={usersLikes.includes(myId) ? "#fff" : "#2d2d2d"} />
+                <LikeIcon fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d"} />
               </div>
-              <span className="text-center mt-1">{likes}</span>
+              <span className="text-center mt-1 text-inherit">{likes}</span>
             </div>
             <div className="rounded-[4px] flex ml-3 px-3 py-1 text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
               <div onClick={handleUnLikePost} className="mr-1 w-5 cursor-pointer">
-                <UnLikeIcon />
+                <UnLikeIcon fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d"} />
               </div>
               <span className="text-center mt-1"></span>
             </div>
             <div className={`ml-3 flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center`}>
               <div className="cursor-pointer mt-1">
-                <ShareIcon />
+                <ShareIcon fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d"} />
               </div>
               <span className={`mt-1`}></span>
             </div>

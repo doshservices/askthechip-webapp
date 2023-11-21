@@ -152,6 +152,7 @@
                 justify-content: space-between;
                 flex-grow: 1;
                 max-width: 400px;
+                padding: 0 10px;
 
                 a {
                     flex-direction: column;
@@ -161,10 +162,11 @@
                     font-weight: 600;
                     font-size: $thin;
                     margin-bottom: 0;
+                    font-size: 10px;
 
-                    @media (max-width: 350px) {
-                        font-size: $mb;
+                    @media (max-width: 300px) {
                         padding: 5px;
+                        font-size: 8px;
                     }
 
                     svg {
