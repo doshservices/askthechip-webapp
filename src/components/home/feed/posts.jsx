@@ -159,36 +159,47 @@ const Posts = ({ index, post, handleGetPosts }) => {
   };
 
   const handleLikePost = async () => {
-    axios.post(`https://askthechip-hvp93.ondigitalocean.app/api/post/like-post?postId=${post._id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      console.log(response);
+    try {
+      const response = await axios.post(
+        `https://askthechip-hvp93.ondigitalocean.app/api/post/like-post?postId=${post._id}`,
+        null, // No data being sent in the request body, pass null here
+        {
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log(response);
       setTimeout(() => {
-        handleLikesValue()
-      }, 1000)
-    }).catch((error) => {
-      console.log(error);
-    })
+        handleLikesValue();
+      }, 1000);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleUnLikePost = async () => {
-    axios.post(`https://askthechip-hvp93.ondigitalocean.app/api/post/unlike-post?postId=${post._id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      console.log(response);
+    try {
+      const response = await axios.post(
+        `https://askthechip-hvp93.ondigitalocean.app/api/post/unlike-post?postId=${post._id}`,
+        null, // No data being sent in the request body, pass null here
+        {
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log(response);
       setTimeout(() => {
-        handleLikesValue()
-      }, 1000)
-    }).catch((error) => {
-      console.log(error);
-    })
+        handleLikesValue();
+      }, 1000);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
 
   useEffect(() => {
     handleLikesValue()
