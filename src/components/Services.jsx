@@ -184,6 +184,12 @@ const Services = () => {
     trainingProviders()
   }, [])
 
+  const Wrapper = ({ children }) => {
+    return (
+      <div className="services__wrapper">{children}</div>
+    )
+  }
+
   return (
     <div className="pageLayout services bg-light">
       <SideNav />
@@ -197,78 +203,61 @@ const Services = () => {
             handleLightMode={handleLightMode}
           /> : <></>
         }
-        <div className="mx-4 grid grid-cols-12">
-          {getAcc.length > 0 ?
-            <>
-              <Service serviceData={getAcc} type="ACCOUNTING" />
-            </>
-            : null
-          }
-        </div>
-        <div className="mx-4 grid grid-cols-12">
-          {getAdmin.length > 0 ?
-            <>
-              <Service serviceData={getAdmin} type="ADMINISTRATIVE" />
-            </>
-            : null
-          }
-        </div>
-        <div className="mx-4 grid grid-cols-12">
-          {getConsulting.length > 0 ?
-            <>
-              <Service serviceData={getConsulting} type="CONSULTING" />
-            </>
-            : null
-          }
-        </div>
-        <div className="mx-4 grid grid-cols-12">
-          {getFinacial.length > 0 ?
-            <>
-              <Service serviceData={getFinacial} type="FINACIAL" />
-            </>
-            : null
-          }
-        </div>
-        <div className="mx-4 grid grid-cols-12">
-          {getLegal.length > 0 ?
-            <>
-              <Service serviceData={getLegal} type="LEGAL" />
-            </>
-            : null
-          }
-        </div>
-        <div className="mx-4 grid grid-cols-12">
-          {getMarketing.length > 0 ?
-            <>
-              <Service serviceData={getMarketing} type="MARKETING" />
-            </>
-            : null
-          }
-        </div>
-        <div className="mx-4 grid grid-cols-12">
-          {getMentorship.length > 0 ?
-            <>
-              <Service serviceData={getMentorship} type="MENTORSHIP" />
-            </>
-            : null
-          }
-        </div>
-        <div className="mx-4 grid grid-cols-12">
-          {getTechnology.length > 0 ?
-            <>
-              <Service serviceData={getTechnology} type="TECHNOLOGY" />
-            </>
-            : null
-          }
-        </div>
-        <div className="mx-4 grid grid-cols-12">
-          {getTraining.length > 0 ?
-            <>
-              <Service serviceData={getTraining} type="TRAINING" />
-            </>
-            : null
-          }
-        </div>
+        <Share />
+        {getAcc.length > 0 ?
+          <Wrapper>
+            <Service serviceData={getAcc} type="ACCOUNTING" />
+          </Wrapper>
+          : null
+        }
+        {getAdmin.length > 0 ?
+          <Wrapper>
+            <Service serviceData={getAdmin} type="ADMINISTRATIVE" />
+          </Wrapper>
+          : null
+        }
+        {getConsulting.length > 0 ?
+          <Wrapper>
+            <Service serviceData={getConsulting} type="CONSULTING" />
+          </Wrapper>
+          : null
+        }
+        {getFinacial.length > 0 ?
+          <Wrapper>
+            <Service serviceData={getFinacial} type="FINACIAL" />
+          </Wrapper>
+          : null
+        }
+        {getLegal.length > 0 ?
+          <Wrapper>
+            <Service serviceData={getLegal} type="LEGAL" />
+          </Wrapper>
+          : null
+        }
+        {getMarketing.length > 0 ?
+          <Wrapper>
+            <Service serviceData={getMarketing} type="MARKETING" />
+          </Wrapper>
+          : null
+        }
+        {getMentorship.length > 0 ?
+          <Wrapper>
+            <Service serviceData={getMentorship} type="MENTORSHIP" />
+          </Wrapper>
+          : null
+        }
+        {getTechnology.length > 0 ?
+          <Wrapper>
+            <Service serviceData={getTechnology} type="TECHNOLOGY" />
+          </Wrapper>
+          : null
+        }
+        {getTraining.length > 0 ?
+          <Wrapper>
+            <Service serviceData={getTraining} type="TRAINING" />
+          </Wrapper>
+          : null
+        }
       </div>
     </div>
   );

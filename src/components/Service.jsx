@@ -20,7 +20,7 @@ const Service = ({ serviceData, type }) => {
   }
 
   return (
-    <div className="col-span-12 sm:col-span-8 mb-3">
+    <div className="mb-3">
       <div onClick={handleClick} className="flex justify-between border border-[#000000]/10 rounded py-3 px-7 cursor-pointer">
         <div>
           {type}
