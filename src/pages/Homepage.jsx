@@ -12,6 +12,7 @@ import { checkWidth } from "../utils/windowWidth";
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
+  const [postCategory, setPostCategory] = useState("all")
   const { posts, setPosts } = usePosts();
   const reversedPosts = [...posts].reverse();
 
@@ -74,32 +75,107 @@ const HomePage = () => {
             /> : <></>
           }
           <Share handleGetPosts={handleGetPosts} />
-          {loading ? (
-            <div className="flex justify-center items-center">
-              <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <CircleLoader color="#05675A" />
-              </div>
-            </div>
-          ) : (
+          <div className="post__category__toggler">
+            <button onClick={() => setPostCategory("all")} className={postCategory === "all" ? "active" : ""}>All Post</button>
+            <button onClick={() => setPostCategory("white-board")} className={postCategory === "white-board" ? "active" : ""}>White Board</button>
+            <button onClick={() => setPostCategory("black-board")} className={postCategory === "black-board" ? "active" : ""}>Black Board</button>
+          </div>
+          {postCategory === "all" ?
             <>
-              {reversedPosts.length > 0 ?
+              {loading ? (
+                <div className="flex justify-center items-center">
+                  <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <CircleLoader color="#05675A" />
+                  </div>
+                </div>
+              ) : (
                 <>
-                  {reversedPosts?.map((post, index) => (
-                    <Posts
-                      key={index}
-                      index={index}
-                      post={post}
-                      handleGetPosts={handleGetPosts}
-                    />
-                  ))}
-                </> :
-                <>
-                  <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
-                  <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
+                  {reversedPosts.length > 0 ?
+                    <>
+                      {reversedPosts?.map((post, index) => (
+                        <Posts
+                          key={index}
+                          index={index}
+                          post={post}
+                          handleGetPosts={handleGetPosts}
+                        />
+                      ))}
+                    </> :
+                    <>
+                      <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
+                      <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
+                    </>
+                  }
                 </>
-              }
+              )}
             </>
-          )}
+            :
+            null
+          }
+          {postCategory === "white-board" ?
+            <>
+              {loading ? (
+                <div className="flex justify-center items-center">
+                  <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <CircleLoader color="#05675A" />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {reversedPosts.length > 0 ?
+                    <>
+                      {reversedPosts?.filter(post => post.board === "WHITE_BOARD").map((post, index) => (
+                        <Posts
+                          key={index}
+                          index={index}
+                          post={post}
+                          handleGetPosts={handleGetPosts}
+                        />
+                      ))}
+                    </> :
+                    <>
+                      <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
+                      <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
+                    </>
+                  }
+                </>
+              )}
+            </>
+            :
+            null
+          }
+          {postCategory === "black-board" ?
+            <>
+              {loading ? (
+                <div className="flex justify-center items-center">
+                  <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all p-8 sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <CircleLoader color="#05675A" />
+                  </div>
+                </div>
+              ) : (
+                <>
+                  {reversedPosts.length > 0 ?
+                    <>
+                      {reversedPosts?.filter(post => post.board === "BLACK_BOARD").map((post, index) => (
+                        <Posts
+                          key={index}
+                          index={index}
+                          post={post}
+                          handleGetPosts={handleGetPosts}
+                        />
+                      ))}
+                    </> :
+                    <>
+                      <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
+                      <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
+                    </>
+                  }
+                </>
+              )}
+            </>
+            :
+            null
+          }
         </div>
       </section>
     </>

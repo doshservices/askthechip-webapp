@@ -1,0 +1,41 @@
+.post__category__toggler {
+    display: flex;
+    gap: $big;
+    padding: $thin $base;
+
+    button {
+        display: block;
+        color: #8C8C8C;
+        font-size: $sm;
+        font-family: "DM Sans" sans-serif;
+        font-weight: 500;
+        padding: 7px $md;
+        border-radius: 16px;
+        background: hsl(0, 0%, 96%);
+    }
+
+    .active {
+        color: $dark200;
+        background: hsl(0, 0%, 91%);
+    }
+
+    @media (max-width: 550px) {
+        gap: $base;
+        padding: $thin $mb;
+
+        button {
+            padding: 5px $base;
+            font-size: $xm;
+        }
+    }
+
+    @media (max-width: 350px) {
+        gap: $mb;
+        padding: $thin $mb;
+
+        button {
+            padding: 5px $thin;
+            font-size: .75rem;
+        }
+    }
+}
