@@ -16,7 +16,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { CommentIcon, LikeIcon, ShareIcon, UnLikeIcon } from "../../../assets/icons";
+import { CommentIcon, LikeIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
 
 const reactions = [
   {
@@ -264,12 +264,10 @@ const Posts = ({ index, post, handleGetPosts }) => {
                   : `post__actions__actions flex relative text-primary p-0 mx-1/2 hover:bg-primary/10 w-8 h-8 rounded-full justify-center items-center`
               }
             >
-              <img
-                onClick={() => setShowMore(!showMore)}
-                src={threeDotsIcon}
-                alt="delete"
-                className="actions__toggler"
-              />
+              <div className="actions__toggler" onClick={() => setShowMore(!showMore)}>
+                <ThreeDots fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2D2D2DCC"} />
+              </div>
+
               {showMore && (
                 <div className="absolute top-8 right-0 w-28 p-4 rounded-lg bg-white shadow">
                   <div
@@ -334,11 +332,11 @@ const Posts = ({ index, post, handleGetPosts }) => {
               <div className="mr-1">
                 <CommentIcon fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d"} />
               </div>
-              <span className="mt-1">{comments?.length}</span>
+              <span style={{ color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }} className="mt-1">{comments?.length}</span>
             </div>
             <div style={{ background: usersLikes.includes(myId) ? "#068978" : "transparent", color: usersLikes.includes(myId) ? "#f8f8f8" : "#2d2d2" }} className="rounded-[4px] flex ml-3 px-3 py-1 text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
               <div onClick={handleLikePost} className="mr-1 w-5 cursor-pointer">
-                <LikeIcon fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d"} />
+                <LikeIcon fill={post?.board === "BLACK_BOARD" || usersLikes.includes(myId) ? "#f8f8f8" : "#2d2d2d"} />
               </div>
               <span className="text-center mt-1 text-inherit">{likes}</span>
             </div>
@@ -388,7 +386,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
                     </div>
                   </div>
                   <div>
-                    <div className="mx-11 mt-3 text-sm text-[#2D2D2DCC] font-DMSans">{singleComment[0]?.text}</div>
+                    <div style={{ color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2D2D2DCC" }} className="mx-11 mt-3 text-sm font-DMSans">{singleComment[0]?.text}</div>
                   </div>
                 </div>
               ) : (
@@ -399,6 +397,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
                       key={index}
                       getUsername={getUsername}
                       handleGetPosts={handleGetPosts}
+                      color={post?.board === "BLACK_BOARD" ? "text-[#f8f8f8]" : "text-[#2D2D2DCC]"}
                     />
                   ))}
                 </>

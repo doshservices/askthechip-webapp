@@ -6,7 +6,7 @@ import deleteIcon from "../../../assets/icons/delete-icon.svg";
 import DeleteComment from "../../DeleteComment/DeleteModal";
 import EditComment from "../../EditComment/EditComment";
 
-const Comments = ({ c, getUsername, handleGetPosts }) => {
+const Comments = ({ c, getUsername, handleGetPosts, color }) => {
   const { profile } = useProfile();
   const [showMore, setShowMore] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -45,7 +45,7 @@ const Comments = ({ c, getUsername, handleGetPosts }) => {
           </div>
         </div>
         <div className='flex items-center'>
-          <div className="ml-11 mr-8 text-sm text-[#2D2D2DCC] font-DMSans">{c.text}</div>
+          <div className={`ml-11 mr-8 text-sm ${color} font-DMSans`}>{c.text}</div>
           {myComment && (
             <div
               className={

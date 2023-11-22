@@ -94,8 +94,8 @@ const HomePage = () => {
                   ))}
                 </> :
                 <>
-                  <h2 className="mt-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
-                  <p className="mt-2 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
+                  <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
+                  <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
                 </>
               }
             </>
