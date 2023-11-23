@@ -4,7 +4,7 @@ import { notify, warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import Loader from "./Loader/Loader";
 import axios from "axios";
-import { SideNav } from ".";
+import { FileUploadInput, SideNav } from ".";
 
 const defaultFormFields = {
   others: "",
@@ -54,7 +54,7 @@ const Mentorship = () => {
   return (
     <div className="pageLayout mentorship bg-light">
       <SideNav />
-      <div className="pageLayout__wrapper__container">
+      <div className="pageLayout__wrapper__container p-[2rem]">
         <ToastContainer />
         <div className="font-DMSans text-2xl font-medium my-2 mt-5">
           Mentorship
@@ -64,42 +64,36 @@ const Mentorship = () => {
         </div>
         <div className="mt-6 ml-0 md:ml-6 mr-0 md:mr-8">
           <form onSubmit={handleSubmit}>
-            {/* <div className="flex flex-col mb-5">
-              <label htmlFor="email" className="font-DMSans text-sm mb-2">
-                Email
+            <div className="feild__wrapper">
+              <label htmlFor="Linkedin Profile URL">
+                Linkedin Profile URL
               </label>
-              <div className="border border-[#2d2d2d] rounded-full bg-transparent">
-                <input
-                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                  type="text"
-                  name="email"
-                  id="email"
-                  value={email}
-                  onChange={handleChange}
-                  placeholder="Email Here"
-                  required
-                />
-              </div>
-            </div> */}
-            {/* <div className="flex flex-col mb-5">
-              <label htmlFor="phoneNumber" className="font-DMSans text-sm mb-2">
-                Phone Number
+              <input
+                type="text"
+                name="Linkedin Profile URL"
+                id="Linkedin Profile URL"
+                // value={Linkedin Profile URL}
+                onChange={handleChange}
+                placeholder="Enter your linkedin profile url here"
+                required
+              />
+            </div>
+            <div className="feild__wrapper">
+              <label htmlFor="phoneNumber">
+                Why do you need a mentor?
               </label>
-              <div className="border border-[#2d2d2d] rounded-full bg-transparent">
-                <input
-                  className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
-                  type="tel"
-                  name="phoneNumber"
-                  id="email"
-                  value={phoneNumber}
-                  onChange={handleChange}
-                  placeholder="Phone Number Here"
-                  required
-                />
-              </div>
-            </div> */}
-            <div className="flex flex-col mb-5">
-              <label htmlFor="email" className="font-DMSans text-sm mb-2">
+              <input
+                type="tel"
+                name="phoneNumber"
+                id="email"
+                // value={phoneNumber}
+                onChange={handleChange}
+                placeholder="Answer Here"
+                required
+              />
+            </div>
+            <div className="feild__wrapper">
+              <label htmlFor="email">
                 Select Industry
               </label>
               <div className="border border-[#2d2d2d] rounded-full">
@@ -124,8 +118,12 @@ const Mentorship = () => {
                 </select>
               </div>
             </div>
+            <div className="mb-[1.5rem]">
+              <label htmlFor="Upload CV">Upload CV</label>
+              <FileUploadInput />
+            </div>
             <div className="flex flex-col mb-5">
-              <label htmlFor="others" className="font-DMSans text-sm mb-2">
+              <label htmlFor="others" className="mb-[5px]">
                 Message
               </label>
               <textarea

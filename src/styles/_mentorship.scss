@@ -1,0 +1,46 @@
+.mentorship {
+
+    form {
+        max-width: 900px;
+        margin: 0 auto;
+
+        * {
+            font-family: "DM Sans", sans-serif;
+        }
+
+        input,
+        select {
+            font-size: $sm;
+            color: hsla(0, 0%, 18%, 0.7);
+        }
+
+        label {
+            font-size: $sm;
+        }
+
+        .feild__wrapper {
+            margin-bottom: $md;
+
+            label {
+                display: inline-block;
+                margin-bottom: 5px;
+            }
+
+            input {
+                display: block;
+                border: 1px solid hsla(0, 0%, 18%, 1);
+                border-radius: 30px;
+                padding: .5rem 1.5rem;
+                width: 100%;
+                background-color: transparent;
+                transition: all .3s ease;
+
+                &:focus {
+                    outline: 1px solid hsla(0, 0%, 18%, .4);
+                }
+            }
+        }
+
+
+    }
+}
