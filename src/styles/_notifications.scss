@@ -1,0 +1,60 @@
+.notifications {
+    &__wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        @media (max-width: 750px) {
+            grid-template-columns: 1fr;
+        }
+
+        .notifications__preview {
+            padding: $big;
+            min-height: 100vh;
+            border-right: 1px solid hsla(204, 14%, 93%, 1);
+
+            @media (max-width: 750px) {
+                padding: $base;
+                border-right: 0;
+            }
+
+            @media (max-width: 480px) {
+                padding: 0;
+            }
+
+            .notification {
+                display: flex;
+                align-items: center;
+                font-family: "DM Sans", sans-serif;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+                background: #F3F3F3;
+                padding: $tiny 1.2rem;
+
+                @media (max-width: 600px) {
+                    padding: $mb $base;
+                }
+
+                img {
+                    height: 48px;
+                    width: 48px;
+                    object-fit: cover;
+                    margin-right: $base;
+                }
+
+                div {
+                    h3 {
+                        font-size: $sm;
+                        color: hsla(0, 0%, 18%, 0.8);
+                        margin-bottom: 5px;
+                    }
+
+                    p {
+                        font-size: $sm;
+                        font-weight: 500;
+                        color: hsla(172, 92%, 28%, 1);
+                    }
+                }
+
+            }
+        }
+    }
+}

@@ -31,7 +31,7 @@ import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
 import ResetPassword from "./pages/resetPassword";
 import VerifyMail from "./pages/verifyMail";
-import { Services } from "./components";
+import { Notifications, Services } from "./components";
 //import { useAuth } from "./contexts/AuthContext/AuthContext";
 //import { useEffect } from "react";
 
@@ -83,7 +83,7 @@ function App() {
                   <Route path="/mentorship" element={<MentorshipPage />} />
                   <Route path="/messages" element={<MessagesPage />} />
                   <Route path="/messages/:id" element={window.innerWidth <= 990 ? <ChatPage /> : <Navigate to="/messages" />} />
-                  <Route path="/notifications" element={<NotificationsPage />} />
+                  <Route path="/notifications" element={<Notifications />} />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/users-profile" element={<UserProfile />} />
                   <Route path="/settings" element={<SettingsPage />} />
