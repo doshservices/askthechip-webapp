@@ -4,6 +4,7 @@ import { notify, warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import Loader from "./Loader/Loader";
 import axios from "axios";
+import { SideNav } from ".";
 
 const defaultFormFields = {
   others: "",
@@ -51,8 +52,9 @@ const Mentorship = () => {
   };
 
   return (
-    <div className="grid grid-cols-12 pl-8">
-      <div className="col-span-11 md:col-span-9 xm:col-span-7 xl:col-span-6">
+    <div className="pageLayout mentorship bg-light">
+      <SideNav />
+      <div className="pageLayout__wrapper__container">
         <ToastContainer />
         <div className="font-DMSans text-2xl font-medium my-2 mt-5">
           Mentorship

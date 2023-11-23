@@ -31,7 +31,7 @@ import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
 import ResetPassword from "./pages/resetPassword";
 import VerifyMail from "./pages/verifyMail";
-import { Notifications, Services } from "./components";
+import { Mentorship, Notifications, Services } from "./components";
 //import { useAuth } from "./contexts/AuthContext/AuthContext";
 //import { useEffect } from "react";
 
@@ -80,7 +80,7 @@ function App() {
                 {/* Protected routes */}
                 <Route element={<ProtectedRoute />}>
                   <Route path="/home" element={<Homepage />} />
-                  <Route path="/mentorship" element={<MentorshipPage />} />
+                  <Route path="/mentorship" element={<Mentorship />} />
                   <Route path="/messages" element={<MessagesPage />} />
                   <Route path="/messages/:id" element={window.innerWidth <= 990 ? <ChatPage /> : <Navigate to="/messages" />} />
                   <Route path="/notifications" element={<Notifications />} />
