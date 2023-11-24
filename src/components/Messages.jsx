@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { messagesData } from "../data";
 import { Search } from "./home";
-import Chat from "./Chat";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { useSocket } from "../contexts/SocketContext/SocketContext";
 import { Link } from "react-router-dom";
-import { CircleLoader } from ".";
+import { CircleLoader, SideNav } from ".";
 import { getUserInitial } from "../utils/getUsername";
 import { useConversation } from "../contexts/ConversationContext/ConversationContext";
+import { Message } from "./Chat/messages";
+import mask from "./Chat/mask.png"
+import allot from "./Chat/allot.png"
+import people from "./Chat/people.png"
+import modupe from "./Chat/modupe.png"
+import { ChatBox } from "./Chat/chat";
 
 const Messages = () => {
 
@@ -176,127 +181,27 @@ const Messages = () => {
   }
 
   return (
-    <div className="grid grid-cols-12 pl-0 xm:pl-4">
-      <div className="grid col-span-12 lg:col-span-4 h-screen pt-4 overflow-y-auto pr-5 border-r border-[#ebeef0]">
-        <div className="mt-1">
-          <div className="mr-7">
-            <Search background={`#fcfcfc`} placeholder={"Search People"} />
+    <div className="pageLayout bg-light">
+      <SideNav />
+      <div className="pageLayout__wrapper__container">
+        <div className="chats">
+          <div className="chats__senders">
+            <div className="search-people">
+              <Search background={`#fcfcfc`} placeholder={"Search People"} />
+            </div>
+            <Message senderImg={people} senderName="Ezra" message="Bro! Whatsup" time="8:30am" amount="1" />
+            <Message senderImg={allot} senderName="Opemipo Hamzah" message="Good morning chief Prosper" time="7:40am" amount="2" />
+            <Message senderImg={mask} senderName="Ebuka Moses" message="What's the Update!" time="7:33am" amount="2" />
+            <Message senderImg={modupe} senderName="Modupe" message="Hey 👋 Prosper" time="7:30am" amount="1" />
+            <Message senderImg={people} senderName="Mr Rahman" message="Bro" time="6:30am" amount="15" />
+            <Message senderImg={allot} senderName="Abdrahman" message="morning chief" time="2:14am" amount="3" />
+            <Message senderImg={mask} senderName="Favour Okoye" message="Hwfa" time="Yesterday" amount="1" />
+            <Message senderImg={allot} senderName="Zach" message="Who are you?" time="Thursday" amount="5" />
           </div>
-          <div className="mt-7">
-            {loadingOnlineUsers ? <>
-              <div className="py-2">
-                <CircleLoader color="#05675A" />
-              </div>
-              <div className="text-center">Loading users that are online...</div>
-            </> : <>
-              {usersDetails.length === 0 ?
-                <>
-                  <div className="text-center">There's no user online at the moment</div>
-                </> :
-                <div className="font-DMSans pl-4">
-                  {usersDetails?.map((onlineUser, index) => (
-                    <React.Fragment key={index}>
-                      <div
-                        key={index}
-                        onClick={() => handleActiveConversation(onlineUser?.user?._id)}
-                        className="cursor-pointer hidden lg:grid grid-cols-12 pt-1 pb-3 my-2 border-b border-[#B4abab]/60 mr-4"
-                      >
-                        <div className="col-span-2 ml-auto mr-2">
-                          {onlineUser?.user?.profileImg ?
-                            <img
-                              src={onlineUser?.user?.profileImg}
-                              alt={getUsername(onlineUser)}
-                              className="rounded-full w-12 h-auto aspect-square"
-                            />
-                            : <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary100 font-bold text-xl">
-                              <span className="text-white">{getUserInitial(onlineUser)}</span>
-                            </div>
-                          }
-                        </div>
-                        <div className="col-span-6 ml-3">
-                          <div className="font-bold text-[#303030] text-sm mb-1.5">
-                            {getUsername(onlineUser)}
-                          </div>
-                          <div className="text-[#303030] font-light text-xs">
-                            {/* See your conversations with {getUsername(onlineUser)}  */}
-                            See your conversations
-                          </div>
-                        </div>
-                        {/* <div className="col-span-4 ml-auto mr-3">
-                          <div className="text-[#7C7C7C] font-light text-sm mb-1">
-                            1hr
-                          </div>
-                          <div className="ml-auto w-fit text-xs">
-                            <span className="bg-primary80 text-white rounded-full aspect-square min-w-[1.2rem] justify-center items-center flex">
-                              4
-                            </span>
-                          </div>
-                        </div> */}
-                      </div>
-                      <Link key={onlineUser?.user?._id} to={`/messages/${onlineUser?.user?._id}`}>
-                        <div
-                          className="grid grid-cols-12 lg:hidden pt-1 pb-3 my-2 border-b border-[#B4abab]/60 mr-4"
-                        >
-                          <div className="col-span-2 ml-auto mr-2">
-                            <img
-                              src={onlineUser?.user?.profileImg}
-                              alt="blog"
-                              className="rounded-full w-12 h-auto aspect-square"
-                            />
-                          </div>
-                          <div className="col-span-6 ml-3">
-                            <div className="font-bold text-[#303030] text-sm mb-1.5">
-                              {getUsername(onlineUser)}
-                            </div>
-                            <div className="text-[#303030] font-light text-xs">
-                              {/* See your conversations with {getUsername(onlineUser)}  */}
-                              See your conversations
-                            </div>
-                          </div>
-                          <div className="col-span-4 ml-auto mr-3">
-                            <div className="text-[#7C7C7C] font-light text-sm mb-1">
-                              1hr
-                            </div>
-                            <div className="ml-auto w-fit text-xs">
-                              <span className="bg-primary80 text-white rounded-full aspect-square min-w-[1.2rem] justify-center items-center flex">
-                                4
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </React.Fragment>
-                  ))}
-                </div>}</>
-            }
+          <div className="chats__message">
+            <ChatBox />
           </div>
         </div>
-      </div>
-      <div className="hidden lg:flex col-span-8">
-        {
-          activeReceiverId ?
-            <Chat activeReceiverId={activeReceiverId} />
-            : <div className="flex flex-col w-full justify-center items-center">
-              <div>
-                <svg
-                  width="80"
-                  height="80"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 12.025H11.825V10.525H4V12.025ZM4 8.775H16V7.275H4V8.775ZM4 5.525H16V4.025H4V5.525ZM0 20V1.5C0 1.11667 0.15 0.770833 0.45 0.4625C0.75 0.154167 1.1 0 1.5 0H18.5C18.8833 0 19.2292 0.154167 19.5375 0.4625C19.8458 0.770833 20 1.11667 20 1.5V14.5C20 14.8833 19.8458 15.2292 19.5375 15.5375C19.2292 15.8458 18.8833 16 18.5 16H4L0 20ZM1.5 16.375L3.375 14.5H18.5V1.5H1.5V16.375Z"
-                    fill={"#2d2d2d"}
-                    fillOpacity={"0.5"}
-                  />
-                </svg>
-              </div>
-              <div className="text-center justify-center opacity-50 mt-4">
-                Chat on Askthechip <br /> You can start by clicking on a chat head <br /> (if any user is online)
-              </div>
-            </div>
-        }
       </div>
     </div>
   );

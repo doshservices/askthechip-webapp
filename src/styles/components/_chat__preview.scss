@@ -1,0 +1,154 @@
+.chat__messages {
+    display: flex;
+    align-items: center;
+    padding: $sm 0;
+    border-bottom: 1px solid hsla(0, 5%, 69%, 0.66);
+
+    img {
+        height: 50px;
+        width: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .sender__info {
+        margin: 0 $thin;
+        color: hsla(0, 0%, 19%, 1);
+
+        h3 {
+            font-size: $sm;
+        }
+
+        p {
+            font-size: $xm;
+        }
+    }
+
+    .time {
+        margin-left: auto;
+        text-align: right;
+
+        p {
+            &[role=time] {
+                color: hsla(0, 0%, 49%, 1);
+                font-size: $xm;
+            }
+        }
+
+        span {
+            background: hsla(146, 64%, 36%, 1);
+            color: $light200;
+            border-radius: 50%;
+            height: 20px;
+            width: 20px;
+            text-align: center;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: $xm;
+            padding: 3px;
+        }
+    }
+}
+
+.chat {
+    min-height: 100%;
+
+    &__header {
+        display: flex;
+        padding: $base;
+        align-items: center;
+        border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+        position: sticky;
+        top: 0;
+        background: #FCFCFC;
+        z-index: 1;
+
+        &__user__img {
+            margin-right: $xm;
+        }
+
+        &__user {
+            h3 {
+                font-size: 1.2rem;
+                font-weight: 500;
+                color: $dark200;
+            }
+
+            .last__seen {
+                color: hsla(0, 0%, 18%, 0.7);
+                font-size: .85rem;
+            }
+        }
+
+        &__actions {
+            display: flex;
+            margin-left: auto;
+
+            svg {
+                margin-left: 1.2rem;
+                height: 22px;
+            }
+        }
+    }
+
+    &__send__box {
+        display: flex;
+        align-items: center;
+        padding: $base;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+
+        input {
+            font-size: $sm;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            resize: none;
+            display: block;
+            flex-grow: 1;
+            height: fit-content !important;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            &:focus {
+                border: none;
+                outline: none;
+            }
+        }
+
+        .actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+
+            .icons {
+                display: flex;
+                margin: 0 $big 0 $base;
+
+                svg {
+                    margin-right: 10px;
+                }
+            }
+
+            button {
+                background: $primary;
+                display: flex;
+                align-items: center;
+                color: $light200;
+                font-size: $sm;
+                border-radius: 10px;
+                padding: .4rem 1.2rem;
+
+                svg {
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+}

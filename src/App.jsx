@@ -9,9 +9,6 @@ import {
   ForgotPassword,
   LandingPage,
   Homepage,
-  MentorshipPage,
-  MessagesPage,
-  NotificationsPage,
   Onboarding,
   Payment,
   Pricing,
@@ -30,8 +27,7 @@ import ConversationProvider from "./contexts/ConversationContext/ConversationCon
 import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
 import ResetPassword from "./pages/resetPassword";
-import VerifyMail from "./pages/verifyMail";
-import { Mentorship, Notifications, Services } from "./components";
+import { Mentorship, Messages, Notifications, Services } from "./components";
 //import { useAuth } from "./contexts/AuthContext/AuthContext";
 //import { useEffect } from "react";
 
@@ -81,7 +77,7 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                   <Route path="/home" element={<Homepage />} />
                   <Route path="/mentorship" element={<Mentorship />} />
-                  <Route path="/messages" element={<MessagesPage />} />
+                  <Route path="/messages" element={<Messages />} />
                   <Route path="/messages/:id" element={window.innerWidth <= 990 ? <ChatPage /> : <Navigate to="/messages" />} />
                   <Route path="/notifications" element={<Notifications />} />
                   <Route path="/profile" element={<ProfilePage />} />

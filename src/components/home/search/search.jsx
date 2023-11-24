@@ -8,7 +8,7 @@ const Search = ({ background, placeholder }) => {
 
   return (
     <div
-      className="flex rounded-lg items-center w-full border border-[#EBEEF0] px-5 mx-5"
+      className="flex rounded-lg items-center w-full border border-[#EBEEF0] px-5 mb-5"
       style={{ backgroundColor: background }}
     >
       <input
