@@ -183,7 +183,7 @@ const Messages = () => {
   return (
     <div className="pageLayout bg-light">
       <SideNav />
-      <div className="pageLayout__wrapper__container">
+      <div className="pageLayout__wrapper__container message__container">
         <div className="chats">
           <div className="chats__senders">
             <div className="search-people">

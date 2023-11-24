@@ -52,7 +52,9 @@
 }
 
 .chat {
-    min-height: 100%;
+    height: 100vh;
+    position: relative;
+    isolation: isolate;
 
     &__header {
         display: flex;
@@ -92,13 +94,47 @@
         }
     }
 
+    &__full__messages {
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        overflow-y: scroll;
+        padding: 6.5rem $base;
+
+        p {
+            font-size: $sm;
+            border-radius: 25px;
+            padding: 7px $base;
+            margin-bottom: $base;
+
+            &:nth-child(odd) {
+                background-color: hsla(0, 0%, 90%, 1);
+                color: $dark200;
+                width: fit-content;
+                margin-right: auto;
+            }
+
+            &:nth-child(even) {
+                background-color: $primary;
+                color: $light200;
+                width: fit-content;
+                margin-left: auto;
+            }
+        }
+    }
+
     &__send__box {
         display: flex;
         align-items: center;
         padding: $base;
-        position: fixed;
+        position: absolute;
         bottom: 0;
         right: 0;
+        left: 0;
+        background: #FCFCFC;
 
         input {
             font-size: $sm;

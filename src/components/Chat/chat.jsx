@@ -16,6 +16,32 @@ export const ChatBox = () => {
                     <FavoriteIcon />
                 </div>
             </div>
+            <div className="chat__full__messages">
+                <p>Hey There!</p>
+                <p>How are you?</p>
+                <p>Hello!</p>
+                <p>I am fine and how are you?</p>
+                <p>I am doing well, Can we meet tomorrow?</p>
+                <p>Yes Sure!</p>
+                <p>Hey There!</p>
+                <p>How are you?</p>
+                <p>Hello!</p>
+                <p>I am fine and how are you?</p>
+                <p>I am doing well, Can we meet tomorrow?</p>
+                <p>Yes Sure!</p>
+                <p>Hey There!</p>
+                <p>How are you?</p>
+                <p>Hello!</p>
+                <p>I am fine and how are you?</p>
+                <p>I am doing well, Can we meet tomorrow?</p>
+                <p>Yes Sure!</p>
+                <p>Hey There!</p>
+                <p>How are you?</p>
+                <p>Hello!</p>
+                <p>I am fine and how are you?</p>
+                <p>I am doing well, Can we meet tomorrow?</p>
+                <p>Yes Sure!</p>
+            </div>
             <div className="chat__send__box">
                 <input placeholder="Type your message here..." />
                 <div className="actions">

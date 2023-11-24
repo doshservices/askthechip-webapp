@@ -1,7 +1,10 @@
+.message__container {
+    max-height: 100vh !important;
+}
+
 .chats {
     display: grid;
     grid-template-columns: 1fr 1.8fr;
-    position: relative;
 
     * {
         font-family: "DM Sans", sans-serif;
@@ -10,11 +13,18 @@
     &__senders {
         padding: $base $big;
         border-right: 1px solid hsla(204, 14%, 93%, 1);
+        max-height: 100vh;
+        overflow-y: scroll;
+        padding-bottom: 3rem;
 
         .search-people {
             position: sticky;
             top: $base;
             background: #FCFCFC;
         }
+    }
+
+    &__message {
+        max-height: 100vh;
     }
 }
