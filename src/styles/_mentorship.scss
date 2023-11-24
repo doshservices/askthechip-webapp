@@ -1,17 +1,51 @@
 .mentorship {
+    padding: $big;
+
+    @media (max-width: 750px) {
+        padding: $base;
+    }
+
+    * {
+        font-family: "DM Sans", sans-serif;
+    }
+
+    >h2 {
+        color: $dark200;
+        font-size: $md;
+        font-weight: 500;
+    }
+
+    >p {
+        color: $dark200;
+        opacity: .9;
+        font-size: .94rem;
+    }
 
     form {
         max-width: 900px;
-        margin: 0 auto;
+        margin: $base auto;
 
-        * {
-            font-family: "DM Sans", sans-serif;
+        .layout {
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: $big;
+
+            >div {
+                flex-grow: 1;
+                flex-basis: 250px;
+            }
         }
 
         input,
         select {
             font-size: $sm;
             color: hsla(0, 0%, 18%, 0.7);
+        }
+
+        textarea {
+            &:focus {
+                outline: 1px solid hsla(0, 0%, 18%, .4);
+            }
         }
 
         label {
@@ -41,6 +75,10 @@
             }
         }
 
-
+        button {
+            &[type="submit"] {
+                margin-top: $big;
+            }
+        }
     }
 }

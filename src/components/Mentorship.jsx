@@ -52,45 +52,43 @@ const Mentorship = () => {
   };
 
   return (
-    <div className="pageLayout mentorship bg-light">
+    <div className="pageLayout bg-light">
       <SideNav />
-      <div className="pageLayout__wrapper__container p-[2rem]">
-        <ToastContainer />
-        <div className="font-DMSans text-2xl font-medium my-2 mt-5">
-          Mentorship
-        </div>
-        <div>
-          Kindly fill out the form below to request for mentorship session
-        </div>
-        <div className="mt-6 ml-0 md:ml-6 mr-0 md:mr-8">
+      <div className="pageLayout__wrapper__container">
+        <section className="mentorship">
+          <ToastContainer />
+          <h2>Mentorship</h2>
+          <p>Kindly fill out the form below to request for mentorship session</p>
           <form onSubmit={handleSubmit}>
-            <div className="feild__wrapper">
-              <label htmlFor="Linkedin Profile URL">
-                Linkedin Profile URL
-              </label>
-              <input
-                type="text"
-                name="Linkedin Profile URL"
-                id="Linkedin Profile URL"
-                // value={Linkedin Profile URL}
-                onChange={handleChange}
-                placeholder="Enter your linkedin profile url here"
-                required
-              />
-            </div>
-            <div className="feild__wrapper">
-              <label htmlFor="phoneNumber">
-                Why do you need a mentor?
-              </label>
-              <input
-                type="tel"
-                name="phoneNumber"
-                id="email"
-                // value={phoneNumber}
-                onChange={handleChange}
-                placeholder="Answer Here"
-                required
-              />
+            <div className="layout">
+              <div className="feild__wrapper">
+                <label htmlFor="Linkedin Profile URL">
+                  Linkedin Profile URL
+                </label>
+                <input
+                  type="text"
+                  name="Linkedin Profile URL"
+                  id="Linkedin Profile URL"
+                  // value={Linkedin Profile URL}
+                  onChange={handleChange}
+                  placeholder="Enter your linkedin profile url here"
+                  required
+                />
+              </div>
+              <div className="feild__wrapper">
+                <label htmlFor="phoneNumber">
+                  Why do you need a mentor?
+                </label>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  id="email"
+                  // value={phoneNumber}
+                  onChange={handleChange}
+                  placeholder="Answer Here"
+                  required
+                />
+              </div>
             </div>
             <div className="feild__wrapper">
               <label htmlFor="email">
@@ -137,21 +135,19 @@ const Mentorship = () => {
                 rows="5"
               />
             </div>
-            <div className="flex justify-center my-[3.75rem]">
-              <button
-                disabled={loading}
-                type="submit"
-                className={
-                  loading
-                    ? `bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
-                    : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
-                }
-              >
-                {loading ? <Loader /> : "Request"}
-              </button>
-            </div>
+            <button
+              disabled={loading}
+              type="submit"
+              className={
+                loading
+                  ? `bg-primary80 text-[#f8f8f8] border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
+                  : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
+              }
+            >
+              {loading ? <Loader /> : "Request"}
+            </button>
           </form>
-        </div>
+        </section>
       </div>
     </div>
   );
