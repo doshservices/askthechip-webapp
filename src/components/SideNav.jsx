@@ -1,6 +1,5 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import logo from "../assets/logo.svg";
-import gear from "../assets/icons/gear.svg";
 import power from "../assets/icons/power-icon.svg";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { inform } from "../App";
@@ -10,7 +9,8 @@ import { ToastContainer } from "react-toastify";
 const SideNav = () => {
   const navigateTo = useNavigate();
   const pathname = window.location.pathname;
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
+
   const handleLogOut = () => {
     inform("Logging you out...");
     setTimeout(() => {

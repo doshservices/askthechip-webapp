@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import like from "../../../assets/icons/like-icon.svg";
 import dislike from "../../../assets/icons/dislike-icon.svg";
 import comment from "../../../assets/icons/comment-icon.svg";
-import reply from "../../../assets/icons/reply-icon.svg";
 import threeDotsIcon from "../../../assets/icons/three-dots.svg";
 import editIcon from "../../../assets/icons/edit-icon.svg";
 import deleteIcon from "../../../assets/icons/delete-icon.svg";
@@ -16,7 +15,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { CommentIcon, LikeIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
+import { CommentIcon, LikeIcon, ReplyIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
 
 const reactions = [
   {
@@ -334,7 +333,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
               </div>
               <span style={{ color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }} className="mt-1">{comments?.length}</span>
             </div>
-            <div style={{ background: usersLikes.includes(myId) ? "#068978" : "transparent", color: usersLikes.includes(myId) ? "#f8f8f8" : "#2d2d2" }} className="rounded-[4px] flex ml-3 px-3 py-1 text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
+            <div style={{ background: usersLikes.includes(myId) ? "#068978" : "transparent", color: usersLikes.includes(myId) || post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2" }} className="rounded-[4px] flex ml-3 px-3 py-1 text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center">
               <div onClick={handleLikePost} className="mr-1 w-5 cursor-pointer">
                 <LikeIcon fill={post?.board === "BLACK_BOARD" || usersLikes.includes(myId) ? "#f8f8f8" : "#2d2d2d"} />
               </div>
@@ -355,9 +354,9 @@ const Posts = ({ index, post, handleGetPosts }) => {
           </div>
           <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center">
             <div className="mr-1">
-              <img src={reply} alt="Reply" />
+              <ReplyIcon fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d"} />
             </div>
-            <span className="text-center mt-1">Reply</span>
+            <span style={{ color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }} className="text-center mt-1">Reply</span>
           </div>
         </div>
 
@@ -420,6 +419,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
             post={post}
             handleGetPosts={handleGetPosts}
             setComments={setComments}
+            border={post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.1)" : "rgba(0, 0, 0, 0.10)"}
           />
         </div>
       </div>
