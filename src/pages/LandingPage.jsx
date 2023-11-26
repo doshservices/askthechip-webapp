@@ -14,8 +14,8 @@ const Landing = () => {
       <Navbar />
       <Header />
       <WhyJoining />
-      <ConnectWithFounders />
       <Testimonial />
+      <ConnectWithFounders />
       <Footer />
     </div>
   );

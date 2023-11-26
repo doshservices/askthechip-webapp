@@ -4,14 +4,26 @@
 
 .chats {
     display: grid;
-    grid-template-columns: 1fr 1.8fr;
+    grid-template-columns: 390px 1fr;
+
+    @media (max-width: 1070px) {
+        grid-template-columns: 350px 1fr;
+    }
+
+    @media (max-width: 850px) {
+        grid-template-columns: 300px 1fr;
+    }
+
+    @media (max-width: 750px) {
+        grid-template-columns: 1fr;
+    }
 
     * {
         font-family: "DM Sans", sans-serif;
     }
 
     &__senders {
-        padding: $base $big;
+        padding: $base;
         border-right: 1px solid hsla(204, 14%, 93%, 1);
         max-height: 100vh;
         overflow-y: scroll;
@@ -26,5 +38,9 @@
 
     &__message {
         max-height: 100vh;
+
+        @media (max-width: 750px) {
+            display: none;
+        }
     }
 }

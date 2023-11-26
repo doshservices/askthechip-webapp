@@ -46,13 +46,13 @@ const mobileImages = [
 const Header = () => {
   return (
     <div className="font-DMSans" id="explore">
-      <section className="flex justify-center items-center flex-col md:min-h-screen">
-        <div className="flex justify-center items-center flex-col my-10">
-          <h1 className="font-bold md:text-[50px] sm:text-[45px] text-[28px] text-center w-[90%] max-w-[23ch] leading-[37.99px] sm:leading-[60px] md:leading-[60px] mt-20 mb-3 text-secondary">
+      <section className="flex justify-center items-center flex-col">
+        <section className="flex justify-center items-center flex-col pt-6">
+          <h1 className="font-bold md:text-[50px] sm:text-[45px] text-[28px] text-center w-[90%] max-w-[23ch] leading-[37.99px] sm:leading-[60px] md:leading-[60px] mt-20 mb-5 text-secondary">
             Welcome to Our Community{" "}
             <span className="text-primary">of Entrepreneurs</span>
           </h1>
-          <h2 className="text-xs md:text-lg w-[90%] max-w-[49ch] text-center mb-10 text-[#343432]">
+          <p className="text-[.9rem] md:text-lg w-[90%] max-w-[49ch] text-center mb-8 text-[#343432]">
             Here, we promote innovation and help you to create value by
             addressing the critical factors that affect you as an entrepreneur
             or a start-up. Through our diverse, hands-on resources, you will
@@ -60,12 +60,12 @@ const Header = () => {
             actualization of your business and profitability. So whether you are
             just starting out or you are already in business there is a resource
             that can help your business grow.
-          </h2>
+          </p>
           <div>
             <Button path="login" title="Get Started" />
           </div>
-        </div>
-        <div className="my-0 md:my-10 mb-5 md:mb-10">
+        </section>
+        <div className="my-0">
           <div className="flex max-w-full">
             <div className="flex gap-4 bg-black/50 relative">
               <div className="custom-shape-divider-top">

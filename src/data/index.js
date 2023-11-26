@@ -1,7 +1,7 @@
 import upload from "./../assets/icons/upload.svg";
 import truck from "./../assets/icons/car.svg";
 import check from "./../assets/icons/check.svg";
-import error from "./../assets/icons/error.svg";
+import access from "./../assets/icons/access.svg";
 import network from "./../assets/icons/network.svg";
 import growth from "./../assets/icons/growth.svg";
 import mentoring from "./../assets/icons/mentoring.svg";
@@ -9,7 +9,7 @@ import interestImg from "./../assets/images/interest.png";
 
 export const whyData = [
   {
-    icon: network,
+    icon: access,
     title: "Access Exclusive Network",
     text: "Where we promote innovation and value creation by addressing the non-core but critical factors that affect Entrepreneurs and Start-ups. Thereby allowing for focus on the development of the core ideas and solutions.",
   },
@@ -321,7 +321,7 @@ export const servicesData = [
         image: blogImg,
       },
     ]
-    
+
   },
   {
     category: "Administrative",
@@ -347,7 +347,7 @@ export const servicesData = [
         image: blogImg,
       },
     ]
-    
+
   },
   {
     category: "Consulting",
@@ -373,7 +373,7 @@ export const servicesData = [
         image: blogImg,
       },
     ]
-    
+
   },
   {
     category: "Financial",
@@ -399,7 +399,7 @@ export const servicesData = [
         image: blogImg,
       },
     ]
-    
+
   },
   {
     category: "Legal",
@@ -425,7 +425,7 @@ export const servicesData = [
         image: blogImg,
       },
     ]
-    
+
   },
   {
     category: "Marketing",
@@ -451,7 +451,7 @@ export const servicesData = [
         image: blogImg,
       },
     ]
-    
+
   },
   {
     category: "Technology",

@@ -13,6 +13,7 @@ import allot from "./Chat/allot.png"
 import people from "./Chat/people.png"
 import modupe from "./Chat/modupe.png"
 import { ChatBox } from "./Chat/chat";
+import { checkWidth } from "../utils/windowWidth";
 
 const Messages = () => {
 
@@ -180,6 +181,8 @@ const Messages = () => {
     return username;
   }
 
+  const windowWidth = checkWidth()
+
   return (
     <div className="pageLayout bg-light">
       <SideNav />
@@ -199,6 +202,7 @@ const Messages = () => {
             <Message senderImg={allot} senderName="Zach" message="Who are you?" time="Thursday" amount="5" />
           </div>
           <div className="chats__message">
+            {/* {windowWidth > 700 ? <ChatBox /> : null} */}
             <ChatBox />
           </div>
         </div>
