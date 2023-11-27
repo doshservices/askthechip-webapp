@@ -14,7 +14,7 @@
         grid-template-columns: 300px 1fr;
     }
 
-    @media (max-width: 750px) {
+    @media (max-width: 650px) {
         grid-template-columns: 1fr;
     }
 
@@ -34,12 +34,29 @@
             top: $base;
             background: #FCFCFC;
         }
+
+        @media (max-width: 600px) {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .search-people {
+                top: 0;
+
+                >div {
+                    margin-bottom: 5px !important;
+                }
+            }
+        }
     }
 
     &__message {
         max-height: 100vh;
 
-        @media (max-width: 750px) {
+        @media (max-width: 650px) {
             display: none;
         }
     }

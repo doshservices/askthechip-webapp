@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { Header, Share } from "./home";
 import React, { useEffect, useState } from "react";
 import SideNav from "./SideNav";
-import { checkWidth } from "../utils/windowWidth";
+import { useWindowWidth } from "../utils/windowWidth";
 const Services = () => {
 
   const { token } = useAuth()
@@ -171,7 +171,7 @@ const Services = () => {
       throw error
     })
   }
-  const width = checkWidth()
+  const width = useWindowWidth()
   useEffect(() => {
     accountingProviders();
     adminProviders();

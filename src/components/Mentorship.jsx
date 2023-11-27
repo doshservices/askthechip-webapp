@@ -5,6 +5,8 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 import Loader from "./Loader/Loader";
 import axios from "axios";
 import { FileUploadInput, SideNav } from ".";
+import { useWindowWidth } from "../utils/windowWidth";
+import { Header } from "./home";
 
 const defaultFormFields = {
   others: "",
@@ -51,10 +53,15 @@ const Mentorship = () => {
     })
   };
 
+  const width = useWindowWidth();
+
   return (
     <div className="pageLayout bg-light">
       <SideNav />
       <div className="pageLayout__wrapper__container">
+        {width < 480 ?
+          <Header /> : <></>
+        }
         <section className="mentorship">
           <ToastContainer />
           <h2>Mentorship</h2>

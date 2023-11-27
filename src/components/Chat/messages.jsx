@@ -1,4 +1,5 @@
 export const Message = ({ senderImg, senderName, amount, message, time }) => {
+
     return (
         <div className="chat__messages">
             <img src={senderImg} alt={senderName} />

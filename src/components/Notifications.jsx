@@ -4,7 +4,8 @@ import comment from "./../assets/icons/comment-icon.svg";
 import reply from "./../assets/icons/reply-icon.svg";
 import user from "./../assets/blog-img.svg";
 import SideNav from "./SideNav";
-
+import { useWindowWidth } from "../utils/windowWidth";
+import Header from "./home/header";
 const reactions = [
   {
     icon: like,
@@ -19,12 +20,19 @@ const reactions = [
     value: 61,
   },
 ];
+
 const Notifications = () => {
+
+  const width = useWindowWidth();
+
   return (
     <section className="pageLayout notifications bg-light">
       <SideNav />
       <div className="pageLayout__wrapper__container">
-        <div className="notifications__wrapper">
+        {width < 480 ?
+          <Header /> : <></>
+        }
+        <div className="notifications__wrapper mt-4">
           <div className="notifications__preview">
             <section className="notification">
               <img src={user} alt="User" className="rounded-full" />
@@ -35,7 +43,6 @@ const Notifications = () => {
             </section>
           </div>
           <section className="notifications__details">
-
           </section>
         </div>
       </div>

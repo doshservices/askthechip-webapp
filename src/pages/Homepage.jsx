@@ -7,7 +7,7 @@ import { warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
 import axios from "axios";
-import { checkWidth } from "../utils/windowWidth";
+import { useWindowWidth } from "../utils/windowWidth";
 // import {data} from '../components/home/feed/data';
 
 const HomePage = () => {
@@ -58,7 +58,7 @@ const HomePage = () => {
     handleGetPosts();
   }, [setPosts]);
 
-  const width = checkWidth()
+  const width = useWindowWidth()
 
   return (
     <>
