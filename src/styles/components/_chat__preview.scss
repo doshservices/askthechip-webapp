@@ -16,12 +16,13 @@
         color: hsla(0, 0%, 19%, 1);
 
         h3 {
-            font-size: $sm;
+            font-size: $base;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 1;
             line-clamp: 1;
             -webkit-box-orient: vertical;
+            font-weight: 500;
         }
 
         p {
