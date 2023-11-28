@@ -1,27 +1,29 @@
 .post__category__toggler {
     display: flex;
     gap: $big;
-    padding: $thin $base;
+    padding: $thin 0;
+    flex-grow: 1;
 
     button {
         display: block;
-        color: #8C8C8C;
+        color: #555454;
         font-size: $sm;
-        font-family: "DM Sans" sans-serif;
+        font-family: "DM Sans", sans-serif;
         font-weight: 500;
         padding: 7px $md;
         border-radius: 16px;
-        background: hsl(0, 0%, 96%);
+        background: hsl(0, 0%, 90%);
     }
 
     .active {
-        color: $dark200;
-        background: hsl(0, 0%, 91%);
+        color: $light200;
+        background: $primary;
     }
 
     @media (max-width: 550px) {
         gap: $base;
-        padding: $thin $mb;
+        padding: $thin 0;
+        justify-content: space-between;
 
         button {
             padding: 5px $base;
@@ -30,8 +32,8 @@
     }
 
     @media (max-width: 350px) {
-        gap: $mb;
-        padding: $thin $mb;
+        gap: 5px;
+        padding: $thin 0;
 
         button {
             padding: 5px $thin;

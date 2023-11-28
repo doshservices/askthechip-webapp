@@ -75,10 +75,12 @@ const HomePage = () => {
             /> : <></>
           }
           <Share handleGetPosts={handleGetPosts} />
-          <div className="post__category__toggler">
-            <button onClick={() => setPostCategory("all")} className={postCategory === "all" ? "active" : ""}>All Post</button>
-            <button onClick={() => setPostCategory("white-board")} className={postCategory === "white-board" ? "active" : ""}>White Board</button>
-            <button onClick={() => setPostCategory("black-board")} className={postCategory === "black-board" ? "active" : ""}>Black Board</button>
+          <div className="p-wrap">
+            <div className="post__category__toggler">
+              <button onClick={() => setPostCategory("all")} className={postCategory === "all" ? "active" : ""}>All Post</button>
+              <button onClick={() => setPostCategory("white-board")} className={postCategory === "white-board" ? "active" : ""}>White Board</button>
+              <button onClick={() => setPostCategory("black-board")} className={postCategory === "black-board" ? "active" : ""}>Black Board</button>
+            </div>
           </div>
           {postCategory === "all" ?
             <>

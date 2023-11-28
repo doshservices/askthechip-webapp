@@ -27,7 +27,7 @@ import ConversationProvider from "./contexts/ConversationContext/ConversationCon
 import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
 import ResetPassword from "./pages/resetPassword";
-import { Mentorship, Messages, Notifications, Services } from "./components";
+import { Mentorship, Messages, Notifications, Profile, Services } from "./components";
 //import { useAuth } from "./contexts/AuthContext/AuthContext";
 //import { useEffect } from "react";
 
@@ -80,7 +80,7 @@ function App() {
                   <Route path="/messages" element={<Messages />} />
                   <Route path="/messages/:id" element={window.innerWidth <= 990 ? <ChatPage /> : <Navigate to="/messages" />} />
                   <Route path="/notifications" element={<Notifications />} />
-                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/profile" element={<Profile />} />
                   <Route path="/users-profile" element={<UserProfile />} />
                   <Route path="/settings" element={<SettingsPage />} />
                   <Route path="/services" element={<Services />} />

@@ -1,0 +1,24 @@
+.profile__wrapper {
+    padding: $big;
+
+    @media (max-width: 800px) {
+        padding: $base;
+
+        .friends,
+        .photos {
+            display: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        padding: 0;
+    }
+
+    .post_actions {
+        display: flex;
+        justify-content: space-between;
+        gap: $base;
+        flex-wrap: wrap;
+        padding-bottom: $base;
+    }
+}

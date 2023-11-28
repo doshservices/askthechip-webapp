@@ -11,3 +11,11 @@
     //     grid-template-columns: 1fr;
     // }
 }
+
+.p-wrap {
+    padding: 0 $base;
+
+    @media (max-width: 480px) {
+        padding: 0 $mb;
+    }
+}
