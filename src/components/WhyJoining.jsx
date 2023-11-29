@@ -10,7 +10,7 @@ const WhyJoining = () => {
         <h2 className="font-medium capitalize text-2xl md:text-[36px] text-center w-[90%] max-w-[29ch] md:leading-[44px] mt-8 mb-4 text-[#021B38]">
           Why you should join our Community
         </h2>
-        <p className="text-[.9rem] leading-[24px] md:text-[18px] w-[90%] max-w-[49ch] text-center mb-12 text-[#343432]">
+        <p className="text-[.9rem] leading-[1.6] md:text-[1.1rem] w-[90%] max-w-[49ch] text-center mb-12 text-[#343432]">
           We promote innovation and value creation by addressing the non-core
           but critical factors that affect Entrepreneurs and Start-ups. Thereby
           allowing for focus on the development of the core ideas and solutions.

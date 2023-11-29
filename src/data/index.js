@@ -11,22 +11,22 @@ export const whyData = [
   {
     icon: access,
     title: "Access Exclusive Network",
-    text: "Where we promote innovation and value creation by addressing the non-core but critical factors that affect Entrepreneurs and Start-ups. Thereby allowing for focus on the development of the core ideas and solutions.",
+    text: "Where we Promote Inovation and value Creation by Addressing the non-core but Critical factors that affect Entrepreneurs and Start-Ups. Thereby allowing for focus on the Development of the core Ideas and Solutions.",
   },
   {
     icon: growth,
-    title: "Accelerate your growth",
-    text: "Our community is designed to help early-stage startups accelerate their growth and achieve their goals. Join us to get the support and resources you need to take your business to the next level.",
+    title: "Accelerate Your Growth",
+    text: "Our community is designed to help early-stage Start-Ups Accelerate their Growth and achieve their Goals. Join us to get the Support and Resources you need to take your business to the next level.",
   },
   {
     icon: mentoring,
     title: "Focused Mentoring",
-    text: "Get dedicated time for feedback on your projects, Q&A and AMA sessions from our vast network of experienced and  successful entrepreneurs, investors, and industry experts who are committed to helping our members succeed.",
+    text: "Get dedicated time for feedback on your Projects, Q&A and AMA sessions from our vast network of experienced and  successful entrepreneurs, investors, and industry experts who are Committed to helping our Members Succeed.",
   },
   {
     icon: network,
     title: "Access Exclusive Resources",
-    text: "As a member of our community, you'll have access to exclusive resources, such as mentorship, funding opportunities, and educational content, that can help you take your business to the next level.",
+    text: "As a Member of our Community, you'll have access to Exclusive Resources, such as Mentorship, Funding Opportunities, and Educational Content, that can help you take your Business to the next Level.",
   },
 ];
 
@@ -144,7 +144,7 @@ export const pricingData = [
     desc: [
       {
         icon: check,
-        text: "Access to startup support services",
+        text: "Access to Start-Up support services",
       },
       {
         icon: check,
@@ -167,7 +167,7 @@ export const pricingData = [
     desc: [
       {
         icon: check,
-        text: "Access to startup support services",
+        text: "Access to Start-Up support services",
       },
       {
         icon: check,
@@ -198,7 +198,7 @@ export const pricingData = [
     desc: [
       {
         icon: check,
-        text: "Access to startup support services",
+        text: "Access to Start-Up support services",
       },
       {
         icon: check,
