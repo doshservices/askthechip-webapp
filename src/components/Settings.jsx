@@ -264,7 +264,7 @@ const Settings = () => {
                           : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
                       }
                     >
-                      {updatingNames ? <Loader /> : "save"}
+                      {updatingNames ? <Loader /> : "Save"}
                     </button>
                   </div>
                 </form>
@@ -303,7 +303,7 @@ const Settings = () => {
                           : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
                       }
                     >
-                      {updatingNames ? <Loader /> : "save"}
+                      {updatingNames ? <Loader /> : "Save"}
                     </button>
                   </div>
                 </form>
@@ -497,7 +497,7 @@ const Settings = () => {
                       : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
                   }
                 >
-                  {resetingPassword ? <Loader /> : "save"}
+                  {resetingPassword ? <Loader /> : "Save"}
                 </button>
               </div>
             </form>
