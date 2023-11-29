@@ -14,9 +14,9 @@ const SettingsPage = () => {
       <DesktopLayout>
         <Settings />
       </DesktopLayout>
-      <MobileLayout>
+      {/* <MobileLayout>
         <SettingsMobile />
-      </MobileLayout>
+      </MobileLayout> */}
     </>
   );
 };
