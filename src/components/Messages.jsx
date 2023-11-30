@@ -207,7 +207,7 @@ const Messages = () => {
           </div>
           <div className="chats__message">
             {/* {windowWidth > 700 ? <ChatBox /> : null} */}
-            <ChatBox data={chatData} className={fullChat === true ? "show__mobile__chat" : ""} onClick={() => setFullChat(false)} fullChat={fullChat} />
+            <ChatBox data={chatData} />
           </div>
         </div>
       </div>

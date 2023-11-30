@@ -1,21 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    chatUserId: null
+    chatUserId: null,
+    messageClass: 'hide',
 };
 
-const userSlice = createSlice({
+const chatViewSlice = createSlice({
     name: 'chatView',
     initialState,
     reducers: {
         setChatUserId: (state, action) => {
-            state.chatUserId = action.payload
+            state.chatUserId = action.payload;
+        },
+        setMessageClass: (state, action) => {
+            state.messageClass = action.payload;
         },
         clearChatUserId: (state) => {
-            state.chatUserId = null
+            state.chatUserId = null;
         },
     },
 });
 
-export const { setChatUserId, clearChatUserId } = userSlice.actions;
-export default userSlice.reducer;
+export const { setChatUserId, clearChatUserId, setMessageClass } = chatViewSlice.actions;
+export default chatViewSlice.reducer;
+

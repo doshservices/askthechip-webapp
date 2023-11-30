@@ -1,26 +1,19 @@
 import { useState } from "react";
-import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
-import people from "./people.png";
-import { useSelector } from "react-redux";
 import { chatData } from "./chatData";
+import { useSelector } from "react-redux";
+import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
 
-export const ChatBox = ({ onclick, className }) => {
-    // console.log(data);
+export const ChatBox = () => {
     const [value, setValue] = useState("")
-    const chatUserId = useSelector((state) => state.chat.chatUserId);
+    const chatUserId = useSelector((state) => state?.chat?.chatUserId);
+    const chatBoxClass = useSelector((state) => state?.chat?.messageClass);
 
     const chatMessages = chatData;
 
     const messageId = chatMessages.find(item => item.id === chatUserId);
 
-    // if (messageId) {
-    //     console.log(`Element with id ${idToFind} found:`, messageId);
-    // } else {
-    //     console.log(`Element with id ${idToFind} not found in the array`);
-    // }
-
     return (
-        <div className={`chat ${className}`}>
+        <div className={`chat ${chatBoxClass}`}>
             {chatUserId === null ? <p className="block m-auto max-w-[fit-content]">AskTheChip WebApp</p>
                 :
                 <>
