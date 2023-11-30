@@ -61,7 +61,7 @@ header {
                 gap: $base;
             }
 
-            @media (max-width:950px) {
+            @media (max-width:1000px) {
                 flex-direction: column;
                 position: absolute;
                 background: hsla(0, 0%, 97%, 1);
@@ -94,7 +94,7 @@ header {
         }
 
         .open {
-            @media (max-width:950px) {
+            @media (max-width:1000px) {
                 transform: translate(0%, 0);
             }
         }
@@ -102,12 +102,12 @@ header {
         &__toggler {
             display: block;
 
-            @media (min-width: 950px) {
+            @media (min-width: 1000px) {
                 display: none;
             }
         }
 
-        @media (max-width: 950px) {
+        @media (max-width: 1000px) {
             background: $primary;
         }
     }

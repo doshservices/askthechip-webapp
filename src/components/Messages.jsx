@@ -14,6 +14,8 @@ import people from "./Chat/people.png"
 import modupe from "./Chat/modupe.png"
 import { ChatBox } from "./Chat/chat";
 import { useWindowWidth } from "../utils/windowWidth";
+import { chatData } from "./Chat/chatData";
+import { Fragment } from "react";
 
 const Messages = () => {
 
@@ -182,7 +184,6 @@ const Messages = () => {
   }
   const [fullChat, setFullChat] = useState(false)
   // const windowWidth = useWindowWidth()
-  console.log(fullChat);
 
   return (
     <div className="pageLayout bg-light">
@@ -196,18 +197,17 @@ const Messages = () => {
             <div className="search-people">
               <Search background={`#fcfcfc`} placeholder={"Search People"} />
             </div>
-            <Message onclick={() => setFullChat(true)} senderImg={people} senderName="Ezra" message="Bro! Whatsup" time="8:30am" amount="1" />
-            <Message onclick={() => setFullChat(true)} senderImg={allot} senderName="Opemipo Hamzah" message="Good morning chief Prosper" time="7:40am" amount="2" />
-            <Message onclick={() => setFullChat(true)} senderImg={mask} senderName="Ebuka Moses" message="What's the Update!" time="7:33am" amount="2" />
-            <Message onclick={() => setFullChat(true)} senderImg={modupe} senderName="Modupe" message="Hey 👋 Prosper" time="7:30am" amount="1" />
-            <Message onclick={() => setFullChat(true)} senderImg={people} senderName="Mr Rahman" message="Bro" time="6:30am" amount="15" />
-            <Message onclick={() => setFullChat(true)} senderImg={allot} senderName="Abdrahman" message="morning chief" time="2:14am" amount="3" />
-            <Message onclick={() => setFullChat(true)} senderImg={mask} senderName="Favour Okoye" message="Hwfa" time="Yesterday" amount="1" />
-            <Message onclick={() => setFullChat(true)} senderImg={allot} senderName="Zach" message="Who are you?" time="Thursday" amount="5" />
+            {chatData.map((data, index) => {
+              return (
+                <Fragment key={index}>
+                  <Message info={data} senderImg={people} />
+                </Fragment>
+              )
+            })}
           </div>
           <div className="chats__message">
             {/* {windowWidth > 700 ? <ChatBox /> : null} */}
-            <ChatBox className={fullChat === true ? "show__mobile__chat" : ""} onClick={() => setFullChat(false)} fullChat={fullChat} />
+            <ChatBox data={chatData} className={fullChat === true ? "show__mobile__chat" : ""} onClick={() => setFullChat(false)} fullChat={fullChat} />
           </div>
         </div>
       </div>
