@@ -23,15 +23,15 @@ export const ChatBox = () => {
                 :
                 <>
                     <div className="chat__header">
-                        {width < 650 &&
-                            <div className="flex items-center gap-[5px] cursor-pointer">
+                        <div className="flex items-center gap-[5px] cursor-pointer">
+                            {width < 650 &&
                                 <svg onClick={changeMessageClass} width="25" height="25" fill="none" stroke="#2d2d2d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M11.438 18.75 4.688 12l6.75-6.75"></path>
                                     <path d="M5.625 12h13.688"></path>
                                 </svg>
-                                <img onClick={changeMessageClass} className="chat__header__user__img" src={messageId?.photo} alt="people" />
-                            </div>
-                        }
+                            }
+                            <img onClick={changeMessageClass} className="chat__header__user__img" src={messageId?.photo} alt="people" />
+                        </div>
                         <div className="chat__header__user">
                             <h3>{messageId?.name}</h3>
                             <p className="last__seen" role="time">Last seen {messageId?.lastSeen}</p>

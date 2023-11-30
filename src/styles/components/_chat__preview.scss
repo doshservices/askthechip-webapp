@@ -209,6 +209,10 @@
             padding: $tiny $thin;
         }
 
+        @media (max-width: 650px) {
+            position: fixed;
+        }
+
         input {
             font-size: $sm;
             border: none;

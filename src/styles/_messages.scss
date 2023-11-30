@@ -62,29 +62,31 @@
         }
 
         @media (max-width: 650px) {
-            position: fixed;
             transform: translateX(150%);
             background: $light200;
             z-index: 10000;
+            position: fixed;
         }
     }
 
     @media (max-width: 650px) {
         .hide {
             transition: all .3s ease-in-out;
-            transform: translateX(150%);
+            transform: translateX(250%);
         }
 
         .show {
             left: 70px;
             right: 0;
-            left: 0;
             transition: all .3s ease-in-out;
             transform: translateX(0);
+            top: 0;
         }
     }
 
     @media (max-width: 480px) {
-        .show {}
+        .show {
+            left: 0;
+        }
     }
 }
