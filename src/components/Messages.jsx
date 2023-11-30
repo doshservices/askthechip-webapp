@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { messagesData } from "../data";
-import { Header, Search } from "./home";
+import { Search } from "./home";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { useSocket } from "../contexts/SocketContext/SocketContext";
-import { Link } from "react-router-dom";
-import { CircleLoader, SideNav } from ".";
-import { getUserInitial } from "../utils/getUsername";
+import { SideNav } from ".";
 import { useConversation } from "../contexts/ConversationContext/ConversationContext";
 import { Message } from "./Chat/messages";
-import mask from "./Chat/mask.png"
-import allot from "./Chat/allot.png"
 import people from "./Chat/people.png"
-import modupe from "./Chat/modupe.png"
 import { ChatBox } from "./Chat/chat";
-import { useWindowWidth } from "../utils/windowWidth";
 import { chatData } from "./Chat/chatData";
 import { Fragment } from "react";
+import { useSelector } from "react-redux";
 
 const Messages = () => {
 
@@ -26,11 +20,10 @@ const Messages = () => {
   const [receiverId, setReceiverId] = useState(null);
   const { conversation, setConversation, loadingConversations, setLoadingConversations } = useConversation();
   const { user, token } = useAuth()
-
-  // https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation
+  const mobileChatClassName = useSelector((state) => state?.chat?.messageClass)
+  console.log(mobileChatClassName);
 
   const { socket } = useSocket()
-  // console.log("scket here", socket)
   useEffect(() => {
     if (socket) {
       socket.emit("addUser", user._id);
@@ -52,7 +45,6 @@ const Messages = () => {
   }, [onlineUsers])
 
   const getUserById = async (id) => {
-    // setLoadingOnlineUsers(true)
     if (id) {
       try {
         const res = await fetch(
@@ -68,12 +60,9 @@ const Messages = () => {
         if (res.ok) {
           const resData = await res.json();
           setLoadingOnlineUsers(false)
-          // console.log(resData.data)
           return resData.data;
         }
       } catch (error) {
-        // console.log("Failed to get user data using their ID")
-        // console.log(error);
       }
       setLoadingOnlineUsers(false)
     }
@@ -85,16 +74,14 @@ const Messages = () => {
     for (const userId of userIds) {
       if (userId !== user._id) {
         try {
-          const userDetails = await getUserById(userId); // Assuming getUserById is an async function
+          const userDetails = await getUserById(userId);
           userDetailsArray.push(userDetails);
         } catch (error) {
           console.error(`Error fetching details for userId ${userId}:`, error);
-          // You can handle errors here, like skipping the user or pushing a default value
         }
       }
     }
     setUsersDetails(userDetailsArray);
-    // console.log(usersDetails)
     return userDetailsArray;
   }
 
@@ -114,13 +101,10 @@ const Messages = () => {
         );
         if (res.ok) {
           const resData = await res.json();
-          // console.log("conversation here", resData.data);
           setConversation(resData.data)
-          // console.log("Successfully gotten convs")
         }
 
       } catch (error) {
-        // console.log(error);
       }
     }
     setLoadingConversations(false);
@@ -150,26 +134,18 @@ const Messages = () => {
                 `${user._id}`
               ]
             }),
-            // body: { "members": [`${receiverId}`, `${user._id}`] },
           }
         );
         if (res.ok) {
-          // console.log("Successfully created a new conversation!");
           const resData = await res.json();
-          // console.log(resData)
         }
       } catch (error) {
-        // console.log(error);
       }
     }
   };
   useEffect(() => {
     if (receiverId) createConversation(receiverId)
   }, [receiverId])
-
-  // console.log("OnlineUsers", onlineUsers)
-  // console.log("conversation here", conversation)
-  // console.log("usersDetails here", usersDetails)
 
   const handleActiveConversation = (id) => {
     setActiveReceiverId(id)
@@ -182,16 +158,11 @@ const Messages = () => {
         : `${data?.user?.companyName}`;
     return username;
   }
-  const [fullChat, setFullChat] = useState(false)
-  // const windowWidth = useWindowWidth()
 
   return (
     <div className="pageLayout bg-light">
       <SideNav />
       <div className="pageLayout__wrapper__container message__container">
-        {/* {windowWidth < 480 ?
-          <Header /> : <></>
-        } */}
         <div className="chats">
           <div className="chats__senders">
             <div className="search-people">
@@ -205,8 +176,7 @@ const Messages = () => {
               )
             })}
           </div>
-          <div className="chats__message">
-            {/* {windowWidth > 700 ? <ChatBox /> : null} */}
+          <div className={`chats__message ${mobileChatClassName}`}>
             <ChatBox data={chatData} />
           </div>
         </div>

@@ -1,5 +1,6 @@
 .message__container {
     max-height: 100vh !important;
+    overflow-x: hidden;
 }
 
 .chats {
@@ -55,9 +56,35 @@
 
     &__message {
         max-height: 100vh;
+        transition: all .3s ease-in-out;
+
+        * {
+            transition: all .3s ease-in-out;
+        }
 
         @media (max-width: 650px) {
-            display: none;
+            position: absolute;
+            background: $light200;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .hide {
+            transition: all .3s ease-in-out;
+            right: -150%;
+        }
+
+        .show {
+            z-index: 10000;
+            left: 70px;
+            right: 0;
+            transition: all .3s ease-in-out;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .show {
+            left: 0;
         }
     }
 }

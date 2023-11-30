@@ -1,24 +1,37 @@
 import { useState } from "react";
 import { chatData } from "./chatData";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setMessageClass } from "../../store/slice/chatViewSlice";
 import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
+import { useWindowWidth } from "../../utils/windowWidth";
 
 export const ChatBox = () => {
+    const dispatch = useDispatch()
     const [value, setValue] = useState("")
     const chatUserId = useSelector((state) => state?.chat?.chatUserId);
-    const chatBoxClass = useSelector((state) => state?.chat?.messageClass);
-
     const chatMessages = chatData;
 
     const messageId = chatMessages.find(item => item.id === chatUserId);
 
+    const changeMessageClass = () => dispatch(setMessageClass("hide"))
+
+    const width = useWindowWidth()
+
     return (
-        <div className={`chat ${chatBoxClass}`}>
+        <div className="chat">
             {chatUserId === null ? <p className="block m-auto max-w-[fit-content]">AskTheChip WebApp</p>
                 :
                 <>
                     <div className="chat__header">
-                        <img className="chat__header__user__img" src={messageId?.photo} alt="people" />
+                        {width < 650 &&
+                            <div className="flex items-center gap-[5px] cursor-pointer">
+                                <svg onClick={changeMessageClass} width="25" height="25" fill="none" stroke="#2d2d2d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.438 18.75 4.688 12l6.75-6.75"></path>
+                                    <path d="M5.625 12h13.688"></path>
+                                </svg>
+                                <img onClick={changeMessageClass} className="chat__header__user__img" src={messageId?.photo} alt="people" />
+                            </div>
+                        }
                         <div className="chat__header__user">
                             <h3>{messageId?.name}</h3>
                             <p className="last__seen" role="time">Last seen {messageId?.lastSeen}</p>

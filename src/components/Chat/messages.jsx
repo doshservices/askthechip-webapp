@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
-import { setChatUserId } from "../../store/slice/chatViewSlice";
+import { setChatUserId, setMessageClass } from "../../store/slice/chatViewSlice";
 
 export const Message = ({ info }) => {
     const dispatch = useDispatch()
 
     const saveId = () => {
         dispatch(setChatUserId(info?.id))
+        dispatch(setMessageClass("show"))
     }
 
     return (
