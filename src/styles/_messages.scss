@@ -1,6 +1,5 @@
 .message__container {
     max-height: 100vh !important;
-    overflow-x: hidden;
 }
 
 .chats {
@@ -63,28 +62,29 @@
         }
 
         @media (max-width: 650px) {
-            position: absolute;
+            position: fixed;
+            transform: translateX(150%);
             background: $light200;
+            z-index: 10000;
         }
     }
 
     @media (max-width: 650px) {
         .hide {
             transition: all .3s ease-in-out;
-            right: -150%;
+            transform: translateX(150%);
         }
 
         .show {
-            z-index: 10000;
             left: 70px;
             right: 0;
+            left: 0;
             transition: all .3s ease-in-out;
+            transform: translateX(0);
         }
     }
 
     @media (max-width: 480px) {
-        .show {
-            left: 0;
-        }
+        .show {}
     }
 }
