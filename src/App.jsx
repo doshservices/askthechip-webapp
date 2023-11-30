@@ -28,8 +28,9 @@ import UserProfile from "./pages/UserProfile";
 import Search from "./pages/Search";
 import ResetPassword from "./pages/resetPassword";
 import { Mentorship, Messages, Notifications, Profile, Services } from "./components";
-//import { useAuth } from "./contexts/AuthContext/AuthContext";
-//import { useEffect } from "react";
+import { store, persistor } from "./store/store";
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/es/integration/react';
 
 const toastParams = {
   position: "top-right",

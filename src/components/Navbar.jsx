@@ -75,7 +75,7 @@ const Navbar = () => {
                 Become a Provider
               </button>
             </Link>
-            <Link to="/sign-up">
+            <Link to="/login">
               <button className="text-light border border-primary80 bg-primary80 font-medium text-sm px-[1.8rem] py-[0.625rem] rounded-lg transition duration-200 hover:scale-90 active:100">
                 Join Now
               </button>
