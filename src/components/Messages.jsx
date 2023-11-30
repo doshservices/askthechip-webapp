@@ -21,7 +21,6 @@ const Messages = () => {
   const { conversation, setConversation, loadingConversations, setLoadingConversations } = useConversation();
   const { user, token } = useAuth()
   const mobileChatClassName = useSelector((state) => state?.chat?.messageClass)
-  console.log(mobileChatClassName);
 
   const { socket } = useSocket()
   useEffect(() => {
