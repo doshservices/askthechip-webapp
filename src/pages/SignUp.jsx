@@ -310,9 +310,9 @@ const SignUp = () => {
                       >
                         Password
                       </label>
-                      <div className="flex border border-[#2d2d2d] rounded-full">
+                      <div className="flex border border-[#2d2d2d] rounded-full relative">
                         <input
-                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent w-full pr-[2.5rem]"
                           type={showPassword ? "text" : "password"}
                           name="password"
                           id="password"
@@ -324,7 +324,7 @@ const SignUp = () => {
                         />
                         <span
                           onClick={() => setShowPassword(!showPassword)}
-                          className="flex justify-center items-center mx-3 cursor-pointer"
+                          className="flex justify-center items-center mx-3 cursor-pointer absolute right-0 top-[3px]"
                         >
                           <img
                             className="h-6"
@@ -341,9 +341,9 @@ const SignUp = () => {
                       >
                         Confirm Password
                       </label>
-                      <div className="flex border border-[#2d2d2d] rounded-full">
+                      <div className="flex border border-[#2d2d2d] rounded-full relative">
                         <input
-                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                          className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent w-full pr-[2.5rem]"
                           type={showPassword ? "text" : "password"}
                           name="confirmPassword"
                           id="confirmPassword"
@@ -355,7 +355,7 @@ const SignUp = () => {
                         />
                         <span
                           onClick={() => setShowPassword(!showPassword)}
-                          className="flex justify-center items-center mx-3 cursor-pointer"
+                          className="flex justify-center items-center mx-3 cursor-pointer absolute right-0 top-[3px]"
                         >
                           <img
                             className="h-6"

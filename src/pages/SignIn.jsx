@@ -104,9 +104,9 @@ const SignIn = () => {
                 <label htmlFor="password" className="font-DMSans text-sm mb-2">
                   Password
                 </label>
-                <div className="flex border border-[#2d2d2d] rounded-full">
+                <div className="flex border border-[#2d2d2d] rounded-full relative">
                   <input
-                    className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
+                    className="rounded-full py-2 px-5 pr-[2.5rem] w-full outline-none text-xs bg-transparent w-full"
                     type={showPassword ? "text" : "password"}
                     name="password"
                     id="password"
@@ -118,7 +118,7 @@ const SignIn = () => {
                   />
                   <span
                     onClick={() => setShowPassword(!showPassword)}
-                    className="flex justify-center items-center mx-3 cursor-pointer"
+                    className="flex justify-center items-center mx-3 cursor-pointer absolute right-0 top-1"
                   >
                     <img
                       className="h-6"
