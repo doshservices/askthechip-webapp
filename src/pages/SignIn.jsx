@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
@@ -17,17 +17,24 @@ const defaultFormFields = {
 
 const SignIn = () => {
   const navigateTo = useNavigate();
-  const { setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { loginId, password } = formFields;
+
+  useEffect(() => {
+    if (user !== null) {
+      navigateTo("/home")
+    }
+  }, [])
 
   const redirectToHome = () => {
     setTimeout(() => {
       navigateTo('/home');
     }, 2500);
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });

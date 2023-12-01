@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
@@ -23,8 +23,9 @@ const defaultFormFields = {
 };
 
 const SignUp = () => {
+
   const navigateTo = useNavigate();
-  const { setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [loadingBusiness, setLoadingBusiness] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -32,6 +33,13 @@ const SignUp = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [representativeId, setRepresentativeId] = useState(null);
   const [formFields, setFormFields] = useState(defaultFormFields);
+
+  useEffect(() => {
+    if (user !== null) {
+      navigateTo("/home")
+    }
+  }, [])
+
   const {
     firstName,
     lastName,

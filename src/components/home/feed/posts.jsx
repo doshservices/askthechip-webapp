@@ -232,7 +232,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   }
 
   return (
-    <article className={index === 0 || pathname === "/profile" ? `bg-[#f4f4f4] posts` : `posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "#2f2f2f" : "#f4f4f4", color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }}>
+    <article className={index === 0 || pathname === "/profile" ? `relative bg-[#f4f4f4] posts` : `relative posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "#2f2f2f" : "#f4f4f4", color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }}>
       <div className="posts__poster">
         <div className="posts__poster__details">
           <div className="dp" onClick={navigateToProfile}>
@@ -268,10 +268,10 @@ const Posts = ({ index, post, handleGetPosts }) => {
               </div>
 
               {showMore && (
-                <div className="absolute top-8 right-0 w-28 p-4 rounded-lg bg-white shadow">
+                <div className="post-show-more absolute z-10 top-8 right-0 w-28 p-3 rounded-lg bg-white shadow">
                   <div
                     onClick={handleOpenEditModal}
-                    className="hover:bg-primary/20 flex cursor-pointer justify-center text-primary"
+                    className="hover:bg-primary/20 flex cursor-pointer justify-center text-primary mb-2"
                   >
                     <img
                       src={editIcon}
