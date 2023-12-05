@@ -49,8 +49,8 @@ const DeleteModal = ({ postId, setOpenDeleteModal, handleGetPosts }) => {
   //     "message": "you can not edit this comment"
   // }
   return (
-    <div>
-      <div className="fixed z-10 inset-0 overflow-y-auto">
+    <div className="delete__modal">
+      <div className="">
         <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center">
           <div className="fixed inset-0 transition-opacity" aria-hidden="true">
             <div className="absolute inset-0 bg-[#A3A3C1] opacity-75"></div>

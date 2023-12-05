@@ -37,7 +37,7 @@ const HomePage = () => {
   };
 
   const handleGetPosts = async () => {
-    setLoading(true);
+    // setLoading(true);
     const url = "https://askthechip-hvp93.ondigitalocean.app/api/post?limit=0&skip=0";
     await axios.get(url, {
       headers: {

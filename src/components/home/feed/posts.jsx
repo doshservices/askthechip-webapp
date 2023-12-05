@@ -16,6 +16,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { CommentIcon, LikeIcon, ReplyIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
+import { CommentModal } from "./commentModal";
 
 const reactions = [
   {
@@ -71,6 +72,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   const { user, token } = useAuth();
   const { profile } = useProfile();
   const [singleCommenter, setSingleCommenter] = useState({});
+  const [showCommentModal, setShowCommentModal] = useState(false)
 
   const authUserId = profile?._id;
   const postUserId = post?.userId?._id;
@@ -231,6 +233,10 @@ const Posts = ({ index, post, handleGetPosts }) => {
     }, 1000)
   }
 
+  const commentModalDisplay = () => {
+    setShowCommentModal(!showCommentModal)
+  }
+
   return (
     <article className={index === 0 || pathname === "/profile" ? `relative bg-[#f4f4f4] posts` : `relative posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "#2f2f2f" : "#f4f4f4", color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }}>
       <div className="posts__poster">
@@ -325,8 +331,9 @@ const Posts = ({ index, post, handleGetPosts }) => {
         <div className="flex justify-between">
           <div className="flex">
             <div
+              onClick={commentModalDisplay}
               key={index}
-              className="flex items-center text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center"
+              className="cursor-pointer flex items-center text-dark2D/80 text-[13px] font-medium font-DMSans items-center justify-center"
             >
               <div className="mr-1">
                 <CommentIcon fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d"} />
@@ -359,11 +366,16 @@ const Posts = ({ index, post, handleGetPosts }) => {
             <span style={{ color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }} className="text-center mt-1">Reply</span>
           </div>
         </div>
-
-        <div>
+        {showCommentModal ?
+          <CommentModal post={post}
+            handleGetPosts={handleGetPosts}
+            setComments={setComments}
+            border={post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.1)" : "rgba(0, 0, 0, 0.10)"} close={commentModalDisplay} />
+          : null
+        }
+        {/* <div>
           {comments.length > 0 && (
             <>
-              <div className="h-[0.062rem] w-[99%] mx-auto bg-black/10 mb-4 mt-8"></div>
               {!viewAllComments ? (
                 <div>
                   <div className="flex">
@@ -403,9 +415,8 @@ const Posts = ({ index, post, handleGetPosts }) => {
               )}
             </>
           )}
-          <div className="mx-11 mt-3">{/* {comments?.slice(0, 1)} */}</div>
-        </div>
-        {comments?.length > 0 && (
+        </div> */}
+        {/* {comments?.length > 0 && (
           <div
             onClick={handleViewAllComments}
             className="cursor-pointer text-primary80 ml-5 mb-2.5 mt-5 font-medium"
@@ -413,7 +424,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
             View {viewAllComments ? "less" : `all ${comments?.length}`}{" "}
             comment(s)
           </div>
-        )}
+        )} */}
         <div>
           <Comment
             post={post}

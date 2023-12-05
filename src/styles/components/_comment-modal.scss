@@ -1,0 +1,71 @@
+.comment__modal {
+    position: fixed;
+    inset: 0;
+    background-color: hsl(0, 0%, 0%, .4);
+    z-index: 10000;
+    max-height: 100vh;
+    padding: $big;
+    overflow-y: scroll;
+
+    * {
+        font-family: "DM Sans", sans-serif;
+        color: $dark200 !important;
+    }
+
+    .close__btn {
+        display: block;
+        margin-left: auto;
+        cursor: pointer;
+    }
+
+    &__wrapper {
+        // max-width: 800px;
+        background-color: $light200;
+        margin: 0 auto;
+        height: 500px;
+        display: flex;
+        border-radius: 10px;
+        overflow: hidden;
+
+        figure {
+            flex-basis: 300px;
+            flex-grow: 1;
+
+            img {
+                width: 100%;
+                min-height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .comments {
+            flex-basis: 300px;
+            flex-grow: 1;
+            padding: $base;
+
+            .content {
+                font-size: $base;
+                font-weight: 500;
+                margin-bottom: $sm;
+            }
+
+            .comment {
+                font-size: $sm;
+                display: flex;
+                align-items: flex-start;
+
+                img {
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    margin-right: 8px;
+                }
+
+                .fullname {}
+
+                .content {}
+            }
+        }
+    }
+}
