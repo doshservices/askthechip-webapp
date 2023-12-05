@@ -140,7 +140,7 @@ const Profile = () => {
     profile?.role === "USER"
       ? `${profile?.firstName} ${profile?.lastName}`
       : `${profile?.companyName}`;
-  const role = profile?.role === "USER" ? "Private User" : "Service Provider";
+  const role = profile?.role === "USER" ? "User" : "Service Provider";
 
   return (
     <div className="pageLayout bg-light">
@@ -215,190 +215,7 @@ const Profile = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-12">
-              <div className="col-span-12 sm:col-span-4 border-r border-[#ebeef0] pr-4">
-                <div className="bg-[#f4f4f4] rounded-lg py-4">
-                  <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">
-                    About
-                  </div>
-                  <div className="px-4">
-                    <div className="flex items-center pt-4">
-                      <div>
-                        <img src={briefcase} alt="Briefcase" />
-                      </div>
-                      <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
-                        UX/UI Designer at{" "}
-                        <span className="text-primary80">Dosh Services Ltd</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center pt-4">
-                      <div>
-                        <img src={briefcase} alt="Briefcase" />
-                      </div>
-                      <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
-                        Super Hero at{" "}
-                        <span className="text-primary80">The Avengers</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center pt-4">
-                      <div>
-                        <img src={followers} alt="Briefcase" />
-                      </div>
-                      <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
-                        Followed by 300 People
-                      </div>
-                    </div>
-                    <div className="flex items-center pt-4">
-                      <div>
-                        <img src={mapMarker} alt="Briefcase" />
-                      </div>
-                      <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
-                        From Mombasa, Kenya
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="photos mt-5 bg-[#f4f4f4] rounded-lg py-4">
-                  <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">
-                    Photos
-                  </div>
-                  <div className="grid grid-cols-12 gap-4 p-4">
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-xl flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-xl flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-xl flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-xl flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-xl flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-xl flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-xl flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-xl flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-xl flex w-full"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="friends mt-5 bg-[#f4f4f4] rounded-lg py-4 mb-8">
-                  <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">
-                    Friends
-                  </div>
-                  <div className="grid grid-cols-12 gap-4 p-4">
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-full flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={profileImage}
-                        alt="Photos"
-                        className="rounded-full flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-full flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={profileImage}
-                        alt="Photos"
-                        className="rounded-full flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-full flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={profileImage}
-                        alt="Photos"
-                        className="rounded-full flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-full flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={profileImage}
-                        alt="Photos"
-                        className="rounded-full flex w-full"
-                      />
-                    </div>
-                    <div className="col-span-4">
-                      <img
-                        src={photo}
-                        alt="Photos"
-                        className="rounded-full flex w-full"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div>
               <div className="col-span-12 sm:flex flex-col sm:col-span-8">
                 <Share handleGetPosts={handleGetPosts} />
                 <div>
@@ -501,7 +318,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

@@ -17,14 +17,15 @@ const defaultFormFields = {
 
 const SignIn = () => {
   const navigateTo = useNavigate();
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { loginId, password } = formFields;
+  const token = localStorage.getItem("token")
 
   useEffect(() => {
-    if (user !== null) {
+    if (token !== null) {
       navigateTo("/home")
     }
   }, [])

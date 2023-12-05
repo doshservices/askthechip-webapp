@@ -1,6 +1,7 @@
 .side__nav {
     position: relative;
 
+
     &__nav {
         position: fixed;
         z-index: 9999;
@@ -16,10 +17,15 @@
         overflow-y: scroll;
         background: $light100;
 
+        @media (min-width: 990px) {
+            border-left: 1px solid hsla(204, 14%, 93%, 1);
+            padding-left: 10px;
+        }
+
         .logo {
             display: flex;
             align-items: center;
-            margin: 1.5rem;
+            margin: $md 0 $md 0;
             gap: 9px;
             font-size: 1.2rem;
             font-weight: 700;
@@ -92,7 +98,7 @@
             display: none;
         }
 
-        @media (max-width: 990px) {
+        @media (max-width: 1000px) {
             max-width: 70px;
 
             li {

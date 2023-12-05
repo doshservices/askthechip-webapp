@@ -25,7 +25,7 @@ const defaultFormFields = {
 const SignUp = () => {
 
   const navigateTo = useNavigate();
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [loadingBusiness, setLoadingBusiness] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -33,9 +33,10 @@ const SignUp = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [representativeId, setRepresentativeId] = useState(null);
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const token = localStorage.getItem("token")
 
   useEffect(() => {
-    if (user !== null) {
+    if (token !== null) {
       navigateTo("/home")
     }
   }, [])

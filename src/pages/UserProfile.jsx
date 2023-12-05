@@ -4,16 +4,14 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { useEffect, useState } from "react";
 import { SideNav } from "../components";
 import envelope from "../assets/icons/envelope.svg";
-import briefcase from "../assets/icons/briefcase-icon.svg";
-import followers from "../assets/icons/followers-icon.svg";
-import mapMarker from "../assets/icons/map-marker.svg";
-import photo from "../assets/images/photo.svg";
 import { Posts } from "../components/home";
 import { CircleLoader } from "../components";
 import { usePosts } from "../contexts/PostContext/PostContext";
 
 const UserProfile = () => {
     const [profileImage, setProfileImg] = useState("")
+    const [viewer, setViewer] = useState("self");
+    const [postCategory, setPostCategory] = useState("all")
     const [loading, setLoading] = useState(false)
     const { posts, setPosts } = usePosts();
     const reversedPosts = [...posts].reverse();
@@ -50,13 +48,11 @@ const UserProfile = () => {
             );
             if (res.ok) {
                 const resData = await res.json();
-                // console.log(resData);
                 const getPosts = resData.data.post;
                 setPosts(getPosts);
                 setLoading(false);
             }
         } catch (error) {
-            // console.log(error);
             setLoading(false);
         }
     };
@@ -77,7 +73,6 @@ const UserProfile = () => {
                 setProfileDetails(response?.data?.data?.user)
             }).catch((error) => {
                 setLoading(false)
-                // console.log(error);
             })
     }
 
@@ -87,12 +82,10 @@ const UserProfile = () => {
 
     return (
         <>
-            <section className="grid grid-cols-24 justify-between bg-light">
-                <div className="col-span-3 sm:col-span-3 xm:col-span-4 h-screen overflow-y-auto border-r border-[#EBEEF0]">
-                    <SideNav />
-                </div>
-                <div className="col-span-21 sm:col-span-21 xm:col-span-20 h-screen overflow-y-auto pl-[1rem] pr-[1rem] sm:pl-10 sm:pr-[10] pt-6 border-r border-[#EBEEF0]">
-                    <div className="mt-0 md:mt-5">
+            <section className="pageLayout">
+                <SideNav />
+                <div className="pageLayout__wrapper__container">
+                    <div className="profile__wrapper">
                         <div className="grid grid-cols-1 h-[7.6875rem] bg-coverImage bg-[#2d2d2d]/60 bg-blend-overlay rounded-lg">
                             <div className="pl-40 sm:pl-44 md:pl-48 xm:pl-48 pt-10">
                                 <div className="text-light mt-6 sm:mt-4">
@@ -102,9 +95,8 @@ const UserProfile = () => {
                                     <div className="w-[90%] text-sm font-DMSans mb-2">{profileDetails.role}</div>
                                 </div>
                             </div>
-                            {/* <img src={coverImage} alt="Cover image" className="w-full col-span-1" /> */}
                         </div>
-                        <div className="grid-cols-3 ml-4 sm:ml-8">
+                        <div className="grid-cols-3">
                             <div className="col-span-1 -mt-[4.5rem] sm:-mt-[4rem] xm:-mt-[4rem]">
                                 <div className="relative">
                                     {!profileDetails?.profileImg ? (
@@ -134,13 +126,11 @@ const UserProfile = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="text-[#181818] mb-2 flex justify-between border-b border-[#EBEEF0] py-4">
-                                <div className="flex">
-                                    <div className="bg-[#E9E9E9] rounded-full px-5 py-2 mr-5">
-                                        All Post
-                                    </div>
-                                    <div className="text-[#8C8C8C] py-2 pr-5">White Board</div>
-                                    <div className="text-[#8C8C8C] py-2 pr-5">Black Board</div>
+                            <div className="post_actions">
+                                <div className="post__category__toggler">
+                                    <button onClick={() => setPostCategory("all")} className={postCategory === "all" ? "active" : ""}>All Post</button>
+                                    <button onClick={() => setPostCategory("white-board")} className={postCategory === "white-board" ? "active" : ""}>White Board</button>
+                                    <button onClick={() => setPostCategory("black-board")} className={postCategory === "black-board" ? "active" : ""}>Black Board</button>
                                 </div>
                                 <div className="flex justify-center items-center">
                                     <div className="flex">
@@ -155,201 +145,9 @@ const UserProfile = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="grid grid-cols-12">
-                                <div className="col-span-12 sm:col-span-4 border-r border-[#ebeef0] pr-4">
-                                    <div className="bg-[#f4f4f4] rounded-lg py-4">
-                                        <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">
-                                            About
-                                        </div>
-                                        <div className="px-4">
-                                            <div className="flex items-center pt-4">
-                                                <div>
-                                                    <img
-                                                        src={briefcase}
-                                                        alt="Briefcase" />
-                                                </div>
-                                                <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
-                                                    UX/UI Designer at{" "}
-                                                    <span className="text-primary80">Dosh Services Ltd</span>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center pt-4">
-                                                <div>
-                                                    <img
-                                                        src={briefcase}
-                                                        alt="Briefcase" />
-                                                </div>
-                                                <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
-                                                    Super Hero at{" "}
-                                                    <span className="text-primary80">The Avengers</span>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center pt-4">
-                                                <div>
-                                                    <img
-                                                        src={followers}
-                                                        alt="Briefcase" />
-                                                </div>
-                                                <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
-                                                    Followed by 300 People
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center pt-4">
-                                                <div>
-                                                    <img
-                                                        src={mapMarker}
-                                                        alt="Briefcase" />
-                                                </div>
-                                                <div className="ml-2 text-dark2D font-DMSans text-sm font-medium">
-                                                    From Mombasa, Kenya
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="mt-5 bg-[#f4f4f4] rounded-lg py-4">
-                                        <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">
-                                            Photos
-                                        </div>
-                                        <div className="grid grid-cols-12 gap-4 p-4">
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-xl flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-xl flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-xl flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-xl flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-xl flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-xl flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-xl flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-xl flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-xl flex w-full"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="mt-5 bg-[#f4f4f4] rounded-lg py-4 mb-8">
-                                        <div className="border-b-[3px] border-white text-dark2D text-lg font-medium pb-4 px-4">
-                                            Friends
-                                        </div>
-                                        <div className="grid grid-cols-12 gap-4 p-4">
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-full flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={profileImage}
-                                                    alt="Photos"
-                                                    className="rounded-full flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-full flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={profileImage}
-                                                    alt="Photos"
-                                                    className="rounded-full flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-full flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={profileImage}
-                                                    alt="Photos"
-                                                    className="rounded-full flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-full flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={profileImage}
-                                                    alt="Photos"
-                                                    className="rounded-full flex w-full"
-                                                />
-                                            </div>
-                                            <div className="col-span-4">
-                                                <img
-                                                    src={photo}
-                                                    alt="Photos"
-                                                    className="rounded-full flex w-full"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-span-12 hidden sm:flex flex-col sm:col-span-8">
+                            <div className="">
+                                <div>
                                     <div className="p-2 pb-0">
-                                        {/* <Share handleGetPosts={handleGetPosts} /> */}
                                     </div>
                                     <div>
                                         {loading ? (
@@ -378,79 +176,6 @@ const UserProfile = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            {/* <div className="text-sm font-DMSans">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dapibus
-          eros eu vehicula interdum.{" "}
-        </div> */}
-                            {/* {type === "personal" ? (
-          <div className="text-[#181818] font-DMSans">
-            <div className="text-[#181818] font-medium mt-3 text-lg">
-              Work Experience
-            </div>
-            {experienceData.map((xp, index) => (
-              <div className="flex my-3" key={index}>
-                <div className="h-[48px] w-[38px] bg-tertiary rounded-3xl mr-3"></div>
-                <div>
-                  <div className="text-[#181818] font-medium">{xp.role}</div>
-                  <div className="text-[10px]">
-                    <span className="font-medium">{xp.heading}</span>{" "}
-                    {xp.subheading}
-                  </div>
-                  <div className="text-[10px] my-1">
-                    {xp.starting} - {xp.ending}{" "}
-                    <span className="text-tertiary font-medium">
-                      {xp.duration}
-                    </span>
-                  </div>
-                  <div className="text-[10px]">{xp.description}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-[#181818] font-DMSans">
-            <div className="text-[#181818] font-medium mt-3 text-lg">About</div>
-            {aboutData.map((about, index) => (
-              <div className="flex my-3" key={index}>
-                <div className="h-[48px] w-[38px] bg-tertiary rounded-3xl mr-3"></div>
-                <div>
-                  <div className="text-[10px]">
-                    <span className="font-medium">{about.heading}</span>{" "}
-                    {about.subheading}
-                  </div>
-                  <div className="text-[10px] mt-1 mb-[0.4rem]">
-                    {about.address}{" "}
-                    <span className="text-tertiary font-medium ml-4">
-                      {about.website}
-                    </span>
-                  </div>
-                  <div className="text-[10px]">{about.description}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )} */}
-
-                            {/* <div className="font-DMSans">
-          <div className="text-[#181818] font-medium mt-3 text-lg">
-            Interests
-          </div>
-          <div className="text-tertiary font-medium my-2">Topics</div>
-          <div className="grid grid-cols-2 gap-10">
-            {interestTopics.map((interest, index) => (
-              <div className="grid grid-cols-12 my-2" key={index}>
-                <div className="col-span-3">
-                  <img src={interest.img} alt={interest.title} />
-                </div>
-                <div className="col-span-9 ml-2">
-                  <div className="font-medium">{interest.title}</div>
-                  <div className="text-xs">{interest.followers} followers</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div> */}
                         </div>
                     </div>
                 </div>

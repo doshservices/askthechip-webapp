@@ -99,7 +99,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
     poster?.role === "USER"
       ? `${poster.firstName} ${poster.lastName}`
       : `${poster.companyName}`;
-  const role = poster.role === "USER" ? "Private User" : "Service Provider";
+  const role = poster.role === "USER" ? "User" : "Service Provider";
 
   const singleComment = comments?.slice(0, 1);
   useEffect(() => {

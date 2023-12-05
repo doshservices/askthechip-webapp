@@ -191,7 +191,7 @@ const Services = () => {
   }
 
   return (
-    <div className="pageLayout services bg-light">
+    <div className="pageLayout services">
       <SideNav />
       <div className="border-r border-[#EBEEF0] pageLayout__wrapper__container">
         {width < 480 ?
@@ -206,55 +206,55 @@ const Services = () => {
         <Share />
         {getAcc.length > 0 ?
           <Wrapper>
-            <Service serviceData={getAcc} type="ACCOUNTING" />
+            <Service serviceData={getAcc} type="Accounting" />
           </Wrapper>
           : null
         }
         {getAdmin.length > 0 ?
           <Wrapper>
-            <Service serviceData={getAdmin} type="ADMINISTRATIVE" />
+            <Service serviceData={getAdmin} type="Admistrative" />
           </Wrapper>
           : null
         }
         {getConsulting.length > 0 ?
           <Wrapper>
-            <Service serviceData={getConsulting} type="CONSULTING" />
+            <Service serviceData={getConsulting} type="Consulting" />
           </Wrapper>
           : null
         }
         {getFinacial.length > 0 ?
           <Wrapper>
-            <Service serviceData={getFinacial} type="FINACIAL" />
+            <Service serviceData={getFinacial} type="Finacial" />
           </Wrapper>
           : null
         }
         {getLegal.length > 0 ?
           <Wrapper>
-            <Service serviceData={getLegal} type="LEGAL" />
+            <Service serviceData={getLegal} type="Legal" />
           </Wrapper>
           : null
         }
         {getMarketing.length > 0 ?
           <Wrapper>
-            <Service serviceData={getMarketing} type="MARKETING" />
+            <Service serviceData={getMarketing} type="Marketing" />
           </Wrapper>
           : null
         }
         {getMentorship.length > 0 ?
           <Wrapper>
-            <Service serviceData={getMentorship} type="MENTORSHIP" />
+            <Service serviceData={getMentorship} type="Mentorship" />
           </Wrapper>
           : null
         }
         {getTechnology.length > 0 ?
           <Wrapper>
-            <Service serviceData={getTechnology} type="TECHNOLOGY" />
+            <Service serviceData={getTechnology} type="Technology" />
           </Wrapper>
           : null
         }
         {getTraining.length > 0 ?
           <Wrapper>
-            <Service serviceData={getTraining} type="TRAINING" />
+            <Service serviceData={getTraining} type="Training" />
           </Wrapper>
           : null
         }

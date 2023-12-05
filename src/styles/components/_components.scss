@@ -1,8 +1,10 @@
 .post__category__toggler {
     display: flex;
-    gap: $big;
+    gap: $base;
     padding: $thin 0;
     flex-grow: 1;
+    justify-content: space-between;
+    max-width: 430px;
 
     button {
         display: block;
@@ -10,9 +12,10 @@
         font-size: $sm;
         font-family: "DM Sans", sans-serif;
         font-weight: 500;
-        padding: 7px $md;
+        padding: 7px $base;
         border-radius: 16px;
         background: hsl(0, 0%, 90%);
+        text-align: center;
     }
 
     .active {
@@ -23,7 +26,6 @@
     @media (max-width: 550px) {
         gap: $base;
         padding: $thin 0;
-        justify-content: space-between;
 
         button {
             padding: 5px $base;
@@ -44,6 +46,24 @@
 
 .services__wrapper {
     padding: $base;
+
+    .provider-img {
+
+        @media (max-width: 5000px) {
+            height: 50px;
+            width: 50px;
+        }
+    }
+
+    * {
+        font-family: "DM Sans", sans-serif;
+    }
+
+    h3 {
+        font-size: $base;
+        font-weight: 500;
+        color: $dark200;
+    }
 
     >div {
         max-width: 680px;

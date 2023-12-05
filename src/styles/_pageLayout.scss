@@ -1,9 +1,16 @@
 .pageLayout {
     display: grid;
     grid-template-columns: 220px 1fr;
+    max-width: 1000px;
+    margin: 0 auto;
+    column-gap: $big;
 
     @media (max-width: 990px) {
         grid-template-columns: 70px 1fr;
+    }
+
+    @media (max-width: 700px) {
+        column-gap: 0;
     }
 
     @media (max-width: 480px) {
@@ -13,5 +20,7 @@
     &__wrapper__container {
         padding-bottom: 5rem;
         min-height: 100vh;
+        border-left: 1px solid #EBEEF0;
+        border-right: 1px solid #EBEEF0;
     }
 }

@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Header } from "../components/home";
 import { Posts } from "../components/home";
 import { Share } from "../components/home";
-import { CircleLoader, MobileLayout, SideNav } from "../components";
+import { CircleLoader, SideNav } from "../components";
 import { warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
 import axios from "axios";
 import { useWindowWidth } from "../utils/windowWidth";
+import { NotificationSIdeBar } from "../components/notification/NotificationSideBar";
 // import {data} from '../components/home/feed/data';
 
 const HomePage = () => {
@@ -62,7 +63,7 @@ const HomePage = () => {
 
   return (
     <>
-      <section className="pageLayout homepage bg-light">
+      <section className="pageLayout homepage">
         <SideNav />
         <div className="border-r border-[#EBEEF0] pageLayout__wrapper__container">
           {width < 480 ?
@@ -179,6 +180,7 @@ const HomePage = () => {
             null
           }
         </div>
+        {/* <NotificationSIdeBar /> */}
       </section>
     </>
   );

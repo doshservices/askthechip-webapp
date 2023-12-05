@@ -25,7 +25,7 @@ const defaultFormFields = {
 
 const SignUpAsProvider = () => {
   const navigateTo = useNavigate();
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [loadingBusiness, setLoadingBusiness] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -36,8 +36,10 @@ const SignUpAsProvider = () => {
   const [governmentId, setGovernmentId] = useState(null);
   const [cacDocument, setCacDocument] = useState(null);
 
+  const token = localStorage.getItem("token")
+
   useEffect(() => {
-    if (user !== null) {
+    if (token !== null) {
       navigateTo("/home")
     }
   }, [])
