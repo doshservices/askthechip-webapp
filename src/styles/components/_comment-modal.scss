@@ -64,8 +64,10 @@
             overflow-y: scroll;
             padding: $base $base calc($base * 4) $base;
 
+            // .fullname {}
+
             .content {
-                font-size: $base;
+                font-size: $sm;
                 font-weight: 500;
                 margin-bottom: $sm;
             }
@@ -76,16 +78,30 @@
                 align-items: flex-start;
 
                 img {
-                    height: 50px;
-                    width: 50px;
+                    height: 40px;
+                    width: 40px;
                     border-radius: 50%;
                     object-fit: cover;
                     margin-right: 8px;
                 }
 
-                .fullname {}
+                .dp__placeholder {
+                    background: $primary;
+                    border-radius: 50%;
+                    margin-right: 8px;
 
-                .content {}
+                    p {
+                        height: 40px;
+                        width: 40px;
+                        color: $light200 !important;
+                        font-size: 1.3rem;
+                        font-weight: 600;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+
             }
         }
     }

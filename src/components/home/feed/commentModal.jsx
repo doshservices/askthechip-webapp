@@ -49,16 +49,22 @@ export const CommentModal = ({ close, post }) => {
                     {comment.map((comments, index) => {
                         return (
                             <div className="comment" key={index}>
-                                <img src={post?.userId?.profileImg} alt="" />
+                                {post?.userId?.profileImg ?
+                                    <img src={post?.userId?.profileImg} alt="" />
+                                    :
+                                    <div className="dp__placeholder">
+                                        <p>{post?.userId?.fullName?.[0]}</p>
+                                    </div>
+                                }
                                 <div>
                                     <p className="fullname">{post?.userId?.fullName}</p>
                                     <p className="content">{comments?.text}</p>
                                 </div>
-                                <svg className="block ml-auto cursor-pointer mt-2" width="18" height="18" fill="#2d2d2d" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                {/* <svg className="block ml-auto cursor-pointer mt-2" width="18" height="18" fill="#2d2d2d" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 14.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"></path>
                                     <path d="M12 21.75a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"></path>
                                     <path d="M12 6.75a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"></path>
-                                </svg>
+                                </svg> */}
                                 {/* <div className="options">
                                     <button>Delete Comment</button>
                                 </div> */}
