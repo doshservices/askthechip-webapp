@@ -365,7 +365,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
             <span style={{ color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }} className="text-center mt-1">Reply</span>
           </div>
         </div>
-        {showCommentModal && comments.length > 0 ?
+        {showCommentModal ?
           <CommentModal post={post}
             handleGetPosts={handleGetPosts}
             setComments={setComments}
