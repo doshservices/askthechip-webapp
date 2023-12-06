@@ -74,17 +74,16 @@ const Posts = ({ index, post, handleGetPosts }) => {
   const [singleCommenter, setSingleCommenter] = useState({});
   const [showCommentModal, setShowCommentModal] = useState(false)
 
+  useEffect(() => {
+    if (showCommentModal === true) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => document.body.style.overflow = 'unset';
+  }, [showCommentModal])
+
   const authUserId = profile?._id;
   const postUserId = post?.userId?._id;
   const myPost = authUserId === postUserId;
-
-  const myArray = [2, 3, 4, 2];
-
-  // if (myArray.includes(2)) {
-  //   console.log("The array contains 2.");
-  // } else {
-  //   console.log("The array does not contain 2.");
-  // }
 
   const myId = user?._id;
 

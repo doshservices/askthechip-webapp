@@ -62,7 +62,7 @@
             flex-basis: 300px;
             flex-grow: 1;
             overflow-y: scroll;
-            padding: $base $base calc($base * 4) $base;
+            padding: $base $base calc($base * 5) $base;
 
             // .fullname {}
 
@@ -76,6 +76,7 @@
                 font-size: $sm;
                 display: flex;
                 align-items: flex-start;
+                position: relative;
 
                 img {
                     height: 40px;
@@ -102,6 +103,37 @@
                     }
                 }
 
+                .options {
+                    position: absolute;
+                    background: $light200;
+                    box-shadow: 0px 0px 5px 1px rgba(133, 124, 124, 0.75);
+                    -webkit-box-shadow: 0px 0px 5px 1px rgba(133, 124, 124, 0.75);
+                    -moz-box-shadow: 0px 0px 5px 1px rgba(133, 124, 124, 0.75);
+                    border-radius: 5px;
+                    overflow: hidden;
+                    right: 8px;
+                    top: 50%;
+                    z-index: 1;
+
+                    button {
+                        display: block;
+                        border: none;
+                        padding: 7px $base;
+                        width: 100%;
+                        font-size: .85rem;
+                    }
+
+                    .edit {
+                        color: $light200 !important;
+                        background: $primary;
+                    }
+
+                    .delete {
+                        color: rgb(254, 87, 87) !important;
+                        background: $light200;
+                        font-weight: 500;
+                    }
+                }
             }
         }
     }
