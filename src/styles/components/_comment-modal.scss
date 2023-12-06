@@ -5,7 +5,10 @@
     z-index: 10000;
     max-height: 100vh;
     padding: $big;
-    overflow-y: scroll;
+
+    @media (max-width: 600px) {
+        padding: 0;
+    }
 
     * {
         font-family: "DM Sans", sans-serif;
@@ -27,6 +30,11 @@
         border-radius: 10px;
         overflow: hidden;
 
+        @media (max-width: 600px) {
+            height: 100%;
+            flex-direction: column;
+        }
+
         figure {
             flex-basis: 300px;
             flex-grow: 1;
@@ -36,12 +44,25 @@
                 min-height: 100%;
                 object-fit: cover;
             }
+
+            @media (max-width: 600px) {
+                max-width: 200px;
+                margin: 0 auto;
+                flex-basis: 0;
+                flex-grow: 0;
+                margin-bottom: $base;
+
+                img {
+                    min-height: auto;
+                }
+            }
         }
 
         .comments {
             flex-basis: 300px;
             flex-grow: 1;
-            padding: $base;
+            overflow-y: scroll;
+            padding: $base $base calc($base * 4) $base;
 
             .content {
                 font-size: $base;
