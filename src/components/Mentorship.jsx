@@ -23,7 +23,6 @@ const Mentorship = () => {
   const [cvUploadError, setCvUploadError] = useState("")
   const { token } = useAuth();
   const { others } = formFields;
-  console.log(cv);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,7 +56,6 @@ const Mentorship = () => {
     }
   };
 
-
   const handleSubmit = async (e) => {
     // console.log(industry, formFields);
     e.preventDefault();
@@ -76,6 +74,7 @@ const Mentorship = () => {
       setFormFields(defaultFormFields);
       notify("Mentor Request successful");
       setLoading(false);
+      resetForm();
     }).catch((error) => {
       console.log(error);
       warn("Something went wrong, try again!");
