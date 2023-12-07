@@ -73,7 +73,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   const { profile } = useProfile();
   const [singleCommenter, setSingleCommenter] = useState({});
   const [showCommentModal, setShowCommentModal] = useState(false)
-
+  // console.log(post);
   useEffect(() => {
     if (showCommentModal || openDeleteModal === true) {
       document.body.style.overflow = 'hidden';

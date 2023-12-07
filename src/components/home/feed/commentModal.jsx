@@ -67,15 +67,15 @@ const Comment = ({ comment, post, getComments }) => {
 
     return (
         <div className="comment">
-            {post?.userId?.profileImg ?
-                <img src={post?.userId?.profileImg} alt="" />
+            {comment?.userId?.profileImg ?
+                <img src={comment?.userId?.profileImg} alt="" />
                 :
                 <div className="dp__placeholder">
-                    <p>{post?.userId?.fullName?.[0]}</p>
+                    <p>{comment?.userId?.fullName?.[0]}</p>
                 </div>
             }
             <div>
-                <p className="fullname">{post?.userId?.fullName}</p>
+                <p className="fullname">{comment?.userId?.fullName}</p>
                 <p className="content">{comment?.text}</p>
             </div>
             <svg onClick={() => setOptionsModal(!optionsModal)} className="block ml-auto cursor-pointer mt-2" width="18" height="18" fill="#2d2d2d" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -85,7 +85,7 @@ const Comment = ({ comment, post, getComments }) => {
             </svg>
             {optionsModal ?
                 <div className="options">
-                    {user?._id === post?.userId?._id ?
+                    {user?._id === comment?.userId?._id ?
                         <>
                             <button onClick={toggleEditModal} className="edit">Edit Comment</button>
                             <button onClick={toggleDeleteModal} className="delete">Delete Comment</button>
@@ -125,7 +125,7 @@ export const CommentModal = ({ close, post }) => {
                     },
                 }
             );
-
+            console.log(response);
             setComment(response?.data?.data?.comment);
         } catch (error) {
         }

@@ -1,11 +1,14 @@
 import like from "./../assets/icons/like-icon.svg";
-import share from "./../assets/icons/share-icon.svg";
-import comment from "./../assets/icons/comment-icon.svg";
-import reply from "./../assets/icons/reply-icon.svg";
 import user from "./../assets/blog-img.svg";
-import SideNav from "./SideNav";
-import { useWindowWidth } from "../utils/windowWidth";
+import axios from "axios";
+import share from "./../assets/icons/share-icon.svg";
 import Header from "./home/header";
+import SideNav from "./SideNav";
+import comment from "./../assets/icons/comment-icon.svg";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { useWindowWidth } from "../utils/windowWidth";
+import { useState, useEffect } from "react";
+
 const reactions = [
   {
     icon: like,
@@ -22,6 +25,31 @@ const reactions = [
 ];
 
 const Notifications = () => {
+
+  const [notification, setNotification] = useState([])
+  const { token } = useAuth();
+
+  const getAllNotifications = async () => {
+    try {
+      const response = await axios.get(
+        "https://askthechip-hvp93.ondigitalocean.app/api/users/notification",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response);
+      setNotification(response?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllNotifications()
+  }, [])
 
   const width = useWindowWidth();
 
