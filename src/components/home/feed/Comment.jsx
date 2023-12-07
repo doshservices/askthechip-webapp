@@ -134,38 +134,3 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
 
 export default Comment;
 
-[
-  {
-    _id: "64adbd8b3ee3e861d4d09a64",
-    userId: {
-      _id: "64a2fc4bf4a0282fe8e59a77",
-      firstName: "Abdrahman",
-      lastName: "Oladimeji",
-      gender: "MALE",
-      email: "abdrahmanoladimeji02@gmail.com",
-      phoneNumber: "08109672784",
-      password: "$2b$10$L/wUb6Z9n3kVRoAhjGrUdOgrflOaO2pI1Y4IYAYCqrsfEgazFXl8m",
-      interest: [],
-      verified: false,
-      role: "USER",
-      googleSigned: true,
-      status: "active",
-      followers: [],
-      subscription: "FREE",
-      __v: 0,
-    },
-    docId: {
-      _id: "64ac71573ee3e861d4d05a9f",
-      userId: "64a67601f4a0282fe8e59cb6",
-      content: "hey hey",
-      board: "WHITE_BOARD",
-      postImg: null,
-      createdAt: "2023-07-10T21:00:07.976Z",
-      updatedAt: "2023-07-10T21:00:07.976Z",
-      __v: 0,
-    },
-    docModel: "post",
-    text: "Testing comment here",
-    __v: 0,
-  },
-];

@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
-import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import axios from "axios";
 import Loader from "../../Loader/Loader";
+import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import { useWindowWidth } from "../../../utils/windowWidth";
+import { useState, useEffect } from "react";
+import EditComment from "../../EditComment/EditComment";
 
 const DeleteComment = ({ closeModal, api }) => {
     return (
@@ -23,10 +24,16 @@ const Comment = ({ comment, post, getComments }) => {
     const { user, token } = useAuth()
     const [optionsModal, setOptionsModal] = useState(false);
     const [deletePopUP, setDeletePopup] = useState(false)
+    const [editPopup, setEditPopup] = useState(false)
     const [deleting, setDeleting] = useState(false)
 
-    const toggleModal = () => {
+    const toggleDeleteModal = () => {
         setDeletePopup(!deletePopUP)
+        setOptionsModal(false)
+    }
+
+    const toggleEditModal = () => {
+        setEditPopup(!editPopup)
         setOptionsModal(false)
     }
 
@@ -45,7 +52,6 @@ const Comment = ({ comment, post, getComments }) => {
             );
             if (response.ok) {
                 const resData = await response.json();
-                // console.log(resData);
                 setDeleting(false);
                 setDeletePopup(false);
                 getComments()
@@ -56,7 +62,6 @@ const Comment = ({ comment, post, getComments }) => {
         } catch (error) {
             setDeleting(false);
             setDeletePopup(false);
-            // console.log(error);
         }
     };
 
@@ -82,8 +87,8 @@ const Comment = ({ comment, post, getComments }) => {
                 <div className="options">
                     {user?._id === post?.userId?._id ?
                         <>
-                            <button className="edit">Edit Comment</button>
-                            <button onClick={toggleModal} className="delete">Delete Comment</button>
+                            <button onClick={toggleEditModal} className="edit">Edit Comment</button>
+                            <button onClick={toggleDeleteModal} className="delete">Delete Comment</button>
                         </>
                         :
                         <button className="edit">Reply</button>
@@ -92,7 +97,8 @@ const Comment = ({ comment, post, getComments }) => {
                 :
                 null
             }
-            {deletePopUP ? <DeleteComment closeModal={toggleModal} api={handleDelete} /> : null}
+            {deletePopUP ? <DeleteComment closeModal={toggleDeleteModal} api={handleDelete} /> : null}
+            {editPopup ? <EditComment getComments={getComments} commentText={comment?.text} closeModal={toggleEditModal} commentId={comment?._id} /> : null}
         </div>
     )
 }
@@ -122,7 +128,6 @@ export const CommentModal = ({ close, post }) => {
 
             setComment(response?.data?.data?.comment);
         } catch (error) {
-            // console.error(error);
         }
     };
 
@@ -144,17 +149,11 @@ export const CommentModal = ({ close, post }) => {
                 }
             );
             if (res.ok) {
-                // console.log("Successfully made a comment!");
-                // notify("Successfully made a comment!");
-                // const resData = await res.json();
-                // console.log(resData);
                 setCommentPost("");
                 getComments()
             }
             setLoading(false);
         } catch (err) {
-            // console.log(err);
-            // warn("Failed to post your comment!");
             setLoading(false);
         }
         setLoading(false);

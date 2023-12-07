@@ -1,0 +1,59 @@
+.edit__comment {
+    position: fixed;
+    inset: 0;
+    background-color: hsl(0, 0%, 0%, .4);
+    z-index: 10000;
+    max-height: 100vh;
+    padding: $sm;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .wrapper {
+        background: $light200;
+        border-radius: 10px;
+        padding: $base;
+
+        form {
+            max-width: 400px;
+
+            textarea {
+                border: 1px solid rgba(0, 0, 0, 0.20);
+                border-radius: 10px;
+                padding: $tiny;
+                font-size: $sm;
+                width: 100%;
+
+                &:focus {
+                    outline: 1px solid rgba(0, 0, 0, 0.10);
+                }
+            }
+
+            .actions {
+                display: flex;
+                padding-top: $base;
+                gap: $base;
+
+                button {
+                    padding: .4rem $base;
+                    border-radius: 10px;
+                    border: none;
+                }
+
+                .update {
+                    color: $light200 !important;
+                    background-color: $primary;
+                }
+
+                .cancel {
+                    color: $primary !important;
+                    background-color: transparent;
+                    margin-right: $base;
+                    border: 2px solid $primary;
+                }
+            }
+        }
+
+    }
+}
