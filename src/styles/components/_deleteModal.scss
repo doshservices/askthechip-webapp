@@ -1,0 +1,99 @@
+.delete__modal {
+    position: fixed;
+    inset: 0;
+    background-color: hsl(0, 0%, 0%, .4);
+    z-index: 10000;
+    max-height: 100vh;
+    padding: $big;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .wrapper {
+        background: $light200;
+        border-radius: 10px;
+        padding: $base;
+
+        h3 {
+            color: $dark200 !important;
+            font-weight: 500;
+            margin-bottom: .5rem;
+        }
+
+        p {
+            color: $dark200;
+            font-size: $sm;
+            max-width: 250px;
+        }
+
+        .actions {
+            display: flex;
+            padding-top: $base;
+
+            button {
+                padding: .4rem $base;
+                border-radius: 10px;
+                border: none;
+            }
+
+            .cancel {
+                color: $light200;
+                background-color: $primary;
+            }
+
+            .delete {
+                color: $light200;
+                background-color: rgb(255, 104, 104);
+                margin-right: $base;
+            }
+        }
+    }
+}
+
+.delete__comment {
+    position: fixed;
+    inset: 0;
+    background-color: hsl(0, 0%, 0%, .4);
+    z-index: 10000;
+    max-height: 100vh;
+    padding: $big;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .wrapper {
+        background: $light200;
+        border-radius: 10px;
+        padding: $base;
+
+        p {
+            color: $dark200;
+            font-size: $sm;
+            max-width: 250px;
+        }
+
+        .actions {
+            display: flex;
+            padding-top: $base;
+
+            button {
+                padding: .4rem $base;
+                border-radius: 10px;
+                border: none;
+            }
+
+            .cancel {
+                color: $light200 !important;
+                background-color: $primary;
+            }
+
+            .delete {
+                color: $light200 !important;
+                background-color: rgb(255, 104, 104);
+                margin-right: $base;
+            }
+        }
+    }
+}

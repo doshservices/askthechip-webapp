@@ -5,6 +5,7 @@
     z-index: 10000;
     max-height: 100vh;
     padding: $big;
+    overflow-y: scroll;
 
     @media (max-width: 600px) {
         padding: 0;
@@ -22,13 +23,16 @@
     }
 
     &__wrapper {
-        // max-width: 800px;
+        position: relative;
         background-color: $light200;
         margin: 0 auto;
-        height: 500px;
+        min-height: 300px;
+        height: fit-content;
         display: flex;
         border-radius: 10px;
         overflow: hidden;
+        max-height: 500px;
+        padding-bottom: 10px;
 
         @media (max-width: 600px) {
             height: 100%;
@@ -63,6 +67,7 @@
             flex-grow: 1;
             overflow-y: scroll;
             padding: $base $base calc($base * 5) $base;
+            position: relative;
 
             // .fullname {}
 
@@ -134,6 +139,43 @@
                         font-weight: 500;
                     }
                 }
+            }
+
+        }
+
+        .add__comment {
+            position: absolute;
+            background-color: $light200;
+            bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            right: 5px;
+            border: 1px solid #716e6e;
+            border-radius: 10px;
+            padding: 5px;
+            align-items: center;
+            z-index: 1;
+
+            textarea {
+                flex-grow: 1;
+                display: block;
+                resize: none;
+                background: transparent;
+                line-height: 1;
+                padding: 10px;
+                font-size: $sm;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            button {
+                font-size: $sm;
+                color: $light200 !important;
+                background-color: $primary;
+                border-radius: 10px;
+                padding: 6px $base;
             }
         }
     }

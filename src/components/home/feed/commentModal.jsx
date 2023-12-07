@@ -1,11 +1,64 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import axios from "axios";
+import Loader from "../../Loader/Loader";
+import { useWindowWidth } from "../../../utils/windowWidth";
 
-const Comment = ({ comment, post }) => {
+const DeleteComment = ({ closeModal, api }) => {
+    return (
+        <div className="delete__comment">
+            <div className="wrapper">
+                <p>Are you sure you want to Delete this Comment?</p>
+                <div className="actions">
+                    <button onClick={api} className="delete">Delete</button>
+                    <button onClick={closeModal} className="cancel">Cancel</button>
+                </div>
+            </div>
+        </div>
+    )
+}
 
-    const { user } = useAuth()
-    const [optionsModal, setOptionsModal] = useState(false)
+const Comment = ({ comment, post, getComments }) => {
+
+    const { user, token } = useAuth()
+    const [optionsModal, setOptionsModal] = useState(false);
+    const [deletePopUP, setDeletePopup] = useState(false)
+    const [deleting, setDeleting] = useState(false)
+
+    const toggleModal = () => {
+        setDeletePopup(!deletePopUP)
+        setOptionsModal(false)
+    }
+
+    const handleDelete = async () => {
+        setDeleting(true);
+        try {
+            const response = await fetch(
+                `https://askthechip-hvp93.ondigitalocean.app/api/comment/?commentId=${comment?._id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            if (response.ok) {
+                const resData = await response.json();
+                // console.log(resData);
+                setDeleting(false);
+                setDeletePopup(false);
+                getComments()
+            }
+            if (!response.ok) {
+                setDeleting(false);
+            }
+        } catch (error) {
+            setDeleting(false);
+            setDeletePopup(false);
+            // console.log(error);
+        }
+    };
 
     return (
         <div className="comment">
@@ -30,7 +83,7 @@ const Comment = ({ comment, post }) => {
                     {user?._id === post?.userId?._id ?
                         <>
                             <button className="edit">Edit Comment</button>
-                            <button className="delete">Delete Comment</button>
+                            <button onClick={toggleModal} className="delete">Delete Comment</button>
                         </>
                         :
                         <button className="edit">Reply</button>
@@ -39,6 +92,7 @@ const Comment = ({ comment, post }) => {
                 :
                 null
             }
+            {deletePopUP ? <DeleteComment closeModal={toggleModal} api={handleDelete} /> : null}
         </div>
     )
 }
@@ -47,6 +101,12 @@ export const CommentModal = ({ close, post }) => {
 
     const { token } = useAuth();
     const [comment, setComment] = useState([])
+    const [commentPost, setCommentPost] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleComment = (e) => {
+        setCommentPost(e.target.value);
+    };
 
     const getComments = async () => {
         try {
@@ -62,13 +122,49 @@ export const CommentModal = ({ close, post }) => {
 
             setComment(response?.data?.data?.comment);
         } catch (error) {
-            console.error(error);
+            // console.error(error);
         }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            setLoading(true);
+            const res = await fetch(
+                `https://askthechip-hvp93.ondigitalocean.app/api/comment?postId=${post._id}`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        text: commentPost,
+                    }),
+                }
+            );
+            if (res.ok) {
+                // console.log("Successfully made a comment!");
+                // notify("Successfully made a comment!");
+                // const resData = await res.json();
+                // console.log(resData);
+                setCommentPost("");
+                getComments()
+            }
+            setLoading(false);
+        } catch (err) {
+            // console.log(err);
+            // warn("Failed to post your comment!");
+            setLoading(false);
+        }
+        setLoading(false);
     };
 
     useEffect(() => {
         getComments()
     }, [])
+
+    const width = useWindowWidth()
 
     return (
         <section className="comment__modal">
@@ -87,12 +183,26 @@ export const CommentModal = ({ close, post }) => {
                     <h3 className="content">{post?.content}</h3>
                     {comment.map((comments, index) => {
                         return (
-                            <>
-                                <Comment comment={comments} key={index} post={post} />
-                            </>
+                            <Comment getComments={getComments} comment={comments} key={index} post={post} />
                         )
                     })}
                 </div>
+                <form onSubmit={handleSubmit} className="add__comment" style={{ left: width < 600 || !post?.postImg ? "10px" : "50.5%" }}>
+                    <textarea
+                        placeholder="Post a comment...."
+                        rows="1"
+                        onChange={handleComment}
+                        value={commentPost}
+                        name="comment"
+                        id="comment"></textarea>
+                    {commentPost ?
+                        <button type="submit" disabled={loading}>
+                            {loading ? <Loader /> : "Post"}
+                        </button>
+                        :
+                        null
+                    }
+                </form>
             </div>
         </section>
     )

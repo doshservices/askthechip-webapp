@@ -75,11 +75,11 @@ const Posts = ({ index, post, handleGetPosts }) => {
   const [showCommentModal, setShowCommentModal] = useState(false)
 
   useEffect(() => {
-    if (showCommentModal === true) {
+    if (showCommentModal || openDeleteModal === true) {
       document.body.style.overflow = 'hidden';
     }
     return () => document.body.style.overflow = 'unset';
-  }, [showCommentModal])
+  }, [showCommentModal, openDeleteModal])
 
   const authUserId = profile?._id;
   const postUserId = post?.userId?._id;
@@ -104,7 +104,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
 
   const singleComment = comments?.slice(0, 1);
   useEffect(() => {
-    setSingleCommenter(singleComment[0]?.userId);
+    setSingleCommenter(singleComment?.[0]?.userId);
   }, [comments]);
 
   const sCommenterName =
@@ -303,6 +303,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
           setOpenDeleteModal={setOpenDeleteModal}
           handleGetPosts={handleGetPosts}
           postId={post?._id}
+          action="Post"
         />
       )}
       {openEditModal && (

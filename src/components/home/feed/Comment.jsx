@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import profileImg from "../../../assets/images/profile-picture.png";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
-import { notify, warn } from "../../../App";
 import Loader from "../../Loader/Loader";
 
 const Comment = ({ post, handleGetPosts, setComments, border }) => {
@@ -11,40 +9,6 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
 
   const handleComment = (e) => {
     setComment(e.target.value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      const res = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/comment?postId=${post._id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            text: comment,
-          }),
-        }
-      );
-      if (res.ok) {
-        // console.log("Successfully made a comment!");
-        // notify("Successfully made a comment!");
-        const resData = await res.json();
-        // console.log(resData);
-        setComment("");
-        handleGetPosts();
-      }
-      setLoading(false);
-    } catch (err) {
-      // console.log(err);
-      // warn("Failed to post your comment!");
-      setLoading(false);
-    }
-    setLoading(false);
   };
 
   const getComments = async () => {
@@ -68,6 +32,41 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
     } catch (err) {
       // console.log(err);
       // warn("Something went wrong!");
+      setLoading(false);
+    }
+    setLoading(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `https://askthechip-hvp93.ondigitalocean.app/api/comment?postId=${post._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            text: comment,
+          }),
+        }
+      );
+      if (res.ok) {
+        // console.log("Successfully made a comment!");
+        // notify("Successfully made a comment!");
+        // const resData = await res.json();
+        // console.log(resData);
+        setComment("");
+        handleGetPosts();
+        getComments()
+      }
+      setLoading(false);
+    } catch (err) {
+      // console.log(err);
+      // warn("Failed to post your comment!");
       setLoading(false);
     }
     setLoading(false);
