@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { chatData } from "./chatData";
 import { useSelector, useDispatch } from "react-redux";
 import { setMessageClass } from "../../store/slice/chatViewSlice";
@@ -10,12 +10,26 @@ export const ChatBox = () => {
     const [value, setValue] = useState("")
     const chatUserId = useSelector((state) => state?.chat?.chatUserId);
     const chatMessages = chatData;
+    const messagesContainerRef = useRef();
 
     const messageId = chatMessages.find(item => item.id === chatUserId);
 
     const changeMessageClass = () => dispatch(setMessageClass("hide"))
 
     const width = useWindowWidth()
+
+    const scrollToBottom = () => {
+        if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollIntoView();
+        }
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, []);
+    useEffect(() => {
+        scrollToBottom();
+    }, [chatUserId]);
 
     return (
         <div className="chat">
@@ -48,6 +62,7 @@ export const ChatBox = () => {
                                 <p key={index}>{message}</p>
                             )
                         })}
+                        <div ref={messagesContainerRef}></div>
                     </div>
                     <div className="chat__send__box">
                         <input value={value} onChange={(e) => setValue(e.target.value)} placeholder="Type your message here..." />

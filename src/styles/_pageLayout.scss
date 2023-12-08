@@ -3,13 +3,13 @@
     grid-template-columns: 220px 1fr;
     max-width: 1000px;
     margin: 0 auto;
-    column-gap: $big;
+    column-gap: $base;
 
     @media (max-width: 990px) {
         grid-template-columns: 70px 1fr;
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 800px) {
         column-gap: 0;
     }
 
