@@ -1,7 +1,6 @@
 .side__nav {
     position: relative;
 
-
     &__nav {
         position: fixed;
         z-index: 9999;
@@ -98,7 +97,7 @@
             display: none;
         }
 
-        @media (max-width: 1000px) {
+        @media (max-width: 990px) {
             max-width: 70px;
 
             li {
