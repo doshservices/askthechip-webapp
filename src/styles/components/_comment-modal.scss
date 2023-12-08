@@ -35,8 +35,9 @@
         padding-bottom: 10px;
 
         @media (max-width: 600px) {
-            height: 100%;
+            height: 90vh;
             flex-direction: column;
+            max-height: fit-content;
         }
 
         figure {
