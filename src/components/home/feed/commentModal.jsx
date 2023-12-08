@@ -51,7 +51,7 @@ const Comment = ({ comment, post, getComments }) => {
                 }
             );
             if (response.ok) {
-                const resData = await response.json();
+                // const resData = await response.json();
                 setDeleting(false);
                 setDeletePopup(false);
                 getComments()
@@ -125,7 +125,7 @@ export const CommentModal = ({ close, post }) => {
                     },
                 }
             );
-            console.log(response);
+            // console.log(response);
             setComment(response?.data?.data?.comment);
         } catch (error) {
         }
