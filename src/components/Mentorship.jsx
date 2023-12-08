@@ -17,12 +17,11 @@ const defaultFormFields = {
 
 const Mentorship = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const [industry, setIndustry] = useState();
+  const [industry, setIndustry] = useState("");
   const [loading, setLoading] = useState();
   const [cv, setCv] = useState(null)
   const [cvUploadError, setCvUploadError] = useState("")
   const { token } = useAuth();
-  const { others } = formFields;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,6 +55,13 @@ const Mentorship = () => {
     }
   };
 
+  const resetForm = () => {
+    setFormFields(defaultFormFields);
+    setIndustry("");
+    setCv(null);
+    setCvUploadError("");
+  };
+
   const handleSubmit = async (e) => {
     // console.log(industry, formFields);
     e.preventDefault();
@@ -70,14 +76,15 @@ const Mentorship = () => {
         Authorization: `Bearer ${token}`,
       }
     }).then((response) => {
-      console.log(response);
-      setFormFields(defaultFormFields);
-      notify("Mentor Request successful");
-      setLoading(false);
-      resetForm();
+      // console.log(response);
+      if (response.status === 200) {
+        notify("Mentor Request successful");
+        setLoading(false);
+        resetForm()
+      }
     }).catch((error) => {
-      console.log(error);
-      warn("Something went wrong, try again!");
+      // console.log(error);
+      warn("Unable to Request for Mentorship right now. Please try later");
       setLoading(false);
     })
   };
@@ -179,14 +186,13 @@ const Mentorship = () => {
               </div>
             </div>
             <div className="flex flex-col mb-5">
-              <label htmlFor="others" className="mb-[5px]">
+              <label htmlFor="message" className="mb-[5px]">
                 Message
               </label>
               <textarea
                 className="border border-[#2d2d2d] rounded-xl bg-transparent py-4 px-4 resize-none"
                 placeholder="Message here"
                 name="message"
-                value={others}
                 onChange={handleChange}
                 id="message"
                 cols="30"
