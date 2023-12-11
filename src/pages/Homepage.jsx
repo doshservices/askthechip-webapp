@@ -8,8 +8,8 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
 import axios from "axios";
 import { useWindowWidth } from "../utils/windowWidth";
-import { NotificationSIdeBar } from "../components/notification/NotificationSideBar";
-// import {data} from '../components/home/feed/data';
+// import { NotificationSIdeBar } from "../components/notification/NotificationSideBar";
+// import { data } from '../components/home/feed/data';
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");

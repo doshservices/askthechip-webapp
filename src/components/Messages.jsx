@@ -21,15 +21,33 @@ const Messages = () => {
   const { conversation, setConversation, loadingConversations, setLoadingConversations } = useConversation();
   const { user, token } = useAuth()
   const mobileChatClassName = useSelector((state) => state?.chat?.messageClass)
+  const { socket } = useSocket();
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState('');
 
-  const { socket } = useSocket()
+  useEffect(() => {
+    socket.on('chat message', (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    // Clean up event listener on component unmount
+    return () => {
+      socket.off('chat message');
+    };
+  }, []);
+
+  const handleSendMessage = () => {
+    if (message.trim() !== '') {
+      socket.emit('chat message', message);
+      setMessage('');
+    }
+  };
+
   useEffect(() => {
     if (socket) {
-      socket.emit("addUser", user._id);
-      socket.emit("addUser", "64a2fc4bf4a0282fe8e59a77");
-      socket.emit("addUser", "64a33027f4a0282fe8e59aa4");
+      socket.emit("addUser", user?._id);
     }
-  }, [socket, user._id]);
+  }, [socket, user?._id]);
 
   useEffect(() => {
     if (socket) {
