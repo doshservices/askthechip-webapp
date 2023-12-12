@@ -157,23 +157,21 @@ const Carousel = () => {
           className="center-padding"
         >
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="mb-16 px-4">
+            <div key={testimonial.id} className="mb-16 px-2">
               <div
                 className={
                   currentSlide === testimonial.id
-                    ? `bg-[#EFF4F4] border border-[#000000]/5 py-8 min-h-[253px] flex justify-start items-start rounded-lg px-6 text-DMSans`
-                    : `bg-[#EFF4F4] border border-[#000000]/5 py-4 mt-0 md:mt-8 min-h-[179px] flex justify-start items-start rounded-lg px-6 text-DMSans`
+                    ? `bg-[#EFF4F4] border border-[#000000]/5 py-4 min-h-[253px] flex justify-start items-start rounded-lg px-3 text-DMSans`
+                    : `bg-[#EFF4F4] border border-[#000000]/5 py-4 mt-0 md:mt-8 min-h-[179px] flex justify-start items-start rounded-lg px-3 text-DMSans`
                 }
               >
-                <div className="flex justify-start w-full max-w-[6rem] md:max-w-[242px]">
-                  <img
-                    src={testimonial.image}
-                    alt="Testimonial"
-                    className="w-20 h-auto aspect-square md:h-[142px] md:w-[142px]"
-                  />
-                </div>
-                <div className="flex flex-col w-full">
-                  <div className="flex ">
+                <img
+                  src={testimonial.image}
+                  alt="Testimonial"
+                  className="h-[80px] w-[80px] mr-[1rem] block aspect-square md:h-[110px] md:w-[110px]"
+                />
+                <div className="flex flex-col">
+                  <div>
                     <div className="w-20 mr-2">
                       <img src={openQuot} alt='"' />
                     </div>

@@ -139,14 +139,14 @@ const SignIn = () => {
               <div className="flex justify-end text-primary80 text-xs font-medium font-Raleway mt-2 mb-5">
                 <Link to="/forgot-password">Forgot Password?</Link>
               </div>
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <div className="mr-2">
                   <input type="checkbox" id="keep-login" name="keep-login" />
                 </div>
                 <label htmlFor="keep-login" className="font-Raleway text-xs">
                   Keep me logged in
                 </label>
-              </div>
+              </div> */}
               <div className="flex justify-center mt-5">
                 <button
                   disabled={loading}
@@ -156,10 +156,10 @@ const SignIn = () => {
                   {loading ? <Loader /> : "Log in"}
                 </button>
               </div>
-              <div className="flex justify-center my-2 font-DMSans font-medium text-sm">
+              {/* <div className="flex justify-center my-2 font-DMSans font-medium text-sm">
                 OR
-              </div>
-              <div className="flex justify-center mb-2">
+              </div> */}
+              {/* <div className="flex justify-center mb-2">
                 <button
                   type="button"
                   disabled={true}
@@ -168,8 +168,8 @@ const SignIn = () => {
                   <img src={googleLogo} alt="Google Logo" className="h-8" />
                   Continue with Google
                 </button>
-              </div>
-              <div className="font-DMSans text-sm text-center">
+              </div> */}
+              <div className="font-DMSans text-sm text-center mt-2">
                 Don&apos;t have an account?{" "}
                 <Link to="/sign-up" className="font-bold text-primary90">
                   Sign up

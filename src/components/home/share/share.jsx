@@ -22,24 +22,10 @@ const Share = ({ handleGetPosts }) => {
     fileInputRef.current.click();
   };
 
-  const isImageType = (fileType) => {
-    return fileType.startsWith('image/');
-  };
-
   const handleFileSelect = async (e) => {
     try {
       if (e.target.files && e.target.files.length > 0) {
         const selectedFile = e.target.files[0];
-
-        if (selectedFile && isImageType(selectedFile.type)) {
-          // Handle the valid image file
-          // console.log('Valid image file:', selectedFile);
-          setFile(null)
-        }
-        // else {
-        // Handle invalid file or type
-        // console.log('Invalid file or type. Please choose an image.');
-        // }
 
         if (!selectedFile) {
           return;
@@ -123,12 +109,9 @@ const Share = ({ handleGetPosts }) => {
                   onChange={handleFileSelect}
                   name="postImg"
                   id="postImg"
-                  accept="image/*"
-                  capture="camera"
                 />
               </div>
             </div>
-            {/* {file !== null && <p>File selected: {file?.name}</p>} */}
             {postStatus && (
               <div className="actions">
                 <div className="flex">

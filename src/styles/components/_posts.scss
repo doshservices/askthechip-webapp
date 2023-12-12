@@ -31,16 +31,16 @@
                     font-size: 1.3rem;
                     font-weight: 600;
                     border-radius: 50%;
-                    height: 45px;
-                    width: 45px;
+                    height: 37px;
+                    width: 37px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                 }
 
                 img {
-                    height: 45px;
-                    width: 45px;
+                    height: 37px;
+                    width: 37px;
                     object-fit: cover;
                     border-radius: 50%;
                 }
@@ -48,7 +48,7 @@
 
             .user {
                 &__name {
-                    font-size: 1.1rem;
+                    font-size: $base;
                     font-weight: 600;
                     color: inherit;
                     cursor: pointer;

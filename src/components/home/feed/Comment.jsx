@@ -81,17 +81,17 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
     me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`;
 
   return (
-    <div className="flex w-full py-2.5 pr-5 rounded-lg mt-2">
+    <div className="flex w-full py-2.5 rounded-lg mt-2">
       <div className="justify-center items-center flex mr-2 my-auto w-full max-w-fit h-full">
         {!user?.profileImg ? (
-          <div className="flex items-center justify-center w-[52px] h-[52px] rounded-full bg-primary100 font-bold text-xl">
+          <div className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-primary100 font-bold text-xl">
             <span className="text-white">{username[0]}</span>
           </div>
         ) : (
           <img
             src={user?.profileImg}
             alt={username[0]}
-            className={`rounded-full w-[52px] h-auto aspect-square`}
+            className={`rounded-full w-[40px] h-auto aspect-square`}
           />
         )}
       </div>

@@ -110,4 +110,35 @@
             }
         }
     }
+
+    &__modal {
+        position: fixed;
+        inset: 0;
+        background-color: hsl(0, 0%, 0%, .4);
+        z-index: 10000;
+        max-height: 100vh;
+        padding: $big;
+        overflow-y: scroll;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__wrapper {
+            display: flex;
+            border: 1px solid hsla(0, 0%, 0%, 0.05);
+            border-radius: 10px;
+            padding: $tiny .9rem;
+            width: 100%;
+            max-width: 500px;
+            background: hsla(0, 0%, 96%, 1);
+
+            .user__details {
+                display: flex;
+
+                p {
+                    color: $dark200 !important;
+                }
+            }
+        }
+    }
 }

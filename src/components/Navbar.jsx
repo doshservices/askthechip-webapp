@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "./../assets/ask.svg";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
 
 const Navbar = () => {
   const [isOpened, setIsOpened] = useState(false);
@@ -68,16 +69,18 @@ const Navbar = () => {
               Contact
             </HashLink>
           </div>
-
           <div className="nav__links__account">
-            <Link to="/provider-signup">
-              <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.8rem] py-[0.625rem] rounded-lg transition duration-200 hover:scale-90 active:100">
-                Become a Provider
-              </button>
-            </Link>
-            <Link to="/login">
+            {user?.role === "USER" ?
+              <Link to="/provider-signup">
+                <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.8rem] py-[0.625rem] rounded-lg transition duration-200 hover:scale-90 active:100">
+                  Become a Provider
+                </button>
+              </Link> :
+              null}
+            <Link to={user !== null ? "/home" : "/login"}>
               <button className="text-light border border-primary80 bg-primary80 font-medium text-sm px-[1.8rem] py-[0.625rem] rounded-lg transition duration-200 hover:scale-90 active:100">
-                Join Now
+                {user !== null ? "Home" : "Join Now"}
+                {/* Join Now */}
               </button>
             </Link>
           </div>

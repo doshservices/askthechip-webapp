@@ -247,7 +247,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
               <img
                 src={poster?.profileImg}
                 alt="profile"
-                className="rounded-[50%] w-[52px] h-auto aspect-square"
+                className="rounded-[50%] w-[48px] h-auto aspect-square"
               />
             )}
           </div>
@@ -313,7 +313,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
           postId={post?._id}
         />
       )}
-      <div className="col-span-12 ml-3 mt-3">
+      <div className="col-span-12 mt-3">
         <p className="text-sm font-DMSans mb-3 text-inherit">
           {post?.content}
         </p>

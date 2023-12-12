@@ -53,13 +53,13 @@ const Header = () => {
             <span className="text-primary">of Entrepreneurs</span>
           </h1>
           <p className="text-[.9rem] md:text-lg w-[90%] max-w-[49ch] text-center mb-8 text-[#343432]">
-            Here, we promote innovation and help you to create value by
-            addressing the critical factors that affect you as an entrepreneur
-            or a start-up. Through our diverse, hands-on resources, you will
-            receive guidanc every step of the way; from conception to
-            actualization of your business and profitability. So whether you are
+            Here, We promote Innovation and help you to create value by
+            addressing the critical factors that affect you as an Entrepreneur
+            or a Start-Up. Through our diverse, hands-on resources, you will
+            receive guidance every step of the way from Conception to
+            Actualization of your business and profitability. So whether you are
             just starting out or you are already in business there is a resource
-            that can help your business grow.
+            that can help your Business grow.
           </p>
           <div>
             <Button path="login" title="Get Started" />
