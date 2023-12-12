@@ -70,6 +70,7 @@ const UserProfile = () => {
         })
             .then((response) => {
                 setLoading(false)
+                // console.log(response);
                 setProfileDetails(response?.data?.data?.user)
             }).catch((error) => {
                 setLoading(false)
@@ -90,7 +91,7 @@ const UserProfile = () => {
                             <div className="pl-40 sm:pl-44 md:pl-48 xm:pl-48 pt-10">
                                 <div className="text-light mt-6 sm:mt-4">
                                     <div className="font-DMSans font-medium text-2xl mb-2 mt-2">
-                                        {profileDetails?.fullName}
+                                        <span>{profileDetails?.firstName}</span> <span>{profileDetails?.lastName}</span>
                                     </div>
                                     <div className="w-[90%] text-sm font-DMSans mb-2">{profileDetails.role}</div>
                                 </div>
