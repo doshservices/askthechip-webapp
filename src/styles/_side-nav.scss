@@ -154,10 +154,11 @@
             }
 
             ul {
-                display: flex;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
                 justify-content: space-between;
                 flex-grow: 1;
-                max-width: 400px;
+                max-width: 480px;
                 padding: 0 10px;
 
                 a {

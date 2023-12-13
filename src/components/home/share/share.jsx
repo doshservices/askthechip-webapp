@@ -71,10 +71,10 @@ const Share = ({ handleGetPosts }) => {
       setPreviewFile("")
     } catch (error) {
       // console.error(error);
-    } finally {
       setLoading(false);
-      setPostStatus("");
-      setFile(null);
+    } finally {
+      // setPostStatus("");
+      // setFile(null);
     }
   };
 
@@ -88,6 +88,8 @@ const Share = ({ handleGetPosts }) => {
 
   const modalToggle = () => {
     setModal(!modal)
+    setPreviewFile("")
+    setFile(null)
   }
 
   useEffect(() => {
@@ -175,7 +177,7 @@ const Share = ({ handleGetPosts }) => {
               }
               <button
                 type="submit"
-                disabled={!postStatus || loading}
+                disabled={!postStatus && !file || loading}
               >
                 {loading ? <Loader width="30" height="20" /> : "Post"}
               </button>
