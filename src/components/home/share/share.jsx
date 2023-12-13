@@ -4,6 +4,9 @@ import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import Loader from "../../Loader/Loader";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 import axios from "axios";
+import { useEffect } from "react";
+import { fileToBase64 } from "../../Profile";
+import { useSelector } from "react-redux";
 
 const Share = ({ handleGetPosts }) => {
   const fileInputRef = useRef(null);
@@ -13,6 +16,9 @@ const Share = ({ handleGetPosts }) => {
   const [file, setFile] = useState(null);
   const { user, token } = useAuth();
   const { profile } = useProfile();
+  const [modal, setModal] = useState(false)
+  const [previewFile, setPreviewFile] = useState("")
+  const userDetails = useSelector((state) => state?.user?.user);
 
   const handleTypePost = (e) => {
     setPostStatus(e.target.value);
@@ -31,6 +37,8 @@ const Share = ({ handleGetPosts }) => {
           return;
         }
         setFile(selectedFile);
+        const base64String = await fileToBase64(selectedFile);
+        setPreviewFile(base64String);
       } else {
       }
     } catch (error) {
@@ -56,9 +64,11 @@ const Share = ({ handleGetPosts }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
       // console.log(response);
       handleGetPosts();
+      setFile(null)
+      setModal(false)
+      setPreviewFile("")
     } catch (error) {
       // console.error(error);
     } finally {
@@ -76,66 +86,106 @@ const Share = ({ handleGetPosts }) => {
   const username =
     me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`;
 
+  const modalToggle = () => {
+    setModal(!modal)
+  }
+
+  useEffect(() => {
+    if (modal === true) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => document.body.style.overflow = 'unset';
+  }, [modal])
+
   return (
-    <section className="share">
-      <div>
-        <div className="share__container">
-          <figure className="profile__dp">
-            {!profile?.profileImg ? (
-              <p className="text-white">{username[0]}</p>
-            ) : (
-              <img
-                src={profile?.profileImg}
-                alt={username}
-                className={`rounded-full w-[52px] aspect-square h-fit`}
-              />
-            )}
-          </figure>
-          <form onSubmit={handleSubmit} onChange={handleFileSelect}>
-            <div className={postStatus ? "post-content column" : "post-content"}>
-              <textarea
-                placeholder="Share a post"
-                onChange={handleTypePost}
-                value={postStatus}
-                name="content"
-                id="content"
-              />
-              <div onClick={handleUploadClick} className="upload">
-                <img src={imageIcon} alt="Image" />
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  className="hidden"
-                  onChange={handleFileSelect}
-                  name="postImg"
-                  id="postImg"
-                />
-              </div>
-            </div>
-            {postStatus && (
-              <div className="actions">
-                <div className="flex">
-                  <select
-                    className="text-sm bg-transparent my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
-                    value={board}
-                    onChange={handleChangeBoard}
-                  >
-                    <option value="WHITE_BOARD">White Board</option>
-                    <option value="BLACK_BOARD">Black Board</option>
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  disabled={!postStatus || loading}
-                >
-                  {loading ? <Loader width="30" height="20" /> : "Post"}
-                </button>
-              </div>
-            )}
-          </form>
-        </div>
+    <>
+      <div className="share__preview" onClick={modalToggle}>
+        <figure>
+          {!userDetails?.profileImg ? (
+            <p className="text-white">{userDetails?.firstName[0]}</p>
+          ) : (
+            <img
+              src={userDetails?.profileImg}
+              alt={userDetails?.firstName}
+              className={`rounded-full w-[52px] aspect-square h-fit`}
+            />
+          )}
+        </figure>
+        <input type="text" placeholder="Share a post" />
       </div>
-    </section>
+      {modal ?
+        <section className="share">
+          <div className="share__container">
+            <svg className="cursor-pointer ml-auto block mb-2" onClick={modalToggle} width="35" height="35" fill="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="m13.59 12.002 4.454-4.453a1.126 1.126 0 0 0-1.59-1.594L12 10.408 7.547 5.955A1.127 1.127 0 1 0 5.953 7.55l4.453 4.453-4.453 4.453a1.127 1.127 0 1 0 1.594 1.594L12 13.596l4.453 4.453a1.127 1.127 0 1 0 1.594-1.594l-4.456-4.453Z"></path>
+            </svg>
+            <form onSubmit={handleSubmit} onChange={handleFileSelect}>
+              <div className="flex items-center gap-2">
+                <figure>
+                  {!userDetails?.profileImg ? (
+                    <p style={{ background: "hsla(172, 92%, 28%, 1)" }} className="text-white flex items-center justify-center h-[40px] w-[40px] rounded-full">{userDetails?.firstName[0]}</p>
+                  ) : (
+                    <img
+                      src={userDetails?.profileImg}
+                      alt={userDetails?.firstName}
+                      className={`rounded-full w-[40px] aspect-square h-fit`}
+                    />
+                  )}
+                </figure>
+                {/* <div> */}
+                <p className="text-[.9rem] text-500 my-[3px]">{userDetails?.firstName} {userDetails?.lastName}</p>
+                <select
+                  className="text-sm bg-transparent my-auto py-0.5 border border-primary100/50 outline-none rounded-lg ml-auto"
+                  value={board}
+                  onChange={handleChangeBoard}
+                >
+                  <option value="WHITE_BOARD">White Board</option>
+                  <option value="BLACK_BOARD">Black Board</option>
+                </select>
+                {/* </div> */}
+              </div>
+              <div className="post-content">
+                <textarea
+                  placeholder="Share a post"
+                  onChange={handleTypePost}
+                  value={postStatus}
+                  name="content"
+                  id="content"
+                />
+                <div onClick={handleUploadClick} className="upload">
+                  <img src={imageIcon} alt="Image" />
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    className="hidden"
+                    onChange={handleFileSelect}
+                    name="postImg"
+                    id="postImg"
+                  />
+                </div>
+              </div>
+              {file ?
+                <figure className="preview__img">
+                  <div>
+                    <img src={previewFile} className="max-w-[100%]" alt="" />
+                  </div>
+                  {/* <figcaption>{file?.name}</figcaption> */}
+                </figure>
+                : null
+              }
+              <button
+                type="submit"
+                disabled={!postStatus || loading}
+              >
+                {loading ? <Loader width="30" height="20" /> : "Post"}
+              </button>
+            </form>
+          </div>
+        </section>
+        :
+        null
+      }
+    </>
   );
 };
 

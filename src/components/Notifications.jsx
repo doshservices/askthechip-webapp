@@ -40,7 +40,7 @@ const Notifications = () => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       setNotification(response?.data);
     } catch (error) {
       console.log(error);

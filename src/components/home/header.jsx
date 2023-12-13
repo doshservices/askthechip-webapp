@@ -5,10 +5,14 @@ import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import power from "../../assets/icons/power-icon.svg";
 import { inform } from "../../App";
+import { useSelector } from "react-redux";
+
 const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) => {
   const { user, setUser } = useAuth();
   const pathname = window.location.pathname;
   const [isOpened, setIsOpened] = useState(false);
+  const userDetails = useSelector((state) => state?.user?.user);
+
   const showOthers = () => {
     setIsOpened(!isOpened);
   }
@@ -41,7 +45,6 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
               </div>
             </Link>
           </div>
-
         </div>
         {/* Mobile nav & toggler */}
         <div className="flex relative md:hidden">
@@ -49,10 +52,10 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
             onClick={showOthers}
             className="flex justify-center items-center text-[#f8f8f8] right-2 md:hidden m-3 transition active:scale-90"
           >
-            {!user?.profileImg ? <div className="flex items-center justify-center w-[29.39px] h-auto aspect-square rounded-full bg-primary80 font-medium"><span className="text-white">{username[0]}</span></div> :
+            {!userDetails?.profileImg ? <div className="flex items-center justify-center w-[29.39px] h-auto aspect-square rounded-full bg-primary80 font-medium"><span className="text-white">{userDetails?.firstName[0]}</span></div> :
               <img
-                src={user?.profileImg}
-                alt={username}
+                src={userDetails?.profileImg}
+                alt={userDetails?.firstName}
                 className={`w-[52px] h-auto aspect-square rounded-full`}
               />}
           </button>

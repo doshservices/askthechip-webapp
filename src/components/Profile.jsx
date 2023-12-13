@@ -1,27 +1,15 @@
 import React, { useEffect, useState } from "react";
-import coverImage from "../assets/images/cover-image.png";
-import profileImage from "../assets/images/profile-picture.png";
-import gear from "../assets/icons/gear.svg";
-import photo from "../assets/images/photo.svg";
 import envelope from "../assets/icons/envelope.svg";
 import edit from "../assets/icons/edit.svg";
-import { aboutData, experienceData, interestTopics } from "../data";
-import { Link } from "react-router-dom";
 import camera from "../assets/icons/camera-icon.svg";
-import briefcase from "../assets/icons/briefcase-icon.svg";
-import followers from "../assets/icons/followers-icon.svg";
-import mapMarker from "../assets/icons/map-marker.svg";
 import { Posts, Share } from "./home";
-import { CircleLoader, FileUploadInput, SideNav } from ".";
+import { CircleLoader, SideNav } from ".";
 import { usePosts } from "../contexts/PostContext/PostContext";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { useProfile } from "../contexts/ProfileContext/ProfileContext";
-import { loadingToast, notify, warn } from "../App";
-import { localStorageUpdate } from "../utils/localStorageUpdate";
-import { toast } from "react-toastify";
-import { reloadBrowser } from "./Settings";
 import { useNavigate } from "react-router-dom";
-// import Button from './Button';
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../store/slice/userSlice";
 import axios from "axios";
 
 export const fileToBase64 = (file) => {
@@ -39,17 +27,18 @@ export const fileToBase64 = (file) => {
 };
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const [viewer, setViewer] = useState("self");
   const [postCategory, setPostCategory] = useState("all")
   const [profileImg, setProfileImg] = useState(null);
-  const [type, setType] = useState("personal");
   const { posts, setPosts } = usePosts();
   const reversedPosts = [...posts].reverse();
   const [updatingPicture, setUpdatingPicture] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { user, token } = useAuth();
+  const { token } = useAuth();
   const { profile, setProfile } = useProfile();
   const navigate = useNavigate()
+  const userDetails = useSelector((state) => state?.user?.user);
 
   const filteredPosts = reversedPosts.filter((postItem) => postItem?.userId?._id === profile?._id);
 
@@ -73,63 +62,60 @@ const Profile = () => {
         setLoading(false);
       }
     } catch (error) {
-      // console.log(error);
       setLoading(false);
-      // warn("An error has occured, pls refresh your browser!");
     }
   };
+
   useEffect(() => {
     handleGetPosts();
   }, [setPosts]);
 
-  const handleFileChange = async (event) => {
-    const file = event.target.files[0];
+  const handleFileChange = (e) => {
     try {
-      const base64String = await fileToBase64(file);
-      setProfileImg(base64String);
-      // notify("Picture uploaded, updating your profile picture...");
+      if (e.target.files && e.target.files.length > 0) {
+        const selectedFile = e.target.files[0];
+
+        if (!selectedFile) {
+          return;
+        }
+        setProfileImg(selectedFile);
+      } else {
+      }
     } catch (error) {
-      console.error("Error converting file to base64:", error);
-      // warn("An error has occured, pls try again!");
     }
   };
 
   const handleUpdatePicture = async () => {
-    if (!profileImg) return;
-    setUpdatingPicture(true);
-    // const toadId = loadingToast("Updating your profile picture...");
-    await axios.put(`https://askthechip-hvp93.ondigitalocean.app/api/users`, profileImg, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
+    try {
+      setUpdatingPicture(true);
+
+      const formData = new FormData();
+      formData.append("profileImg", profileImg);
+
+      const response = await axios.put(
+        "https://askthechip-hvp93.ondigitalocean.app/api/users",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       // console.log(response);
-      const img = response.data.user.profileImg;
-      const updatedData = response.data.user;
-      // console.log(img);
-      setProfileImg('');
-      localStorageUpdate(updatedData);
-      // console.log("Profile picture updated successfully");
-      // toast.update(toadId, {
-      //   render: "Profile picture updated successfully",
-      //   type: toast.TYPE.SUCCESS,
-      //   autoClose: 2500,
-      // });
+      if (response?.data) {
+        dispatch(setUser(response?.data?.data?.user))
+        setProfileImg(null)
+        // console.log("Profile picture updated successfully");
+      }
+      setProfileImg("")
       setUpdatingPicture(false);
-      // reloadBrowser();
-    }).catch((error) => {
-      // console.log(error);
-      // console.log("Failed to update picture");
-      setProfileImg('');
-      // toast.update(toadId, {
-      //   render: "Failed to update picture",
-      //   type: toast.TYPE.ERROR,
-      //   autoClose: 2500,
-      // });
-    })
-    setUpdatingPicture(false);
+    } catch (error) {
+      console.error("Error updating profile picture:", error);
+    }
+    setProfileImg(null)
   };
+
   useEffect(() => {
     setTimeout(() => {
       handleUpdatePicture();
@@ -151,27 +137,27 @@ const Profile = () => {
             <div className="pl-40 sm:pl-44 md:pl-48 xm:pl-48 pt-10">
               <div className="text-light mt-6 sm:mt-4">
                 <div className="font-DMSans font-medium text-2xl mb-2 mt-2">
-                  {username}
+                  {userDetails?.firstName} {userDetails?.lastName}
                 </div>
-                <div className="w-[90%] text-sm font-DMSans mb-2">{role}</div>
+                <div className="w-[90%] text-sm font-DMSans mb-2">{userDetails?.role}</div>
               </div>
             </div>
           </div>
           <div className="grid-cols-3">
             <div className="col-span-1 -mt-[4.5rem] sm:-mt-[4rem] xm:-mt-[4rem]">
               <div className="relative">
-                {!profile?.profileImg ? (
-                  <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl">
-                    <span className="text-white">{username[0]}</span>
+                {!userDetails?.profileImg ? (
+                  <div className="flex items-center justify-center w-[70px] h-[70px] md:w-[100px] md:h-[100px] rounded-full bg-primary100 font-bold text-xl">
+                    <span className="text-white">{userDetails?.firstName[0]}</span>
                   </div>
                 ) : (
                   <img
-                    src={profile?.profileImg}
+                    src={userDetails?.profileImg}
                     alt="Profile Image"
-                    className="rounded-full max-w-[8rem] sm:max-w-[8rem] xm:max-w-[8rem] h-auto aspect-square"
+                    className="rounded-full w-[70px] h-[70px] md:w-[100px] md:h-[100px] h-auto aspect-square"
                   />
                 )}
-                <div className="flex flex-col items-center justify-center mt-2">
+                <form className="flex flex-col items-center justify-center mt-2">
                   <label className="w-full cursor-pointer">
                     <img
                       src={camera}
@@ -182,9 +168,11 @@ const Profile = () => {
                       type="file"
                       className="hidden"
                       onChange={handleFileChange}
+                      name="profileImg"
+                      accept="image/*"
                     />
                   </label>
-                </div>
+                </form>
               </div>
               <div className="post_actions">
                 <div className="post__category__toggler">

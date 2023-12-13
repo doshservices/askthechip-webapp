@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import Loader from "../../Loader/Loader";
+import { useSelector } from "react-redux";
 
 const Comment = ({ post, handleGetPosts, setComments, border }) => {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const { user, token } = useAuth();
+  const userDetails = useSelector((state) => state?.user?.user);
 
   const handleComment = (e) => {
     setComment(e.target.value);
@@ -83,14 +85,14 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
   return (
     <div className="flex w-full py-2.5 rounded-lg mt-2">
       <div className="justify-center items-center flex mr-2 my-auto w-full max-w-fit h-full">
-        {!user?.profileImg ? (
-          <div className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-primary100 font-bold text-xl">
-            <span className="text-white">{username[0]}</span>
+        {!userDetails?.profileImg ? (
+          <div style={{ background: "hsla(172, 92%, 28%, 1)" }} className="flex items-center justify-center w-[40px] h-[40px] rounded-full font-bold text-xl">
+            <span className="text-white">{userDetails?.firstName[0]}</span>
           </div>
         ) : (
           <img
-            src={user?.profileImg}
-            alt={username[0]}
+            src={userDetails?.profileImg}
+            alt={userDetails?.firstName}
             className={`rounded-full w-[40px] h-auto aspect-square`}
           />
         )}
