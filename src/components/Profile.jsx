@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
 import envelope from "../assets/icons/envelope.svg";
 import edit from "../assets/icons/edit.svg";
 import camera from "../assets/icons/camera-icon.svg";
-import { Posts, Share } from "./home";
-import { CircleLoader, SideNav } from ".";
-import { usePosts } from "../contexts/PostContext/PostContext";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { setUser } from "../store/slice/userSlice";
+import { usePosts } from "../contexts/PostContext/PostContext";
 import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 import { useNavigate } from "react-router-dom";
+import { Posts, Share } from "./home";
+import { useEffect, useState } from "react";
+import { CircleLoader, SideNav } from ".";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../store/slice/userSlice";
-import axios from "axios";
 
 export const fileToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -86,13 +86,14 @@ const Profile = () => {
   };
 
   const handleUpdatePicture = async () => {
+    if (!profileImg) return;
     try {
       setUpdatingPicture(true);
 
       const formData = new FormData();
       formData.append("profileImg", profileImg);
 
-      const response = await axios.put(
+      const response = await axios.patch(
         "https://askthechip-hvp93.ondigitalocean.app/api/users",
         formData,
         {

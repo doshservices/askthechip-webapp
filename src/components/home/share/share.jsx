@@ -1,12 +1,12 @@
-import { useState, useRef } from "react";
 import imageIcon from "../../../assets/icons/image-icon.svg";
-import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import Loader from "../../Loader/Loader";
-import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 import axios from "axios";
+import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import { useEffect } from "react";
-import { fileToBase64 } from "../../Profile";
+import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 import { useSelector } from "react-redux";
+import { fileToBase64 } from "../../Profile";
+import { useState, useRef } from "react";
 
 const Share = ({ handleGetPosts }) => {
   const fileInputRef = useRef(null);

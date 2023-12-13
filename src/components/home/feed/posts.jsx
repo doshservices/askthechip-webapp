@@ -1,22 +1,20 @@
-import { useEffect, useState } from "react";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import like from "../../../assets/icons/like-icon.svg";
-import dislike from "../../../assets/icons/dislike-icon.svg";
+import axios from "axios";
 import comment from "../../../assets/icons/comment-icon.svg";
-import threeDotsIcon from "../../../assets/icons/three-dots.svg";
+import dislike from "../../../assets/icons/dislike-icon.svg";
+import Comment from "./Comment";
 import editIcon from "../../../assets/icons/edit-icon.svg";
+import EditPost from "../../EditPost/EditPost";
 import deleteIcon from "../../../assets/icons/delete-icon.svg";
 import DeleteModal from "../../DeletePost/DeleteModal";
-import EditPost from "../../EditPost/EditPost";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
-import Comment from "./Comment";
-import Comments from "./Comments";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
-import { CommentIcon, LikeIcon, ReplyIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
+import { useNavigate } from "react-router-dom";
 import { CommentModal } from "./commentModal";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useEffect, useState } from "react";
+import { CommentIcon, LikeIcon, ReplyIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
 
 const reactions = [
   {
@@ -51,7 +49,7 @@ function getTimeAgo(timestamp) {
   } else if (days < 30) {
     return days === 1 ? "Yesterday" : `${days}d ago`;
   } else if (months < 12) {
-    return months === 1 ? "1m ago" : `${months}m ago`;
+    return months === 1 ? "1mon ago" : `${months}m ago`;
   } else {
     return years === 1 ? "1y ago" : `${years}y ago`;
   }
@@ -126,7 +124,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
     }).then((res) => {
       setUsersLikes(res?.data?.data?.post.map(item => item?.userId?._id))
     }).catch((err) => {
-      // console.log(err);
       setLoadingLikePost(false);
     })
   };
@@ -151,7 +148,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
       if (res.ok) {
         const likesRes = await res.json();
         const likesData = likesRes.data.post.length;
-        // console.log('Likes response here', likesRes)
         setLikes(likesData);
       }
     } catch (error) {
@@ -162,7 +158,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
     try {
       const response = await axios.post(
         `https://askthechip-hvp93.ondigitalocean.app/api/post/like-post?postId=${post._id}`,
-        null, // No data being sent in the request body, pass null here
+        null,
         {
           headers: {
             // "Content-Type": "application/json",
@@ -170,7 +166,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
           },
         }
       );
-      // console.log(response);
       setTimeout(() => {
         handleLikesValue();
       }, 1000);
@@ -183,7 +178,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
     try {
       const response = await axios.post(
         `https://askthechip-hvp93.ondigitalocean.app/api/post/unlike-post?postId=${post._id}`,
-        null, // No data being sent in the request body, pass null here
+        null,
         {
           headers: {
             // "Content-Type": "application/json",
@@ -191,7 +186,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
           },
         }
       );
-      // console.log(response);
       setTimeout(() => {
         handleLikesValue();
       }, 1000);
@@ -199,7 +193,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
       console.error(error);
     }
   };
-
 
   useEffect(() => {
     handleLikesValue()

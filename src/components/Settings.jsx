@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import ButtonNew from "../components/ButtonNew";
-import { settingsButtons } from "../data";
 import eye from "./../assets/icons/eye.svg";
-import crossedEye from "./../assets/icons/crossed-eye.svg";
-import { inform, loadingToast, notify, warn } from "../App";
-import { useAuth } from "../contexts/AuthContext/AuthContext";
 import Loader from "./Loader/Loader";
-import { useProfile } from "../contexts/ProfileContext/ProfileContext";
-import { toast } from "react-toastify";
-import { localStorageUpdate } from "../utils/localStorageUpdate";
-import { useWindowWidth } from "../utils/windowWidth";
+import ButtonNew from "../components/ButtonNew";
+import crossedEye from "./../assets/icons/crossed-eye.svg";
 import { Header } from "./home";
-// import clsx from "clsx";
-// import PaymentForm from "./PaymentForm";
+import { inform } from "../App";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { setUser } from "../store/slice/userSlice";
+import { useState } from "react";
+import { useProfile } from "../contexts/ProfileContext/ProfileContext";
+import { useDispatch } from "react-redux";
+import { useWindowWidth } from "../utils/windowWidth";
+import { settingsButtons } from "../data";
+import { localStorageUpdate } from "../utils/localStorageUpdate";
 
 const defaultFormFields = {
   firstName: "",
@@ -31,18 +30,20 @@ const defaultFormFields = {
   address: "",
   pin: "",
 };
+
 export const reloadBrowser = () => {
   window.location.reload();
 }
 
 const Settings = () => {
-  const { user, token } = useAuth();
+  const { token } = useAuth();
   const { profile } = useProfile();
   const [activeButton, setActiveButton] = useState(1);
   const [showPassword, setShowPassword] = useState(false);
   const [updatingNames, setUpdatingNames] = useState(false);
   const [resetingPassword, setResetingPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const dispatch = useDispatch()
   const {
     cardNum,
     expiration,
@@ -58,7 +59,7 @@ const Settings = () => {
     address,
     pin,
   } = formFields;
-  // const username = profile?.role === "USER" ? `${profile.firstName} ${profile.lastName}` : `${profile.companyName}`
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -67,10 +68,10 @@ const Settings = () => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
+
   const handleUpdateNames = async (e) => {
     e.preventDefault();
     setUpdatingNames(true);
-    // const toastId = loadingToast("Updating your names...");
     try {
       const response = await fetch(
         `https://askthechip-hvp93.ondigitalocean.app/api/users`,
@@ -86,28 +87,24 @@ const Settings = () => {
       if (response.ok) {
         const resData = await response.json();
         // console.log(resData);
-        // console.log(resData.data.user);
+        dispatch(setUser(resData?.data?.user))
         const updatedData = resData.data.user;
-        // console.log(updatedData);
         localStorageUpdate(updatedData);
-        // console.log("Updated username successfully");
-        // toast.update(toadId, { render: "Updated username successfully", autoClose: 2500, type: 'success' })
         setUpdatingNames(false);
         resetFormFields();
-        reloadBrowser();
+        setTimeout(() => {
+          reloadBrowser()
+        }, 1000)
       }
     } catch (error) {
-      // console.log(error);
-      // console.log("Failed to update username, try again!");
-      // toast.update(toadId, { render: "Failed to update username, try again!", autoClose: 2500, type: 'error' })
       setUpdatingNames(false);
     }
     setUpdatingNames(false);
   };
+
   const handleUpdateCompany = async (e) => {
     e.preventDefault();
     setUpdatingNames(true);
-    // const toastId = loadingToast("Updating your company name...");
     try {
       const response = await fetch(
         `https://askthechip-hvp93.ondigitalocean.app/api/users`,
@@ -122,33 +119,23 @@ const Settings = () => {
       );
       if (response.ok) {
         const resData = await response.json();
-        // console.log(resData);
-        // console.log(resData.data);
         const updatedData = resData.data.user;
-        // console.log(updatedData);
         localStorageUpdate(updatedData);
-        // console.log("Updated company name successfully");
-        // toast.update(toastId, { render: "Updated company name successfully", autoClose: 2500, type: 'success' });
         setUpdatingNames(false);
         resetFormFields();
-        reloadBrowser();
       }
     } catch (error) {
-      // console.log(error);
-      // console.log("Failed to update your company name");
-      // toast.update(toastId, { render: "Failed to update your company name", autoClose: 2500, type: 'error' });
       setUpdatingNames(false);
     }
     setUpdatingNames(false);
   };
+
   const handleResetPassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      // notify("New password doesn't match, try again!");
       return;
     }
     setResetingPassword(true);
-    // const toastId = notify("Reseting your password...");
     try {
       const response = await fetch(
         `https://askthechip-hvp93.ondigitalocean.app/api/users/reset-password`,
@@ -163,17 +150,10 @@ const Settings = () => {
       );
       if (response.ok) {
         const resData = await response.json();
-        // console.log(resData);
-        // console.log(resData.data);
-        // console.log("Password was reset successfuly");
-        // toast.update(toastId, { render: "Password was reset successfuly", autoClose: 2500, type: 'error' });
         setResetingPassword(false);
       }
       resetFormFields();
     } catch (error) {
-      // console.log(error);
-      // console.log("Password reset failed");
-      // toast.update(toastId, { render: "Password reset failed", autoClose: 2500, type: 'error' })
       setResetingPassword(false);
     }
     setResetingPassword(false);
