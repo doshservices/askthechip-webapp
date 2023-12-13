@@ -10,7 +10,7 @@ export const Message = ({ info }) => {
     }
 
     return (
-        <div onClick={saveId} className="chat__messages">
+        <div className="chat__messages">
             <img src={info?.photo} alt={info?.name} />
             <div className="sender__info">
                 <h3>{info.name}</h3>

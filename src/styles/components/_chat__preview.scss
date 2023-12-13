@@ -90,15 +90,49 @@
         z-index: 1;
 
         &__user__img {
-            margin-right: $xm;
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            object-fit: cover;
+            margin-right: 15px;
+            height: 40px;
+
+            img {
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                min-height: 40px;
+                min-width: 40px;
+            }
+
+            span {
+                height: 40px;
+                width: 40px;
+                background: $primary;
+                font-size: 1.2rem;
+                font-weight: 600;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            @media (max-width: 500px) {
+                margin-right: 5px;
+
+                img {
+                    height: 30px;
+                    width: 30px;
+                    min-height: 30px;
+                    min-width: 30px;
+                }
+
+                span {
+                    height: 30px;
+                    width: 30px;
+                }
+            }
         }
 
         @media (max-width: 720px) {
-            padding: $base $thin;
+            padding: $thin $thin;
 
             &__user__img {
                 height: 35px;
@@ -111,6 +145,11 @@
                 font-size: 1.2rem;
                 font-weight: 500;
                 color: $dark200;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                line-clamp: 1;
+                -webkit-box-orient: vertical;
             }
 
             .last__seen {

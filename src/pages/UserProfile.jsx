@@ -1,37 +1,37 @@
-import camera from "../assets/icons/camera-icon.svg"
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext/AuthContext";
-import { useEffect, useState } from "react";
-import { SideNav } from "../components";
-import envelope from "../assets/icons/envelope.svg";
 import { Posts } from "../components/home";
-import { CircleLoader } from "../components";
+import { SideNav } from "../components";
+import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { CircleLoader } from "../components";
+import { useEffect, useState } from "react";
+import { setChatUserId, setMessageClass } from "../store/slice/chatViewSlice";
 
 const UserProfile = () => {
-    const [profileImage, setProfileImg] = useState("")
-    const [viewer, setViewer] = useState("self");
     const [postCategory, setPostCategory] = useState("all")
     const [loading, setLoading] = useState(false)
     const { posts, setPosts } = usePosts();
     const reversedPosts = [...posts].reverse();
     const userId = JSON.parse(localStorage.getItem("ask-un-id"))
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const filteredPosts = reversedPosts.filter((postItem) => postItem?.userId?._id === userId);
-
-    const handleFileChange = async (event) => {
-        const file = event.target.files[0];
-        try {
-            const base64String = await fileToBase64(file);
-            setProfileImg(base64String);
-        } catch (error) {
-        }
-    };
 
     const { token } = useAuth()
     const id = JSON.parse(localStorage.getItem("ask-un-id"))
     const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/${id}`
     const [profileDetails, setProfileDetails] = useState([])
+
+    const saveChatUserId = () => {
+        dispatch(setChatUserId(profileDetails))
+        dispatch(setMessageClass("show"))
+        setTimeout(() => {
+            navigate("/messages")
+        }, 1000);
+    }
 
     const handleGetPosts = async () => {
         setLoading(true);
@@ -70,7 +70,6 @@ const UserProfile = () => {
         })
             .then((response) => {
                 setLoading(false)
-                // console.log(response);
                 setProfileDetails(response?.data?.data?.user)
             }).catch((error) => {
                 setLoading(false)
@@ -111,40 +110,17 @@ const UserProfile = () => {
                                             className="rounded-full max-w-[8rem] sm:max-w-[8rem] xm:max-w-[8rem] h-auto aspect-square"
                                         />
                                     )}
-                                    <div className="flex flex-col items-center justify-center mt-2">
-                                        <label className="w-full cursor-pointer">
-                                            <img
-                                                src={camera}
-                                                alt="Camera"
-                                                className="bottom-0 left-12 absolute bg-black/50 rounded"
-                                            />
-                                            <input
-                                                type="file"
-                                                className="hidden"
-                                                onChange={handleFileChange}
-                                            />
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
-                            <div className="post_actions">
+                            <div className="post_actions items-center">
                                 <div className="post__category__toggler">
                                     <button onClick={() => setPostCategory("all")} className={postCategory === "all" ? "active" : ""}>All Post</button>
                                     <button onClick={() => setPostCategory("white-board")} className={postCategory === "white-board" ? "active" : ""}>White Board</button>
                                     <button onClick={() => setPostCategory("black-board")} className={postCategory === "black-board" ? "active" : ""}>Black Board</button>
                                 </div>
-                                <div className="flex justify-center items-center">
-                                    <div className="flex">
-                                        <div>
-                                            <button className="bg-primary80 font-DMSans text-light border-[0.3px] border-tertiary flex px-2 py-[0.2rem] hover:scale-90 transition duration-200 rounded-lg items-center">
-                                                <img
-                                                    src={envelope}
-                                                    alt="Settings" className="px-0.5" />
-                                                Message
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button onClick={saveChatUserId} className="bg-primary80 font-DMSans text-light border-[0.3px] border-tertiary px-4 py-[0.4rem] hover:scale-90 transition duration-200 rounded-lg">
+                                    Send Message
+                                </button>
                             </div>
                             <div className="">
                                 <div>

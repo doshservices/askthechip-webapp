@@ -203,11 +203,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
     setViewAllComments(!viewAllComments);
   };
 
-  // useEffect(() => {
-  //   handleLikePost();
-  //   handleLikesValue();
-  // }, [setLikes, setLikePost]);
-
   useEffect(() => {
     handleLikesValue();
   }, [likes]);
@@ -366,58 +361,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
             border={post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.1)" : "rgba(0, 0, 0, 0.10)"} close={commentModalDisplay} />
           : null
         }
-        {/* <div>
-          {comments.length > 0 && (
-            <>
-              {!viewAllComments ? (
-                <div>
-                  <div className="flex">
-                    <div className="w-10 mr-1">
-                      {!singleCommenter?.profileImg ? (
-                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary100 font-bold text-xl">
-                          <span className="text-white">
-                            {sCommenterName[0]}
-                          </span>
-                        </div>
-                      ) : (
-                        <img src={singleCommenter?.profileImg} alt="profile" className="rounded-[50%]" />
-                      )}
-                    </div>
-                    <div className="flex">
-                      <div className="flex justify-center items-center font-bold">
-                        <div>{getUsername(singleCommenter)}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div style={{ color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2D2D2DCC" }} className="mx-11 mt-3 text-sm font-DMSans">{singleComment[0]?.text}</div>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  {comments.map((c, index) => (
-                    <Comments
-                      c={c}
-                      key={index}
-                      getUsername={getUsername}
-                      handleGetPosts={handleGetPosts}
-                      color={post?.board === "BLACK_BOARD" ? "text-[#f8f8f8]" : "text-[#2D2D2DCC]"}
-                    />
-                  ))}
-                </>
-              )}
-            </>
-          )}
-        </div> */}
-        {/* {comments?.length > 0 && (
-          <div
-            onClick={handleViewAllComments}
-            className="cursor-pointer text-primary80 ml-5 mb-2.5 mt-5 font-medium"
-          >
-            View {viewAllComments ? "less" : `all ${comments?.length}`}{" "}
-            comment(s)
-          </div>
-        )} */}
         <div>
           <Comment
             post={post}

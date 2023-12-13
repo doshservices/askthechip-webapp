@@ -1,18 +1,43 @@
-import { useState, useEffect, useRef } from "react";
 import { chatData } from "./chatData";
-import { useSelector, useDispatch } from "react-redux";
-import { setMessageClass } from "../../store/slice/chatViewSlice";
-import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
 import { useWindowWidth } from "../../utils/windowWidth";
+import { setMessageClass } from "../../store/slice/chatViewSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect, useRef } from "react";
+import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
+import io from "socket.io-client";
 
 export const ChatBox = () => {
     const dispatch = useDispatch()
     const [value, setValue] = useState("")
-    const chatUserId = useSelector((state) => state?.chat?.chatUserId);
+    const chatUserDetails = useSelector((state) => state?.chat?.chatUserId);
+    const myDetails = useSelector((state) => state?.user?.user?._id);
     const chatMessages = chatData;
     const messagesContainerRef = useRef();
+    const [message, setMessage] = useState("");
+    const [receivedMessages, setReceivedMessages] = useState([]);
+    const [socket, setSocket] = useState(null);
 
-    const messageId = chatMessages.find(item => item.id === chatUserId);
+    useEffect(() => {
+        const newSocket = io("https://askthechip-hvp93.ondigitalocean.app");
+        setSocket(newSocket);
+
+        newSocket.on("message", (newMessage) => {
+            setReceivedMessages((prevMessages) => [...prevMessages, newMessage]);
+        });
+
+        return () => {
+            newSocket.disconnect();
+        };
+    }, []);
+
+    const sendMessage = () => {
+        socket.emit("sendMessage", {
+            senderId: myDetails,
+            receiverId: chatUserDetails?._id,
+            text: message,
+        });
+        setMessage("");
+    };
 
     const changeMessageClass = () => dispatch(setMessageClass("hide"))
 
@@ -29,11 +54,11 @@ export const ChatBox = () => {
     }, []);
     useEffect(() => {
         scrollToBottom();
-    }, [chatUserId]);
+    }, [chatUserDetails, sendMessage]);
 
     return (
         <div className="chat">
-            {chatUserId === null ? <p className="block m-auto max-w-[fit-content]">AskTheChip WebApp</p>
+            {chatUserDetails === null ? <p className="block m-auto max-w-[fit-content]">AskTheChip WebApp</p>
                 :
                 <>
                     <div className="chat__header">
@@ -44,11 +69,17 @@ export const ChatBox = () => {
                                     <path d="M5.625 12h13.688"></path>
                                 </svg>
                             }
-                            <img onClick={changeMessageClass} className="chat__header__user__img" src={messageId?.photo} alt="people" />
+                            <div onClick={changeMessageClass} className="chat__header__user__img">
+                                {chatUserDetails?.profileImg ?
+                                    <img src={chatUserDetails?.profileImg} alt="people" />
+                                    :
+                                    <span className="text-white">{chatUserDetails.firstName?.[0]}</span>
+                                }
+                            </div>
                         </div>
                         <div className="chat__header__user">
-                            <h3>{messageId?.name}</h3>
-                            <p className="last__seen" role="time">Last seen {messageId?.lastSeen}</p>
+                            <h3>{chatUserDetails?.firstName} {chatUserDetails?.lastName}</h3>
+                            <p className="last__seen" role="time">Last seen</p>
                         </div>
                         <div className="chat__header__actions">
                             <VideoCallIcon />
@@ -57,18 +88,22 @@ export const ChatBox = () => {
                         </div>
                     </div>
                     <div className="chat__full__messages">
-                        {messageId?.messages?.map((message, index) => {
+                        {/* {messageId?.messages?.map((message, index) => {
                             return (
                                 <p key={index}>{message}</p>
                             )
-                        })}
+                        })} */}
                         <div ref={messagesContainerRef}></div>
                     </div>
                     <div className="chat__send__box">
-                        <input value={value} onChange={(e) => setValue(e.target.value)} placeholder="Type your message here..." />
+                        <input
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            placeholder="Type your message here..."
+                        />
                         <div className="actions">
-                            {value.length > 0 ?
-                                <button className="send__btn">
+                            {message.length > 0 ?
+                                <button onClick={sendMessage} className="send__btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 19 16" fill="none">
                                         <path d="M0 16V0L19 8L0 16ZM1.5 13.675L15.1 8L1.5 2.25V6.45L7.55 8L1.5 9.5V13.675Z" fill="#F8F8F8" />
                                     </svg>
