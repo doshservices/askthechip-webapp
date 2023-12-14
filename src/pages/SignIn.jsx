@@ -6,7 +6,7 @@ import crossedEye from "./../assets/icons/crossed-eye.svg";
 import googleLogo from "../assets/icons/google-logo.svg";
 import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
-import { notify, warn } from "../App";
+import { warn } from "../App";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import axios from "axios";
 import { useDispatch } from "react-redux";
