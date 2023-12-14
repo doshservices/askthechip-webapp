@@ -5,16 +5,20 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { inform } from "../App";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import { ToastContainer } from "react-toastify";
+import { clearUser } from "../store/slice/userSlice";
+import { useDispatch } from "react-redux";
 
 const SideNav = () => {
   const navigateTo = useNavigate();
   const pathname = window.location.pathname;
   const { setUser } = useContext(AuthContext);
+  const dispatch = useDispatch()
 
   const handleLogOut = () => {
     inform("Logging you out...");
     setTimeout(() => {
       setUser(null)
+      dispatch(clearUser())
       localStorage.removeItem('authUser');
       localStorage.removeItem('token');
       navigateTo("/login");

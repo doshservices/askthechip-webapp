@@ -9,6 +9,8 @@ import { ToastContainer } from "react-toastify";
 import { notify, warn } from "../App";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { saveUser } from "../store/slice/userSlice";
 
 const defaultFormFields = {
   loginId: "",
@@ -22,6 +24,7 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { loginId, password } = formFields;
+  const dispatch = useDispatch()
   const token = localStorage.getItem("token")
 
   useEffect(() => {
@@ -60,12 +63,15 @@ const SignIn = () => {
         localStorage.setItem('token', token);
         localStorage.setItem('authUser', JSON.stringify(authUser));
         setUser(authUser);
+        // console.log(authUser);
         // notify("Login success, you're being redirected")
         redirectToHome();
+        dispatch(saveUser(authUser))
         setLoading(false);
       })
       .catch((err) => {
-        warn(err.response.data.message);
+        // console.log(err);
+        warn(err?.response?.data?.message);
         setLoading(false);
       })
   }

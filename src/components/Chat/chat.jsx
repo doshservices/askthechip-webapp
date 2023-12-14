@@ -1,18 +1,18 @@
-import { chatData } from "./chatData";
+import io from "socket.io-client";
+import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import { useWindowWidth } from "../../utils/windowWidth";
 import { setMessageClass } from "../../store/slice/chatViewSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
-import io from "socket.io-client";
 
 export const ChatBox = () => {
     const dispatch = useDispatch()
-    const [value, setValue] = useState("")
     const chatUserDetails = useSelector((state) => state?.chat?.chatUserId);
     const myDetails = useSelector((state) => state?.user?.user?._id);
-    const chatMessages = chatData;
     const messagesContainerRef = useRef();
+    const { token } = useAuth()
     const [message, setMessage] = useState("");
     const [receivedMessages, setReceivedMessages] = useState([]);
     const [socket, setSocket] = useState(null);
@@ -29,6 +29,26 @@ export const ChatBox = () => {
             newSocket.disconnect();
         };
     }, []);
+
+    const saveConversation = async () => {
+        try {
+            const response = await axios.get(
+                `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?userId=${myDetails}`,
+                null,
+                {
+                    headers: {
+                        // "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setTimeout(() => {
+                handleLikesValue();
+            }, 1000);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const sendMessage = () => {
         socket.emit("sendMessage", {

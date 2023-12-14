@@ -9,6 +9,8 @@ import { inform, notify, warn } from "../App";
 import { ToastContainer } from "react-toastify";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { saveUser } from "../store/slice/userSlice";
 
 const defaultFormFields = {
   firstName: "",
@@ -34,6 +36,7 @@ const SignUp = () => {
   const [representativeId, setRepresentativeId] = useState(null);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const token = localStorage.getItem("token")
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (token !== null) {
@@ -145,6 +148,7 @@ const SignUp = () => {
         localStorage.setItem('token', token);
         localStorage.setItem('authUser', JSON.stringify(authUser));
         setUser(authUser);
+        dispatch(saveUser(authUser))
         notify("Sign up Successful, you'll be redirected to verification page!");
         redirectToLogin();
       })
