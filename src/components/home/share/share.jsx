@@ -2,11 +2,11 @@ import imageIcon from "../../../assets/icons/image-icon.svg";
 import Loader from "../../Loader/Loader";
 import axios from "axios";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
-import { useEffect } from "react";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 import { useSelector } from "react-redux";
 import { fileToBase64 } from "../../Profile";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import useClickOutside from "../../../utils/useClickOiutside";
 
 const Share = ({ handleGetPosts }) => {
   const fileInputRef = useRef(null);
@@ -64,17 +64,13 @@ const Share = ({ handleGetPosts }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      // console.log(response);
       handleGetPosts();
       setFile(null)
       setModal(false)
       setPreviewFile("")
     } catch (error) {
-      // console.error(error);
       setLoading(false);
     } finally {
-      // setPostStatus("");
-      // setFile(null);
     }
   };
 
@@ -91,6 +87,10 @@ const Share = ({ handleGetPosts }) => {
     setPreviewFile("")
     setFile(null)
   }
+
+  const modalRef = useRef(null);
+
+  useClickOutside(modalRef, modalToggle);
 
   useEffect(() => {
     if (modal === true) {
@@ -109,7 +109,7 @@ const Share = ({ handleGetPosts }) => {
             <img
               src={userDetails?.profileImg}
               alt={userDetails?.firstName}
-              className={`rounded-full w-[52px] aspect-square h-fit`}
+              className={`rounded-full w-[52px] aspect-square h-[50px]`}
             />
           )}
         </figure>
@@ -121,7 +121,7 @@ const Share = ({ handleGetPosts }) => {
             <svg className="cursor-pointer ml-auto block mb-2" onClick={modalToggle} width="35" height="35" fill="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="m13.59 12.002 4.454-4.453a1.126 1.126 0 0 0-1.59-1.594L12 10.408 7.547 5.955A1.127 1.127 0 1 0 5.953 7.55l4.453 4.453-4.453 4.453a1.127 1.127 0 1 0 1.594 1.594L12 13.596l4.453 4.453a1.127 1.127 0 1 0 1.594-1.594l-4.456-4.453Z"></path>
             </svg>
-            <form onSubmit={handleSubmit} onChange={handleFileSelect}>
+            <form ref={modalRef} onSubmit={handleSubmit} onChange={handleFileSelect}>
               <div className="flex items-center gap-2">
                 <figure>
                   {!userDetails?.profileImg ? (
@@ -171,7 +171,6 @@ const Share = ({ handleGetPosts }) => {
                   <div>
                     <img src={previewFile} className="max-w-[100%]" alt="" />
                   </div>
-                  {/* <figcaption>{file?.name}</figcaption> */}
                 </figure>
                 : null
               }

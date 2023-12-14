@@ -8,12 +8,13 @@ import editIcon from "../../../assets/icons/edit-icon.svg";
 import EditPost from "../../EditPost/EditPost";
 import deleteIcon from "../../../assets/icons/delete-icon.svg";
 import DeleteModal from "../../DeletePost/DeleteModal";
+import useClickOutside from '../../../utils/useClickOiutside';
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 import { useNavigate } from "react-router-dom";
 import { CommentModal } from "./commentModal";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { CommentIcon, LikeIcon, ReplyIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
 
 const reactions = [

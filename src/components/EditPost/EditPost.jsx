@@ -5,7 +5,6 @@ import { useAuth } from "../../contexts/AuthContext/AuthContext";
 
 const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
   const { token } = useAuth();
-  //   const [postImg, setPostImg] = useState("");
   const [content, setContent] = useState("");
   const [board, setBoard] = useState("WHITE_BOARD");
   const [updating, setUpdating] = useState(false);
@@ -59,20 +58,17 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
         }
       ).then((response) => {
         if (response.ok) {
-          // console.log("Successfully updated your post!");
           notify("Successfully updated your post!");
           setOpenEditModal(false);
           handleGetPosts();
           setUpdating(false);
         } else {
-          // console.error("Error updating post:", response.status);
           warn("Error updating post:", response.status);
           setOpenEditModal(false);
           setUpdating(false);
         }
       });
     } catch (error) {
-      // console.error("Error updating post:", error);
       warn("Error updating post:", error);
       setOpenEditModal(false);
       setUpdating(false);
@@ -98,14 +94,6 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
                   rows="3"
                   className="bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray w-full resize-none mt-4"
                 />
-                {/* <select
-                  className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
-                  value={board}
-                  onChange={handleBoardChange}
-                >
-                  <option value="WHITE_BOARD">White Board</option>
-                  <option value="BLACK_BOARD">Black Board</option>
-                </select> */}
                 <div className="actions">
                   <button onClick={handleSubmit} type="submit">Update</button>
                   <button onClick={() => setOpenEditModal(false)} type="button">Cancel</button>
@@ -115,41 +103,6 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
           </div>
         </div>
       </div>
-      {/* <form
-        onSubmit={handleSubmit}
-        className="col-span-10 ml-2 flex flex-col justify-between w-[calc(100%_-_0.5rem)] rounded-lg bg-grey  border border-black/10"
-      >
-        <div className="flex w-full justify-between">
-          <div className="flex ml-2 w-[80%]">
-            <textarea
-              placeholder="Share a post"
-              onChange={handleContentChange}
-              value={content}
-              name="post"
-              id="post"
-              cols="100"
-              rows="1"
-              className="bg-[#f4f4f4] border-0 outline-none text-sm placeholder:text-dark-gray w-full resize-none mt-4"
-            />
-          </div>
-        </div>
-        <div className="flex flex-col justify-end items-end sm:hidden sm:justify-between w-full">
-          {content && (
-            <div>
-              <div className="ml-2 mr-1">
-                <select
-                  className="my-auto py-0.5 border border-primary100/50 outline-none rounded-lg"
-                  value={board}
-                  onChange={handleBoardChange}
-                >
-                  <option value="WHITE_BOARD">White Board</option>
-                  <option value="BLACK_BOARD">Black Board</option>
-                </select>
-              </div>
-            </div>
-          )}
-        </div>
-      </form> */}
     </div>
   );
 };
