@@ -84,4 +84,53 @@
             }
         }
     }
+
+    .post-img {
+        max-height: 250px;
+        overflow: hidden;
+
+        img {
+            cursor: pointer;
+        }
+    }
+
+    .full__img {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: all .3s ease;
+        padding: $base $big;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        @media (max-width: 480px) {
+            padding: $base 0;
+
+            svg {
+                margin-left: $base;
+            }
+        }
+
+        div {
+            height: fit-content;
+            max-width: 700px;
+            margin: auto;
+
+            img {
+                margin-top: $base;
+                max-width: 100%;
+                object-fit: contain;
+                max-height: 85vh;
+            }
+        }
+    }
+
+    .show__full__post {
+        z-index: 10000;
+        background: #000;
+        opacity: 1 !important;
+        pointer-events: all !important;
+    }
 }

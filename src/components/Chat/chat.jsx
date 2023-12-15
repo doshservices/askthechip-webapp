@@ -18,7 +18,9 @@ export const ChatBox = () => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const newSocket = io("https://askthechip-hvp93.ondigitalocean.app");
+        const newSocket = io("https://askthechip-hvp93.ondigitalocean.app", {
+            withCredentials: true
+        });
         setSocket(newSocket);
 
         newSocket.on("message", (newMessage) => {
@@ -29,6 +31,15 @@ export const ChatBox = () => {
             newSocket.disconnect();
         };
     }, []);
+
+    const sendMessage = () => {
+        socket.emit("sendMessage", {
+            senderId: myDetails,
+            receiverId: chatUserDetails?._id,
+            text: message,
+        });
+        setMessage("");
+    };
 
     const saveConversation = async () => {
         try {
@@ -49,15 +60,6 @@ export const ChatBox = () => {
             console.error(error);
         }
     }
-
-    const sendMessage = () => {
-        socket.emit("sendMessage", {
-            senderId: myDetails,
-            receiverId: chatUserDetails?._id,
-            text: message,
-        });
-        setMessage("");
-    };
 
     const changeMessageClass = () => dispatch(setMessageClass("hide"))
 
@@ -108,11 +110,9 @@ export const ChatBox = () => {
                         </div>
                     </div>
                     <div className="chat__full__messages">
-                        {/* {messageId?.messages?.map((message, index) => {
-                            return (
-                                <p key={index}>{message}</p>
-                            )
-                        })} */}
+                        {message &&
+                            <p>{receivedMessages}</p>
+                        }
                         <div ref={messagesContainerRef}></div>
                     </div>
                     <div className="chat__send__box">

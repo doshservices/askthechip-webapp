@@ -16,9 +16,12 @@
         overflow-y: scroll;
         background: $light100;
 
-        @media (min-width: 990px) {
-            border-left: 1px solid hsla(204, 14%, 93%, 1);
+        @media (min-width: 480px) {
             padding-left: 10px;
+        }
+
+        @media (min-width: 800px) {
+            border-left: 1px solid hsla(204, 14%, 93%, 1);
         }
 
         .logo {
@@ -42,8 +45,8 @@
             a {
                 display: flex;
                 align-items: center;
-                gap: $base;
-                padding: $tiny 1.3rem;
+                gap: .8rem;
+                padding: .5rem .9rem;
                 margin-bottom: 3px;
                 position: relative;
                 font-family: "DM Sans", sans-serif;
@@ -63,7 +66,8 @@
                         position: absolute;
                         background: $primary;
                         width: 4px;
-                        height: 100%;
+                        top: 2px;
+                        bottom: 2px;
                         left: 0px;
                         border-radius: 2px;
                     }
@@ -86,7 +90,8 @@
             display: flex;
             align-items: center;
             gap: $base;
-            padding: $sm 1.5rem;
+            padding: .5rem .9rem;
+            font-family: "DM Sans";
 
             img {
                 height: 24px;
