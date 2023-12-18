@@ -4,7 +4,7 @@
 
 .chats {
     display: grid;
-    grid-template-columns: 350px 1fr;
+    grid-template-columns: 1fr 1fr;
 
     @media (max-width: 1070px) {
         grid-template-columns: 350px 1fr;
@@ -23,7 +23,7 @@
     }
 
     &__senders {
-        padding: $base;
+        padding: $mb;
         border-right: 1px solid hsla(204, 14%, 93%, 1);
         max-height: 100vh;
         overflow-y: scroll;

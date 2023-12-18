@@ -9,42 +9,62 @@ import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
 
 export const ChatBox = () => {
     const dispatch = useDispatch()
-    const chatUserDetails = useSelector((state) => state?.chat?.chatUserId);
-    const myDetails = useSelector((state) => state?.user?.user?._id);
-    const messagesContainerRef = useRef();
+    const userId = useSelector((state) => state?.user?.user?._id);
+    const [socket, setSocket] = useState(null);
     const { token } = useAuth()
     const [message, setMessage] = useState("");
+    const chatUserDetails = useSelector((state) => state?.chat?.chatUserId);
     const [receivedMessages, setReceivedMessages] = useState([]);
-    const [socket, setSocket] = useState(null);
+    const messagesContainerRef = useRef();
 
     useEffect(() => {
-        const newSocket = io("https://askthechip-hvp93.ondigitalocean.app", {
-            withCredentials: true
-        });
+        const newSocket = io("https://askthechip-hvp93.ondigitalocean.app");
         setSocket(newSocket);
-
-        newSocket.on("message", (newMessage) => {
-            setReceivedMessages((prevMessages) => [...prevMessages, newMessage]);
-        });
 
         return () => {
             newSocket.disconnect();
         };
     }, []);
 
-    const sendMessage = () => {
-        socket.emit("sendMessage", {
-            senderId: myDetails,
+    // console.log(socket);
+
+    useEffect(() => {
+        socket?.emit("addUser", userId);
+        // console.log("hello");
+    }, [socket, userId]);
+
+    useEffect(() => {
+        socket?.on("getOnlineUsers", (users) => {
+            console.log(users, "helo");
+            console.log("hi");
+        })
+    }, [])
+
+    useEffect(() => {
+        socket?.on("getMessage", (incomingMessage) => {
+            console.log(incomingMessage, "messagge");
+        });
+
+        return () => {
+            socket?.off("getMessage");
+        };
+    }, [socket]);
+
+    const sendMessage = (e) => {
+        e.preventDefault()
+        socket?.emit("sendMessage", {
+            senderId: userId,
             receiverId: chatUserDetails?._id,
             text: message,
         });
         setMessage("");
+        console.log("sent");
     };
 
     const saveConversation = async () => {
         try {
             const response = await axios.get(
-                `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?userId=${myDetails}`,
+                `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?userId=${userId}`,
                 null,
                 {
                     headers: {
@@ -53,9 +73,7 @@ export const ChatBox = () => {
                     },
                 }
             );
-            setTimeout(() => {
-                handleLikesValue();
-            }, 1000);
+            console.log(response);
         } catch (error) {
             console.error(error);
         }
@@ -66,9 +84,7 @@ export const ChatBox = () => {
     const width = useWindowWidth()
 
     const scrollToBottom = () => {
-        if (messagesContainerRef.current) {
-            messagesContainerRef.current.scrollIntoView();
-        }
+        messagesContainerRef?.current.scrollIntoView();
     };
 
     useEffect(() => {

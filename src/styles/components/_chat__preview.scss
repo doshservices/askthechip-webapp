@@ -6,8 +6,8 @@
     cursor: pointer;
 
     img {
-        height: 50px;
-        width: 50px;
+        height: 45px;
+        width: 45px;
         object-fit: cover;
         border-radius: 50%;
     }
@@ -81,7 +81,7 @@
 
     &__header {
         display: flex;
-        padding: $base;
+        padding: $mb;
         align-items: center;
         border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
         position: sticky;
@@ -90,21 +90,21 @@
         z-index: 1;
 
         &__user__img {
-            margin-right: 15px;
-            height: 40px;
+            margin-right: 10px;
+            height: 35px;
 
             img {
-                height: 40px;
-                width: 40px;
+                height: 35px;
+                width: 35px;
                 border-radius: 50%;
                 object-fit: cover;
-                min-height: 40px;
-                min-width: 40px;
+                min-height: 35px;
+                min-width: 35px;
             }
 
             span {
-                height: 40px;
-                width: 40px;
+                height: 35px;
+                width: 35px;
                 background: $primary;
                 font-size: 1.2rem;
                 font-weight: 600;
@@ -142,7 +142,7 @@
 
         &__user {
             h3 {
-                font-size: 1.2rem;
+                font-size: $base;
                 font-weight: 500;
                 color: $dark200;
                 overflow: hidden;
@@ -154,7 +154,8 @@
 
             .last__seen {
                 color: hsla(0, 0%, 18%, 0.7);
-                font-size: .85rem;
+                font-size: .78rem;
+                line-height: 1;
             }
 
             @media (max-width: 720px) {
@@ -163,10 +164,9 @@
                 }
 
                 .last__seen {
-                    font-size: .78rem;
                     font-weight: 500;
-                    line-height: 1;
                 }
+
             }
         }
 
@@ -175,8 +175,8 @@
             margin-left: auto;
 
             svg {
-                margin-left: 1.2rem;
-                height: 22px;
+                margin-left: $mb;
+                height: 20px;
 
                 @media (max-width: 720px) {
                     margin-left: $thin;

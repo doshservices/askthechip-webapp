@@ -10,18 +10,34 @@ import { ChatBox } from "./Chat/chat";
 import { chatData } from "./Chat/chatData";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Messages = () => {
 
   const [onlineUsers, setOnlineUsers] = useState([])
-  const [usersDetails, setUsersDetails] = useState([]);
-  const [activeReceiverId, setActiveReceiverId] = useState(null);
-  const [loadingOnlineUsers, setLoadingOnlineUsers] = useState(false);
-  const [receiverId, setReceiverId] = useState(null);
-  const { conversation, setConversation, loadingConversations, setLoadingConversations } = useConversation();
   const { user, token } = useAuth()
   const mobileChatClassName = useSelector((state) => state?.chat?.messageClass)
-  const { socket } = useSocket();
+  const userId = useSelector((state) => state?.user?.user?._id);
+
+  const getAllConversation = async () => {
+    try {
+      const response = await axios.get(
+        `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?userId=${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log(response);
+    } catch (error) {
+      // console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getAllConversation()
+  }, [])
 
   return (
     <div className="pageLayout bg-light">

@@ -13,6 +13,9 @@ const Navbar = () => {
     setIsOpened(!isOpened);
   };
 
+  const { user } = useAuth()
+  // console.log(user);
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
   const resize = () => setWindowWidth(window.innerWidth)

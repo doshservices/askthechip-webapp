@@ -3,7 +3,7 @@
     grid-template-columns: 220px 1fr;
     max-width: 800px;
     margin: 0 auto;
-    column-gap: $base;
+    // column-gap: $base;
 
     @media (max-width: 990px) {
         grid-template-columns: 70px 1fr;
@@ -20,7 +20,6 @@
     &__wrapper__container {
         padding-bottom: 5rem;
         min-height: 100vh;
-        border-left: 1px solid #EBEEF0;
         border-right: 1px solid #EBEEF0;
     }
 }
