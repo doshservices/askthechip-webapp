@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
@@ -26,16 +26,19 @@ const SignIn = () => {
   const { loginId, password } = formFields;
   const dispatch = useDispatch()
   const token = localStorage.getItem("token")
+  const location = useLocation()
+  const from = location.state?.from?.pathname || "/home";
 
   useEffect(() => {
     if (token !== null) {
-      navigateTo("/home")
+      navigateTo(from, { replace: true });
     }
   }, [])
 
   const redirectToHome = () => {
     setTimeout(() => {
-      navigateTo('/home');
+      navigateTo(from, { replace: true });
+      window.location.reload()
     }, 2500);
   };
 

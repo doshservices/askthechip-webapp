@@ -4,6 +4,9 @@ import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import { useWindowWidth } from "../../../utils/windowWidth";
 import { useState, useEffect } from "react";
 import EditComment from "../../EditComment/EditComment";
+import { forwardRef } from "react";
+import useClickOutside from "../../../utils/useClickOiutside";
+import { useRef } from "react";
 
 const DeleteComment = ({ closeModal, api }) => {
     return (
@@ -65,8 +68,12 @@ const Comment = ({ comment, post, getComments }) => {
         }
     };
 
+    const commentOptionRef = useRef();
+
+    useClickOutside(commentOptionRef, () => setOptionsModal(false))
+
     return (
-        <div className="comment">
+        <div ref={commentOptionRef} className="comment">
             {comment?.userId?.profileImg ?
                 <img src={comment?.userId?.profileImg} alt="" />
                 :
@@ -103,7 +110,7 @@ const Comment = ({ comment, post, getComments }) => {
     )
 }
 
-export const CommentModal = ({ close, post }) => {
+export const CommentModal = forwardRef(({ close, post }, ref) => {
 
     const { token } = useAuth();
     const [comment, setComment] = useState([])
@@ -170,7 +177,7 @@ export const CommentModal = ({ close, post }) => {
             <svg onClick={close} className="close__btn" width="35" height="35 " fill="#fff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75S17.376 2.25 12 2.25Zm3.53 12.22a.75.75 0 1 1-1.06 1.06L12 13.06l-2.47 2.47a.75.75 0 0 1-1.06-1.06L10.94 12 8.47 9.53a.75.75 0 0 1 1.06-1.06L12 10.94l2.47-2.47a.75.75 0 0 1 1.06 1.06L13.06 12l2.47 2.47Z"></path>
             </svg>
-            <div style={{ maxWidth: post?.postImg ? "800px " : "450px" }} className="comment__modal__wrapper">
+            <div ref={ref} style={{ maxWidth: post?.postImg ? "800px " : "450px" }} className="comment__modal__wrapper">
                 {post?.postImg ?
                     <figure>
                         <img src={post?.postImg} alt="" />
@@ -205,4 +212,4 @@ export const CommentModal = ({ close, post }) => {
             </div>
         </section>
     )
-}
+})

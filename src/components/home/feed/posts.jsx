@@ -233,6 +233,12 @@ const Posts = ({ index, post, handleGetPosts }) => {
     setShowCommentModal(!showCommentModal)
   }
 
+  const commentModalRef = useRef();
+  const showMoreRef = useRef();
+
+  useClickOutside(showMoreRef, () => setShowMore(false));
+  useClickOutside(commentModalRef, commentModalDisplay);
+
   return (
     <article className={index === 0 || pathname === "/profile" ? `relative bg-[#f4f4f4] posts` : `relative posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "#2f2f2f" : "#f4f4f4", color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }}>
       <div className="posts__poster">
@@ -270,7 +276,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
               </div>
 
               {showMore && (
-                <div className="post-show-more absolute z-10 top-8 right-0 w-28 p-3 rounded-lg bg-white shadow">
+                <div ref={showMoreRef} className="post-show-more absolute z-10 top-8 right-0 w-28 p-3 rounded-lg bg-white shadow">
                   <div
                     onClick={handleOpenEditModal}
                     className="hover:bg-primary/20 flex cursor-pointer justify-center text-primary mb-2"
@@ -377,7 +383,9 @@ const Posts = ({ index, post, handleGetPosts }) => {
           </div>
         </div>
         {showCommentModal ?
-          <CommentModal post={post}
+          <CommentModal
+            ref={commentModalRef}
+            post={post}
             handleGetPosts={handleGetPosts}
             setComments={setComments}
             border={post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.1)" : "rgba(0, 0, 0, 0.10)"} close={commentModalDisplay} />

@@ -17,6 +17,26 @@ export const ChatBox = () => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const messagesContainerRef = useRef();
 
+    const getConversation = async () => {
+        try {
+            const response = await axios.get(
+                `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?userId${chatUserDetails?._id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            // console.log(response);
+        } catch (error) {
+            // console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        getConversation()
+    }, [])
+
     useEffect(() => {
         const newSocket = io("https://askthechip-hvp93.ondigitalocean.app");
         setSocket(newSocket);
@@ -58,7 +78,11 @@ export const ChatBox = () => {
             text: message,
         });
         setMessage("");
-        console.log("sent");
+        console.log({
+            senderId: userId,
+            receiverId: chatUserDetails?._id,
+            text: message,
+        });
     };
 
     const saveConversation = async () => {

@@ -73,7 +73,8 @@ const Verify = () => {
   const redirectToHome = () => {
     setTimeout(() => {
       navigate("/home");
-    }, 7500);
+      window.location.reload()
+    }, 2500);
   };
 
   const handleSubmit = async (e) => {

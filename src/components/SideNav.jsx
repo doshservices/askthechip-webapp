@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import logo from "../assets/logo.svg";
 import power from "../assets/icons/power-icon.svg";
 import { NavLink, Link, useNavigate } from "react-router-dom";
@@ -7,12 +7,14 @@ import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import { ToastContainer } from "react-toastify";
 import { clearUser } from "../store/slice/userSlice";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const SideNav = () => {
   const navigateTo = useNavigate();
   const pathname = window.location.pathname;
   const { setUser } = useContext(AuthContext);
   const dispatch = useDispatch()
+  const location = useLocation()
 
   const handleLogOut = () => {
     inform("Logging you out...");
@@ -21,7 +23,7 @@ const SideNav = () => {
       dispatch(clearUser())
       localStorage.removeItem('authUser');
       localStorage.removeItem('token');
-      navigateTo("/login");
+      navigateTo("/login", { state: { from: location }, replace: true });
     }, 2500)
   }
 

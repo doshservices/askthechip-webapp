@@ -112,7 +112,7 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
               id="comment"
               cols="100"
               rows="1"
-              className="bg-transparent border-0 outline-none text-sm placeholder:text-dark-gray w-full resize-none mt-3"
+              className="bg-transparent border-0 outline-none text-sm placeholder:text-dark-gray w-full resize-none my-2"
             />
           </div>
           {comment && (
