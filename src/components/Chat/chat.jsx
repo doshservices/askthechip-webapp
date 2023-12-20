@@ -16,6 +16,7 @@ export const ChatBox = () => {
     const chatUserDetails = useSelector((state) => state?.chat?.chatUserId);
     const [receivedMessages, setReceivedMessages] = useState([]);
     const messagesContainerRef = useRef();
+    console.log(socket);
 
     const getConversation = async () => {
         try {
@@ -37,8 +38,9 @@ export const ChatBox = () => {
         getConversation()
     }, [])
 
+
     useEffect(() => {
-        const newSocket = io("https://askthechip-hvp93.ondigitalocean.app");
+        const newSocket = io("http://api.askthechip.com:7000", { transports: ['websocket'] });
         setSocket(newSocket);
 
         return () => {
@@ -58,7 +60,7 @@ export const ChatBox = () => {
             console.log(users, "helo");
             console.log("hi");
         })
-    }, [])
+    }, [socket])
 
     useEffect(() => {
         socket?.on("getMessage", (incomingMessage) => {
@@ -108,7 +110,11 @@ export const ChatBox = () => {
     const width = useWindowWidth()
 
     const scrollToBottom = () => {
-        messagesContainerRef?.current.scrollIntoView();
+        const messagesContainer = messagesContainerRef?.current;
+
+        if (messagesContainer) {
+            messagesContainer.scrollToBottom = messagesContainer.scrollHeight;
+        }
     };
 
     useEffect(() => {
