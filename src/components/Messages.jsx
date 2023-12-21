@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Search } from "./home";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
-import { useSocket } from "../contexts/SocketContext/SocketContext";
 import { SideNav } from ".";
-import { useConversation } from "../contexts/ConversationContext/ConversationContext";
 import { Message } from "./Chat/messages";
-import people from "./Chat/people.png"
 import { ChatBox } from "./Chat/chat";
 import { chatData } from "./Chat/chatData";
 import { Fragment } from "react";
@@ -14,10 +11,10 @@ import axios from "axios";
 
 const Messages = () => {
 
-  const [onlineUsers, setOnlineUsers] = useState([])
-  const { user, token } = useAuth()
+  const { token } = useAuth()
   const mobileChatClassName = useSelector((state) => state?.chat?.messageClass)
   const userId = useSelector((state) => state?.user?.user?._id);
+  const [conversation, setConversation] = useState([])
 
   const getAllConversation = async () => {
     try {
@@ -29,9 +26,8 @@ const Messages = () => {
           },
         }
       );
-      // console.log(response);
+      setConversation(response?.data?.data?.conversation);
     } catch (error) {
-      // console.error(error);
     }
   }
 
@@ -48,16 +44,16 @@ const Messages = () => {
             <div className="search-people">
               <Search background={`#fcfcfc`} placeholder={"Search People"} />
             </div>
-            {chatData.map((data, index) => {
+            {conversation.map((conversation) => {
               return (
-                <Fragment key={index}>
-                  <Message info={data} senderImg={people} />
+                <Fragment key={conversation?._id}>
+                  <Message conversation={conversation} />
                 </Fragment>
               )
             })}
           </div>
           <div className={`chats__message ${mobileChatClassName}`}>
-            <ChatBox data={chatData} />
+            <ChatBox data={chatData} conversation={conversation} />
           </div>
         </div>
       </div>

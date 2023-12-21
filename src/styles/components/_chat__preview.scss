@@ -195,10 +195,10 @@
         right: 0;
         left: 0;
         overflow-y: scroll;
-        padding: 6.5rem $base 3.5rem $base;
+        padding: 4.5rem $base 3.5rem $base;
 
         @media (max-width: 600px) {
-            padding: 6.5rem $thin 3.5rem $thin;
+            padding: 4.5rem $thin 3.5rem $thin;
             -ms-overflow-style: none;
             scrollbar-width: none;
 

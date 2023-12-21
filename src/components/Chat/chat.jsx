@@ -2,7 +2,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import { useWindowWidth } from "../../utils/windowWidth";
-import { setMessageClass } from "../../store/slice/chatViewSlice";
+import { setMessageClass, setpreviewMessage } from "../../store/slice/chatViewSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
@@ -14,9 +14,77 @@ export const ChatBox = () => {
     const { token } = useAuth()
     const [message, setMessage] = useState("");
     const chatUserDetails = useSelector((state) => state?.chat?.chatUserId);
+    const conversationId = useSelector((state) => state?.chat?.conversationId);
     const [receivedMessages, setReceivedMessages] = useState([]);
     const messagesContainerRef = useRef();
-    console.log(socket);
+    // console.log(receivedMessages);
+
+    useEffect(() => {
+        const newSocket = io("http://api.askthechip.com:7000", {
+            transports: ["websocket"],
+        });
+        setSocket(newSocket);
+
+        return () => {
+            newSocket.disconnect();
+        };
+    }, []);
+
+    useEffect(() => {
+        socket?.emit("addUser", userId);
+    }, [socket, userId]);
+
+    useEffect(() => {
+        socket?.on("getOnlineUsers", (users) => {
+            // console.log({ users });
+        });
+    }, [socket]);
+
+    useEffect(() => {
+        socket?.on("getMessage", (incomingMessage) => {
+            console.log(incomingMessage, "messagge");
+            setReceivedMessages(incomingMessage);
+        });
+
+        return () => {
+            socket?.off("getMessage");
+        };
+    }, [socket]);
+
+    const saveMessage = async () => {
+        try {
+            const response = await axios.post(
+                "https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages",
+                {
+                    conversationId: conversationId,
+                    senderId: userId,
+                    text: message,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            // console.log(response);
+        } catch (error) {
+        }
+    }
+
+    const sendMessage = (e) => {
+        e.preventDefault();
+        if (chatUserDetails?._id) {
+            socket?.emit("sendMessage", {
+                senderId: userId,
+                recieverId: chatUserDetails?._id,
+                text: message,
+            });
+        } else {
+            console.log("id not found");
+        }
+        setMessage("");
+        saveMessage();
+    };
 
     const getConversation = async () => {
         try {
@@ -28,9 +96,7 @@ export const ChatBox = () => {
                     },
                 }
             );
-            // console.log(response);
         } catch (error) {
-            // console.error(error);
         }
     }
 
@@ -38,60 +104,10 @@ export const ChatBox = () => {
         getConversation()
     }, [])
 
-
-    useEffect(() => {
-        const newSocket = io("http://api.askthechip.com:7000", { transports: ['websocket'] });
-        setSocket(newSocket);
-
-        return () => {
-            newSocket.disconnect();
-        };
-    }, []);
-
-    // console.log(socket);
-
-    useEffect(() => {
-        socket?.emit("addUser", userId);
-        // console.log("hello");
-    }, [socket, userId]);
-
-    useEffect(() => {
-        socket?.on("getOnlineUsers", (users) => {
-            console.log(users, "helo");
-            console.log("hi");
-        })
-    }, [socket])
-
-    useEffect(() => {
-        socket?.on("getMessage", (incomingMessage) => {
-            console.log(incomingMessage, "messagge");
-        });
-
-        return () => {
-            socket?.off("getMessage");
-        };
-    }, [socket]);
-
-    const sendMessage = (e) => {
-        e.preventDefault()
-        socket?.emit("sendMessage", {
-            senderId: userId,
-            receiverId: chatUserDetails?._id,
-            text: message,
-        });
-        setMessage("");
-        console.log({
-            senderId: userId,
-            receiverId: chatUserDetails?._id,
-            text: message,
-        });
-    };
-
-    const saveConversation = async () => {
+    const getMessages = async () => {
         try {
             const response = await axios.get(
-                `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?userId=${userId}`,
-                null,
+                `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages?conversationId=${conversationId}`,
                 {
                     headers: {
                         // "Content-Type": "application/json",
@@ -99,11 +115,18 @@ export const ChatBox = () => {
                     },
                 }
             );
-            console.log(response);
+            // console.log(response);
+            setReceivedMessages(response?.data?.data?.message)
+            const lastItem = response?.data?.data?.message.pop();
+            dispatch(setpreviewMessage(lastItem))
         } catch (error) {
             console.error(error);
         }
     }
+
+    useEffect(() => {
+        getMessages();
+    }, [conversationId]);
 
     const changeMessageClass = () => dispatch(setMessageClass("hide"))
 
@@ -111,15 +134,15 @@ export const ChatBox = () => {
 
     const scrollToBottom = () => {
         const messagesContainer = messagesContainerRef?.current;
-
         if (messagesContainer) {
-            messagesContainer.scrollToBottom = messagesContainer.scrollHeight;
+            messagesContainer.scrollTo(0, messagesContainer.scrollHeight);
         }
     };
 
     useEffect(() => {
         scrollToBottom();
     }, []);
+
     useEffect(() => {
         scrollToBottom();
     }, [chatUserDetails, sendMessage]);
@@ -156,8 +179,18 @@ export const ChatBox = () => {
                         </div>
                     </div>
                     <div className="chat__full__messages">
-                        {message &&
-                            <p>{receivedMessages}</p>
+                        {receivedMessages ?
+                            <>
+                                {receivedMessages?.map((message, index) => {
+                                    return (
+                                        <div key={index}>
+                                            <p>{message?.text}</p>
+                                        </div>
+                                    )
+                                })
+                                }</>
+                            :
+                            null
                         }
                         <div ref={messagesContainerRef}></div>
                     </div>
