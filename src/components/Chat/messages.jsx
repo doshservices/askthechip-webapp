@@ -9,12 +9,14 @@ import { useState } from "react";
 import { setConversationId } from "../../store/slice/chatViewSlice";
 
 export const Message = ({ conversation }) => {
+    // console.log(conversation);
     const { token } = useAuth()
     const userId = useSelector((state) => state?.user?.user?._id);
-    const previewMessage = useSelector((state) => state?.chat?.previewMessage?.text);
+    // const previewMessage = useSelector((state) => state?.chat?.previewMessage?.text);
     const [userDetails, setUserDetails] = useState([])
+    const [previewMessage, setPreviewMessage] = useState([])
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const saveId = () => {
         dispatch(setChatUserId(userDetails))
@@ -23,6 +25,7 @@ export const Message = ({ conversation }) => {
     }
 
     const id = conversation?.members.find(id => id !== userId);
+
     const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/${id}`
 
     const getUserDetails = () => {
@@ -42,17 +45,40 @@ export const Message = ({ conversation }) => {
         getUserDetails()
     }, [])
 
+    const getMessages = async () => {
+        try {
+            const response = await axios.get(
+                `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages?conversationId=${conversation?._id}`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setPreviewMessage(response?.data?.data?.message.pop()?.text)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        getMessages()
+    }, [])
+
     return (
-        <div onClick={saveId} className="chat__messages">
-            <img src={userDetails?.profileImg ? userDetails?.profileImg : demoImg} alt={userDetails?.fullName} />
-            <div className="sender__info">
-                <h3>{userDetails?.fullName}</h3>
-                <p>{previewMessage}</p>
+        <>
+            <div onClick={saveId} className="chat__messages">
+                <img src={userDetails?.profileImg ? userDetails?.profileImg : demoImg} alt={userDetails?.fullName} />
+                <div className="sender__info">
+                    <h3>{userDetails?.fullName}</h3>
+                    <p>{previewMessage}</p>
+                </div>
+                <div className="time">
+                    <p role="time">11:45am</p>
+                    <span>3</span>
+                </div>
             </div>
-            <div className="time">
-                {/* <p role="time">{info?.time}</p>
-                <span>{info?.unread}</span> */}
-            </div>
-        </div>
+        </>
     )
 }

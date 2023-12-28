@@ -4,7 +4,7 @@
 
 .chats {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 300px 1fr;
 
     @media (max-width: 850px) {
         grid-template-columns: 300px 1fr;
@@ -50,7 +50,7 @@
     }
 
     &__message {
-        max-height: 100vh;
+        max-height: 100%;
         transition: all .3s ease-in-out;
 
         * {

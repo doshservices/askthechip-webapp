@@ -1,4 +1,3 @@
-import io from "socket.io-client";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import { useWindowWidth } from "../../utils/windowWidth";
@@ -6,29 +5,35 @@ import { setMessageClass, setpreviewMessage } from "../../store/slice/chatViewSl
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
+import { useSocket } from "../../contexts/SocketContext/SocketContext";
+
+
+const Message = ({ text, message, id }) => {
+    return (
+        <div className={message?.senderId !== id ? "message sender" : "message mine"}>
+            <p>{text}</p>
+        </div>
+    )
+}
 
 export const ChatBox = () => {
     const dispatch = useDispatch()
     const userId = useSelector((state) => state?.user?.user?._id);
-    const [socket, setSocket] = useState(null);
     const { token } = useAuth()
     const [message, setMessage] = useState("");
     const chatUserDetails = useSelector((state) => state?.chat?.chatUserId);
     const conversationId = useSelector((state) => state?.chat?.conversationId);
     const [receivedMessages, setReceivedMessages] = useState([]);
     const messagesContainerRef = useRef();
-    // console.log(receivedMessages);
-
+    const containerRef = useRef();
     useEffect(() => {
-        const newSocket = io("http://api.askthechip.com:7000", {
-            transports: ["websocket"],
-        });
-        setSocket(newSocket);
-
-        return () => {
-            newSocket.disconnect();
-        };
+        const container = containerRef.current;
+        if (container) {
+            container.scrollTop = container.scrollHeight;
+        }
     }, []);
+    const { socket } = useSocket()
+    // console.log(receivedMessages);
 
     useEffect(() => {
         socket?.emit("addUser", userId);
@@ -51,71 +56,17 @@ export const ChatBox = () => {
         };
     }, [socket]);
 
-    const saveMessage = async () => {
-        try {
-            const response = await axios.post(
-                "https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages",
-                {
-                    conversationId: conversationId,
-                    senderId: userId,
-                    text: message,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            // console.log(response);
-        } catch (error) {
-        }
-    }
-
-    const sendMessage = (e) => {
-        e.preventDefault();
-        if (chatUserDetails?._id) {
-            socket?.emit("sendMessage", {
-                senderId: userId,
-                recieverId: chatUserDetails?._id,
-                text: message,
-            });
-        } else {
-            console.log("id not found");
-        }
-        setMessage("");
-        saveMessage();
-    };
-
-    const getConversation = async () => {
-        try {
-            const response = await axios.get(
-                `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?userId${chatUserDetails?._id}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-        } catch (error) {
-        }
-    }
-
-    useEffect(() => {
-        getConversation()
-    }, [])
-
     const getMessages = async () => {
         try {
             const response = await axios.get(
                 `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages?conversationId=${conversationId}`,
                 {
                     headers: {
-                        // "Content-Type": "application/json",
+                        "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
                 }
             );
-            // console.log(response);
             setReceivedMessages(response?.data?.data?.message)
             const lastItem = response?.data?.data?.message.pop();
             dispatch(setpreviewMessage(lastItem))
@@ -127,6 +78,22 @@ export const ChatBox = () => {
     useEffect(() => {
         getMessages();
     }, [conversationId]);
+
+    const sendMessage = (e) => {
+        e.preventDefault();
+        if (chatUserDetails?._id) {
+            socket?.emit("sendMessage", {
+                senderId: userId,
+                recieverId: chatUserDetails?._id,
+                text: message,
+                conversationId: conversationId
+            });
+        } else {
+            console.log("id not found");
+        }
+        setMessage("");
+        getMessages()
+    };
 
     const changeMessageClass = () => dispatch(setMessageClass("hide"))
 
@@ -142,10 +109,14 @@ export const ChatBox = () => {
     useEffect(() => {
         scrollToBottom();
     }, []);
+    const scrollRef = useRef();
+
 
     useEffect(() => {
-        scrollToBottom();
-    }, [chatUserDetails, sendMessage]);
+        if (scrollRef) {
+            scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
+    }, []);
 
     return (
         <div className="chat">
@@ -178,28 +149,28 @@ export const ChatBox = () => {
                             <FavoriteIcon />
                         </div>
                     </div>
-                    <div className="chat__full__messages">
+                    <div ref={scrollRef} className="chat__full__messages">
                         {receivedMessages ?
                             <>
                                 {receivedMessages?.map((message, index) => {
                                     return (
-                                        <div key={index}>
-                                            <p>{message?.text}</p>
-                                        </div>
+                                        <Message id={userId} key={index} message={message} text={message?.text} />
                                     )
-                                })
-                                }</>
+                                })}
+                            </>
                             :
                             null
                         }
                         <div ref={messagesContainerRef}></div>
                     </div>
                     <div className="chat__send__box">
-                        <input
+                        <textarea
+                            cols="20"
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder="Type your message here..."
-                        />
+                        >
+                        </textarea>
                         <div className="actions">
                             {message.length > 0 ?
                                 <button onClick={sendMessage} className="send__btn">

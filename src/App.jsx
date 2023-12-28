@@ -19,9 +19,7 @@ import {
   SignUpAsProvider,
   Verify,
 } from "./pages";
-
 import { AuthProvider, PostProvider, ProfileProvider, SocketProvider } from "./contexts";
-// import { useSocket } from "./contexts/SocketContext/SocketContext"
 import { ProtectedRoute } from "./utils";
 import ConversationProvider from "./contexts/ConversationContext/ConversationContext";
 import UserProfile from "./pages/UserProfile";
@@ -52,51 +50,50 @@ export const warn = (val) => toast.error(`${val}`, toastParams);
 export const inform = (val) => toast.info(`${val}`, toastParams);
 export const loadingToast = (val) => toast.info(`${val}`, loadingParams);
 
-
 function App() {
 
   return (
     <div>
-      {/* <SocketProvider> */}
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <AuthProvider>
-            <ProfileProvider>
-              <PostProvider>
-                <ConversationProvider>
-                  <Routes>
-                    <Route path="/" element={<LandingPage />} />
-                    <Route path="/login" element={<SignIn />} />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/sign-up" element={<SignUp />} />
-                    <Route path="/provider-signup" element={<SignUpAsProvider />} />
-                    <Route path="/onboarding" element={<Onboarding />} />
-                    <Route path="/pricing" element={<Pricing />} />
-                    <Route path="/pricing/payment" element={<Payment />} />
-                    <Route path="/verify" element={<Verify />} />
-                    <Route path="/reset-password" element={<ResetPassword />} />
-                    <Route path="/*" element={<Error />} />
-                    {/* Protected routes */}
-                    <Route element={<ProtectedRoute />}>
-                      <Route path="/home" element={<Homepage />} />
-                      <Route path="/mentorship" element={<Mentorship />} />
-                      <Route path="/messages" element={<Messages />} />
-                      <Route path="/messages/:id" element={window.innerWidth <= 990 ? <ChatPage /> : <Navigate to="/messages" />} />
-                      <Route path="/notifications" element={<Notifications />} />
-                      <Route path="/profile" element={<Profile />} />
-                      <Route path="/users-profile" element={<UserProfile />} />
-                      <Route path="/settings" element={<SettingsPage />} />
-                      <Route path="/services" element={<Services />} />
-                      <Route path="/search" element={<Search />} />
-                    </Route>
-                  </Routes>
-                </ConversationProvider>
-              </PostProvider>
-            </ProfileProvider>
-          </AuthProvider>
-          {/* </SocketProvider> */}
-        </PersistGate>
-      </Provider>
+      <SocketProvider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <AuthProvider>
+              <ProfileProvider>
+                <PostProvider>
+                  <ConversationProvider>
+                    <Routes>
+                      <Route path="/" element={<LandingPage />} />
+                      <Route path="/login" element={<SignIn />} />
+                      <Route path="/forgot-password" element={<ForgotPassword />} />
+                      <Route path="/sign-up" element={<SignUp />} />
+                      <Route path="/provider-signup" element={<SignUpAsProvider />} />
+                      <Route path="/onboarding" element={<Onboarding />} />
+                      <Route path="/pricing" element={<Pricing />} />
+                      <Route path="/pricing/payment" element={<Payment />} />
+                      <Route path="/verify" element={<Verify />} />
+                      <Route path="/reset-password" element={<ResetPassword />} />
+                      <Route path="/*" element={<Error />} />
+                      {/* Protected routes */}
+                      <Route element={<ProtectedRoute />}>
+                        <Route path="/home" element={<Homepage />} />
+                        <Route path="/mentorship" element={<Mentorship />} />
+                        <Route path="/messages" element={<Messages />} />
+                        <Route path="/messages/:id" element={window.innerWidth <= 990 ? <ChatPage /> : <Navigate to="/messages" />} />
+                        <Route path="/notifications" element={<Notifications />} />
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/users-profile" element={<UserProfile />} />
+                        <Route path="/settings" element={<SettingsPage />} />
+                        <Route path="/services" element={<Services />} />
+                        <Route path="/search" element={<Search />} />
+                      </Route>
+                    </Routes>
+                  </ConversationProvider>
+                </PostProvider>
+              </ProfileProvider>
+            </AuthProvider>
+          </PersistGate>
+        </Provider>
+      </SocketProvider>
     </div>
   );
 }
