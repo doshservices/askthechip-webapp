@@ -6,14 +6,15 @@ export const SocketContext = createContext({
   setSocket: () => { }
 });
 
+export const OnlineUsersContext = createContext({
+  onlineUsers: null,
+  setOnlineUsers: () => { },
+});
+
 const SocketProvider = ({ children }) => {
 
   const [socket, setSocket] = useState(null);
-  const [message, setMessage] = useState("");
-
-  // setTimeout(() => {
-  //   console.log(socket);
-  // }, 3000)
+  const [onlineUsers, setOnlineUsers] = useState(null);
 
   useEffect(() => {
     const newSocket = io("http://api.askthechip.com:7000", {
@@ -37,17 +38,31 @@ const SocketProvider = ({ children }) => {
     };
   }, [socket]);
 
+  useEffect(() => {
+    socket?.on("getOnlineUsers", (users) => {
+      // console.log({ users });
+      setOnlineUsers(users);
+    });
+  }, [socket]);
 
-  const value = {
-    socket
+  const onlineUsersValue = {
+    onlineUsers,
+    setOnlineUsers,
+  };
+
+  const socketValue = {
+    socket,
   };
 
   return (
-    <SocketContext.Provider value={value}>
-      {children}
+    <SocketContext.Provider value={socketValue}>
+      <OnlineUsersContext.Provider value={onlineUsersValue}>
+        {children}
+      </OnlineUsersContext.Provider>
     </SocketContext.Provider>
   );
 };
 
 export const useSocket = () => useContext(SocketContext);
+export const useOnlineUsers = () => useContext(OnlineUsersContext);
 export default SocketProvider;

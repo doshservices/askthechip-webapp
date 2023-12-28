@@ -8,6 +8,7 @@ import { chatData } from "./Chat/chatData";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useOnlineUsers } from "../contexts/SocketContext/SocketContext";
 
 const Messages = () => {
 
@@ -15,6 +16,11 @@ const Messages = () => {
   const mobileChatClassName = useSelector((state) => state?.chat?.messageClass)
   const userId = useSelector((state) => state?.user?.user?._id);
   const [conversation, setConversation] = useState([])
+  const onlineUsers = useOnlineUsers()
+
+  // console.log(onlineUsers?.onlineUsers[0]?.user);
+
+  const getAllOnlineUsers = onlineUsers?.onlineUsers?.map((users) => users?.user)
 
   const getAllConversation = async () => {
     try {
@@ -47,13 +53,13 @@ const Messages = () => {
             {conversation.map((conversation) => {
               return (
                 <Fragment key={conversation?._id}>
-                  <Message conversation={conversation} />
+                  <Message conversation={conversation} online={getAllOnlineUsers} />
                 </Fragment>
               )
             })}
           </div>
           <div className={`chats__message ${mobileChatClassName}`}>
-            <ChatBox data={chatData} conversation={conversation} />
+            <ChatBox data={chatData} conversation={conversation} online={getAllOnlineUsers} />
           </div>
         </div>
       </div>

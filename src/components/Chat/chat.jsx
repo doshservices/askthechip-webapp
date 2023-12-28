@@ -7,7 +7,6 @@ import { useState, useEffect, useRef } from "react";
 import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
 import { useSocket } from "../../contexts/SocketContext/SocketContext";
 
-
 const Message = ({ text, message, id }) => {
     return (
         <div className={message?.senderId !== id ? "message sender" : "message mine"}>
@@ -16,34 +15,31 @@ const Message = ({ text, message, id }) => {
     )
 }
 
-export const ChatBox = () => {
+export const ChatBox = ({ online }) => {
     const dispatch = useDispatch()
     const userId = useSelector((state) => state?.user?.user?._id);
     const { token } = useAuth()
     const [message, setMessage] = useState("");
     const chatUserDetails = useSelector((state) => state?.chat?.chatUserId);
     const conversationId = useSelector((state) => state?.chat?.conversationId);
+    const messageName = useSelector((state) => state?.chat?.messageClass);
     const [receivedMessages, setReceivedMessages] = useState([]);
-    const messagesContainerRef = useRef();
-    const containerRef = useRef();
-    useEffect(() => {
-        const container = containerRef.current;
-        if (container) {
-            container.scrollTop = container.scrollHeight;
-        }
-    }, []);
+    const scrollRef = useRef();
     const { socket } = useSocket()
-    // console.log(receivedMessages);
+
+    const checkUserOnline = () => {
+        if (online?.includes(chatUserDetails?._id)) {
+            return "Online"
+        } else {
+            return "Offline"
+        }
+    }
+
+    const onlineUser = checkUserOnline()
 
     useEffect(() => {
         socket?.emit("addUser", userId);
     }, [socket, userId]);
-
-    useEffect(() => {
-        socket?.on("getOnlineUsers", (users) => {
-            // console.log({ users });
-        });
-    }, [socket]);
 
     useEffect(() => {
         socket?.on("getMessage", (incomingMessage) => {
@@ -95,28 +91,21 @@ export const ChatBox = () => {
         getMessages()
     };
 
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView()
+    }, []);
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView()
+    }, [conversationId, messageName]);
+
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView()
+    }, [sendMessage]);
+
     const changeMessageClass = () => dispatch(setMessageClass("hide"))
 
     const width = useWindowWidth()
-
-    const scrollToBottom = () => {
-        const messagesContainer = messagesContainerRef?.current;
-        if (messagesContainer) {
-            messagesContainer.scrollTo(0, messagesContainer.scrollHeight);
-        }
-    };
-
-    useEffect(() => {
-        scrollToBottom();
-    }, []);
-    const scrollRef = useRef();
-
-
-    useEffect(() => {
-        if (scrollRef) {
-            scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-        }
-    }, []);
 
     return (
         <div className="chat">
@@ -131,7 +120,7 @@ export const ChatBox = () => {
                                     <path d="M5.625 12h13.688"></path>
                                 </svg>
                             }
-                            <div onClick={changeMessageClass} className="chat__header__user__img">
+                            <div onClick={changeMessageClass} className={onlineUser === "Online" ? "chat__header__user__img online" : "chat__header__user__img"}>
                                 {chatUserDetails?.profileImg ?
                                     <img src={chatUserDetails?.profileImg} alt="people" />
                                     :
@@ -141,7 +130,7 @@ export const ChatBox = () => {
                         </div>
                         <div className="chat__header__user">
                             <h3>{chatUserDetails?.firstName} {chatUserDetails?.lastName}</h3>
-                            <p className="last__seen" role="time">Last seen</p>
+                            <p className="last__seen" role="time">{onlineUser}</p>
                         </div>
                         <div className="chat__header__actions">
                             <VideoCallIcon />
@@ -149,7 +138,7 @@ export const ChatBox = () => {
                             <FavoriteIcon />
                         </div>
                     </div>
-                    <div ref={scrollRef} className="chat__full__messages">
+                    <div className="chat__full__messages">
                         {receivedMessages ?
                             <>
                                 {receivedMessages?.map((message, index) => {
@@ -161,7 +150,7 @@ export const ChatBox = () => {
                             :
                             null
                         }
-                        <div ref={messagesContainerRef}></div>
+                        <div ref={scrollRef}></div>
                     </div>
                     <div className="chat__send__box">
                         <textarea

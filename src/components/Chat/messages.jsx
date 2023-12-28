@@ -8,13 +8,25 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { setConversationId } from "../../store/slice/chatViewSlice";
 
-export const Message = ({ conversation }) => {
-    // console.log(conversation);
+export const Message = ({ conversation, online }) => {
+    // console.log(online);
     const { token } = useAuth()
     const userId = useSelector((state) => state?.user?.user?._id);
     // const previewMessage = useSelector((state) => state?.chat?.previewMessage?.text);
     const [userDetails, setUserDetails] = useState([])
     const [previewMessage, setPreviewMessage] = useState([])
+    console.log(userDetails);
+
+    const checkUserOnline = () => {
+        if (online?.includes(userDetails?._id)) {
+            return "Online"
+        } else {
+            return "Offline"
+        }
+    }
+
+    const onlineUser = checkUserOnline()
+    console.log(onlineUser);
 
     const dispatch = useDispatch();
 
@@ -69,8 +81,9 @@ export const Message = ({ conversation }) => {
     return (
         <>
             <div onClick={saveId} className="chat__messages">
-                <img src={userDetails?.profileImg ? userDetails?.profileImg : demoImg} alt={userDetails?.fullName} />
+                <img className={onlineUser === "Online" ? "Online" : ""} src={userDetails?.profileImg ? userDetails?.profileImg : demoImg} alt={userDetails?.fullName} />
                 <div className="sender__info">
+                    {/* <p>{onlineUser}</p> */}
                     <h3>{userDetails?.fullName}</h3>
                     <p>{previewMessage}</p>
                 </div>
