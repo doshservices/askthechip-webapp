@@ -95,6 +95,7 @@
         &__user__img {
             margin-right: 10px;
             height: 35px;
+            position: relative;
 
             img {
                 height: 35px;
@@ -132,6 +133,22 @@
                     width: 30px;
                 }
             }
+        }
+
+        .online::after {
+            position: relative;
+
+            content: "";
+            display: block;
+            background: hsl(134, 42%, 47%);
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            border: 1px solid hsl(0, 0%, 38%);
+            position: absolute;
+            bottom: 2px;
+            right: -2px;
+            pointer-events: none;
         }
 
         @media (max-width: 720px) {

@@ -27,15 +27,18 @@ export const ChatBox = ({ online }) => {
     const scrollRef = useRef();
     const { socket } = useSocket()
 
+    let onlineArr = [];
+    online?.forEach((user) => onlineArr.push(user._id))
+
     const checkUserOnline = () => {
-        if (online?.includes(chatUserDetails?._id)) {
-            return "Online"
+        if (onlineArr?.includes(chatUserDetails?._id)) {
+            return "online"
         } else {
-            return "Offline"
+            return null
         }
     }
 
-    const onlineUser = checkUserOnline()
+    const onlineUser = checkUserOnline();
 
     useEffect(() => {
         socket?.emit("addUser", userId);
@@ -120,7 +123,7 @@ export const ChatBox = ({ online }) => {
                                     <path d="M5.625 12h13.688"></path>
                                 </svg>
                             }
-                            <div onClick={changeMessageClass} className={onlineUser === "Online" ? "chat__header__user__img online" : "chat__header__user__img"}>
+                            <div onClick={changeMessageClass} className={onlineUser === "online" ? "chat__header__user__img online" : "chat__header__user__img"}>
                                 {chatUserDetails?.profileImg ?
                                     <img src={chatUserDetails?.profileImg} alt="people" />
                                     :

@@ -9,13 +9,10 @@ import { useState } from "react";
 import { setConversationId } from "../../store/slice/chatViewSlice";
 
 export const Message = ({ conversation, online }) => {
-    // console.log(online);
     const { token } = useAuth()
     const userId = useSelector((state) => state?.user?.user?._id);
-    // const previewMessage = useSelector((state) => state?.chat?.previewMessage?.text);
     const [userDetails, setUserDetails] = useState([])
     const [previewMessage, setPreviewMessage] = useState([])
-    console.log(userDetails);
 
     const checkUserOnline = () => {
         if (online?.includes(userDetails?._id)) {
@@ -26,7 +23,6 @@ export const Message = ({ conversation, online }) => {
     }
 
     const onlineUser = checkUserOnline()
-    console.log(onlineUser);
 
     const dispatch = useDispatch();
 
@@ -49,7 +45,7 @@ export const Message = ({ conversation, online }) => {
             .then((response) => {
                 setUserDetails(response?.data?.data?.user)
             }).catch((error) => {
-                console.log(error);
+                // console.log(error);
             })
     }
 
@@ -70,7 +66,7 @@ export const Message = ({ conversation, online }) => {
             );
             setPreviewMessage(response?.data?.data?.message.pop()?.text)
         } catch (error) {
-            console.error(error);
+            // console.error(error);
         }
     }
 
@@ -83,7 +79,6 @@ export const Message = ({ conversation, online }) => {
             <div onClick={saveId} className="chat__messages">
                 <img className={onlineUser === "Online" ? "Online" : ""} src={userDetails?.profileImg ? userDetails?.profileImg : demoImg} alt={userDetails?.fullName} />
                 <div className="sender__info">
-                    {/* <p>{onlineUser}</p> */}
                     <h3>{userDetails?.fullName}</h3>
                     <p>{previewMessage}</p>
                 </div>

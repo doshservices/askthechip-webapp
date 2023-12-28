@@ -8,14 +8,13 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
 import axios from "axios";
 import { useWindowWidth } from "../utils/windowWidth";
-// import { NotificationSIdeBar } from "../components/notification/NotificationSideBar";
-// import { data } from '../components/home/feed/data';
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
   const [postCategory, setPostCategory] = useState("all")
   const { posts, setPosts } = usePosts();
   const reversedPosts = [...posts].reverse();
+  const [error, setError] = useState("")
 
   const [loading, setLoading] = useState(false);
   const { token } = useAuth();
@@ -51,10 +50,12 @@ const HomePage = () => {
       setLoading(false);
     }).catch((error) => {
       setLoading(false);
-      warn("An error has occured, pls refresh your browser!");
+      if (error?.message === "Network Error") {
+        warn("Network Error. Please turn on mobile or connect to internet");
+      }
     })
   }
-  // Uncomment the next 3 lines when I'm about to push
+
   useEffect(() => {
     handleGetPosts();
   }, [setPosts]);
