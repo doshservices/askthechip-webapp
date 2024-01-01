@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { setConversationId } from "../../store/slice/chatViewSlice";
 
+export { demoImg }
+
 export const Message = ({ conversation, online }) => {
     const { token } = useAuth()
     const userId = useSelector((state) => state?.user?.user?._id);

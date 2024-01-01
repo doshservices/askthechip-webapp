@@ -25,16 +25,12 @@
                 align-items: center;
                 font-family: "DM Sans", sans-serif;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.10);
-                background: #F3F3F3;
-                padding: $tiny 1.2rem;
-
-                @media (max-width: 600px) {
-                    padding: $mb $base;
-                }
+                padding: .8rem 1.2rem;
+                cursor: pointer;
 
                 img {
-                    height: 48px;
-                    width: 48px;
+                    height: 45px;
+                    width: 45px;
                     object-fit: cover;
                     margin-right: $base;
                 }
@@ -47,7 +43,7 @@
                     }
 
                     p {
-                        font-size: $sm;
+                        font-size: .75rem;
                         font-weight: 500;
                         color: hsla(172, 92%, 28%, 1);
                     }

@@ -2,6 +2,7 @@ import thunk from 'redux-thunk';
 import storage from 'redux-persist/lib/storage';
 import chatTabModeReducer from './slice/chatViewSlice';
 import userReducer from './slice/userSlice';
+import notificationReducer from './slice/notificationSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
@@ -12,7 +13,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     chat: chatTabModeReducer,
-    user: userReducer
+    user: userReducer,
+    notification: notificationReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
