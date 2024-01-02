@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { demoImg } from "./Chat/messages";
 import { useDispatch, useSelector } from "react-redux";
 import { setId } from "../store/slice/notificationSlice";
+import moment from "moment";
 
 const reactions = [
   {
@@ -29,10 +30,11 @@ const reactions = [
 const Notifications = () => {
 
   const [notification, setNotification] = useState([])
-  // console.log(notification);
   const { token } = useAuth();
   const dispatch = useDispatch()
   const notificationId = useSelector((state) => state?.notification?.id)
+  const [fullNotification, setFullNotification] = useState([])
+  console.log(fullNotification);
 
   const width = useWindowWidth();
 
@@ -74,6 +76,7 @@ const Notifications = () => {
         }
       );
       // console.log(response);
+      setFullNotification(response?.data?.data?.notification)
     } catch (error) {
       console.log(error);
     }
@@ -106,7 +109,9 @@ const Notifications = () => {
               })}
             </div>
             <section className="notifications__details">
-
+              <img src={fullNotification?.image ? fullNotification?.image : demoImg} alt="User" className="rounded-full" />
+              <div></div>
+              <p>{fullNotification?.message}</p>
             </section>
           </div>
           : null

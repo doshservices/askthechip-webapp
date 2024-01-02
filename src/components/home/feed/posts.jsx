@@ -102,12 +102,13 @@ const Posts = ({ index, post, handleGetPosts }) => {
     setOpenEditModal(true);
     setShowMore(false);
   };
+
   const poster = post?.userId;
   const username =
     poster?.role === "USER"
-      ? `${poster.firstName} ${poster.lastName}`
-      : `${poster.companyName}`;
-  const role = poster.role === "USER" ? "User" : "Service Provider";
+      ? `${poster?.firstName} ${poster.lastName}`
+      : `${poster?.companyName}`;
+  const role = poster?.role === "USER" ? "User" : "Service Provider";
 
   const singleComment = comments?.slice(0, 1);
   useEffect(() => {
@@ -240,7 +241,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   useClickOutside(commentModalRef, commentModalDisplay);
 
   return (
-    <article className={index === 0 || pathname === "/profile" ? `relative bg-[#f4f4f4] posts` : `relative posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "#2f2f2f" : "#f4f4f4", color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }}>
+    <article onClick={() => console.log(username)} className={index === 0 || pathname === "/profile" ? `relative bg-[#f4f4f4] posts` : `relative posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "#2f2f2f" : "#f4f4f4", color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }}>
       <div className="posts__poster">
         <div className="posts__poster__details">
           <div className="dp" onClick={navigateToProfile}>

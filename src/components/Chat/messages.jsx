@@ -81,7 +81,7 @@ export const Message = ({ conversation, online }) => {
             <div onClick={saveId} className="chat__messages">
                 <img className={onlineUser === "Online" ? "Online" : ""} src={userDetails?.profileImg ? userDetails?.profileImg : demoImg} alt={userDetails?.fullName} />
                 <div className="sender__info">
-                    <h3>{userDetails?.fullName}</h3>
+                    <h3>{userDetails?.firstName} {userDetails?.lastName}</h3>
                     <p>{previewMessage}</p>
                 </div>
                 <div className="time">

@@ -15,7 +15,8 @@ const Message = ({ text, message, id }) => {
     )
 }
 
-export const ChatBox = ({ online }) => {
+export const ChatBox = ({ online, conversation }) => {
+    // console.log(conversation?.members);
     const dispatch = useDispatch()
     const userId = useSelector((state) => state?.user?.user?._id);
     const { token } = useAuth()
@@ -26,6 +27,8 @@ export const ChatBox = ({ online }) => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const scrollRef = useRef();
     const { socket } = useSocket()
+
+    const allMembers = conversation.flatMap(member => member.members);
 
     let onlineArr = [];
     online?.forEach((user) => onlineArr.push(user._id))
@@ -78,6 +81,21 @@ export const ChatBox = ({ online }) => {
         getMessages();
     }, [conversationId]);
 
+    const createConversation = () => {
+        const url = "https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation"
+        axios.post(url, { members: [userId, chatUserDetails?._id] }, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((res) => {
+                // console.log(res);
+            }).catch((err) => {
+                // console.log(err);
+            })
+    }
+
     const sendMessage = (e) => {
         e.preventDefault();
         if (chatUserDetails?._id) {
@@ -92,6 +110,9 @@ export const ChatBox = ({ online }) => {
         }
         setMessage("");
         getMessages()
+        if (chatUserDetails?._id && !allMembers.includes(chatUserDetails._id)) {
+            createConversation()
+        }
     };
 
     useEffect(() => {
