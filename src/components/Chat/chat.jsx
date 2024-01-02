@@ -56,7 +56,7 @@ export const ChatBox = ({ online, conversation }) => {
         return () => {
             socket?.off("getMessage");
         };
-    }, [socket]);
+    }, []);
 
     const getMessages = async () => {
         try {

@@ -17,7 +17,7 @@ const SocketProvider = ({ children }) => {
   const [onlineUsers, setOnlineUsers] = useState(null);
 
   useEffect(() => {
-    const newSocket = io("http://api.askthechip.com:7000", {
+    const newSocket = io("https://api.askthechip.com", {
       transports: ["polling", "websocket"],
     });
     setSocket(newSocket);
