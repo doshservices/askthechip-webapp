@@ -38,7 +38,7 @@ const Notifications = () => {
   const notificationId = useSelector((state) => state?.notification?.id)
   const [fullNotification, setFullNotification] = useState([])
   const [showNotification, setShowNotification] = useState(false)
-  console.log(fullNotification);
+  // console.log(fullNotification);
   const navigate = useNavigate()
   const width = useWindowWidth();
 
@@ -101,6 +101,26 @@ const Notifications = () => {
     }, 1000)
   }
 
+  const [postDetails, setPostDetails] = useState([])
+
+  const getPostById = async () => {
+    try {
+      const response = await axios.get(
+        `https://askthechip-hvp93.ondigitalocean.app/api/post/${fullNotification?.postId?._id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log(response);
+      setPostDetails(response?.data?.data?.post)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <section className="pageLayout notifications bg-light">
       <SideNav />
@@ -116,6 +136,7 @@ const Notifications = () => {
                   <section onClick={() => {
                     setShowNotification(!showNotification);
                     dispatch(setId(notifications?._id));
+                    getPostById()
                   }} style={{ backgroundColor: notifications?.isRead === false ? "hsla(0, 0%, 95%, 1)" : "transparent" }} key={notifications?._id} className="notification">
                     <img src={notifications?.image ? notifications?.image : demoImg} alt="User" className="rounded-full" />
                     <div className="">
@@ -138,6 +159,9 @@ const Notifications = () => {
                 <div>
                   <h3>{fullNotification?.message}</h3>
                   {fullNotification?.postId?.content && <p>“{fullNotification?.postId?.content}”</p>}
+                  <div className="post">
+
+                  </div>
                   {/* {fullNotification?.image && <img src={fullNotification?.image} alt="post-img" />} */}
                 </div>
               </div>
