@@ -22,21 +22,21 @@ const SocketProvider = ({ children }) => {
     });
     setSocket(newSocket);
 
-    return () => {
-      newSocket.disconnect();
-    };
+    // return () => {
+    //   newSocket.disconnect();
+    // };
   }, []);
 
-  useEffect(() => {
-    socket?.on("getMessage", (incomingMessage) => {
-      console.log(incomingMessage, "messagge");
-      setReceivedMessages(incomingMessage);
-    });
+  // useEffect(() => {
+  //   socket?.on("getMessage", (incomingMessage) => {
+  //     console.log(incomingMessage, "messagge");
+  //     setReceivedMessages(incomingMessage);
+  //   });
 
-    return () => {
-      socket?.off("getMessage");
-    };
-  }, [socket]);
+  //   // return () => {
+  //   //   socket?.off("getMessage");
+  //   // };
+  // }, [socket]);
 
   useEffect(() => {
     socket?.on("getOnlineUsers", (users) => {

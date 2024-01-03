@@ -27,6 +27,8 @@ export const ChatBox = ({ online, conversation }) => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const scrollRef = useRef();
     const { socket } = useSocket()
+    const [newM, setNewM] = useState({})
+    // console.log(newM);
 
     const allMembers = conversation.flatMap(member => member.members);
 
@@ -49,12 +51,15 @@ export const ChatBox = ({ online, conversation }) => {
 
     useEffect(() => {
         socket?.on("getMessage", (incomingMessage) => {
-            console.log(incomingMessage, "messagge");
-            setReceivedMessages(incomingMessage);
+            console.log('hi');
+            // console.log(incomingMessage, "messagge");
+            setNewM(incomingMessage)
+            console.log({ newM });
         });
 
         return () => {
             socket?.off("getMessage");
+            setNewM("")
         };
     }, []);
 
@@ -70,8 +75,8 @@ export const ChatBox = ({ online, conversation }) => {
                 }
             );
             setReceivedMessages(response?.data?.data?.message)
-            const lastItem = response?.data?.data?.message.pop();
-            dispatch(setpreviewMessage(lastItem))
+            // const lastItem = response?.data?.data?.message.pop();
+            // dispatch(setpreviewMessage(lastItem))
         } catch (error) {
             console.error(error);
         }

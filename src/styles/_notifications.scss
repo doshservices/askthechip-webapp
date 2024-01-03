@@ -1,4 +1,6 @@
 .notifications {
+    background-color: $light100 !important;
+
     &__wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -8,11 +10,13 @@
         }
 
         .notifications__preview {
-            min-height: 100vh;
             border-right: 1px solid hsla(204, 14%, 93%, 1);
+            padding: $thin;
+            padding-bottom: 6rem;
+            max-height: 80vh;
+            overflow-y: scroll;
 
             @media (max-width: 750px) {
-                // padding: $base;
                 border-right: 0;
             }
 
@@ -22,15 +26,15 @@
 
             .notification {
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 font-family: "DM Sans", sans-serif;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.10);
-                padding: .8rem 1.2rem;
+                border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+                padding: .8rem;
                 cursor: pointer;
 
                 img {
-                    height: 45px;
-                    width: 45px;
+                    height: 40px;
+                    width: 40px;
                     object-fit: cover;
                     margin-right: $base;
                 }
@@ -43,10 +47,80 @@
                     }
 
                     p {
-                        font-size: .75rem;
+                        font-size: .7rem;
                         font-weight: 500;
                         color: hsla(172, 92%, 28%, 1);
                     }
+                }
+            }
+        }
+
+        .notifications__details {
+            padding: $base;
+
+            svg {
+                cursor: pointer;
+            }
+
+            >div {
+                display: flex;
+                align-items: flex-start;
+                margin-top: $base;
+
+                >img {
+                    height: 40px;
+                    width: 40px;
+                    object-fit: cover;
+                    margin-right: $base;
+                    cursor: pointer;
+                }
+
+                div {
+
+                    h3 {
+                        font-family: "DM Sans";
+                        font-weight: 400;
+                        color: $dark200;
+                        text-align: justify;
+                        font-size: $base;
+                        margin-bottom: 6px;
+                    }
+
+                    p {
+                        color: hsla(0, 0%, 18%, 0.8);
+                        font-style: italic;
+                        font-size: $sm;
+                        text-align: justify;
+                        font-weight: 500;
+                        line-height: 32px;
+                        line-height: 2;
+                    }
+                }
+
+            }
+
+        }
+
+        @media (max-width: 600px) {
+            .notifications__details {
+                position: absolute;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .show {
+                background: $light200;
+                height: 100vh;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 70px;
+                opacity: 1;
+                pointer-events: all;
+
+                @media (max-width: 480px) {
+                    top: 60px;
+                    left: 0;
                 }
             }
         }

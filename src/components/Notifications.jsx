@@ -11,6 +11,8 @@ import { demoImg } from "./Chat/messages";
 import { useDispatch, useSelector } from "react-redux";
 import { setId } from "../store/slice/notificationSlice";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 
 const reactions = [
   {
@@ -29,13 +31,15 @@ const reactions = [
 
 const Notifications = () => {
 
+  const { profile } = useProfile();
   const [notification, setNotification] = useState([])
   const { token } = useAuth();
   const dispatch = useDispatch()
   const notificationId = useSelector((state) => state?.notification?.id)
   const [fullNotification, setFullNotification] = useState([])
+  const [showNotification, setShowNotification] = useState(false)
   console.log(fullNotification);
-
+  const navigate = useNavigate()
   const width = useWindowWidth();
 
   const formatDate = (date) => {
@@ -86,6 +90,17 @@ const Notifications = () => {
     getAllNotificationById()
   }, [notificationId])
 
+  const navigateToProfile = () => {
+    localStorage.setItem("ask-un-id", JSON.stringify(fullNotification?.userId?._id))
+    setTimeout(() => {
+      if (fullNotification?.userId?._id === profile?._id) {
+        navigate("/profile")
+      } else {
+        navigate("/users-profile")
+      }
+    }, 1000)
+  }
+
   return (
     <section className="pageLayout notifications bg-light">
       <SideNav />
@@ -98,7 +113,10 @@ const Notifications = () => {
             <div className="notifications__preview">
               {notification.map((notifications) => {
                 return (
-                  <section onClick={() => dispatch(setId(notifications?._id))} style={{ backgroundColor: notifications?.isRead === false ? "hsla(0, 0%, 95%, 1)" : "transparent" }} key={notifications?._id} className="notification">
+                  <section onClick={() => {
+                    setShowNotification(!showNotification);
+                    dispatch(setId(notifications?._id));
+                  }} style={{ backgroundColor: notifications?.isRead === false ? "hsla(0, 0%, 95%, 1)" : "transparent" }} key={notifications?._id} className="notification">
                     <img src={notifications?.image ? notifications?.image : demoImg} alt="User" className="rounded-full" />
                     <div className="">
                       <h3>{notifications?.message}</h3>
@@ -108,16 +126,27 @@ const Notifications = () => {
                 )
               })}
             </div>
-            <section className="notifications__details">
-              <img src={fullNotification?.image ? fullNotification?.image : demoImg} alt="User" className="rounded-full" />
-              <div></div>
-              <p>{fullNotification?.message}</p>
+            <section className={showNotification ? "notifications__details show" : "notifications__details"}>
+              {width <= 600 &&
+                <svg onClick={() => setShowNotification(!showNotification)} width="25" height="25" fill="none" stroke="#2d2d2d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.438 18.75 4.688 12l6.75-6.75"></path>
+                  <path d="M5.625 12h13.688"></path>
+                </svg>
+              }
+              <div>
+                <img onClick={navigateToProfile} src={fullNotification?.image ? fullNotification?.image : demoImg} alt="User" className="rounded-full" />
+                <div>
+                  <h3>{fullNotification?.message}</h3>
+                  {fullNotification?.postId?.content && <p>“{fullNotification?.postId?.content}”</p>}
+                  {/* {fullNotification?.image && <img src={fullNotification?.image} alt="post-img" />} */}
+                </div>
+              </div>
             </section>
           </div>
           : null
         }
       </div>
-    </section>
+    </section >
   );
 };
 

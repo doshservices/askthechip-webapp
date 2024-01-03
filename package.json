@@ -37,7 +37,7 @@
     "sass": "^1.69.5",
     "slick-carousel": "^1.8.1",
     "socket.io": "^4.7.1",
-    "socket.io-client": "^4.7.1"
+    "socket.io-client": "^0.9.16"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
