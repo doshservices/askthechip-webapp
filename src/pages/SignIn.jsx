@@ -3,7 +3,6 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
-import googleLogo from "../assets/icons/google-logo.svg";
 import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
 import { warn } from "../App";
@@ -11,6 +10,7 @@ import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { saveUser } from "../store/slice/userSlice";
+import { setJwt } from "../store/slice/authSlice";
 
 const defaultFormFields = {
   loginId: "",
@@ -70,6 +70,7 @@ const SignIn = () => {
         // notify("Login success, you're being redirected")
         redirectToHome();
         dispatch(saveUser(authUser))
+        dispatch(setJwt(token))
         setLoading(false);
       })
       .catch((err) => {

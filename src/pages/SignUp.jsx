@@ -11,6 +11,7 @@ import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { saveUser } from "../store/slice/userSlice";
+import { setJwt } from "../store/slice/authSlice";
 
 const defaultFormFields = {
   firstName: "",
@@ -148,6 +149,7 @@ const SignUp = () => {
         localStorage.setItem('token', token);
         localStorage.setItem('authUser', JSON.stringify(authUser));
         setUser(authUser);
+        dispatch(setJwt(token))
         dispatch(saveUser(authUser))
         notify("Sign up Successful, you'll be redirected to verification page!");
         redirectToLogin();
