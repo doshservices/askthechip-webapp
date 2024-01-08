@@ -15,6 +15,7 @@ export const Message = ({ conversation, online }) => {
     const userId = useSelector((state) => state?.user?.user?._id);
     const [userDetails, setUserDetails] = useState([])
     const [previewMessage, setPreviewMessage] = useState([])
+    const messageId = useSelector((state) => state?.chat?.chatUserId);
 
     const checkUserOnline = () => {
         if (online?.includes(userDetails?._id)) {

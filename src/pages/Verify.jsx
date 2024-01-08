@@ -114,19 +114,23 @@ const Verify = () => {
 
   const verifyAccount = async (e) => {
     const url = `https://askthechip-hvp93.ondigitalocean.app/api/send-otp?email=${userEmail?.email}`
-    axios.get(url, {
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-    })
-      .then((response) => {
-        // console.log(response);
-        notify("OTP has been sent to your mail")
-      }).catch((error) => {
-        // console.log(error);
-        warn("OTP failed in failed,", error)
+    if (userEmail?.email) {
+      axios.get(url, {
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
       })
+        .then((response) => {
+          console.log(response);
+          notify("OTP has been sent to your mail")
+        }).catch((error) => {
+          // console.log(error);
+          warn("OTP failed in failed,", error)
+        })
+    } else {
+      warn("No Email Found")
+    }
   }
 
   useEffect(() => {
@@ -172,7 +176,7 @@ const Verify = () => {
                       ref={num1Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -182,7 +186,7 @@ const Verify = () => {
                       ref={num2Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -192,7 +196,7 @@ const Verify = () => {
                       ref={num3Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -202,7 +206,7 @@ const Verify = () => {
                       ref={num4Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -212,7 +216,7 @@ const Verify = () => {
                       ref={num5Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -222,7 +226,7 @@ const Verify = () => {
                       ref={num6Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[70px] w-[40px] md:w-[70px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
                     />
                   </div>
                 </form>

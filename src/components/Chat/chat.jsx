@@ -16,7 +16,6 @@ const Message = ({ text, message, id }) => {
 }
 
 export const ChatBox = ({ online, conversation }) => {
-    // console.log(conversation?.members);
     const dispatch = useDispatch()
     const userId = useSelector((state) => state?.user?.user?._id);
     const { token } = useAuth()
@@ -28,7 +27,6 @@ export const ChatBox = ({ online, conversation }) => {
     const scrollRef = useRef();
     const { socket } = useSocket()
     const [newM, setNewM] = useState({})
-    // console.log(newM);
 
     const allMembers = conversation.flatMap(member => member.members);
 
@@ -51,8 +49,7 @@ export const ChatBox = ({ online, conversation }) => {
 
     useEffect(() => {
         socket?.on("getMessage", (incomingMessage) => {
-            console.log('hi');
-            // console.log(incomingMessage, "messagge");
+            console.log(incomingMessage, "messagge");
             setNewM(incomingMessage)
             console.log({ newM });
         });
@@ -75,8 +72,6 @@ export const ChatBox = ({ online, conversation }) => {
                 }
             );
             setReceivedMessages(response?.data?.data?.message)
-            // const lastItem = response?.data?.data?.message.pop();
-            // dispatch(setpreviewMessage(lastItem))
         } catch (error) {
             console.error(error);
         }

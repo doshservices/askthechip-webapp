@@ -26,16 +26,14 @@ const Navbar = () => {
       window.removeEventListener("resize", resize)
     }
   })
+  console.log(windowWidth);
 
   return (
     <header className="intro__header">
-      <nav className={`nav transition duration-500 shadow-md`}>
+      <nav className={`nav`}>
         <div className="nav__logo">
           <Link to="/">
             <img src={logo} alt="ask the chip" />
-            <div className="font-medium text-[1rem] text-[#f8f8f8] ml-2">
-              Askthechip
-            </div>
           </Link>
         </div>
         <div ref={navRef} className="nav__links">
@@ -71,22 +69,34 @@ const Navbar = () => {
             >
               Contact
             </HashLink>
+            {windowWidth <= 900 ?
+              <Link to="/login" className="sign-in">
+                Sign In
+              </Link>
+              : null
+            }
           </div>
-          <div className="nav__links__account">
-            {user?.role === "USER" ?
+        </div>
+        <div className="nav__links__account">
+          <div className="account-type-options">
+            <button>
+              <span>Sign Up</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <path d="M11.5 15.4854L6 9.98542L6.98542 9L11.5 13.5375L16.0146 9.02292L17 10.0083L11.5 15.4854Z" fill="#F8F8F8" />
+              </svg>
+            </button>
+            <div>
+              <Link to="/sign-up">
+                As a User
+              </Link>
               <Link to="/provider-signup">
-                <button className="text-primary80 border border-primary80 font-medium text-sm px-[1.8rem] py-[0.625rem] rounded-lg transition duration-200 hover:scale-90 active:100">
-                  Become a Provider
-                </button>
-              </Link> :
-              null}
-            <Link to={user !== null ? "/home" : "/login"}>
-              <button className="text-light border border-primary80 bg-primary80 font-medium text-sm px-[1.8rem] py-[0.625rem] rounded-lg transition duration-200 hover:scale-90 active:100">
-                {user !== null ? "Home" : "Join Now"}
-                {/* Join Now */}
-              </button>
-            </Link>
+                As a Service Provider
+              </Link>
+            </div>
           </div>
+          <Link to="/login" className="sign-in">
+            Sign In
+          </Link>
         </div>
         {/* Mobile nav & toggler */}
         <button

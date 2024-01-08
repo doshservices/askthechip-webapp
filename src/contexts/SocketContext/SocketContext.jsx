@@ -15,6 +15,7 @@ const SocketProvider = ({ children }) => {
 
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState(null);
+  // console.log(socket);
 
   useEffect(() => {
     const newSocket = io("https://api.askthechip.com", {
@@ -27,20 +28,9 @@ const SocketProvider = ({ children }) => {
     // };
   }, []);
 
-  // useEffect(() => {
-  //   socket?.on("getMessage", (incomingMessage) => {
-  //     console.log(incomingMessage, "messagge");
-  //     setReceivedMessages(incomingMessage);
-  //   });
-
-  //   // return () => {
-  //   //   socket?.off("getMessage");
-  //   // };
-  // }, [socket]);
-
   useEffect(() => {
     socket?.on("getOnlineUsers", (users) => {
-      // console.log({ users });
+      console.log({ users });
       setOnlineUsers(users);
     });
   }, [socket]);

@@ -48,9 +48,9 @@ const Header = () => {
     <div className="font-DMSans  pt-6" id="explore">
       <section className="flex justify-center items-center flex-col">
         <section className="flex justify-center items-center flex-col pb-10 sm:pb-0 pt-6">
-          <h1 className="font-bold md:text-[50px] sm:text-[45px] text-[28px] text-center w-[90%] max-w-[23ch] leading-[37.99px] sm:leading-[60px] md:leading-[60px] mt-20 mb-5 text-secondary">
-            Welcome to Our Community{" "}
-            <span className="text-primary">of Entrepreneurs</span>
+          <h1 className="font-bold md:text-[50px] sm:text-[45px] text-[28px] text-center max-w-[720px] leading-[37.99px] sm:leading-[60px] md:leading-[60px] mt-20 mb-5 text-secondary">
+            <span className="text-primary">Welcome</span> to Our <span className="text-primary">Community</span>  of
+            <span className="text-primary"> Entrepreneurs</span>
           </h1>
           <p className="text-[.9rem] md:text-lg w-[90%] max-w-[49ch] text-center mb-8 text-[#343432]">
             Here, We promote Innovation and help you to create value by

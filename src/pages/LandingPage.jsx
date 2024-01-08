@@ -14,7 +14,7 @@ import Testimonial from "../components/Testimonial";
 const Landing = () => {
   // const [count, setCount] = useState(false)
   return (
-    <div className="bg-[#f8f8f8]">
+    <div className="bg-[#fff]">
       <Navbar />
       <Header />
       <WhyJoining />
