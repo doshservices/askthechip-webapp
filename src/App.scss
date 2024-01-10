@@ -66,11 +66,9 @@
 
 .custom-shape-divider-top {
     position: absolute;
-    top: -1px;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
+    height: 40px;
+    background-color: #F8F8F8;
+    transform: scaleX(100%);
 }
 
 .custom-shape-divider-top svg {
@@ -78,10 +76,6 @@
     display: block;
     width: calc(100% + 1.3px);
     height: 5.3125rem;
-}
-
-.custom-shape-divider-top .shape-fill {
-    fill: #F8F8F8;
 }
 
 .custom-shape-divider-bottom {
@@ -147,4 +141,18 @@
     .custom-shape-divider-bottom svg {
         height: 2rem;
     }
+}
+
+.why-join {
+    background-color: hsla(0, 0%, 97%, 1);
+    border-style: solid;
+    border-width: 1px 0px 1px 0px !important;
+    border-color: hsla(0, 0%, 0%, 0.1);
+    padding: 2.2rem 0;
+    margin-top: 10px;
+}
+
+.footer {
+    border-top: 1px solid hsla(0, 0%, 18%, 0.4);
+    margin-top: 2rem;
 }

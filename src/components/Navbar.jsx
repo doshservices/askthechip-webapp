@@ -26,7 +26,6 @@ const Navbar = () => {
       window.removeEventListener("resize", resize)
     }
   })
-  console.log(windowWidth);
 
   return (
     <header className="intro__header">

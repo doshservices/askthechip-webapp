@@ -52,10 +52,11 @@ const supportLinks = [
     text: "Service Registration",
   },
 ];
+
 const Footer = () => {
   return (
-    <footer id="contact">
-      <div className="wrapper min-h-[383px] border-t border-[#2d2d2d60]">
+    <footer className="footer" id="contact">
+      <div style={{ background: "hsla(0, 0%, 97%, 1)" }} className="wrapper border-t border-[#2d2d2d60]">
         <div className="logo">
           <div className="flex justify-center md:justify-start mb-6">
             <Link to="/" className={`flex items-center`}>
@@ -176,9 +177,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center bg-primary110 text-[#f8f8f8] min-h-[100px] md:h-[68px] w-full py-5 md:py-0 px-6 md:px-12">
+      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center bg-primary110 text-[#f8f8f8] w-full py-6 px-6 md:px-12">
         <div className="font-Montserrat mb-5 md:mb-0 text-center md:text-left">
-          &copy; 2023 Askthechip.com All Rights Reserved
+          &copy; 2024 Askthechip.com All Rights Reserved
         </div>
         <div className="w-full md:w-fit">
           <ul className="flex justify-between opacity-80 font-Raleway">

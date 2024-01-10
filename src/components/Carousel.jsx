@@ -146,7 +146,7 @@ const Carousel = () => {
   ];
 
   return (
-    <div className="-z-10 overflow-hidden pt-5" id="testimonials">
+    <div className="-z-10 overflow-hidden pt-4" id="testimonials">
       <div className="hidden md:block container mx-auto ">
         <Slider
           {...settings}
