@@ -158,15 +158,15 @@ const Verify = () => {
                 <h1 className="font-DMSans text-[30px] font-bold mb-2 uppercase text-[#2d2d2d]">
                   Verify account
                 </h1>
-                <p className="font-DMSans text-[#2d2d2d90] text-center">
-                  A One-Time Password has been sent to {userEmail?.email}
+                <p className="font-DMSans text-[hsla(0, 0%, 18%, 0.9)] text-center">
+                  A Verification code has been sent to {userEmail?.email}
                 </p>
               </div>
               {error ? <p className="font-DMSans text-[1.2rem] text-[#FF3B30] text-center">
                 {error}
               </p> : ""}
               <div>
-                <form className="flex flex-col items-center justify-center">
+                <form className="flex flex-col items-center justify-center verify-form">
                   <div className="mt-4 md:my-8 w-full flex items-center justify-between xs:p-4">
                     <input
                       type="number"
@@ -176,7 +176,7 @@ const Verify = () => {
                       ref={num1Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg  text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -186,7 +186,7 @@ const Verify = () => {
                       ref={num2Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg  text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -196,7 +196,7 @@ const Verify = () => {
                       ref={num3Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg  text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -206,7 +206,7 @@ const Verify = () => {
                       ref={num4Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg  text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -216,7 +216,7 @@ const Verify = () => {
                       ref={num5Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg  text-center text-xl font-bold md:mx-3"
                     />
                     <input
                       type="number"
@@ -226,7 +226,7 @@ const Verify = () => {
                       ref={num6Ref}
                       autoComplete="off"
                       required
-                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg border-[0.6px] border-[#01301D] text-center text-xl font-bold md:mx-3"
+                      className="mx-4 h-[40px] md:h-[50px] w-[40px] md:w-[50px] rounded-lg  text-center text-xl font-bold md:mx-3"
                     />
                   </div>
                 </form>
@@ -242,10 +242,10 @@ const Verify = () => {
                   </button>
                 </div>
                 <div className="font-DMSans text-sm text-center pb-4">
-                  Already have an account?{" "}
-                  <Link to="/login" className="font-bold text-primary90">
+                  Didn’t receive a One-Time password?{" "}
+                  <a onClick={verifyAccount} className="font-bold text-primary90 cursor-pointer">
                     Login
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>

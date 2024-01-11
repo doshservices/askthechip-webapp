@@ -97,7 +97,7 @@ const SignIn = () => {
                 <h1 className="font-DMSans text-[30px] font-bold mb-2 uppercase text-[#2d2d2d]">
                   Welcome Back
                 </h1>
-                <p className="font-DMSans text-[#2d2d2d90]">
+                <p className="font-DMSans text-[hsla(0, 0%, 18%, 0.9)]">
                   Fill out the fields below to log in to your account
                 </p>
               </div>
@@ -149,14 +149,14 @@ const SignIn = () => {
               <div className="flex justify-end text-primary80 text-xs font-medium font-Raleway mt-2 mb-5">
                 <Link to="/forgot-password">Forgot Password?</Link>
               </div>
-              {/* <div className="flex items-center">
+              <div className="flex items-center">
                 <div className="mr-2">
                   <input type="checkbox" id="keep-login" name="keep-login" />
                 </div>
                 <label htmlFor="keep-login" className="font-Raleway text-xs">
                   Keep me logged in
                 </label>
-              </div> */}
+              </div>
               <div className="flex justify-center mt-5">
                 <button
                   disabled={loading}
@@ -181,7 +181,7 @@ const SignIn = () => {
               </div> */}
               <div className="font-DMSans text-sm text-center mt-2">
                 Don&apos;t have an account?{" "}
-                <Link to="/sign-up" className="font-bold text-primary90">
+                <Link to="/register-account-type" className="font-bold text-primary90">
                   Sign up
                 </Link>
               </div>

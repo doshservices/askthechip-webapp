@@ -28,6 +28,7 @@ import { Mentorship, Messages, Notifications, Profile, Services } from "./compon
 import { store, persistor } from "./store/store";
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
+import SignOptions from "./pages/SignOptions";
 
 const toastParams = {
   position: "top-right",
@@ -71,6 +72,7 @@ function App() {
                       <Route path="/pricing/payment" element={<Payment />} />
                       <Route path="/verify" element={<Verify />} />
                       <Route path="/reset-password" element={<ResetPassword />} />
+                      <Route path="/register-account-type" element={<SignOptions />} />
                       <Route path="/*" element={<Error />} />
                       {/* Protected routes */}
                       <Route element={<ProtectedRoute />}>

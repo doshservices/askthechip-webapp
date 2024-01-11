@@ -221,10 +221,10 @@ const SignUpAsProvider = () => {
             <div className="w-[90%] max-w-[468px] mx-auto h-full">
               <div className="flex flex-col items-center mb-[1.875rem]">
                 <h1 className="font-DMSans text-[1.6rem] text-center font-bold mb-2 uppercase text-[#2d2d2d]">
-                  CREATE ACCOUNT AS A SERVICE PROVIDER
+                  CREATE AN ACCOUNT
                 </h1>
                 <p className="font-DMSans text-[#2d2d2d90]">
-                  Fill out the fields below to create your account as a service provider
+                  Fill out the fields below to create your account
                 </p>
               </div>
               <div className="flex justify-center mb-10">
@@ -322,7 +322,7 @@ const SignUpAsProvider = () => {
                         className="font-DMSans text-sm mb-2"
                       >
                         Phone Number{" "}
-                        <span className="text-[0.5625rem]">
+                        <span className="text-[0.7rem]">
                           (Add country code)
                         </span>
                       </label>
@@ -445,12 +445,12 @@ const SignUpAsProvider = () => {
                         Login
                       </Link>
                     </div>
-                    <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                    {/* <div className="ml-2 font-DMSans text-sm text-center pb-4">
                       or{" "}
                       <Link to="/sign-up" className="ml-1 font-bold text-primary90">
                         User Signup
                       </Link>
-                    </div>
+                    </div> */}
                   </div>
                 </form>
               )}
@@ -679,12 +679,12 @@ const SignUpAsProvider = () => {
                         Login
                       </Link>
                     </div>
-                    <div className="ml-1 sm:ml-2 font-DMSans text-xs sm:text-sm text-center pb-4">
+                    {/* <div className="ml-1 sm:ml-2 font-DMSans text-xs sm:text-sm text-center pb-4">
                       or{" "}
                       <Link to="/sign-up" className="ml-0.5 sm:ml-1 font-bold text-primary90">
                         User Signup
                       </Link>
-                    </div>
+                    </div> */}
                   </div>
                 </form>
               )}

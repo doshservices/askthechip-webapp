@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button/Button";
 import "../App.scss";
-
+import topLayer from "../assets/top-lyer.png"
 import header1 from "./../assets/images/header1_1.png";
 import header2 from "./../assets/images/header2.png";
 import header3 from "./../assets/images/header3.png";
@@ -45,7 +45,7 @@ const mobileImages = [
 
 const Header = () => {
   return (
-    <div className="font-DMSans  pt-6" id="explore">
+    <div className="font-DMSans  pt-6 pb-3" id="explore">
       <section className="flex justify-center items-center flex-col">
         <section className="flex justify-center items-center flex-col sm:px-[2rem] pb-10 sm:pb-0 pt-6">
           <h1 className="font-bold md:text-[50px] sm:text-[45px] text-[28px] text-center max-w-[720px] leading-[37.99px] sm:leading-[60px] md:leading-[60px] mt-20 mb-5 text-secondary">
@@ -62,19 +62,20 @@ const Header = () => {
             that can help your Business grow.
           </p>
         </section>
-        <div className="my-0">
+        <div className="my-0  isolate relative">
           <div className="flex max-w-full">
-            <div className="flex gap-4 bg-black/50 relative">
+            <div className="flex gap-4 bg-black/50">
               <div className="custom-shape-divider-top">
+                <img src={topLayer} alt="" />
               </div>
               <div className="hidden bg-white md:grid rounded-grid grid-cols-5 gap-4">
                 {images.map((image, index) => (
-                  <img className="h-full" src={image.src} key={index} />
+                  <img style={{ objectFit: "cover" }} className="h-full" src={image.src} key={index} />
                 ))}
               </div>
               <div className="grid bg-white md:hidden rounded-grid grid-cols-3 gap-4">
                 {mobileImages.map((image, index) => (
-                  <img className="h-full" src={image.src} key={index} />
+                  <img style={{ objectFit: "cover" }} className="h-full" src={image.src} key={index} />
                 ))}
               </div>
               <div className="custom-shape-divider-bottom">

@@ -66,16 +66,12 @@
 
 .custom-shape-divider-top {
     position: absolute;
-    height: 40px;
-    background-color: #F8F8F8;
-    transform: scaleX(100%);
+    top: -60px;
+    z-index: -2;
 }
 
-.custom-shape-divider-top svg {
-    position: relative;
+.custom-shape-divider-top img {
     display: block;
-    width: calc(100% + 1.3px);
-    height: 5.3125rem;
 }
 
 .custom-shape-divider-bottom {
@@ -155,4 +151,14 @@
 .footer {
     border-top: 1px solid hsla(0, 0%, 18%, 0.4);
     margin-top: 2rem;
+}
+
+.verify-form {
+    input {
+        border: 1px solid hsla(172, 92%, 28%, 1);
+
+        &:focus {
+            outline: 1px solid hsla(172, 92%, 28%, 1);
+        }
+    }
 }

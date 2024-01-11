@@ -96,7 +96,7 @@ const SignUp = () => {
       gender: "MALE",
       role: "USER",
       accountType,
-      googleSigned: true,
+      googleSigned: false,
     };
     return data;
   };
@@ -116,7 +116,7 @@ const SignUp = () => {
       role: "USER",
       accountType,
       representativeId: representativeId,
-      googleSigned: true,
+      googleSigned: false,
     };
     return data;
   };
@@ -174,10 +174,10 @@ const SignUp = () => {
           <div className="h-[calc(100vh_-_8rem)] md:h-[calc(100vh_-_10rem)] overflow-y-auto">
             <div className="w-[90%] max-w-[468px] mx-auto h-full">
               <div className="flex flex-col items-center mb-[1.875rem]">
-                <h1 className="font-DMSans text-[1.6rem] font-bold mb-2 uppercase text-[#2d2d2d]">
-                  CREATE ACCOUNT AS A USER
+                <h1 className="font-DMSans text-[2rem] font-bold mb-2 uppercase text-[#2d2d2d]">
+                  CREATE AN ACCOUNT
                 </h1>
-                <p className="font-DMSans text-[#2d2d2d90]">
+                <p className="font-DMSans text-[hsla(0, 0%, 18%, 0.9)]">
                   Fill out the fields below to create your account as a user
                 </p>
               </div>
@@ -276,7 +276,7 @@ const SignUp = () => {
                         className="font-DMSans text-sm mb-2"
                       >
                         Phone Number{" "}
-                        <span className="text-[0.5625rem]">
+                        <span className="text-[0.7rem]">
                           (Add country code)
                         </span>
                       </label>
@@ -296,7 +296,7 @@ const SignUp = () => {
                   </div>
                   <div className="flex flex-col mb-5">
                     <label htmlFor="email" className="font-DMSans text-sm mb-2">
-                      Account Type
+                      What Best describes you?
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
                       <select
@@ -381,7 +381,7 @@ const SignUp = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-center mt-[3.75rem]">
+                  <div className="flex justify-center mt-[3.75rem] mb-[1rem]">
                     <button
                       disabled={loading}
                       type="submit"
@@ -391,13 +391,13 @@ const SignUp = () => {
                           : `bg-primary80 hover:bg-transparent text-[#f8f8f8] hover:text-primary80 border-primary80 border py-2 text-sm font-DMSans font-medium w-full text-center rounded-full transition duration-300`
                       }
                     >
-                      {loading ? <Loader /> : "Create Account"}
+                      {loading ? <Loader /> : "Register"}
                     </button>
                   </div>
-                  <div className="flex justify-center my-2 font-DMSans font-medium text-sm">
+                  {/* <div className="flex justify-center my-2 font-DMSans font-medium text-sm">
                     OR
-                  </div>
-                  <div className="flex justify-center mb-2">
+                  </div> */}
+                  {/* <div className="flex justify-center mb-2">
                     <button
                       type="button"
                       className="flex items-center justify-center bg-transparent border border-primary80 text-primary80 text-sm font-DMSans font-medium w-full text-center rounded-full"
@@ -405,7 +405,7 @@ const SignUp = () => {
                       <img src={googleLogo} alt="Google Logo" className="h-8" />
                       Continue with Google
                     </button>
-                  </div>
+                  </div> */}
                   <div className="flex justify-center">
                     <div className="font-DMSans text-sm text-center pb-4">
                       Already have an account?{" "}
@@ -413,7 +413,7 @@ const SignUp = () => {
                         Login
                       </Link>
                     </div>
-                    <div className="ml-2 font-DMSans text-sm text-center pb-4">
+                    {/* <div className="ml-2 font-DMSans text-sm text-center pb-4">
                       or{" "}
                       <Link
                         to="/provider-signup"
@@ -421,7 +421,7 @@ const SignUp = () => {
                       >
                         Provider Signup
                       </Link>
-                    </div>
+                    </div> */}
                   </div>
                 </form>
               )}

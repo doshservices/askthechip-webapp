@@ -16,7 +16,7 @@ const ConnectWithFounders = () => {
         {/* <h2 className="w-[90%] max-w-[58ch] text-white text-xs md:text-base md:leading-[30px] mb-10">
           You can join us as a service provider
         </h2> */}
-        <Link to="/provider-signup">
+        <Link to="/register-account-type">
           <button
             className={`bg-transparent border text-white text-xs md:text-base py-2.5 px-8 rounded hover:scale-125 transition duration-200`}
           >
