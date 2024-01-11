@@ -23,7 +23,7 @@ const SignOptions = () => {
                             <div className="grow basis-[150px] max-w-[250px] md:max-w-[300px] mx-auto">
                                 <Link to="/sign-up" style={{
                                     border: "1px solid hsla(172, 92%, 28%, 1)"
-                                }} className="flex flex-col items-center rounded-[10px] p-3 p-3 min-h-auto md:min-h-[223px]">
+                                }} className="flex flex-col items-center justify-center rounded-[10px] p-3 p-3 min-h-auto md:min-h-[223px]">
                                     <div>
                                         <img src={user} className="" alt="user-signup" />
                                     </div>
@@ -34,7 +34,7 @@ const SignOptions = () => {
                             <div className="grow basis-[150px] max-w-[250px] md:max-w-[300px] mx-auto">
                                 <Link to="/provider-signup" style={{
                                     border: "1px solid hsla(172, 92%, 28%, 1)"
-                                }} className="flex flex-col items-center rounded-[10px] p-3 min-h-auto md:min-h-[223px]">
+                                }} className="flex flex-col items-center justify-center rounded-[10px] p-3 min-h-auto md:min-h-[223px]">
                                     <img src={provider} alt="provider-signup" />
                                     <p className="text-[1.2rem] font-[600] text-[#2d2d2d] mt-4 text-center">SERVICE PROVIDER</p>
                                 </Link>

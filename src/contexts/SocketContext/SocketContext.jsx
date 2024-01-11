@@ -23,9 +23,9 @@ const SocketProvider = ({ children }) => {
     });
     setSocket(newSocket);
 
-    // return () => {
-    //   newSocket.disconnect();
-    // };
+    return () => {
+      newSocket.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -33,6 +33,10 @@ const SocketProvider = ({ children }) => {
       console.log({ users });
       setOnlineUsers(users);
     });
+
+    return () => {
+      socket?.off("getOnlineUsers");
+    };
   }, [socket]);
 
   const onlineUsersValue = {

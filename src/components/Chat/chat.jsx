@@ -16,6 +16,7 @@ const Message = ({ text, message, id }) => {
 }
 
 export const ChatBox = ({ online, conversation }) => {
+    // console.log(conversation);
     const dispatch = useDispatch()
     const userId = useSelector((state) => state?.user?.user?._id);
     const { token } = useAuth()
@@ -26,9 +27,10 @@ export const ChatBox = ({ online, conversation }) => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const scrollRef = useRef();
     const { socket } = useSocket()
-    const [newM, setNewM] = useState({})
+    const [arrivalMessage, setArrivalMessage] = useState(null);
 
     const allMembers = conversation.flatMap(member => member.members);
+    // console.log({ allMembers });
 
     let onlineArr = [];
     online?.forEach((user) => onlineArr.push(user._id))
@@ -47,19 +49,6 @@ export const ChatBox = ({ online, conversation }) => {
         socket?.emit("addUser", userId);
     }, [socket, userId]);
 
-    useEffect(() => {
-        socket?.on("getMessage", (incomingMessage) => {
-            console.log(incomingMessage, "messagge");
-            setNewM(incomingMessage)
-            console.log({ newM });
-        });
-
-        return () => {
-            socket?.off("getMessage");
-            setNewM("")
-        };
-    }, []);
-
     const getMessages = async () => {
         try {
             const response = await axios.get(
@@ -72,10 +61,24 @@ export const ChatBox = ({ online, conversation }) => {
                 }
             );
             setReceivedMessages(response?.data?.data?.message)
+            // console.log({ mss: response?.data?.data?.message });
         } catch (error) {
             console.error(error);
         }
     }
+
+    useEffect(() => {
+        socket?.on("getMessage", (incomingMessage) => {
+            // console.log(incomingMessage, "messagge");
+            setArrivalMessage({
+                sender: incomingMessage.senderId,
+                text: incomingMessage.text,
+                createdAt: Date.now(),
+            });
+            getMessages()
+        });
+    }, []);
+
 
     useEffect(() => {
         getMessages();
@@ -96,7 +99,7 @@ export const ChatBox = ({ online, conversation }) => {
             })
     }
 
-    const sendMessage = (e) => {
+    const sendMessage = async (e) => {
         e.preventDefault();
         if (chatUserDetails?._id) {
             socket?.emit("sendMessage", {
@@ -108,9 +111,14 @@ export const ChatBox = ({ online, conversation }) => {
         } else {
             console.log("id not found");
         }
-        setMessage("");
         getMessages()
-        if (chatUserDetails?._id && !allMembers.includes(chatUserDetails._id)) {
+        // setReceivedMessages(receivedMessages)
+        setMessage("");
+        // console.log({ True: allMembers.includes(chatUserDetails?._id) });
+        // console.log({ cc: chatUserDetails?._id });
+        if (chatUserDetails?._id && !allMembers.includes(chatUserDetails?._id)) {
+            console.log({ weNeverChat: !allMembers.includes(chatUserDetails?._id) });
+            // console.log("hi");
             createConversation()
         }
     };
