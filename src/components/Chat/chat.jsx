@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import { useWindowWidth } from "../../utils/windowWidth";
-import { setMessageClass, setpreviewMessage } from "../../store/slice/chatViewSlice";
+import { setMessageClass } from "../../store/slice/chatViewSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
@@ -16,7 +16,6 @@ const Message = ({ text, message, id }) => {
 }
 
 export const ChatBox = ({ online, conversation }) => {
-    // console.log(conversation);
     const dispatch = useDispatch()
     const userId = useSelector((state) => state?.user?.user?._id);
     const { token } = useAuth()
@@ -27,10 +26,9 @@ export const ChatBox = ({ online, conversation }) => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const scrollRef = useRef();
     const { socket } = useSocket()
-    const [arrivalMessage, setArrivalMessage] = useState(null);
+    console.log(receivedMessages);
 
     const allMembers = conversation.flatMap(member => member.members);
-    // console.log({ allMembers });
 
     let onlineArr = [];
     online?.forEach((user) => onlineArr.push(user._id))
@@ -61,7 +59,6 @@ export const ChatBox = ({ online, conversation }) => {
                 }
             );
             setReceivedMessages(response?.data?.data?.message)
-            // console.log({ mss: response?.data?.data?.message });
         } catch (error) {
             console.error(error);
         }
@@ -69,16 +66,13 @@ export const ChatBox = ({ online, conversation }) => {
 
     useEffect(() => {
         socket?.on("getMessage", (incomingMessage) => {
-            // console.log(incomingMessage, "messagge");
-            setArrivalMessage({
-                sender: incomingMessage.senderId,
-                text: incomingMessage.text,
-                createdAt: Date.now(),
-            });
-            getMessages()
+            // console.log(incomingMessage);
+            receivedMessages.push(
+                incomingMessage
+            )
+            console.log(receivedMessages);
         });
     }, []);
-
 
     useEffect(() => {
         getMessages();
@@ -93,9 +87,7 @@ export const ChatBox = ({ online, conversation }) => {
             },
         })
             .then((res) => {
-                // console.log(res);
             }).catch((err) => {
-                // console.log(err);
             })
     }
 
@@ -111,14 +103,14 @@ export const ChatBox = ({ online, conversation }) => {
         } else {
             console.log("id not found");
         }
-        getMessages()
-        // setReceivedMessages(receivedMessages)
+        receivedMessages.push({
+            conversationId: conversationId,
+            createdAt: Date.now(),
+            senderId: userId,
+            text: message
+        })
         setMessage("");
-        // console.log({ True: allMembers.includes(chatUserDetails?._id) });
-        // console.log({ cc: chatUserDetails?._id });
         if (chatUserDetails?._id && !allMembers.includes(chatUserDetails?._id)) {
-            console.log({ weNeverChat: !allMembers.includes(chatUserDetails?._id) });
-            // console.log("hi");
             createConversation()
         }
     };
@@ -190,10 +182,16 @@ export const ChatBox = ({ online, conversation }) => {
                             value={message}
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder="Type your message here..."
+                        // onKeyDown={(e) => {
+                        //     if (e.key === "Enter") {
+                        //         e.preventDefault(); // Prevent the newline character from being added
+                        //         sendMessage(); // Call your sendMessage function
+                        //     }
+                        // }}
                         >
                         </textarea>
                         <div className="actions">
-                            {message.length > 0 ?
+                            {message.replaceAll(' ', '').length > 0 ?
                                 <button onClick={sendMessage} className="send__btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="14" viewBox="0 0 19 16" fill="none">
                                         <path d="M0 16V0L19 8L0 16ZM1.5 13.675L15.1 8L1.5 2.25V6.45L7.55 8L1.5 9.5V13.675Z" fill="#F8F8F8" />
