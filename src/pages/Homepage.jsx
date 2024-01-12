@@ -8,6 +8,7 @@ import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { usePosts } from "../contexts/PostContext/PostContext";
 import axios from "axios";
 import { useWindowWidth } from "../utils/windowWidth";
+import { api } from "../contexts";
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
@@ -37,7 +38,7 @@ const HomePage = () => {
 
   const handleGetPosts = async () => {
     // setLoading(true);
-    const url = "https://askthechip-hvp93.ondigitalocean.app/api/post?limit=0&skip=0";
+    const url = `${api}/api/post?limit=0&skip=0`;
     await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +46,7 @@ const HomePage = () => {
       },
     }).then((response) => {
       // console.log(response);
-      const getPosts = response.data.data.post;
+      const getPosts = response?.data?.data?.post;
       setPosts(getPosts);
       setLoading(false);
     }).catch((error) => {

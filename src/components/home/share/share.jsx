@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { fileToBase64 } from "../../Profile";
 import { useState, useRef, useEffect } from "react";
 import useClickOutside from "../../../utils/useClickOiutside";
+import { api } from "../../../contexts";
 
 const Share = ({ handleGetPosts }) => {
   const fileInputRef = useRef(null);
@@ -57,17 +58,20 @@ const Share = ({ handleGetPosts }) => {
         formData.append("postImg", file);
       }
 
-      const url = "https://askthechip-hvp93.ondigitalocean.app/api/create-post";
+      const url = `${api}/api/create-post`;
 
       const response = await axios.post(url, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      // console.log(response);
       handleGetPosts();
       setFile(null)
       setModal(false)
       setPreviewFile("")
+      setPostStatus("")
+      setLoading(false)
     } catch (error) {
       setLoading(false);
     } finally {
@@ -113,7 +117,7 @@ const Share = ({ handleGetPosts }) => {
             />
           )}
         </figure>
-        <input type="text" placeholder="Share a post" />
+        <input type="text" disabled={modal} placeholder="Share a post" />
       </div>
       {modal ?
         <section className="share">

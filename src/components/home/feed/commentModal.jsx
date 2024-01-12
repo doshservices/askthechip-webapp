@@ -7,6 +7,7 @@ import EditComment from "../../EditComment/EditComment";
 import { forwardRef } from "react";
 import useClickOutside from "../../../utils/useClickOiutside";
 import { useRef } from "react";
+import { api } from "../../../contexts";
 
 const DeleteComment = ({ closeModal, api }) => {
     return (
@@ -44,7 +45,7 @@ const Comment = ({ comment, post, getComments }) => {
         setDeleting(true);
         try {
             const response = await fetch(
-                `https://askthechip-hvp93.ondigitalocean.app/api/comment/?commentId=${comment?._id}`,
+                `${api}/api/comment/?commentId=${comment?._id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -124,7 +125,7 @@ export const CommentModal = forwardRef(({ close, post }, ref) => {
     const getComments = async () => {
         try {
             const response = await axios.get(
-                `https://askthechip-hvp93.ondigitalocean.app/api/comment?postId=${post._id}`,
+                `${api}/api/comment?postId=${post._id}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -142,17 +143,12 @@ export const CommentModal = forwardRef(({ close, post }, ref) => {
         e.preventDefault();
         try {
             setLoading(true);
-            const res = await fetch(
-                `https://askthechip-hvp93.ondigitalocean.app/api/comment?postId=${post._id}`,
+            const res = await axios.post(`${api}/api/comment?postId=${post._id}`, { text: commentPost, },
                 {
-                    method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-                    body: JSON.stringify({
-                        text: commentPost,
-                    }),
                 }
             );
             if (res.ok) {
@@ -160,7 +156,9 @@ export const CommentModal = forwardRef(({ close, post }, ref) => {
                 getComments()
             }
             setLoading(false);
+            // console.log(res);
         } catch (err) {
+            // console.log(err);
             setLoading(false);
         }
         setLoading(false);

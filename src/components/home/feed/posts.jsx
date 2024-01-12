@@ -16,6 +16,7 @@ import { CommentModal } from "./commentModal";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useEffect, useState, useRef } from "react";
 import { CommentIcon, LikeIcon, ReplyIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
+import { api } from '../../../contexts';
 
 const reactions = [
   {
@@ -126,7 +127,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   };
 
   const getLikesById = async () => {
-    await axios.get(`https://askthechip-hvp93.ondigitalocean.app/api/post/get-likes?postId=${post._id}`, {
+    await axios.get(`${api}/api/post/get-likes?postId=${post._id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -145,7 +146,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   const handleLikesValue = async () => {
     try {
       const res = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/post/get-likes?postId=${post._id}`,
+        `${api}/api/post/get-likes?postId=${post._id}`,
         {
           method: "GET",
           headers: {
@@ -167,7 +168,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   const handleLikePost = async () => {
     try {
       const response = await axios.post(
-        `https://askthechip-hvp93.ondigitalocean.app/api/post/like-post?postId=${post._id}`,
+        `${api}/api/post/like-post?postId=${post._id}`,
         null,
         {
           headers: {
@@ -187,7 +188,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   const handleUnLikePost = async () => {
     try {
       const response = await axios.post(
-        `https://askthechip-hvp93.ondigitalocean.app/api/post/unlike-post?postId=${post._id}`,
+        `${api}/api/post/unlike-post?postId=${post._id}`,
         null,
         {
           headers: {
@@ -241,7 +242,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   useClickOutside(commentModalRef, commentModalDisplay);
 
   return (
-    <article onClick={() => console.log(username)} className={index === 0 || pathname === "/profile" ? `relative bg-[#f4f4f4] posts` : `relative posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "#2f2f2f" : "#f4f4f4", color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }}>
+    <article className={index === 0 || pathname === "/profile" ? `relative bg-[#f4f4f4] posts` : `relative posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "#2f2f2f" : "#f4f4f4", color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }}>
       <div className="posts__poster">
         <div className="posts__poster__details">
           <div className="dp" onClick={navigateToProfile}>

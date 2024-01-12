@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import Loader from "../../Loader/Loader";
 import { useSelector } from "react-redux";
+import { api } from '../../../contexts/index'
 
 const Comment = ({ post, handleGetPosts, setComments, border }) => {
   const [comment, setComment] = useState("");
@@ -17,7 +18,7 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/comment?postId=${post._id}`,
+        `${api}/api/comment?postId=${post._id}`,
         {
           method: "GET",
           headers: {
@@ -44,7 +45,7 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/comment?postId=${post._id}`,
+        `${api}/api/comment?postId=${post._id}`,
         {
           method: "POST",
           headers: {
@@ -67,7 +68,7 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
       }
       setLoading(false);
     } catch (err) {
-      // console.log(err);
+      console.log(err);
       // warn("Failed to post your comment!");
       setLoading(false);
     }
