@@ -11,6 +11,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { saveUser } from "../store/slice/userSlice";
 import { setJwt } from "../store/slice/authSlice";
+import { api } from "../contexts";
 
 const defaultFormFields = {
   loginId: "",
@@ -53,7 +54,7 @@ const SignIn = () => {
     localStorage.removeItem("token");
     setUser(null);
     setLoading(true);
-    const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users/login'
+    const url = `${api}/api/users/login`
     axios.post(url, formFields, {
       headers: {
         "Content-Type": "application/json"

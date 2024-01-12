@@ -129,3 +129,5 @@ export async function login(data) {
       });
   });
 }
+
+export const api = process.env.BASE_URL;

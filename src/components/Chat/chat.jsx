@@ -26,7 +26,7 @@ export const ChatBox = ({ online, conversation }) => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const scrollRef = useRef();
     const { socket } = useSocket()
-    console.log(receivedMessages);
+    // console.log(receivedMessages);
 
     const allMembers = conversation.flatMap(member => member.members);
 
@@ -66,11 +66,11 @@ export const ChatBox = ({ online, conversation }) => {
 
     useEffect(() => {
         socket?.on("getMessage", (incomingMessage) => {
-            // console.log(incomingMessage);
+            console.log(incomingMessage);
             receivedMessages.push(
                 incomingMessage
             )
-            console.log(receivedMessages);
+            // console.log(receivedMessages);
         });
     }, []);
 
@@ -100,8 +100,6 @@ export const ChatBox = ({ online, conversation }) => {
                 text: message,
                 conversationId: conversationId
             });
-        } else {
-            console.log("id not found");
         }
         receivedMessages.push({
             conversationId: conversationId,

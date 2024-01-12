@@ -30,7 +30,7 @@ const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     socket?.on("getOnlineUsers", (users) => {
-      console.log({ users });
+      // console.log({ users });
       setOnlineUsers(users);
     });
 

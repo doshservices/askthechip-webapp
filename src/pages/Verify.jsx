@@ -5,6 +5,7 @@ import { Footer, Navbar } from "../components";
 import { notify, warn } from "../App";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { api } from "../contexts";
 
 const Verify = () => {
 
@@ -85,7 +86,7 @@ const Verify = () => {
     num4Ref.current.value = "";
     num5Ref.current.value = "";
     num6Ref.current.value = "";
-    const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users/verify'
+    const url = `${api}/api/users/verify`
     if (otp.length === 6) {
       setLoading(true);
       axios.post(url, { otp }, {
@@ -103,7 +104,7 @@ const Verify = () => {
         .catch((error) => {
           // console.log(error);
           setLoading(false);
-          notify(error.message);
+          notify(error?.response?.data?.message);
         })
     } else {
       setError("Fill in all feilds completley!!!")
@@ -113,7 +114,7 @@ const Verify = () => {
   const userEmail = JSON.parse(localStorage.getItem("authUser"))
 
   const verifyAccount = async (e) => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/send-otp?email=${userEmail?.email}`
+    const url = `${api}/api/send-otp?email=${userEmail?.email}`
     if (userEmail?.email) {
       axios.get(url, {
         mode: "no-cors",
@@ -122,7 +123,7 @@ const Verify = () => {
         },
       })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           notify("OTP has been sent to your mail")
         }).catch((error) => {
           // console.log(error);
@@ -133,11 +134,11 @@ const Verify = () => {
     }
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      verifyAccount()
-    }, 2000)
-  }, [])
+  // useEffect(() => {
+  //   // setTimeout(() => {
+  //   //   verifyAccount()
+  //   // }, 2000)
+  // }, [])
 
   return (
     <div className="font-Inter overflow-hidden">
@@ -244,7 +245,7 @@ const Verify = () => {
                 <div className="font-DMSans text-sm text-center pb-4">
                   Didn’t receive a One-Time password?{" "}
                   <a onClick={verifyAccount} className="font-bold text-primary90 cursor-pointer">
-                    Login
+                    Resend Otp
                   </a>
                 </div>
               </div>

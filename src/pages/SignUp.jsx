@@ -12,6 +12,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { saveUser } from "../store/slice/userSlice";
 import { setJwt } from "../store/slice/authSlice";
+import { api } from "../contexts";
 
 const defaultFormFields = {
   firstName: "",
@@ -136,13 +137,14 @@ const SignUp = () => {
     } else {
       setLoadingBusiness(true);
     }
-    const url = "https://askthechip-hvp93.ondigitalocean.app/api/users";
+    const url = `${api}/api/users`;
     axios.post(url, accountUser === "INDIVIDUAL" ? individualDetails : businessDetails, {
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => {
+        // console.log(response);
         setLoading(false)
         const authUser = response.data.data.user;
         const token = response.data.data.token;
@@ -155,6 +157,7 @@ const SignUp = () => {
         redirectToLogin();
       })
       .catch((error) => {
+        // console.log(error);
         setLoading(false);
         warn(error.response.data.message);
       })
