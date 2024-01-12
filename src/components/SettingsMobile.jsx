@@ -10,6 +10,7 @@ import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 import { toast } from "react-toastify";
 import { localStorageUpdate } from "../utils/localStorageUpdate";
 import { Header, Share } from "./home";
+import { api } from "../contexts";
 // import clsx from "clsx";
 // import PaymentForm from "./PaymentForm";
 
@@ -72,7 +73,7 @@ const Settings = () => {
     // const toastId = loadingToast("Updating your names...");
     try {
       const response = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/users`,
+        `${api}/api/users`,
         {
           method: "PUT",
           headers: {
@@ -109,7 +110,7 @@ const Settings = () => {
     // const toastId = loadingToast("Updating your company name...");
     try {
       const response = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/users`,
+        `${api}/api/users`,
         {
           method: "PUT",
           headers: {
@@ -150,7 +151,7 @@ const Settings = () => {
     // const toastId = notify("Reseting your password...");
     try {
       const response = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/users/reset-password`,
+        `${api}/api/users/reset-password`,
         {
           method: "POST",
           headers: {

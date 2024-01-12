@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { useWindowWidth } from "../utils/windowWidth";
 import { settingsButtons } from "../data";
 import { localStorageUpdate } from "../utils/localStorageUpdate";
+import { api } from "../contexts";
 
 const defaultFormFields = {
   firstName: "",
@@ -74,7 +75,7 @@ const Settings = () => {
     setUpdatingNames(true);
     try {
       const response = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/users`,
+        `${api}/api/users`,
         {
           method: "PUT",
           headers: {
@@ -107,7 +108,7 @@ const Settings = () => {
     setUpdatingNames(true);
     try {
       const response = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/users`,
+        `${api}/api/users`,
         {
           method: "PUT",
           headers: {
@@ -138,7 +139,7 @@ const Settings = () => {
     setResetingPassword(true);
     try {
       const response = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/users/reset-password`,
+        `${api}/api/users/reset-password`,
         {
           method: "POST",
           headers: {

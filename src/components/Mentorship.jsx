@@ -7,6 +7,7 @@ import axios from "axios";
 import { SideNav } from ".";
 import { useWindowWidth } from "../utils/windowWidth";
 import { Header } from "./home";
+import { api } from "../contexts";
 
 const defaultFormFields = {
   message: "",
@@ -70,7 +71,7 @@ const Mentorship = () => {
       ...formFields,
       industry,
     };
-    await axios.post(`https://askthechip-hvp93.ondigitalocean.app/api/users/request-mentorship`, data, {
+    await axios.post(`${api}/api/users/request-mentorship`, data, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

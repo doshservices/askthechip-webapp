@@ -5,6 +5,7 @@ import { Header, Share } from "./home";
 import React, { useEffect, useState } from "react";
 import SideNav from "./SideNav";
 import { useWindowWidth } from "../utils/windowWidth";
+import { api } from "../contexts";
 const Services = () => {
 
   const { token } = useAuth()
@@ -37,7 +38,7 @@ const Services = () => {
   };
 
   const accountingProviders = async () => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=ACCOUNTING`
+    const url = `${api}/api/users/search/services?services=ACCOUNTING`
     await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -52,7 +53,7 @@ const Services = () => {
     })
   }
   const adminProviders = async () => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=Administrative`
+    const url = `${api}/api/users/search/services?services=Administrative`
     await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +68,7 @@ const Services = () => {
     })
   }
   const consultingProviders = async () => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=Consulting`
+    const url = `${api}/api/users/search/services?services=Consulting`
     await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +83,7 @@ const Services = () => {
     })
   }
   const finacialProviders = async () => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=FINACIAL`
+    const url = `${api}/api/users/search/services?services=FINACIAL`
     await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +98,7 @@ const Services = () => {
     })
   }
   const legalProviders = async () => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=legal`
+    const url = `${api}/api/users/search/services?services=legal`
     await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -112,7 +113,7 @@ const Services = () => {
     })
   }
   const marketingProviders = async () => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=marketing`
+    const url = `${api}/api/users/search/services?services=marketing`
     await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -127,7 +128,7 @@ const Services = () => {
     })
   }
   const mentorshipProviders = async () => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=mentorship`
+    const url = `${api}/api/users/search/services?services=mentorship`
     await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -142,7 +143,7 @@ const Services = () => {
     })
   }
   const techProviders = async () => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=technology`
+    const url = `${api}/api/users/search/services?services=technology`
     await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
@@ -157,7 +158,7 @@ const Services = () => {
     })
   }
   const trainingProviders = async () => {
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/search/services?services=training`
+    const url = `${api}/api/users/search/services?services=training`
     await axios.get(url, {
       headers: {
         "Content-Type": "application/json",

@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { CircleLoader } from "..";
 import { notify, warn } from "../../App";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
+import { api } from "../../contexts";
 
 const DeleteModal = ({ commentId, setOpenDeleteModal, handleGetPosts }) => {
   const [deleting, setDeleting] = useState(false);
-  const { user, token } = useAuth();
+  const { token } = useAuth();
 
   const handleDelete = async () => {
     setDeleting(true);
     notify("Deleting comment...");
     try {
       const response = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/comment/?commentId=${commentId}`,
+        `${api}/api/comment/?commentId=${commentId}`,
         {
           method: "DELETE",
           headers: {

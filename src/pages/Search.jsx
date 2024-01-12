@@ -7,6 +7,7 @@ import { UserResults } from "../components/search/UserResults";
 import { ThreeDots } from "react-loader-spinner";
 import { useWindowWidth } from "../utils/windowWidth";
 import { Header } from "../components/home";
+import { api } from "../contexts";
 
 const Search = () => {
     const [users, setUsers] = useState([])
@@ -21,7 +22,7 @@ const Search = () => {
 
     const fetchUsers = () => {
         setIsFetching(true)
-        axios.get(`https://askthechip-hvp93.ondigitalocean.app/api/users/search?username=${userValue}&board=BLACK`, {
+        axios.get(`${api}/api/users/search?username=${userValue}&board=BLACK`, {
             headers: {
                 Authorization: `Bearer ${token}`
             },

@@ -3,9 +3,8 @@ import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { notify, warn } from "../App";
 import axios from "axios";
-import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { api } from "../contexts/index"
 
 const ResetPassword = () => {
 
@@ -78,14 +77,10 @@ const ResetPassword = () => {
         }
     };
 
-
-
-    const url = "https://askthechip-hvp93.ondigitalocean.app/api/users/set-new-password";
-
     const reset = async (e) => {
         setLoading(true)
         e.preventDefault();
-        await axios.post("https://askthechip-hvp93.ondigitalocean.app/api/users/set-new-password", {
+        await axios.post(`${api}/api/users/set-new-password`, {
             otp: otp,
             newPassword: formFields.newPassword
         })

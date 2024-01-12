@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Loader } from "..";
 import { notify } from "../../App";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
+import { api } from "../../contexts";
 
 const DeleteModal = ({ action, postId, setOpenDeleteModal, handleGetPosts, getComments }) => {
   const [deleting, setDeleting] = useState(false);
@@ -12,7 +13,7 @@ const DeleteModal = ({ action, postId, setOpenDeleteModal, handleGetPosts, getCo
     notify(`Deleting your ${action}`);
     try {
       const response = await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/post/delete-post?postId=${postId}`,
+        `${api}/api/post/delete-post?postId=${postId}`,
         {
           method: "DELETE",
           headers: {

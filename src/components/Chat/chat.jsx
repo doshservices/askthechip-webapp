@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
 import { useSocket } from "../../contexts/SocketContext/SocketContext";
+import { api } from "../../contexts/index"
 
 const Message = ({ text, message, id }) => {
     return (
@@ -50,7 +51,7 @@ export const ChatBox = ({ online, conversation }) => {
     const getMessages = async () => {
         try {
             const response = await axios.get(
-                `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages?conversationId=${conversationId}`,
+                `${api}/api/chat/conversation/messages?conversationId=${conversationId}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -79,7 +80,7 @@ export const ChatBox = ({ online, conversation }) => {
     }, [conversationId]);
 
     const createConversation = () => {
-        const url = "https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation"
+        const url = `${api}/api/chat/conversation`
         axios.post(url, { members: [userId, chatUserDetails?._id] }, {
             headers: {
                 "Content-Type": "application/json",

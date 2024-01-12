@@ -9,6 +9,7 @@ import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
 import { inform } from "../App";
 import axios from "axios";
+import { api } from "../contexts";
 
 const defaultFormFields = {
   companyName: "",
@@ -177,7 +178,8 @@ const SignUpAsProvider = () => {
     } else {
       setLoadingBusiness(true);
     }
-    const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users'
+
+    const url = `${api}/api/users`
     axios.post(url, accountUser === "INDIVIDUAL" ? individualDetails : businessDetails, {
       headers: {
         "Content-Type": "application/json"

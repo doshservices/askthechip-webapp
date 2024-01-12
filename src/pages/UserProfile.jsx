@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { CircleLoader } from "../components";
 import { useEffect, useState } from "react";
 import { setChatUserId, setMessageClass } from "../store/slice/chatViewSlice";
+import { api } from "../contexts";
 
 const UserProfile = () => {
     const [postCategory, setPostCategory] = useState("all")
@@ -22,7 +23,7 @@ const UserProfile = () => {
 
     const { token } = useAuth()
     const id = JSON.parse(localStorage.getItem("ask-un-id"))
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/${id}`
+    const url = `${api}/api/users/${id}`
     const [profileDetails, setProfileDetails] = useState([])
 
     const saveChatUserId = () => {
@@ -37,7 +38,7 @@ const UserProfile = () => {
         setLoading(true);
         try {
             const res = await fetch(
-                "https://askthechip-hvp93.ondigitalocean.app/api/post?limit=0&skip=0",
+                `${api}/api/post?limit=0&skip=0`,
                 {
                     method: "GET",
                     headers: {

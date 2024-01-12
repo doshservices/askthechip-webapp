@@ -5,6 +5,7 @@ import { Footer, Navbar } from "../components";
 import { notify, warn } from "../App";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
+import { api } from "../contexts";
 
 const SetNewPassword = () => {
     const [num1, setNum1] = useState("");
@@ -96,7 +97,7 @@ const SetNewPassword = () => {
         num4Ref.current.value = "";
         num5Ref.current.value = "";
         num6Ref.current.value = "";
-        const url = 'https://askthechip-hvp93.ondigitalocean.app/api/users/verify'
+        const url = `${api}/api/users/verify`
         if (otp.length === 6) {
             setLoading(true);
             axios.post(url, { otp }, {

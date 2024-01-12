@@ -9,6 +9,7 @@ import { Fragment } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useOnlineUsers } from "../contexts/SocketContext/SocketContext";
+import { api } from "../contexts";
 
 const Messages = () => {
 
@@ -25,7 +26,7 @@ const Messages = () => {
   const getAllConversation = async () => {
     try {
       const response = await axios.get(
-        `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation?userId=${userId}`,
+        `${api}/api/chat/conversation?userId=${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

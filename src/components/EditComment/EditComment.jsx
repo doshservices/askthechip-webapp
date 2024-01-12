@@ -1,6 +1,7 @@
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import { Loader } from "..";
 import React, { useState, useEffect } from "react";
+import { api } from "../../contexts";
 
 const EditComment = ({ closeModal, commentId, commentText, getComments }) => {
   const { token } = useAuth();
@@ -20,7 +21,7 @@ const EditComment = ({ closeModal, commentId, commentText, getComments }) => {
     try {
       setUpdating(true);
       await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/comment/?commentId=${commentId}`,
+        `${api}/api/comment/?commentId=${commentId}`,
         {
           method: "PATCH",
           headers: {

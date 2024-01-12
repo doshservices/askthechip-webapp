@@ -7,6 +7,7 @@ import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { setConversationId } from "../../store/slice/chatViewSlice";
+import { api } from "../../contexts/index"
 
 export { demoImg }
 
@@ -36,7 +37,7 @@ export const Message = ({ conversation, online }) => {
 
     const id = conversation?.members.find(id => id !== userId);
 
-    const url = `https://askthechip-hvp93.ondigitalocean.app/api/users/${id}`
+    const url = `${api}/api/users/${id}`
 
     const getUserDetails = () => {
         axios.get(url, {
@@ -57,7 +58,7 @@ export const Message = ({ conversation, online }) => {
     const getMessages = async () => {
         try {
             const response = await axios.get(
-                `https://askthechip-hvp93.ondigitalocean.app/api/chat/conversation/messages?conversationId=${conversation?._id}`,
+                `${api}/api/chat/conversation/messages?conversationId=${conversation?._id}`,
                 {
                     headers: {
                         "Content-Type": "application/json",

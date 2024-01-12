@@ -10,9 +10,9 @@ import { useState, useEffect } from "react";
 import { demoImg } from "./Chat/messages";
 import { useDispatch, useSelector } from "react-redux";
 import { setId } from "../store/slice/notificationSlice";
-import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { useProfile } from "../contexts/ProfileContext/ProfileContext";
+import { api } from "../contexts";
 
 const reactions = [
   {
@@ -49,7 +49,7 @@ const Notifications = () => {
   const getAllNotifications = async () => {
     try {
       const response = await axios.get(
-        "https://askthechip-hvp93.ondigitalocean.app/api/users/notification",
+        `${api}/api/users/notification`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const Notifications = () => {
   const getAllNotificationById = async () => {
     try {
       const response = await axios.get(
-        `https://askthechip-hvp93.ondigitalocean.app/api/users/notification/${notificationId}`,
+        `${api}/api/users/notification/${notificationId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -82,7 +82,7 @@ const Notifications = () => {
       // console.log(response);
       setFullNotification(response?.data?.data?.notification)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -106,7 +106,7 @@ const Notifications = () => {
   const getPostById = async () => {
     try {
       const response = await axios.get(
-        `https://askthechip-hvp93.ondigitalocean.app/api/post/${fullNotification?.postId?._id}`,
+        `${api}/api/post/${fullNotification?.postId?._id}`,
         {
           headers: {
             "Content-Type": "application/json",

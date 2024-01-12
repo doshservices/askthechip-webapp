@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { useState } from "react";
+import { api } from "../contexts/index"
 
 const ForgotPassword = () => {
 
@@ -13,7 +14,7 @@ const ForgotPassword = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email } = formFields;
 
-  const url = "https://askthechip-hvp93.ondigitalocean.app/api/users/forgot-password";
+  const url = `${api}/api/users/forgot-password`;
 
   const token = useAuth();
   const navigate = useNavigate()

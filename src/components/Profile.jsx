@@ -11,6 +11,7 @@ import { Posts, Share } from "./home";
 import { useEffect, useState } from "react";
 import { CircleLoader, SideNav } from ".";
 import { useDispatch, useSelector } from "react-redux";
+import { api } from "../contexts";
 
 export const fileToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -46,7 +47,7 @@ const Profile = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://askthechip-hvp93.ondigitalocean.app/api/post?limit=0&skip=0",
+        `${api}/api/post?limit=0&skip=0`,
         {
           method: "GET",
           headers: {
@@ -94,7 +95,7 @@ const Profile = () => {
       formData.append("profileImg", profileImg);
 
       const response = await axios.patch(
-        "https://askthechip-hvp93.ondigitalocean.app/api/users",
+        `${api}/api/users`,
         formData,
         {
           headers: {

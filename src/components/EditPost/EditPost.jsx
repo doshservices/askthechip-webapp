@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Loader } from "..";
 import { notify, warn } from "../../App";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
+import { api } from "../../contexts";
 
 const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
   const { token } = useAuth();
@@ -11,7 +12,7 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
 
   useEffect(() => {
     fetch(
-      `https://askthechip-hvp93.ondigitalocean.app/api/post/${postId}`,
+      `${api}/api/post/${postId}`,
       {
         method: "GET",
         headers: {
@@ -47,7 +48,7 @@ const EditPost = ({ setOpenEditModal, postId, handleGetPosts }) => {
     try {
       setUpdating(true);
       await fetch(
-        `https://askthechip-hvp93.ondigitalocean.app/api/post/update-post?postId=${postId}`,
+        `${api}/api/post/update-post?postId=${postId}`,
         {
           method: "PATCH",
           headers: {
