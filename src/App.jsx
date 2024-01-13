@@ -54,9 +54,9 @@ function App() {
 
   return (
     <div>
-      <SocketProvider>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <SocketProvider>
             <AuthProvider>
               <ProfileProvider>
                 <PostProvider>
@@ -92,9 +92,9 @@ function App() {
                 </PostProvider>
               </ProfileProvider>
             </AuthProvider>
-          </PersistGate>
-        </Provider>
-      </SocketProvider>
+          </SocketProvider>
+        </PersistGate>
+      </Provider>
     </div>
   );
 }

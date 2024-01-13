@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { io } from "socket.io-client";
+import { api } from "../index";
+import { useSelector } from "react-redux";
 
 export const SocketContext = createContext({
   socket: null,
@@ -15,10 +17,11 @@ const SocketProvider = ({ children }) => {
 
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState(null);
+  const userId = useSelector((state) => state?.user?.user?._id);
   // console.log(socket);
 
   useEffect(() => {
-    const newSocket = io("https://api.askthechip.com", {
+    const newSocket = io(api, {
       transports: ["polling", "websocket"],
     });
     setSocket(newSocket);
@@ -28,9 +31,15 @@ const SocketProvider = ({ children }) => {
     };
   }, []);
 
+  // useEffect(()= >)
+
+  useEffect(() => {
+    socket?.emit("addUser", userId);
+  }, [socket, userId]);
+
   useEffect(() => {
     socket?.on("getOnlineUsers", (users) => {
-      // console.log({ users });
+      console.log({ users });
       setOnlineUsers(users);
     });
 
