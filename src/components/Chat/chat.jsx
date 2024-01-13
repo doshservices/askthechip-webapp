@@ -27,7 +27,7 @@ export const ChatBox = ({ online, conversation }) => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const scrollRef = useRef();
     const { socket } = useSocket()
-    // console.log(receivedMessages);
+    console.log(receivedMessages);
 
     const allMembers = conversation.flatMap(member => member.members);
 
@@ -68,9 +68,10 @@ export const ChatBox = ({ online, conversation }) => {
     useEffect(() => {
         socket?.on("getMessage", (incomingMessage) => {
             console.log(incomingMessage);
-            receivedMessages.push(
-                incomingMessage
-            )
+            setReceivedMessages((value) => [...value, incomingMessage])
+            // receivedMessages.push(
+            //     incomingMessage
+            // )
             // console.log(receivedMessages);
         });
     }, []);
