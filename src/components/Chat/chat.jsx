@@ -44,10 +44,6 @@ export const ChatBox = ({ online, conversation }) => {
 
     const onlineUser = checkUserOnline();
 
-    useEffect(() => {
-        socket?.emit("addUser", userId);
-    }, [socket, userId]);
-
     const getMessages = async () => {
         try {
             const response = await axios.get(
@@ -69,10 +65,6 @@ export const ChatBox = ({ online, conversation }) => {
         socket?.on("getMessage", (incomingMessage) => {
             console.log(incomingMessage);
             setReceivedMessages((value) => [...value, incomingMessage])
-            // receivedMessages.push(
-            //     incomingMessage
-            // )
-            // console.log(receivedMessages);
         });
     }, []);
 
