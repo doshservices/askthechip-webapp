@@ -107,6 +107,29 @@ export const ChatBox = ({ online, conversation }) => {
         }
     };
 
+    // useEffect(() => {
+    //     // const sendMessage = () => {
+    //     //     // Implement the logic for sending a message
+    //     //     console.log("Message sent!");
+    //     // };
+
+    //     const keyDownHandler = (e) => {
+    //         if (e.key === "Enter") {
+    //             e.preventDefault();
+    //             sendMessage(e); // Pass the event object to sendMessage
+    //         }
+    //     };
+
+    //     // Attach the event listener when the component mounts
+    //     document.addEventListener("keydown", keyDownHandler);
+
+    //     // Detach the event listener when the component unmounts
+    //     return () => {
+    //         document.removeEventListener("keydown", keyDownHandler);
+    //     };
+    // }, []); // The empty dependency array ensures that the effect runs only once, similar to componentDidMount
+
+
     useEffect(() => {
         scrollRef.current?.scrollIntoView()
     }, []);
