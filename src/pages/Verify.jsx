@@ -64,6 +64,7 @@ const Verify = () => {
         break;
     }
   };
+
   useEffect(() => {
     const sumValue = num1 + num2 + num3 + num4 + num5 + num6;
     setOtp(sumValue);
@@ -111,11 +112,11 @@ const Verify = () => {
     }
   };
 
-  const userEmail = JSON.parse(localStorage.getItem("authUser"))
+  const authUser = JSON.parse(localStorage.getItem("authUser"))
 
   const verifyAccount = async (e) => {
-    const url = `${api}/api/send-otp?email=${userEmail?.email}`
-    if (userEmail?.email) {
+    const url = `${api}/api/send-otp?email=${authUser?.email}`
+    if (authUser?.email) {
       axios.get(url, {
         mode: "no-cors",
         headers: {
@@ -160,7 +161,7 @@ const Verify = () => {
                   Verify account
                 </h1>
                 <p className="font-DMSans text-[hsla(0, 0%, 18%, 0.9)] text-center">
-                  A Verification code has been sent to {userEmail?.email}
+                  A Verification code has been sent to {authUser?.email}
                 </p>
               </div>
               {error ? <p className="font-DMSans text-[1.2rem] text-[#FF3B30] text-center">

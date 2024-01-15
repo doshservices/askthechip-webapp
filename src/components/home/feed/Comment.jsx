@@ -16,7 +16,7 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
 
   const getComments = async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const res = await fetch(
         `${api}/api/comment?postId=${post._id}`,
         {
@@ -31,11 +31,11 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
         const resData = await res.json();
         setComments(resData.data.comment);
       }
-      setLoading(false);
+      // setLoading(false);
     } catch (err) {
       // console.log(err);
       // warn("Something went wrong!");
-      setLoading(false);
+      // setLoading(false);
     }
     setLoading(false);
   };
@@ -54,6 +54,7 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
           },
           body: JSON.stringify({
             text: comment,
+            docModel: "post"
           }),
         }
       );
@@ -68,7 +69,7 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
       }
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       // warn("Failed to post your comment!");
       setLoading(false);
     }
@@ -104,7 +105,7 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
         className={`flex flex-col justify-between items-center rounded-lg w-full`}
       >
         <div className="flex w-full justify-between">
-          <div className="flex ml-2 w-[80%]">
+          <div className="flex m-1 w-[80%] pl-2">
             <textarea
               placeholder="Write a comment..."
               onChange={handleComment}
@@ -117,7 +118,7 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
             />
           </div>
           {comment && (
-            <div className="flex items-center mt-2 mr-2">
+            <div className="flex items-center m-1">
               <div className="flex items-center ml-2">
                 <button
                   type="submit"

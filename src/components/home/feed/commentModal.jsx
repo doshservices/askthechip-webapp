@@ -140,10 +140,15 @@ export const CommentModal = forwardRef(({ close, post }, ref) => {
     };
 
     const handleSubmit = async (e) => {
+        console.log(post?._id);
         e.preventDefault();
         try {
             setLoading(true);
-            const res = await axios.post(`${api}/api/comment?postId=${post._id}`, { text: commentPost, },
+            const res = await axios.post(`${api}/api/comment?postId=${post?._id}`,
+                {
+                    text: commentPost,
+                    docModel: "post"
+                },
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -151,10 +156,8 @@ export const CommentModal = forwardRef(({ close, post }, ref) => {
                     },
                 }
             );
-            if (res.ok) {
-                setCommentPost("");
-                getComments()
-            }
+            setCommentPost("");
+            getComments()
             setLoading(false);
             // console.log(res);
         } catch (err) {
