@@ -3,18 +3,18 @@
     gap: $base;
     padding: $thin 0;
     flex-grow: 1;
-    justify-content: space-between;
+    // justify-content: space-between;
     max-width: 430px;
 
     button {
         display: block;
-        color: #555454;
+        color: hsla(0, 0%, 55%, 1);
         font-size: $sm;
         font-family: "DM Sans", sans-serif;
         font-weight: 500;
         padding: 7px $base;
         border-radius: 16px;
-        background: hsl(0, 0%, 90%);
+        background: hsla(0, 0%, 98%, 1);
         text-align: center;
     }
 

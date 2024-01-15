@@ -348,18 +348,18 @@ const SignUpAsProvider = () => {
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
                       <select name="serviceType" value={selectedOptions.serviceType} onChange={handleSelectChange} className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                        <option disabled defaultValue>
+                        <option className="text-[1rem]" defaultValue>
                           Select Service Type
                         </option>
-                        <option value="ACCOUNTING">Accounting</option>
-                        <option value="ADMINISTRATIVE">Administrative</option>
-                        <option value="CONSULTING">Consulting</option>
-                        <option value="FINANCIAL">Financial</option>
-                        <option value="LEGAL">Legal</option>
-                        <option value="MARKETING">Marketing</option>
-                        <option value="MENTORSHIP">Mentorship</option>
-                        <option value="TECHNOLOGY">Technology</option>
-                        <option value="TRAINING">Training</option>
+                        <option className="text-[1rem]" value="ACCOUNTING">Accounting</option>
+                        <option className="text-[1rem]" value="ADMINISTRATIVE">Administrative</option>
+                        <option className="text-[1rem]" value="CONSULTING">Consulting</option>
+                        <option className="text-[1rem]" value="FINANCIAL">Financial</option>
+                        <option className="text-[1rem]" value="LEGAL">Legal</option>
+                        <option className="text-[1rem]" value="MARKETING">Marketing</option>
+                        <option className="text-[1rem]" value="MENTORSHIP">Mentorship</option>
+                        <option className="text-[1rem]" value="TECHNOLOGY">Technology</option>
+                        <option className="text-[1rem]" value="TRAINING">Training</option>
                       </select>
                     </div>
                   </div>

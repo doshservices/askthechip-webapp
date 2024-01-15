@@ -242,7 +242,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   useClickOutside(commentModalRef, commentModalDisplay);
 
   return (
-    <article className={index === 0 || pathname === "/profile" ? `relative bg-[#f4f4f4] posts` : `relative posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "#2f2f2f" : "#f4f4f4", color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }}>
+    <article className={index === 0 || pathname === "/profile" ? `relative bg-[#f4f4f4] posts` : `relative posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 18%, 1)" : "hsla(0, 0%, 96%, 1)", color: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.8)" : "hsla(0, 0%, 18%, 0.8)" }}>
       <div className="posts__poster">
         <div className="posts__poster__details">
           <div className="dp" onClick={navigateToProfile}>
@@ -377,12 +377,12 @@ const Posts = ({ index, post, handleGetPosts }) => {
               <span className={`mt-1`}></span>
             </div>
           </div>
-          <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center">
+          {/* <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center">
             <div className="mr-1">
               <ReplyIcon fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d"} />
             </div>
             <span style={{ color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }} className="text-center mt-1">Reply</span>
-          </div>
+          </div> */}
         </div>
         {showCommentModal ?
           <CommentModal

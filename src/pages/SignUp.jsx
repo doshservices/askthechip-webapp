@@ -308,15 +308,15 @@ const SignUp = () => {
                         onChange={handleSelectChange}
                         className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
                       >
-                        <option disabled defaultValue>
+                        <option className="text-[1rem]" defaultValue>
                           Select Account Type
                         </option>
-                        <option value="ENTREPRENEUR">Entrepreneur</option>
-                        <option value="ESTABLISHED_BUSINESS">
+                        <option className="text-[1rem]" value="ENTREPRENEUR">Entrepreneur</option>
+                        <option className="text-[1rem]" value="ESTABLISHED_BUSINESS">
                           Established Business
                         </option>
-                        <option value="INVESTOR">Investor</option>
-                        <option value="STARTUP">Start-up</option>
+                        <option className="text-[1rem]" value="INVESTOR">Investor</option>
+                        <option className="text-[1rem]" value="STARTUP">Start-up</option>
                       </select>
                     </div>
                   </div>
