@@ -1,7 +1,7 @@
 .pageLayout {
     display: grid;
     grid-template-columns: 220px 1fr;
-    max-width: 850px;
+    // max-width: 850px;
     margin: 0 auto;
 
     @media (max-width: 990px) {

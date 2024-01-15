@@ -67,14 +67,14 @@
 
         .post__actions {
             &__time {
-                font-size: $sm;
+                font-size: .8rem;
                 font-weight: 500;
                 opacity: .7;
                 text-align: right;
             }
 
             &__actions {
-                margin: 4px 0 0 auto;
+                margin: 0 0 0 auto;
 
                 .actions__toggler {
                     height: 20px;

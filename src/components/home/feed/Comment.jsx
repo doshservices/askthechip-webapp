@@ -88,14 +88,14 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
     <div className="flex w-full py-2.5 rounded-lg mt-2">
       <div className="justify-center items-center flex mr-2 my-auto w-full max-w-fit h-full">
         {!userDetails?.profileImg ? (
-          <div style={{ background: "hsla(172, 92%, 28%, 1)" }} className="flex items-center justify-center w-[40px] h-[40px] rounded-full font-bold text-xl">
+          <div style={{ background: "hsla(172, 92%, 28%, 1)" }} className="flex items-center justify-center w-[35px] h-[35px] rounded-full font-bold text-xl">
             <span className="text-white">{userDetails?.firstName[0]}</span>
           </div>
         ) : (
           <img
             src={userDetails?.profileImg}
             alt={userDetails?.firstName}
-            className={`rounded-full w-[40px] h-auto aspect-square`}
+            className={`rounded-full w-[35px] h-auto aspect-square`}
           />
         )}
       </div>

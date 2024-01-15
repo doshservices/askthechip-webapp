@@ -261,7 +261,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
             <p className="user__role">{role}</p>
           </div>
         </div>
-        <div className="post__actions">
+        <div className="post__actions flex items-center">
           <p role="time" className="post__actions__time">
             {getTimeAgo(post?.createdAt)}
           </p>
