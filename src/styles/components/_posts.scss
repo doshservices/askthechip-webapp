@@ -1,12 +1,11 @@
 .posts {
     border-radius: 10px;
-    margin: $base 0;
     padding: $base;
     border: 1px solid hsla(0, 0%, 0%, 0.05);
-    margin: $base;
+    margin: $base 0;
 
     @media (max-width: 480px) {
-        margin: $mb;
+        margin: $base;
     }
 
     * {

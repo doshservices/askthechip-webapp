@@ -1,7 +1,6 @@
 .post__category__toggler {
     display: flex;
     gap: $base;
-    padding: $thin 0;
     flex-grow: 1;
     // justify-content: space-between;
     max-width: 430px;
@@ -23,9 +22,9 @@
         background: $primary;
     }
 
-    @media (max-width: 550px) {
+    @media (max-width: 480px) {
         gap: $base;
-        padding: $thin 0;
+        padding: $thin $base;
 
         button {
             padding: 5px $base;

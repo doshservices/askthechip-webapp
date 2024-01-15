@@ -5,10 +5,9 @@
     border-radius: 10px;
     padding: $tiny .9rem;
     background: hsla(0, 0%, 96%, 1);
-    margin: $base;
 
     @media (max-width: 480px) {
-        margin: $mb;
+        margin: $base;
     }
 
     input {

@@ -4,30 +4,21 @@
     &__nav {
         position: fixed;
         z-index: 9999;
-        padding-bottom: 4rem;
         width: 100%;
-        max-width: 220px;
+        max-width: 230px;
         border-right: 1px solid hsla(204, 14%, 93%, 1);
         scrollbar-width: none;
         -ms-overflow-style: none;
-        padding: 0 3px $big 0;
+        padding: 0 3px 4rem 0;
         min-height: 100vh;
         max-height: 100vh;
         overflow-y: scroll;
         background: $light100;
 
-        @media (min-width: 480px) {
-            padding-left: 10px;
-        }
-
-        @media (min-width: 800px) {
-            border-left: 1px solid hsla(204, 14%, 93%, 1);
-        }
-
         .logo {
             display: flex;
             align-items: center;
-            margin: $md 0 $md 0;
+            margin: $base 0 $md 1.1rem;
             gap: 9px;
             font-size: 1.2rem;
             font-weight: 700;
@@ -46,13 +37,17 @@
                 display: flex;
                 align-items: center;
                 gap: .8rem;
-                padding: .5rem .9rem;
+                padding: .5rem .9rem .5rem 2.2rem;
                 margin-bottom: 3px;
                 position: relative;
                 font-family: "DM Sans", sans-serif;
                 font-weight: 500;
                 font-size: $sm;
                 transition: all .3s ease-in-out;
+
+                @media (max-width: 950px) {
+                    padding: .5rem .9rem .5rem $md;
+                }
             }
 
             .active {
@@ -65,10 +60,10 @@
                         content: "";
                         position: absolute;
                         background: $primary;
-                        width: 4px;
+                        width: 5px;
                         top: 2px;
                         bottom: 2px;
-                        left: 0px;
+                        left: -1px;
                         border-radius: 2px;
                     }
                 }
@@ -77,7 +72,7 @@
             .divider {
                 background: rgba(45, 45, 45, 0.40);
                 height: 1px;
-                margin: 1.6rem 1.4rem;
+                margin: 1.6rem 1.4rem 1.6rem 2.2rem;
                 display: none;
 
                 @media (min-width: 480px) {
@@ -90,7 +85,7 @@
             display: flex;
             align-items: center;
             gap: $base;
-            padding: .5rem .9rem;
+            padding: .5rem 2.2rem;
             font-family: "DM Sans";
 
             img {
@@ -102,7 +97,11 @@
             display: none;
         }
 
-        @media (max-width: 990px) {
+        @media (max-width: 950px) {
+            max-width: 200px;
+        }
+
+        @media (max-width: 750px) {
             max-width: 70px;
 
             li {

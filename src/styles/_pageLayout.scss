@@ -1,15 +1,14 @@
 .pageLayout {
     display: grid;
-    grid-template-columns: 220px 1fr;
-    // max-width: 850px;
+    grid-template-columns: 230px 1fr;
     margin: 0 auto;
 
-    @media (max-width: 990px) {
-        grid-template-columns: 70px 1fr;
+    @media (max-width: 950px) {
+        grid-template-columns: 200px 1fr;
     }
 
-    @media (max-width: 800px) {
-        column-gap: 0;
+    @media (max-width: 750px) {
+        grid-template-columns: 70px 1fr;
     }
 
     @media (max-width: 480px) {
@@ -19,6 +18,5 @@
     &__wrapper__container {
         padding-bottom: 5rem;
         min-height: 100vh;
-        border-right: 1px solid #EBEEF0;
     }
 }

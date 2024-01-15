@@ -38,6 +38,8 @@ module.exports = {
       'coverImage': "url(./assets/images/cover-image.png)"
     },
     screens: {
+      'xsm': '480px',
+      // => @media (min-width: 640px) { ... }
       'xs': '576px',
       // => @media (min-width: 640px) { ... }
       'sm': '640px',
