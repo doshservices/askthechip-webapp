@@ -66,7 +66,7 @@ const HomePage = () => {
 
   return (
     <>
-      <section className="pageLayout homepage xsm:gap-[2rem] xsm:pr-[4rem]">
+      <section className="pageLayout homepage xsm:gap-[2rem] xsm:pr-[2rem] xs:pr-[4rem]">
         <SideNav />
         <div className="xsm:pt-4 pageLayout__wrapper__container">
           {width <= 480 ?

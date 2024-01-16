@@ -6,7 +6,7 @@ import provider from "../assets/images/service-provider.png"
 const SignOptions = () => {
 
     return (
-        <div className="font-Inter overflow-hidden bg-light">
+        <div className="font-Inter overflow-hidden">
             <div className="flex flex-col md:flex-row w-full justify-between">
                 <div className="w-full md:w-[50%] h-screen">
                     <Link to="/" className="flex items-center h-16 ml-4 ml-[2rem] md:ml-20 my-7">

@@ -93,7 +93,7 @@ const Mentorship = () => {
   const width = useWindowWidth();
 
   return (
-    <div className="pageLayout bg-light">
+    <div className="pageLayout">
       <SideNav />
       <div className="pageLayout__wrapper__container">
         {width < 480 ?

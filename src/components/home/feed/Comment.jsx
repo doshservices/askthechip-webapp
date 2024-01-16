@@ -3,6 +3,7 @@ import { useAuth } from "../../../contexts/AuthContext/AuthContext";
 import Loader from "../../Loader/Loader";
 import { useSelector } from "react-redux";
 import { api } from '../../../contexts/index'
+import axios from "axios";
 
 const Comment = ({ post, handleGetPosts, setComments, border }) => {
   const [comment, setComment] = useState("");
@@ -59,18 +60,12 @@ const Comment = ({ post, handleGetPosts, setComments, border }) => {
         }
       );
       if (res.ok) {
-        // console.log("Successfully made a comment!");
-        // notify("Successfully made a comment!");
-        // const resData = await res.json();
-        // console.log(resData);
         setComment("");
         handleGetPosts();
         getComments()
       }
       setLoading(false);
     } catch (err) {
-      // console.log(err);
-      // warn("Failed to post your comment!");
       setLoading(false);
     }
     setLoading(false);

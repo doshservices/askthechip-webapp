@@ -41,7 +41,7 @@ const Search = () => {
     const width = useWindowWidth()
 
     return (
-        <section className="pageLayout bg-light">
+        <section className="pageLayout">
             <SideNav />
             <div className="pageLayout__wrapper__container border-[#EBEEF0]">
                 {width < 480 ?

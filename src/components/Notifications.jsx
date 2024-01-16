@@ -122,7 +122,7 @@ const Notifications = () => {
   }
 
   return (
-    <section className="pageLayout notifications bg-light">
+    <section className="pageLayout notifications">
       <SideNav />
       <div className="pageLayout__wrapper__container">
         {width < 480 ?

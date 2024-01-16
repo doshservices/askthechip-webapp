@@ -168,7 +168,7 @@ const ServicesMobile = () => {
   }, [])
 
   return (
-    <div className="grid grid-cols-12 bg-light">
+    <div className="grid grid-cols-12">
       <div className="flex md:hidden flex-col col-span-12 xm:pr-16 border-r border-[#EBEEF0]">
         <div className="mb-3">
           <Header />

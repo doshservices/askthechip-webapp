@@ -43,7 +43,7 @@ const Messages = () => {
   }, [])
 
   return (
-    <div className="pageLayout bg-light">
+    <div className="pageLayout">
       <SideNav />
       <div className="pageLayout__wrapper__container message__container">
         <div className="chats">

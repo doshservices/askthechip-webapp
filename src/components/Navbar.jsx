@@ -5,6 +5,8 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "./../assets/ask.svg";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 
+export { logo }
+
 const Navbar = () => {
   const [isOpened, setIsOpened] = useState(false);
   const navRef = useRef();

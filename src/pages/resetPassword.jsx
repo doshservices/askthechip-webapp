@@ -103,7 +103,7 @@ const ResetPassword = () => {
     };
 
     return (
-        <div className="font-Inter overflow-hidden bg-light">
+        <div className="font-Inter overflow-hidden">
             <div className="flex flex-col md:flex-row w-full">
                 <div className="w-full md:w-[50%] h-screen">
                     <Link to="/" className="flex items-center h-16 ml-4 md:ml-20 my-7">

@@ -44,6 +44,7 @@
                 font-weight: 500;
                 font-size: $sm;
                 transition: all .3s ease-in-out;
+                color: hsla(0, 0%, 18%, 0.8);
 
                 @media (max-width: 950px) {
                     padding: .5rem .9rem .5rem $md;
@@ -69,6 +70,30 @@
                 }
             }
 
+            .mentorship {
+                position: relative;
+
+                @media (min-width: 750px) {
+                    &::before {
+                        position: absolute;
+                        content: "New";
+                        color: hsla(172, 92%, 40%, 1);
+                        background-color: hsla(172, 67%, 81%, 1);
+                        font-size: 10px;
+                        padding: 1px 8px;
+                        border-radius: 20px;
+                        right: 1rem;
+                        top: 6px;
+                    }
+                }
+
+                @media (min-width: 950px) {
+                    &::before {
+                        right: 2rem;
+                    }
+                }
+            }
+
             .divider {
                 background: rgba(45, 45, 45, 0.40);
                 height: 1px;
@@ -87,6 +112,7 @@
             gap: $base;
             padding: .5rem 2.2rem;
             font-family: "DM Sans";
+            color: hsla(0, 0%, 18%, 0.8);
 
             img {
                 height: 24px;

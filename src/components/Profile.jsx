@@ -131,7 +131,7 @@ const Profile = () => {
   const role = profile?.role === "USER" ? "User" : "Service Provider";
 
   return (
-    <div className="pageLayout bg-light">
+    <div className="pageLayout">
       <SideNav />
       <div className="pageLayout__wrapper__container">
         <div className="profile__wrapper">

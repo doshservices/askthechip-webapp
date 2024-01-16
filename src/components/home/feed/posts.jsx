@@ -241,6 +241,26 @@ const Posts = ({ index, post, handleGetPosts }) => {
   useClickOutside(showMoreRef, () => setShowMore(false));
   useClickOutside(commentModalRef, commentModalDisplay);
 
+  const getUserDetails = async () => {
+    if (comments.length > 0) {
+      try {
+        const response = await axios.get(`/${api}/api/users/${comments[0]?.docId?.userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+        })
+        console.log(response);
+      }
+      catch (error) {
+        // console.log(error);
+      }
+    }
+  }
+
+  useEffect(() => {
+    getUserDetails()
+  }, [])
+
   return (
     <article className={index === 0 || pathname === "/profile" ? `relative bg-[#f4f4f4] posts` : `relative posts`} style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 18%, 1)" : "hsla(0, 0%, 96%, 1)", color: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.8)" : "hsla(0, 0%, 18%, 0.8)" }}>
       <div className="posts__poster">
@@ -393,6 +413,10 @@ const Posts = ({ index, post, handleGetPosts }) => {
             border={post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.1)" : "rgba(0, 0, 0, 0.10)"} close={commentModalDisplay} />
           : null
         }
+        {/* <div>
+          <img src="" alt="" />
+        </div>
+        <p>{comments[0]?.text}</p> */}
         <div>
           <Comment
             post={post}

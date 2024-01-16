@@ -82,7 +82,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className="font-Inter overflow-hidden bg-light">
+    <div className="font-Inter overflow-hidden">
       <ToastContainer />
       <div className="flex flex-col md:flex-row w-full">
         <div className="w-full md:w-[50%] h-screen">
