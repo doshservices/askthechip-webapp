@@ -79,7 +79,7 @@ const HomePage = () => {
           <Share handleGetPosts={handleGetPosts} />
           <div className="home-container relative">
             <div>
-              <div className="p-wrap">
+              <div className="p-wrap max-w-[500px] mx-auto">
                 <div className="post__category__toggler xsm:mt-4">
                   <button onClick={() => setPostCategory("all")} className={postCategory === "all" ? "active" : ""}>All Post</button>
                   <button onClick={() => setPostCategory("white-board")} className={postCategory === "white-board" ? "active" : ""}>White Board</button>

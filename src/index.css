@@ -33,7 +33,7 @@ body {
 /* Track */
 ::-webkit-scrollbar-track {
   border-radius: 100vh;
-  background: transparent;
+  background: hsl(0, 0%, 97%);
 }
 
 /* Handle */

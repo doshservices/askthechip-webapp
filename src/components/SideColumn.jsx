@@ -39,7 +39,7 @@ const friends = [
 
 export const SideColumn = ({ children }) => {
     return (
-        <div className="top__providers sticky top-0 pb-4">
+        <div className="top__providers sticky top-[10px] bottom-[10px] overflow-y-scroll max-h-[100vh]">
             <div className="top__providers__search">
                 <input placeholder="Search Askthechip" />
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
