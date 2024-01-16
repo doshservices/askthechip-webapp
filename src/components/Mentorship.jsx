@@ -93,7 +93,7 @@ const Mentorship = () => {
   const width = useWindowWidth();
 
   return (
-    <div className="pageLayout">
+    <div className="pageLayout xsm:gap-[2rem] xsm:pr-[2rem] xs:pr-[4rem]">
       <SideNav />
       <div className="pageLayout__wrapper__container">
         {width < 480 ?

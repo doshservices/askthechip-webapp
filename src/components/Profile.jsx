@@ -146,8 +146,8 @@ const Profile = () => {
             </div>
           </div>
           <div className="grid-cols-3">
-            <div className="col-span-1 -mt-[4.5rem] sm:-mt-[4rem] xm:-mt-[4rem]">
-              <div className="relative">
+            <div className="col-span-1 sm:-mt-[4rem] xm:-mt-[4rem]">
+              <div className="relative ml-8">
                 {!userDetails?.profileImg ? (
                   <div className="flex items-center justify-center w-[70px] h-[70px] md:w-[100px] md:h-[100px] rounded-full bg-primary100 font-bold text-xl">
                     <span className="text-white">{userDetails?.firstName[0]}</span>
@@ -164,7 +164,7 @@ const Profile = () => {
                     <img
                       src={camera}
                       alt="Camera"
-                      className="bottom-0 left-12 absolute bg-black/50 rounded"
+                      className="bottom-0 left-11 absolute bg-black/50 rounded"
                     />
                     <input
                       type="file"
@@ -177,7 +177,7 @@ const Profile = () => {
                 </form>
               </div>
               <div className="post_actions">
-                <div className="post__category__toggler">
+                <div className="post__category__toggler ml-8 mt-4">
                   <button onClick={() => setPostCategory("all")} className={postCategory === "all" ? "active" : ""}>All Post</button>
                   <button onClick={() => setPostCategory("white-board")} className={postCategory === "white-board" ? "active" : ""}>White Board</button>
                   <button onClick={() => setPostCategory("black-board")} className={postCategory === "black-board" ? "active" : ""}>Black Board</button>

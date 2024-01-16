@@ -117,12 +117,12 @@ const Notifications = () => {
       // console.log(response);
       setPostDetails(response?.data?.data?.post)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
   return (
-    <section className="pageLayout notifications">
+    <section className="pageLayout notifications xsm:gap-[2rem] xsm:pr-[2rem] xs:pr-[4rem]">
       <SideNav />
       <div className="pageLayout__wrapper__container">
         {width < 480 ?

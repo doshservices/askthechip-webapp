@@ -43,7 +43,7 @@ const Messages = () => {
   }, [])
 
   return (
-    <div className="pageLayout">
+    <div className="pageLayout xm:gap-[2rem]">
       <SideNav />
       <div className="pageLayout__wrapper__container message__container">
         <div className="chats">
