@@ -10,17 +10,16 @@
 
         .notifications__preview {
             border-right: 1px solid hsla(204, 14%, 93%, 1);
-            padding: $thin;
-            padding-bottom: 6rem;
-            max-height: 80vh;
+            padding: $thin 1.3rem 6rem $base;
+            max-height: 100vh;
             overflow-y: scroll;
 
             @media (max-width: 750px) {
                 border-right: 0;
             }
 
-            @media (max-width: 480px) {
-                padding: 0;
+            @media (max-width: 600px) {
+                padding: $thin 0 8rem 0;
             }
 
             .notification {
@@ -30,6 +29,10 @@
                 border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
                 padding: .8rem;
                 cursor: pointer;
+
+                @media (max-width: 600px) {
+                    padding: .8rem 1.1rem;
+                }
 
                 img {
                     height: 40px;
@@ -118,7 +121,7 @@
                 pointer-events: all;
 
                 @media (max-width: 480px) {
-                    top: 60px;
+                    top: 48px;
                     left: 0;
                 }
             }

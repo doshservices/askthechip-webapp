@@ -129,7 +129,7 @@ const Notifications = () => {
           <Header /> : <></>
         }
         {notification.length > 0 ?
-          <div className="notifications__wrapper mt-4">
+          <div className="notifications__wrapper xsm:mt-4">
             <div className="notifications__preview">
               {notification.map((notifications) => {
                 return (

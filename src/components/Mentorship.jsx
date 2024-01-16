@@ -138,24 +138,26 @@ const Mentorship = () => {
               <label htmlFor="industry">
                 Select Industry
               </label>
-              <select
-                value={industry}
-                name="industry"
-                onChange={handleIndustryChange}
-              >
-                <option disabled defaultValue>
-                  Select Industry
-                </option>
-                <option value="ACCOUNTING">Accounting</option>
-                <option value="ADMINISTRATIVE">Administrative</option>
-                <option value="CONSULTING">Consulting</option>
-                <option value="FINANCIAL">Financial</option>
-                <option value="LEGAL">Legal</option>
-                <option value="MARKETING">Marketing</option>
-                <option value="MENTORSHIP">Mentorship</option>
-                <option value="TECHNOLOGY">Technology</option>
-                <option value="TRAINING">Training</option>
-              </select>
+              <div className="select-container">
+                <select
+                  value={industry}
+                  name="industry"
+                  onChange={handleIndustryChange}
+                >
+                  <option defaultValue>
+                    Select Industry
+                  </option>
+                  <option value="ACCOUNTING">Accounting</option>
+                  <option value="ADMINISTRATIVE">Administrative</option>
+                  <option value="CONSULTING">Consulting</option>
+                  <option value="FINANCIAL">Financial</option>
+                  <option value="LEGAL">Legal</option>
+                  <option value="MARKETING">Marketing</option>
+                  <option value="MENTORSHIP">Mentorship</option>
+                  <option value="TECHNOLOGY">Technology</option>
+                  <option value="TRAINING">Training</option>
+                </select>
+              </div>
             </div>
             <div className="mb-[1.5rem]">
               <div className="flex flex-col items-center justify-center mt-2">
@@ -175,7 +177,7 @@ const Mentorship = () => {
                   <span className="font-DMSans mt-2 text-sm text-[#2d2d2d]/50 leading-normal">
                     {cv
                       ? "The document file has been uploaded"
-                      : "Click here to upload the document file"}
+                      : "Click here or drop files to upload"}
                   </span>
                   {cvUploadError &&
                     <span className="font-DMSans mt-2 text-sm text-[#2d2d2d]/50 leading-normal">

@@ -43,7 +43,7 @@
 }
 
 .services__wrapper {
-    padding: $base;
+    padding: $base 0;
 
     .provider-img {
 
@@ -68,6 +68,6 @@
     }
 
     @media (max-width: 480px) {
-        padding: $mb;
+        padding: $base;
     }
 }

@@ -20,7 +20,7 @@ const Service = ({ serviceData, type }) => {
 
   return (
     <div className="">
-      <div onClick={handleClick} className="flex justify-between border border-[#000000]/10 rounded py-3 px-7 cursor-pointer">
+      <div onClick={handleClick} className="flex justify-between border border-[#000000]/10 rounded py-3 px-4 sm:px-7 cursor-pointer">
         <h3>
           {type}
         </h3>

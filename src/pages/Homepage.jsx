@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header, Search } from "../components/home";
+import { Header } from "../components/home";
 import { Posts } from "../components/home";
 import { Share } from "../components/home";
 import { CircleLoader, SideNav } from "../components";
@@ -10,13 +10,13 @@ import axios from "axios";
 import { useWindowWidth } from "../utils/windowWidth";
 import { api } from "../contexts";
 import { SideColumn } from "../components/SideColumn";
+import { EmptyPost } from "../components/home/feed/EmptyData";
 
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
   const [postCategory, setPostCategory] = useState("all")
   const { posts, setPosts } = usePosts();
   const reversedPosts = [...posts].reverse();
-  const [error, setError] = useState("")
 
   const [loading, setLoading] = useState(false);
   const { token } = useAuth();
@@ -38,7 +38,6 @@ const HomePage = () => {
   };
 
   const handleGetPosts = async () => {
-    // setLoading(true);
     const url = `${api}/api/post?limit=0&skip=0`;
     await axios.get(url, {
       headers: {
@@ -46,7 +45,6 @@ const HomePage = () => {
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
-      // console.log(response);
       const getPosts = response?.data?.data?.post;
       setPosts(getPosts);
       setLoading(false);
@@ -68,7 +66,7 @@ const HomePage = () => {
     <>
       <section className="pageLayout homepage xsm:gap-[2rem] xsm:pr-[2rem] xs:pr-[4rem]">
         <SideNav />
-        <div className="xsm:pt-4 pageLayout__wrapper__container">
+        <div className="xsm:pt-4 pageLayout__wrapper__container pb-[4rem]">
           {width <= 480 ?
             <Header
               darkMode={darkMode}
@@ -109,10 +107,7 @@ const HomePage = () => {
                             />
                           ))}
                         </> :
-                        <>
-                          <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
-                          <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
-                        </>
+                        <EmptyPost />
                       }
                     </>
                   )}
@@ -141,10 +136,7 @@ const HomePage = () => {
                             />
                           ))}
                         </> :
-                        <>
-                          <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
-                          <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
-                        </>
+                        <EmptyPost />
                       }
                     </>
                   )}
@@ -173,10 +165,7 @@ const HomePage = () => {
                             />
                           ))}
                         </> :
-                        <>
-                          <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
-                          <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
-                        </>
+                        <EmptyPost />
                       }
                     </>
                   )}

@@ -61,8 +61,7 @@
                 margin-bottom: 5px;
             }
 
-            input,
-            select {
+            input {
                 display: block;
                 border: 1px solid hsla(0, 0%, 18%, 1);
                 border-radius: 30px;
@@ -73,6 +72,25 @@
 
                 &:focus {
                     outline: 1px solid hsla(0, 0%, 18%, .4);
+                }
+            }
+
+            .select-container {
+                padding: 0 1.5rem;
+                border: 1px solid hsla(0, 0%, 18%, 1);
+                border-radius: 30px;
+
+                select {
+                    display: block;
+                    padding: .5rem 0;
+                    border: none;
+                    width: 100%;
+                    background-color: transparent;
+                    transition: all .3s ease;
+
+                    &:focus {
+                        outline: none;
+                    }
                 }
             }
         }

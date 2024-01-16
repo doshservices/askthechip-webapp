@@ -2,7 +2,6 @@ import imageIcon from "../../../assets/icons/image-icon.svg";
 import Loader from "../../Loader/Loader";
 import axios from "axios";
 import { useAuth } from "../../../contexts/AuthContext/AuthContext";
-import { useProfile } from "../../../contexts/ProfileContext/ProfileContext";
 import { useSelector } from "react-redux";
 import { fileToBase64 } from "../../Profile";
 import { useState, useRef, useEffect } from "react";
@@ -16,9 +15,9 @@ const Share = ({ handleGetPosts }) => {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
   const { user, token } = useAuth();
-  const { profile } = useProfile();
   const [modal, setModal] = useState(false)
   const [previewFile, setPreviewFile] = useState("")
+  const [showBoardSelect, setShowBoardSelect] = useState(false)
   const userDetails = useSelector((state) => state?.user?.user);
 
   const handleTypePost = (e) => {
@@ -138,17 +137,32 @@ const Share = ({ handleGetPosts }) => {
                     />
                   )}
                 </figure>
-                {/* <div> */}
                 <p className="text-[.9rem] text-500 my-[3px]">{userDetails?.firstName} {userDetails?.lastName}</p>
-                <select
-                  className="text-sm bg-transparent my-auto py-0.5 border border-primary100/50 outline-none rounded-lg ml-auto"
-                  value={board}
-                  onChange={handleChangeBoard}
-                >
-                  <option value="WHITE_BOARD">White Board</option>
-                  <option value="BLACK_BOARD">Black Board</option>
-                </select>
-                {/* </div> */}
+                <div className="post__select__dropdown">
+                  <input
+                    value={board}
+                    onChange={handleChangeBoard}
+                  />
+                  <p onClick={() => setShowBoardSelect(!showBoardSelect)} className="input">
+                    <span>{board}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="7" viewBox="0 0 11 7" fill="none">
+                      <path d="M5.5 6.48542L0 0.985416L0.985417 0L5.5 4.5375L10.0146 0.0229163L11 1.00833L5.5 6.48542Z" fill="#F8F8F8" />
+                    </svg>
+                  </p>
+                  {showBoardSelect ?
+                    <div>
+                      <p onClick={() => {
+                        setBoard("WHITE_BOARD")
+                        setShowBoardSelect(!showBoardSelect)
+                      }}>White Board</p>
+                      <p onClick={() => {
+                        setBoard("BLACK_BOARD")
+                        setShowBoardSelect(!showBoardSelect)
+                      }}>Black Board</p>
+                    </div>
+                    : null
+                  }
+                </div>
               </div>
               <div className="post-content">
                 <textarea
