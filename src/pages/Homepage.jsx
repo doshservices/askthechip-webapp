@@ -79,7 +79,7 @@ const HomePage = () => {
             /> : <></>
           }
           <Share handleGetPosts={handleGetPosts} />
-          <div className="home-container">
+          <div className="home-container relative">
             <div>
               <div className="p-wrap">
                 <div className="post__category__toggler xsm:mt-4">
