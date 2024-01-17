@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { CircleLoader, SideNav } from ".";
 import { useDispatch, useSelector } from "react-redux";
 import { api } from "../contexts";
+import { EmptyPost } from "./home/feed/EmptyData";
 
 export const fileToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -229,10 +230,7 @@ const Profile = () => {
                                 />
                               ))}
                             </> :
-                            <>
-                              <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
-                              <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
-                            </>
+                            <EmptyPost />
                           }
                         </>
                       )}
@@ -260,10 +258,7 @@ const Profile = () => {
                                 />
                               ))}
                             </> :
-                            <>
-                              <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
-                              <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
-                            </>
+                            <EmptyPost />
                           }
                         </>
                       )}
@@ -291,10 +286,7 @@ const Profile = () => {
                                 />
                               ))}
                             </> :
-                            <>
-                              <h2 className="mt-4 ml-4 font-semibold text-lg text-dark2D font-Inter">No Posts Found</h2>
-                              <p className="mt-2 ml-4 font-semibold text-base text-dark2D font-Inter">Be the first to create a post</p>
-                            </>
+                            <EmptyPost />
                           }
                         </>
                       )}

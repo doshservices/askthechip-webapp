@@ -27,7 +27,6 @@ export const ChatBox = ({ online, conversation }) => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const scrollRef = useRef();
     const { socket } = useSocket()
-    // console.log(receivedMessages);
 
     const allMembers = conversation.flatMap(member => member.members);
 
@@ -72,17 +71,20 @@ export const ChatBox = ({ online, conversation }) => {
         getMessages();
     }, [conversationId]);
 
-    const createConversation = () => {
+    const createConversation = async () => {
         const url = `${api}/api/chat/conversation`
-        axios.post(url, { members: [userId, chatUserDetails?._id] }, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        })
-            .then((res) => {
-            }).catch((err) => {
+        try {
+            const response = await axios.post(url, { members: [userId, chatUserDetails?._id] }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
             })
+            // console.log(response);
+        }
+        catch (error) {
+            // console.log(error);
+        }
     }
 
     const sendMessage = async (e) => {
@@ -104,6 +106,8 @@ export const ChatBox = ({ online, conversation }) => {
         setMessage("");
         if (chatUserDetails?._id && !allMembers.includes(chatUserDetails?._id)) {
             createConversation()
+        } else {
+            return;
         }
     };
 

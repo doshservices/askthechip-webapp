@@ -9,6 +9,7 @@ header {
         width: 100%;
         border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
         font-family: 'DM Sans', 'sans-serif';
+        background-color: $light200;
 
         @media (max-width: 1260px) {
             display: flex;

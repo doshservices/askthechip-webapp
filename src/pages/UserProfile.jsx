@@ -9,6 +9,7 @@ import { CircleLoader } from "../components";
 import { useEffect, useState } from "react";
 import { setChatUserId, setMessageClass } from "../store/slice/chatViewSlice";
 import { api } from "../contexts";
+import { EmptyPost } from "../components/home/feed/EmptyData";
 
 const UserProfile = () => {
     const [postCategory, setPostCategory] = useState("all")
@@ -147,7 +148,7 @@ const UserProfile = () => {
                                                         ))}
                                                     </>
                                                     :
-                                                    <h2 className="m-5 text-[#8C8C8C]">No Posts Yet</h2>
+                                                    <EmptyPost />
                                                 }
                                             </>
                                         )}
