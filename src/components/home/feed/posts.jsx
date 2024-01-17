@@ -262,7 +262,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   }, [])
 
   return (
-    <article className="relative posts max-w-[500px] mx-auto" style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 18%, 1)" : "hsla(0, 0%, 96%, 1)", color: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.8)" : "hsla(0, 0%, 18%, 0.8)" }}>
+    <article className="relative posts max-w-[500px]" style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 18%, 1)" : "hsla(0, 0%, 96%, 1)", color: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.8)" : "hsla(0, 0%, 18%, 0.8)" }}>
       <div className="posts__poster">
         <div className="posts__poster__details">
           <div className="dp" onClick={navigateToProfile}>

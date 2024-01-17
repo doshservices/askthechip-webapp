@@ -1,6 +1,6 @@
 export const EmptyPost = ({ share }) => {
     return (
-        <section className="bg-[#F8F8F8] mx-4 xsm:mx-0 text-center my-4 py-6 px-4" style={{ fontFamily: "DM Sans", color: "hsla(0, 0%, 18%, 0.8)" }}>
+        <section className="bg-[#F8F8F8] mt-4 mx-4 xsm:mx-0 text-center py-6 px-4 max-w-[500px] xs:mx-auto" style={{ fontFamily: "DM Sans", color: "hsla(0, 0%, 18%, 0.8)" }}>
             <h2 className="font-[500] text-[1.05rem]">Nothing to see here. Be the first to create a post</h2>
             <p onClick={share} className="flex items-center justify-center text-[#068978] text-[.8rem] font-[500] pt-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">

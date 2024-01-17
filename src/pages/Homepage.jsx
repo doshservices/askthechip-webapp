@@ -39,21 +39,24 @@ const HomePage = () => {
 
   const handleGetPosts = async () => {
     const url = `${api}/api/post?limit=0&skip=0`;
-    await axios.get(url, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      // console.log(response);
       const getPosts = response?.data?.data?.post;
       setPosts(getPosts);
       setLoading(false);
-    }).catch((error) => {
+    }
+    catch (error) {
       setLoading(false);
       if (error?.message === "Network Error") {
         warn("Network Error. Please turn on mobile or connect to internet");
       }
-    })
+    }
   }
 
   useEffect(() => {
@@ -96,7 +99,7 @@ const HomePage = () => {
                     </div>
                   ) : (
                     <>
-                      {reversedPosts.length > 0 ?
+                      {reversedPosts ?
                         <>
                           {reversedPosts?.map((post, index) => (
                             <Posts
@@ -125,7 +128,7 @@ const HomePage = () => {
                     </div>
                   ) : (
                     <>
-                      {reversedPosts.length > 0 ?
+                      {reversedPosts ?
                         <>
                           {reversedPosts?.filter(post => post.board === "WHITE_BOARD").map((post, index) => (
                             <Posts
@@ -154,7 +157,7 @@ const HomePage = () => {
                     </div>
                   ) : (
                     <>
-                      {reversedPosts.length > 0 ?
+                      {reversedPosts ?
                         <>
                           {reversedPosts?.filter(post => post.board === "BLACK_BOARD").map((post, index) => (
                             <Posts

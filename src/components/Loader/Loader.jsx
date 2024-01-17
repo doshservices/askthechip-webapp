@@ -1,7 +1,9 @@
 import { ThreeDots } from 'react-loader-spinner';
+import { logo } from '../Navbar';
 const Loader = ({ color = '#ffffff', width = "70", height = "24" }) => {
   return (
-    <div className="flex h-fit justify-center items-center">
+    <div className="flex h-fit justify-center items-center page-loader relative">
+      <img src={logo} alt="" className='absolute max-h-[50px]' />
       <ThreeDots
         height={height}
         width={width}
@@ -15,4 +17,5 @@ const Loader = ({ color = '#ffffff', width = "70", height = "24" }) => {
     </div>
   );
 };
+
 export default Loader;
