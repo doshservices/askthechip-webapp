@@ -152,7 +152,7 @@
         }
 
         @media (max-width: 720px) {
-            padding: $thin $thin;
+            padding: $thin $base;
 
             &__user__img {
                 height: 35px;
@@ -218,7 +218,7 @@
         padding: 4.5rem $base 3.5rem $base;
 
         @media (max-width: 600px) {
-            padding: 4.5rem $thin 7rem $thin;
+            padding: 4.5rem $base 7rem $base;
             -ms-overflow-style: none;
             scrollbar-width: none;
 
@@ -229,7 +229,6 @@
 
         .message {
             margin-bottom: .8rem;
-            display: flex;
 
             p {
                 font-size: $sm;
@@ -255,6 +254,16 @@
                 color: $light200;
                 margin-left: auto;
             }
+
+            span {
+                display: block;
+                margin-left: auto;
+                width: fit-content;
+                color: #2D2D2D;
+                font-size: $tiny;
+                letter-spacing: 0.4px;
+                margin-top: 3px;
+            }
         }
 
         .sender {
@@ -277,10 +286,6 @@
         left: 0;
         background: #FCFCFC;
         border-top: 1px solid rgba(0, 0, 0, 0.10);
-
-        @media (max-width: 720px) {
-            padding: $tiny $thin;
-        }
 
         @media (max-width: 650px) {
             position: fixed;

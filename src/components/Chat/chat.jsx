@@ -7,11 +7,23 @@ import { useState, useEffect, useRef } from "react";
 import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
 import { useSocket } from "../../contexts/SocketContext/SocketContext";
 import { api } from "../../contexts/index"
+import moment from "moment";
 
-const Message = ({ text, message, id }) => {
+const Message = ({ text, message, id, time }) => {
+
+    const formattedTime = moment(time).calendar(null, {
+        sameDay: '[Today,] h:mmA',
+        nextDay: '[Tomorrow,] h:mmA',
+        nextWeek: 'dddd [at] h:mmA',
+        lastDay: '[Yesterday at] h:mmA',
+        lastWeek: 'dddd [at] h:mmA',
+        sameElse: 'MMMM Do YYYY [at] h:mmA',
+    });
+
     return (
         <div className={message?.senderId !== id ? "message sender" : "message mine"}>
             <p>{text}</p>
+            <span role="time" className="time">{formattedTime}</span>
         </div>
     )
 }
@@ -186,7 +198,7 @@ export const ChatBox = ({ online, conversation }) => {
                             <>
                                 {receivedMessages?.map((message, index) => {
                                     return (
-                                        <Message id={userId} key={index} message={message} text={message?.text} />
+                                        <Message id={userId} time={message?.updatedAt} key={index} message={message} text={message?.text} />
                                     )
                                 })}
                             </>
