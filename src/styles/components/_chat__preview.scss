@@ -272,6 +272,16 @@
                 color: $dark200;
                 margin-right: auto;
             }
+
+            span {
+                display: block;
+                margin-right: auto;
+                width: fit-content;
+                color: #2D2D2D;
+                font-size: $tiny;
+                letter-spacing: 0.4px;
+                margin-top: 3px;
+            }
         }
 
     }

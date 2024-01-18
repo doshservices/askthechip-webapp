@@ -28,11 +28,14 @@ const UserProfile = () => {
     const [profileDetails, setProfileDetails] = useState([])
 
     const saveChatUserId = () => {
-        dispatch(setChatUserId(profileDetails))
-        dispatch(setMessageClass("show"))
-        setTimeout(() => {
-            navigate("/messages")
-        }, 1000);
+        if (Object.keys(profileDetails).length > 0) {
+            dispatch(setChatUserId(profileDetails))
+            dispatch(setMessageClass("show"))
+            setTimeout(() => {
+                navigate("/messages")
+            }, 1000);
+        } else {
+        }
     }
 
     const handleGetPosts = async () => {
@@ -114,7 +117,7 @@ const UserProfile = () => {
                                     )}
                                 </div>
                             </div>
-                            <div className="post_actions items-center">
+                            <div className="post_actions items-center mt-4">
                                 <div className="post__category__toggler">
                                     <button onClick={() => setPostCategory("all")} className={postCategory === "all" ? "active" : ""}>All Post</button>
                                     <button onClick={() => setPostCategory("white-board")} className={postCategory === "white-board" ? "active" : ""}>White Board</button>

@@ -18,7 +18,6 @@ const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState(null);
   const userId = useSelector((state) => state?.user?.user?._id);
-  // console.log(socket);
 
   useEffect(() => {
     const newSocket = io(api, {
@@ -39,13 +38,13 @@ const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     socket?.on("getOnlineUsers", (users) => {
-      // console.log({ users });
+      console.log({ users });
       setOnlineUsers(users);
     });
 
-    return () => {
-      socket?.off("getOnlineUsers");
-    };
+    // return () => {
+    //   socket?.off("getOnlineUsers");
+    // };
   }, [socket]);
 
   const onlineUsersValue = {

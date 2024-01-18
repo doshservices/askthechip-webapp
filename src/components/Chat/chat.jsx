@@ -66,6 +66,7 @@ export const ChatBox = ({ online, conversation }) => {
                     },
                 }
             );
+            // console.log(response);
             setReceivedMessages(response?.data?.data?.message)
         } catch (error) {
             console.error(error);
@@ -198,7 +199,7 @@ export const ChatBox = ({ online, conversation }) => {
                             <>
                                 {receivedMessages?.map((message, index) => {
                                     return (
-                                        <Message id={userId} time={message?.updatedAt} key={index} message={message} text={message?.text} />
+                                        <Message id={userId} time={message?.createdAt} key={index} message={message} text={message?.text} />
                                     )
                                 })}
                             </>
