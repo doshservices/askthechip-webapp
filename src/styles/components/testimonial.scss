@@ -1,0 +1,35 @@
+.testimonial__slider {
+    .slides {
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.20);
+        background: #EFF4F4;
+        padding: $big $base $base $base;
+        display: flex;
+        gap: $base;
+
+        figure {
+            flex-basis: 600px;
+        }
+
+        .testimony {
+            color: #0A1E25;
+            text-align: justify;
+            font-size: $base;
+            font-weight: 400;
+            line-height: 2;
+        }
+    }
+
+    .swiper-slide {
+        scale: .8;
+    }
+
+    .swiper-slide-active {
+        scale: 1 !important;
+    }
+
+    .swiper-slide-next {
+        // transform: translate(50%, 0%) !important;
+        scale: .8;
+    }
+}
