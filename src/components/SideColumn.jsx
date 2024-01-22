@@ -12,16 +12,6 @@ export const SideColumn = () => {
     const [providers, setProviders] = useState([])
     const { profile } = useProfile()
 
-    const navigateToProfile = (id) => {
-        localStorage.setItem("ask-un-id", JSON.stringify(id))
-        setTimeout(() => {
-            if (id === profile?._id) {
-                navigate("/profile")
-            } else {
-                navigate("/users-profile")
-            }
-        }, 1000)
-    }
 
     const getProviders = async () => {
         try {
@@ -40,6 +30,17 @@ export const SideColumn = () => {
     useEffect(() => {
         getProviders()
     }, [])
+
+    const navigateToProfile = (id) => {
+        localStorage.setItem("ask-un-id", JSON.stringify(id))
+        setTimeout(() => {
+            if (id === profile?._id) {
+                navigate("/profile")
+            } else {
+                navigate("/users-profile")
+            }
+        }, 1000)
+    }
 
     return (
         <div className="top__providers sticky top-[10px] bottom-[10px] overflow-y-scroll max-h-[100vh]">
@@ -62,8 +63,8 @@ export const SideColumn = () => {
                 </header>
                 {providers.map((provider, index) =>
                     <div className="flex items-center py-[.55rem] px-[12px] gap-[10px]" key={index}>
-                        <img onClick={navigateToProfile(provider?._id)} src={provider?.profileImg ? provider?.profileImg : demoImg} alt="" className="h-[35px] w-[35px] rounded-full cover cursor-pointer" />
-                        <p onClick={navigateToProfile(provider?._id)} className="text-[.9rem] font-[500] cursor-pointer">{provider?.firstName} {provider?.lastName}</p>
+                        <img src={provider?.profileImg ? provider?.profileImg : demoImg} alt="" className="h-[35px] w-[35px] rounded-full cover cursor-pointer" />
+                        <p className="text-[.9rem] font-[500] cursor-pointer">{provider?.firstName} {provider?.lastName}</p>
                     </div>
                 )}
                 <button>
