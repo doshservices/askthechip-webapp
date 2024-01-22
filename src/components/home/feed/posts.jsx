@@ -64,14 +64,10 @@ function getTimeAgo(timestamp) {
 }
 
 const Posts = ({ index, post, handleGetPosts }) => {
-  // console.log(post);
-  const pathname = window.location.pathname;
   const [likes, setLikes] = useState(0);
   const [usersLikes, setUsersLikes] = useState([])
   const [comments, setComments] = useState([]);
   const [viewAllComments, setViewAllComments] = useState(false);
-  const [loadingLikes, setLoadingLikes] = useState(false);
-  const [likePost, setLikePost] = useState(null);
   const [loadingLikePost, setLoadingLikePost] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -81,6 +77,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   const [singleCommenter, setSingleCommenter] = useState({});
   const [showCommentModal, setShowCommentModal] = useState(false)
   const [fullPost, setFullPost] = useState(false)
+  const [swiperRef, setSwiperRef] = useState(null);
 
   useEffect(() => {
     if (fullPost === true) {
@@ -179,7 +176,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
         null,
         {
           headers: {
-            // "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         }
@@ -188,7 +184,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
         handleLikesValue();
       }, 1000);
     } catch (error) {
-      // console.error(error);
     }
   };
 
@@ -199,7 +194,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
         null,
         {
           headers: {
-            // "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         }
@@ -208,7 +202,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
         handleLikesValue();
       }, 1000);
     } catch (error) {
-      // console.error(error);
     }
   };
 
@@ -256,10 +249,8 @@ const Posts = ({ index, post, handleGetPosts }) => {
             Authorization: `Bearer ${token}`
           },
         })
-        // console.log(response);
       }
       catch (error) {
-        // console.log(error);
       }
     }
   }
@@ -269,7 +260,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
   }, [])
 
   return (
-    <article className="relative posts max-w-[500px]" style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 18%, 1)" : "hsla(0, 0%, 96%, 1)", color: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.8)" : "hsla(0, 0%, 18%, 0.8)" }}>
+    <article className="relative posts" style={{ backgroundColor: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 18%, 1)" : "hsla(0, 0%, 96%, 1)", color: post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.8)" : "hsla(0, 0%, 18%, 0.8)" }}>
       <div className="posts__poster">
         <div className="posts__poster__details">
           <div className="dp" onClick={navigateToProfile}>
@@ -303,7 +294,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
               <div className="actions__toggler" onClick={() => setShowMore(!showMore)}>
                 <ThreeDots fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2D2D2DCC"} />
               </div>
-
               {showMore && (
                 <div ref={showMoreRef} className="post-show-more absolute z-10 top-8 right-0 w-28 p-3 rounded-lg bg-white shadow">
                   <div
@@ -379,8 +369,23 @@ const Posts = ({ index, post, handleGetPosts }) => {
           <svg onClick={() => setFullPost(!fullPost)} className='cursor-pointer' width="30" height="30" fill="#f8f8f8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="m18.75 6.82-1.57-1.57L12 10.43 6.82 5.25 5.25 6.82 10.43 12l-5.18 5.18 1.57 1.57L12 13.57l5.18 5.18 1.57-1.57L13.57 12l5.18-5.18Z"></path>
           </svg>
+          <div className="navigation-btn">
+            <button onClick={() => swiperRef?.slidePrev()}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 37 37" fill="none">
+                <circle cx="18.5" cy="18.5" r="18.5" fill="hsla(0, 0%, 40%)" />
+                <path d="M13.7122 18.5018L20.2416 25.0313L21.7651 23.5077L16.7593 18.5018L21.7651 13.496L20.2416 11.9724L13.7122 18.5018Z" fill="white" />
+              </svg>
+            </button>
+            <button onClick={() => swiperRef?.slideNext()}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 37 37" fill="none">
+                <circle cx="18.5" cy="18.5" r="18.5" fill="hsla(0, 0%, 40%)" />
+                <path d="M22.1999 18.5018L15.6705 25.0313L14.147 23.5077L19.1529 18.5018L14.147 13.496L15.6705 11.9724L22.1999 18.5018Z" fill="white" />
+              </svg>
+            </button>
+          </div>
           {post?.postImg && (
             <Swiper
+              onSwiper={setSwiperRef}
               className='full__img__popup'
               modules={[Pagination]}
               pagination={{
@@ -403,7 +408,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
           )}
         </figure>
       </div>
-      <div className="col-span-12 flex flex-col justify-between mt-5">
+      <div className="col-span-12 flex flex-col justify-between mt-0">
         <div className="flex justify-between">
           <div className="flex">
             <div
@@ -435,12 +440,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
               <span className={`mt-1`}></span>
             </div>
           </div>
-          {/* <div className="flex text-dark2D/80 text-[13px] font-medium font-DMSans items-center">
-            <div className="mr-1">
-              <ReplyIcon fill={post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d"} />
-            </div>
-            <span style={{ color: post?.board === "BLACK_BOARD" ? "#f8f8f8" : "#2d2d2d" }} className="text-center mt-1">Reply</span>
-          </div> */}
         </div>
         {showCommentModal ?
           <CommentModal
@@ -451,10 +450,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
             border={post?.board === "BLACK_BOARD" ? "hsla(0, 0%, 97%, 0.1)" : "rgba(0, 0, 0, 0.10)"} close={commentModalDisplay} />
           : null
         }
-        {/* <div>
-          <img src="" alt="" />
-        </div>
-        <p>{comments[0]?.text}</p> */}
         <div>
           <Comment
             post={post}

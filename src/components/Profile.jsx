@@ -178,7 +178,7 @@ const Profile = () => {
                 </form>
               </div>
               <div className="post_actions">
-                <div className="post__category__toggler ml-8 mt-4">
+                <div className="post__category__toggler sm:ml-10 mt-4">
                   <button onClick={() => setPostCategory("all")} className={postCategory === "all" ? "active" : ""}>All Post</button>
                   <button onClick={() => setPostCategory("white-board")} className={postCategory === "white-board" ? "active" : ""}>White Board</button>
                   <button onClick={() => setPostCategory("black-board")} className={postCategory === "black-board" ? "active" : ""}>Black Board</button>

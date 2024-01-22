@@ -61,7 +61,6 @@
                     opacity: .9;
                 }
             }
-
         }
 
         .post__actions {
@@ -85,6 +84,7 @@
     }
 
     .post__slider {
+        padding-bottom: $big;
 
         .swiper-pagination {
             display: flex;
@@ -114,7 +114,7 @@
 
         .slides {
             overflow: hidden;
-            max-height: 250px;
+            max-height: 350px;
             text-align: center;
             width: 100% !important;
             cursor: pointer;
@@ -137,6 +137,24 @@
         justify-content: center;
         flex-direction: column;
 
+        .navigation-btn {
+            justify-content: space-between;
+            position: absolute;
+            max-width: 800px;
+            left: 50%;
+            width: 100%;
+            transform: translateX(-50%);
+            display: none;
+
+            button {
+                display: block;
+            }
+
+            @media (min-width: 600px) {
+                display: flex;
+            }
+        }
+
         @media (max-width: 480px) {
             padding: $base 0;
 
@@ -150,6 +168,7 @@
             max-width: 700px;
             margin: auto;
             position: relative;
+            padding-bottom: $base;
 
             .swiper-pagination {
                 display: flex;

@@ -1,43 +1,46 @@
-import img from "../assets/images/Medium.png";
+import { useProfile } from "../contexts/ProfileContext/ProfileContext";
+import axios from "axios";
+import { api } from "../contexts";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { demoImg } from "./Chat/messages";
+import { useNavigate } from "react-router-dom";
 
-const providers = [
-    {
-        name: "Shai Hulud Consultant",
-        img: img
-    },
-    {
-        name: "Shadout Mapes Limited",
-        img: img
-    },
-    {
-        name: "Ashashin Conglomerate ",
-        img: img
-    },
-    {
-        name: "Gom Jabbar Lar Firm",
-        img: img
-    },
-]
-const friends = [
-    {
-        name: "Shai Hulud",
-        img: img
-    },
-    {
-        name: "Shadout Mapes",
-        img: img
-    },
-    {
-        name: "Ashashin",
-        img: img
-    },
-    {
-        name: "Gom Jabbar",
-        img: img
-    },
-]
+export const SideColumn = () => {
+    const navigate = useNavigate()
+    const token = useSelector((state) => state?.jwtSlice?.jwt)
+    const [providers, setProviders] = useState([])
+    const { profile } = useProfile()
 
-export const SideColumn = ({ children }) => {
+    const navigateToProfile = (id) => {
+        localStorage.setItem("ask-un-id", JSON.stringify(id))
+        setTimeout(() => {
+            if (id === profile?._id) {
+                navigate("/profile")
+            } else {
+                navigate("/users-profile")
+            }
+        }, 1000)
+    }
+
+    const getProviders = async () => {
+        try {
+            const response = await axios.get(`${api}/api/users/search/services`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            // console.log(response);
+            setProviders(response?.data?.data)
+        } catch (error) {
+            // console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getProviders()
+    }, [])
+
     return (
         <div className="top__providers sticky top-[10px] bottom-[10px] overflow-y-scroll max-h-[100vh]">
             <div className="top__providers__search">
@@ -59,26 +62,8 @@ export const SideColumn = ({ children }) => {
                 </header>
                 {providers.map((provider, index) =>
                     <div className="flex items-center py-[.55rem] px-[12px] gap-[10px]" key={index}>
-                        <img src={provider.img} alt="" />
-                        <p className="text-[.9rem] font-[500]">{provider.name}</p>
-                    </div>
-                )}
-                <button>
-                    <span>See More</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="9" viewBox="0 0 11 9" fill="none">
-                        <path d="M5.30625 4.5L0.80625 9L9.61443e-09 8.19375L3.7125 4.5L0.0187498 0.806251L0.825 9.83802e-09L5.30625 4.5Z" fill="white" />
-                        <path d="M10.023 4.5L5.52305 9L4.7168 8.19375L8.4293 4.5L4.73555 0.806251L5.5418 9.83802e-09L10.023 4.5Z" fill="white" />
-                    </svg>
-                </button>
-            </div>
-            <div className="friends mt-[1rem]">
-                <header>
-                    <h2>TOP Service PROVIDERS</h2>
-                </header>
-                {friends.map((friend, index) =>
-                    <div className="flex items-center py-[.55rem] px-[12px] gap-[10px]" key={index}>
-                        <img src={friend.img} alt="" />
-                        <p className="text-[.9rem] font-[500]">{friend.name}</p>
+                        <img onClick={navigateToProfile(provider?._id)} src={provider?.profileImg ? provider?.profileImg : demoImg} alt="" className="h-[35px] w-[35px] rounded-full cover cursor-pointer" />
+                        <p onClick={navigateToProfile(provider?._id)} className="text-[.9rem] font-[500] cursor-pointer">{provider?.firstName} {provider?.lastName}</p>
                     </div>
                 )}
                 <button>

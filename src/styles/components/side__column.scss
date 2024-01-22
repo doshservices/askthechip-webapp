@@ -1,15 +1,16 @@
 .top__providers {
     height: fit-content;
     padding-bottom: 2rem;
+    padding-right: 5px;
 
-    &::-webkit-scrollbar {
-        width: 5px;
-        height: 12px;
-    }
+    // &::-webkit-scrollbar {
+    //     width: 5px;
+    //     height: 12px;
+    // }
 
-    &::-webkit-scrollbar-thumb {
-        background: #f2f5f6;
-    }
+    // &::-webkit-scrollbar-thumb {
+    //     // background: #f2f5f6;
+    // }
 
     * {
         font-family: "DM Sans", sans-serif;
