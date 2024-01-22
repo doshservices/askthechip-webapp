@@ -274,12 +274,12 @@ export const interestTopics = [
 export const settingsButtons = [
   {
     id: 1,
-    title: "Update account info",
+    title: "Update Account Info",
     path: "update-account-info",
   },
   {
     id: 2,
-    title: "Update payment info",
+    title: "Update Payment Info",
     path: "update-payment-info",
   },
   {
@@ -289,7 +289,7 @@ export const settingsButtons = [
   },
   {
     id: 4,
-    title: "Delete account",
+    title: "Delete Account",
     path: "delete-account",
   },
 ];
