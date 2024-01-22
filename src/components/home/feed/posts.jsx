@@ -381,11 +381,11 @@ const Posts = ({ index, post, handleGetPosts }) => {
           </svg>
           {post?.postImg && (
             <Swiper
+              className='full__img__popup'
               modules={[Pagination]}
               pagination={{
                 clickable: true
               }}
-              className='full__img__popup'
               loop={true}
               slidesPerView={1}
             >
