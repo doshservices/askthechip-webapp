@@ -17,6 +17,12 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useEffect, useState, useRef } from "react";
 import { CommentIcon, LikeIcon, ReplyIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
 import { api } from '../../../contexts';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Navigation, Pagination } from 'swiper/modules';
 
 const reactions = [
   {
@@ -58,6 +64,7 @@ function getTimeAgo(timestamp) {
 }
 
 const Posts = ({ index, post, handleGetPosts }) => {
+  // console.log(post);
   const pathname = window.location.pathname;
   const [likes, setLikes] = useState(0);
   const [usersLikes, setUsersLikes] = useState([])
@@ -342,27 +349,61 @@ const Posts = ({ index, post, handleGetPosts }) => {
         <p className="text-sm font-DMSans mb-3 text-inherit">
           {post?.content}
         </p>
-        <div className="flex justify-center post-img">
-          {post?.postImg && (
-            <LazyLoadImage
-              onClick={() => setFullPost(!fullPost)}
-              effect='blur'
-              src={post?.postImg}
-              alt="post-img"
-              className="w-auto max-h-[400px] sm:max-h-[600px]" />
-          )}
-        </div>
+        {post?.postImg?.length > 0 ?
+          <>
+            <Swiper
+              modules={[Pagination]}
+              pagination={{
+                clickable: true
+              }}
+              className='post__slider'
+              loop={true}
+            >
+              {post?.postImg?.map((img, index) =>
+                <SwiperSlide className='slides' key={index}>
+                  <LazyLoadImage
+                    onClick={() => setFullPost(!fullPost)}
+                    effect='blur'
+                    src={img}
+                    alt="post-img"
+                    className="w-auto max-h-[400px] sm:max-h-[600px]"
+                  />
+                </SwiperSlide>
+              )}
+            </Swiper>
+          </>
+          : null
+        }
         <figure className={fullPost ? "full__img show__full__post" : "full__img"}>
           <svg onClick={() => setFullPost(!fullPost)} className='cursor-pointer' width="30" height="30" fill="#f8f8f8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="m18.75 6.82-1.57-1.57L12 10.43 6.82 5.25 5.25 6.82 10.43 12l-5.18 5.18 1.57 1.57L12 13.57l5.18 5.18 1.57-1.57L13.57 12l5.18-5.18Z"></path>
           </svg>
-          <div>
-            <LazyLoadImage
-              effect='blur'
-              src={post?.postImg}
-              alt="post-img"
-            />
-          </div>
+          {post?.postImg && (
+            // <LazyLoadImage
+            //   effect='blur'
+            //   // src={po}
+            //   alt="post-img"
+            // />
+            <Swiper
+              modules={[Pagination]}
+              pagination={{
+                clickable: true
+              }}
+              className='full__img__popup'
+              loop={true}
+            >
+              {post?.postImg?.map((img, index) =>
+                <SwiperSlide className='slides' key={index}>
+                  <LazyLoadImage
+                    effect='blur'
+                    src={img}
+                    alt="post-img"
+                    className="w-auto max-h-[400px] sm:max-h-[600px]"
+                  />
+                </SwiperSlide>
+              )}
+            </Swiper>
+          )}
         </figure>
       </div>
       <div className="col-span-12 flex flex-col justify-between mt-5">

@@ -12,7 +12,6 @@ import { api } from "../../contexts/index"
 export { demoImg }
 
 export const Message = ({ conversation, online }) => {
-    console.log(conversation?._id);
     const { token } = useAuth()
     const userId = useSelector((state) => state?.user?.user?._id);
     const [userDetails, setUserDetails] = useState([])

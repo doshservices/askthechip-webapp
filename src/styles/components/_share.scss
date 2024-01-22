@@ -228,14 +228,22 @@
 
             .preview__img {
                 margin-bottom: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                max-height: 200px;
+                overflow-y: scroll;
+                gap: 10px;
 
                 div {
-                    max-height: 150px;
-                    overflow-y: scroll;
+                    flex-grow: 1;
+                    flex-basis: 150px;
+                    max-width: 250px;
+                    margin: 0 auto;
 
                     img {
                         border-radius: 10px;
                         margin: 0 auto;
+                        width: 100%;
                     }
                 }
 

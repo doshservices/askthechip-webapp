@@ -16,9 +16,10 @@ const Share = ({ handleGetPosts }) => {
   const [file, setFile] = useState(null);
   const { user, token } = useAuth();
   const [modal, setModal] = useState(false)
-  const [previewFile, setPreviewFile] = useState("")
   const [showBoardSelect, setShowBoardSelect] = useState(false)
   const userDetails = useSelector((state) => state?.user?.user);
+  const [previewFile, setPreviewFile] = useState([])
+  // console.log(file);
 
   const handleTypePost = (e) => {
     setPostStatus(e.target.value);
@@ -31,14 +32,20 @@ const Share = ({ handleGetPosts }) => {
   const handleFileSelect = async (e) => {
     try {
       if (e.target.files && e.target.files.length > 0) {
-        const selectedFile = e.target.files[0];
+        const selectedFiles = Array.from(e.target.files);
 
-        if (!selectedFile) {
-          return;
-        }
-        setFile(selectedFile);
-        const base64String = await fileToBase64(selectedFile);
-        setPreviewFile(base64String);
+        const filesWithBase64 = await Promise.all(
+          selectedFiles.map(async (selectedFile) => {
+            const base64String = await fileToBase64(selectedFile);
+            return {
+              file: selectedFile,
+              base64: base64String,
+            };
+          })
+        );
+        setFile(selectedFiles)
+        setPreviewFile((prevFiles) => [...prevFiles, ...filesWithBase64]);
+        // console.log('Updated Preview Files:', previewFile);
       } else {
       }
     } catch (error) {
@@ -181,14 +188,19 @@ const Share = ({ handleGetPosts }) => {
                     onChange={handleFileSelect}
                     name="postImg"
                     id="postImg"
+                    multiple
                   />
                 </div>
               </div>
               {file ?
                 <figure className="preview__img">
-                  <div>
-                    <img src={previewFile} className="max-w-[100%]" alt="" />
-                  </div>
+                  {previewFile?.map((images, index) => {
+                    return (
+                      <div key={index}>
+                        <img src={images?.base64} className="max-w-[100%]" alt={images?.file?.name} />
+                      </div>
+                    )
+                  })}
                 </figure>
                 : null
               }

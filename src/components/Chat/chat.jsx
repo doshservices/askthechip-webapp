@@ -39,6 +39,7 @@ export const ChatBox = ({ online, conversation }) => {
     const [receivedMessages, setReceivedMessages] = useState([]);
     const scrollRef = useRef();
     const { socket } = useSocket()
+    // console.log(receivedMessages);
 
     const allMembers = conversation.flatMap(member => member.members);
 
@@ -69,7 +70,7 @@ export const ChatBox = ({ online, conversation }) => {
             // console.log(response);
             setReceivedMessages(response?.data?.data?.message)
         } catch (error) {
-            console.error(error);
+            // console.error(error);
         }
     }
 

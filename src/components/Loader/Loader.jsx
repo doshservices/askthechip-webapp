@@ -3,7 +3,7 @@ import { logo } from '../Navbar';
 const Loader = ({ color = '#ffffff', width = "70", height = "24" }) => {
   return (
     <div className="flex h-fit justify-center items-center page-loader relative">
-      <img src={logo} alt="" className='absolute max-h-[50px]' />
+      {/* <img src={logo} alt="" className='absolute max-h-[50px]' /> */}
       <ThreeDots
         height={height}
         width={width}
