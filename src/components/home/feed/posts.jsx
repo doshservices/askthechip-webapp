@@ -188,7 +188,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
         handleLikesValue();
       }, 1000);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 
@@ -208,7 +208,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
         handleLikesValue();
       }, 1000);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
     }
   };
 
@@ -256,7 +256,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
             Authorization: `Bearer ${token}`
           },
         })
-        console.log(response);
+        // console.log(response);
       }
       catch (error) {
         // console.log(error);
@@ -358,6 +358,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
               }}
               className='post__slider'
               loop={true}
+              slidesPerView={1}
             >
               {post?.postImg?.map((img, index) =>
                 <SwiperSlide className='slides' key={index}>
@@ -379,11 +380,6 @@ const Posts = ({ index, post, handleGetPosts }) => {
             <path d="m18.75 6.82-1.57-1.57L12 10.43 6.82 5.25 5.25 6.82 10.43 12l-5.18 5.18 1.57 1.57L12 13.57l5.18 5.18 1.57-1.57L13.57 12l5.18-5.18Z"></path>
           </svg>
           {post?.postImg && (
-            // <LazyLoadImage
-            //   effect='blur'
-            //   // src={po}
-            //   alt="post-img"
-            // />
             <Swiper
               modules={[Pagination]}
               pagination={{
@@ -391,6 +387,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
               }}
               className='full__img__popup'
               loop={true}
+              slidesPerView={1}
             >
               {post?.postImg?.map((img, index) =>
                 <SwiperSlide className='slides' key={index}>

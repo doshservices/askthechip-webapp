@@ -13,6 +13,7 @@ import { setId } from "../store/slice/notificationSlice";
 import { useNavigate } from "react-router-dom";
 import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 import { api } from "../contexts";
+import moment from "moment";
 
 const reactions = [
   {
@@ -60,7 +61,7 @@ const Notifications = () => {
       // console.log(response);
       setNotification(response?.data?.data?.notification);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -117,7 +118,6 @@ const Notifications = () => {
       // console.log(response);
       setPostDetails(response?.data?.data?.post)
     } catch (error) {
-      // console.log(error);
     }
   }
 
@@ -141,7 +141,14 @@ const Notifications = () => {
                     <img src={notifications?.image ? notifications?.image : demoImg} alt="User" className="rounded-full" />
                     <div className="">
                       <h3>{notifications?.message}</h3>
-                      <p role="time" className="text-[#A5ACB8] text-xs font-medium">{formatDate(notifications?.createdAt)}</p>
+                      <p role="time" className="text-[#A5ACB8] text-xs font-medium">{moment(notifications?.createdAt).calendar(null, {
+                        sameDay: '[Today,] h:mmA',
+                        nextDay: '[Tomorrow,] h:mmA',
+                        nextWeek: 'dddd [at] h:mmA',
+                        lastDay: '[Yesterday at] h:mmA',
+                        lastWeek: 'dddd [at] h:mmA',
+                        sameElse: 'MMMM Do YYYY [at] h:mmA',
+                      })}</p>
                     </div>
                   </section>
                 )
@@ -158,11 +165,9 @@ const Notifications = () => {
                 <img onClick={navigateToProfile} src={fullNotification?.image ? fullNotification?.image : demoImg} alt="User" className="rounded-full" />
                 <div>
                   <h3>{fullNotification?.message}</h3>
-                  {fullNotification?.postId?.content && <p>“{fullNotification?.postId?.content}”</p>}
+                  {fullNotification?.docId?.content && <p>“{fullNotification?.docId?.content}”</p>}
                   <div className="post">
-
                   </div>
-                  {/* {fullNotification?.image && <img src={fullNotification?.image} alt="post-img" />} */}
                 </div>
               </div>
             </section>

@@ -30,15 +30,12 @@ const SocketProvider = ({ children }) => {
     };
   }, []);
 
-  // useEffect(()= >)
-
   useEffect(() => {
     socket?.emit("addUser", userId);
   }, [socket, userId]);
 
   useEffect(() => {
     socket?.on("getOnlineUsers", (users) => {
-      console.log({ users });
       setOnlineUsers(users);
     });
 
