@@ -31,16 +31,16 @@ export const SideColumn = () => {
         getProviders()
     }, [])
 
-    const navigateToProfile = (id) => {
-        localStorage.setItem("ask-un-id", JSON.stringify(id))
-        setTimeout(() => {
-            if (id === profile?._id) {
-                navigate("/profile")
-            } else {
-                navigate("/users-profile")
-            }
-        }, 1000)
-    }
+    // const navigateToProfile = (id) => {
+    //     localStorage.setItem("ask-un-id", JSON.stringify(id))
+    //     setTimeout(() => {
+    //         if (id === profile?._id) {
+    //             navigate("/profile")
+    //         } else {
+    //             navigate("/users-profile")
+    //         }
+    //     }, 1000)
+    // }
 
     return (
         <div className="top__providers sticky top-[10px] bottom-[10px] overflow-y-scroll max-h-[100vh]">
