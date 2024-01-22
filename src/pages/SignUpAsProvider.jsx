@@ -551,7 +551,7 @@ const SignUpAsProvider = () => {
                     </label>
                     <div className="border border-[#2d2d2d] rounded-full">
                       <select name="serviceType" value={selectedOptions.serviceType} onChange={handleSelectChange} className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent">
-                        <option disabled defaultValue value="">
+                        <option defaultValue value="">
                           Select Service Type
                         </option>
                         <option value="ACCOUNTING">Accounting</option>

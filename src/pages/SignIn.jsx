@@ -55,30 +55,27 @@ const SignIn = () => {
     setUser(null);
     setLoading(true);
     const url = `${api}/api/users/login`
-    axios.post(url, formFields, {
-      headers: {
-        "Content-Type": "application/json"
-      },
-    })
-      .then((res) => {
-        // console.log(res);
-        const authUser = res.data.data.user;
-        const token = res.data.data.token;
-        localStorage.setItem('token', token);
-        localStorage.setItem('authUser', JSON.stringify(authUser));
-        setUser(authUser);
-        // console.log(authUser);
-        // notify("Login success, you're being redirected")
-        redirectToHome();
-        dispatch(saveUser(authUser))
-        dispatch(setJwt(token))
-        setLoading(false);
+
+    try {
+      const response = await axios.post(url, formFields, {
+        headers: {
+          "Content-Type": "application/json"
+        },
       })
-      .catch((err) => {
-        // console.log(err);
-        warn(err?.response?.data?.message);
-        setLoading(false);
-      })
+      // console.log(response);
+      const authUser = response.data.data.user;
+      const token = response.data.data.token;
+      localStorage.setItem('token', token);
+      localStorage.setItem('authUser', JSON.stringify(authUser));
+      setUser(authUser);
+      dispatch(saveUser(authUser))
+      dispatch(setJwt(token))
+      setLoading(false);
+      redirectToHome();
+    } catch (error) {
+      // warn(error?.response?.data?.message);
+      setLoading(false);
+    }
   }
 
   return (

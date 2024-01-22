@@ -117,6 +117,10 @@
             img {
                 height: 24px;
             }
+
+            @media (max-width: 950px) {
+                padding: .5rem .9rem .5rem $md;
+            }
         }
 
         &::-webkit-scrollbar {
