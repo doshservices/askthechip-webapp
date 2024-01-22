@@ -19,7 +19,7 @@
     }
 
     &__senders {
-        padding: $mb;
+        padding: $mb $base;
         border-right: 1px solid hsla(204, 14%, 93%, 1);
         max-height: 100vh;
         overflow-y: scroll;

@@ -1,4 +1,3 @@
-import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 import axios from "axios";
 import { api } from "../contexts";
 import { useSelector } from "react-redux";
@@ -10,8 +9,6 @@ export const SideColumn = () => {
     const navigate = useNavigate()
     const token = useSelector((state) => state?.jwtSlice?.jwt)
     const [providers, setProviders] = useState([])
-    const { profile } = useProfile()
-
 
     const getProviders = async () => {
         try {
@@ -30,17 +27,6 @@ export const SideColumn = () => {
     useEffect(() => {
         getProviders()
     }, [])
-
-    // const navigateToProfile = (id) => {
-    //     localStorage.setItem("ask-un-id", JSON.stringify(id))
-    //     setTimeout(() => {
-    //         if (id === profile?._id) {
-    //             navigate("/profile")
-    //         } else {
-    //             navigate("/users-profile")
-    //         }
-    //     }, 1000)
-    // }
 
     return (
         <div className="top__providers sticky top-[10px] bottom-[10px] overflow-y-scroll max-h-[100vh]">
