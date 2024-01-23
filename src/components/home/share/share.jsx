@@ -14,7 +14,7 @@ const Share = ({ handleGetPosts }) => {
   const [board, setBoard] = useState("WHITE_BOARD");
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
-  const { user, token } = useAuth();
+  const { token } = useAuth();
   const [modal, setModal] = useState(false)
   const [showBoardSelect, setShowBoardSelect] = useState(false)
   const userDetails = useSelector((state) => state?.user?.user);
@@ -89,9 +89,9 @@ const Share = ({ handleGetPosts }) => {
   };
 
   const username =
-    userDetails?.role === "USER"
-      ? `${userDetails?.firstName} ${userDetails?.lastName}`
-      : `${userDetails?.companyName}`;
+    userDetails?.role === "BUSINESS"
+      ? `${userDetails?.companyName}`
+      : `${userDetails?.firstName} ${userDetails?.lastName}`;
 
   const modalToggle = () => {
     setModal(!modal)

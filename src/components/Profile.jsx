@@ -126,9 +126,9 @@ const Profile = () => {
   }, [profileImg]);
 
   const username =
-    userDetails?.role === "USER"
-      ? `${userDetails?.firstName} ${userDetails?.lastName}`
-      : `${userDetails?.companyName}`;
+    userDetails?.role === "BUSINESS"
+      ? `${userDetails?.companyName}`
+      : `${userDetails?.firstName} ${userDetails?.lastName}`;
   // const role = profile?.role === "USER" ? "User" : "Service Provider";
 
   return (

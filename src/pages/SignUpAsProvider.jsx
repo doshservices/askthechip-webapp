@@ -55,6 +55,7 @@ const SignUpAsProvider = () => {
           return;
         }
         setGovernmentId(selectedFile);
+        return selectedFile;
       } else {
         // console.error("No file selected.");
       }
@@ -81,12 +82,6 @@ const SignUpAsProvider = () => {
     }
   };
 
-  const handleRepIdSelect = (file) => {
-    setRepresentativeId(file);
-  }
-  const handleCacDocument = (file) => {
-    setCacDocument(file);
-  }
   const handleGovernmentId = (file) => {
     setGovernmentId(file);
   }
@@ -158,11 +153,13 @@ const SignUpAsProvider = () => {
       serviceType: serviceType,
       cacDocument: cacDocument,
       representativeId: governmentId,
-      googleSigned: true
+      googleSigned: false
     };
     return data;
   };
+
   const businessDetails = getBusinessDetails();
+  // console.log(businessDetails);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -179,13 +176,12 @@ const SignUpAsProvider = () => {
       setLoadingBusiness(true);
     }
 
-    const url = `${api}/api/users`
-    axios.post(url, accountUser === "INDIVIDUAL" ? individualDetails : businessDetails, {
+    axios.post(`${api}/api/users`, accountUser === "INDIVIDUAL" ? individualDetails : businessDetails, {
       headers: {
         "Content-Type": "application/json"
       },
     }).then((response) => {
-      // console.log(response);
+      console.log(response);
       const authUser = response.data.data.user;
       const token = response.data.data.token;
       localStorage.setItem('token', token);
@@ -198,7 +194,7 @@ const SignUpAsProvider = () => {
       }
       redirectToVerify()
     }).catch((error) => {
-      // console.log(error);
+      console.log(error);
       // warn(error.response.data.message);
       if (accountUser === "INDIVIDUAL") {
         setLoading(false);
@@ -429,7 +425,7 @@ const SignUpAsProvider = () => {
                   </div>
                   <div className="mb-5 mt-3">
                     <div className="font-DMSans text-sm">Valid ID</div>
-                    <FileUploadInput name="representativeId" id="representativeId" state={governmentId} handleState={handleGovernmentId} />
+                    <FileUploadInput filename={governmentId} name="representativeId" id="representativeId" state={governmentId} handleState={handleGovernmentId} />
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
                     <button

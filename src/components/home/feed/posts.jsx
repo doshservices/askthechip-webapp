@@ -15,14 +15,14 @@ import { useNavigate } from "react-router-dom";
 import { CommentModal } from "./commentModal";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useEffect, useState, useRef } from "react";
-import { CommentIcon, LikeIcon, ReplyIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
+import { CommentIcon, LikeIcon, ShareIcon, ThreeDots, UnLikeIcon } from "../../../assets/icons";
 import { api } from '../../../contexts';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Pagination } from 'swiper/modules';
 
 const reactions = [
   {
@@ -110,9 +110,9 @@ const Posts = ({ index, post, handleGetPosts }) => {
 
   const poster = post?.userId;
   const username =
-    poster?.role === "USER"
-      ? `${poster?.firstName} ${poster.lastName}`
-      : `${poster?.companyName}`;
+    poster?.role === "BUSINESS"
+      ? `${poster?.companyName}`
+      : `${poster?.firstName} ${poster?.lastName}`;
   const role = poster?.role === "USER" ? "User" : "Service Provider";
 
   const singleComment = comments?.slice(0, 1);
