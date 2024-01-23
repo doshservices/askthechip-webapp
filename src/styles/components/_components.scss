@@ -24,7 +24,7 @@
 
     @media (max-width: 480px) {
         gap: $base;
-        padding: $thin 0;
+        padding: $thin $base;
 
         button {
             padding: 5px $base;
@@ -32,7 +32,7 @@
         }
     }
 
-    @media (max-width: 350px) {
+    @media (max-width: 370px) {
         gap: 5px;
 
         button {

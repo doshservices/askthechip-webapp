@@ -4,13 +4,16 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { demoImg } from "./Chat/messages";
 import { useNavigate } from "react-router-dom";
+import { GreenLoader } from "./Loader/Loader"
 
 export const SideColumn = () => {
     const navigate = useNavigate()
     const token = useSelector((state) => state?.jwtSlice?.jwt)
     const [providers, setProviders] = useState([])
+    const [loading, setLoading] = useState(false);
 
     const getProviders = async () => {
+        setLoading(true)
         try {
             const response = await axios.get(`${api}/api/users/search/services`, {
                 headers: {
@@ -19,7 +22,9 @@ export const SideColumn = () => {
             })
             // console.log(response);
             setProviders(response?.data?.data)
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
             // console.log(error);
         }
     }
@@ -47,12 +52,34 @@ export const SideColumn = () => {
                 <header>
                     <h2>TOP Service PROVIDERS</h2>
                 </header>
-                {providers.map((provider, index) =>
-                    <div className="flex items-center py-[.55rem] px-[12px] gap-[10px]" key={index}>
-                        <img src={provider?.profileImg ? provider?.profileImg : demoImg} alt="" className="h-[35px] w-[35px] rounded-full cover cursor-pointer" />
-                        <p className="text-[.9rem] font-[500] cursor-pointer">{provider?.firstName} {provider?.lastName}</p>
-                    </div>
-                )}
+                {loading ?
+                    <GreenLoader />
+                    :
+                    <>
+                        {providers.length > 0 ?
+                            <>
+                                {providers.map((provider, index) =>
+                                    <div className="flex items-center py-[.55rem] px-[12px] gap-[10px]" key={index}>
+                                        <img src={provider?.profileImg ? provider?.profileImg : demoImg} alt="" className="h-[35px] w-[35px] rounded-full cover cursor-pointer" />
+                                        <p className="text-[.9rem] font-[500] cursor-pointer">{provider?.firstName} {provider?.lastName}</p>
+                                    </div>
+                                )}
+                            </>
+                            :
+                            <>
+                                <p className="text-center text-[.85rem] bg-[#f8f8f8] px-4 py-5 block">
+                                    Nothing to show Here
+                                </p>
+                                <p className="text-center text-[.85rem] bg-[#068978] px-4 py-5">
+                                    Explore Services
+                                </p>
+                                <p className="text-center text-[.85rem] text-[#068978] mt-3">
+                                    Explore Services
+                                </p>
+                            </>
+                        }
+                    </>
+                }
                 <button>
                     <span>See More</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="11" height="9" viewBox="0 0 11 9" fill="none">

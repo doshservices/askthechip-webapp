@@ -5,7 +5,6 @@ import { Share } from "../components/home";
 import { CircleLoader, SideNav } from "../components";
 import { warn } from "../App";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
-import { usePosts } from "../contexts/PostContext/PostContext";
 import axios from "axios";
 import { useWindowWidth } from "../utils/windowWidth";
 import { api } from "../contexts";
@@ -15,8 +14,7 @@ import { EmptyPost } from "../components/home/feed/EmptyData";
 const HomePage = () => {
   const [darkMode, setDarkMode] = useState("All Posts");
   const [postCategory, setPostCategory] = useState("all")
-  const { posts, setPosts } = usePosts();
-  const reversedPosts = [...posts].reverse();
+  const [posts, setPosts] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const { token } = useAuth();
@@ -38,6 +36,7 @@ const HomePage = () => {
   };
 
   const handleGetPosts = async () => {
+    setLoading(true);
     const url = `${api}/api/post?limit=0&skip=0`;
     try {
       const response = await axios.get(url, {
@@ -46,9 +45,7 @@ const HomePage = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-      // console.log(response);
-      const getPosts = response?.data?.data?.post;
-      setPosts(getPosts);
+      setPosts(response?.data?.data?.post);
       setLoading(false);
     }
     catch (error) {
@@ -67,7 +64,7 @@ const HomePage = () => {
 
   return (
     <>
-      <section className="pageLayout homepage xsm:gap-[2rem] xsm:pr-[2rem] xs:pr-[4rem]">
+      <section className="pageLayout homepage xsm:gap-[2rem] xsm:pr-[1rem] xm:pr-[2rem] lg:pr-[4rem]">
         <SideNav />
         <div className="xsm:pt-4 pageLayout__wrapper__container pb-[4rem]">
           {width <= 480 ?
@@ -101,9 +98,9 @@ const HomePage = () => {
                     </div>
                   ) : (
                     <>
-                      {reversedPosts ?
+                      {posts.length > 0 ?
                         <>
-                          {reversedPosts?.map((post, index) => (
+                          {posts?.reverse().map((post, index) => (
                             <Posts
                               key={index}
                               index={index}
@@ -130,9 +127,9 @@ const HomePage = () => {
                     </div>
                   ) : (
                     <>
-                      {reversedPosts ?
+                      {posts.length > 0 ?
                         <>
-                          {reversedPosts?.filter(post => post.board === "WHITE_BOARD").map((post, index) => (
+                          {posts?.reverse()?.filter(post => post.board === "WHITE_BOARD").map((post, index) => (
                             <Posts
                               key={index}
                               index={index}
@@ -159,9 +156,9 @@ const HomePage = () => {
                     </div>
                   ) : (
                     <>
-                      {reversedPosts ?
+                      {posts.length > 0 ?
                         <>
-                          {reversedPosts?.filter(post => post.board === "BLACK_BOARD").map((post, index) => (
+                          {posts?.reverse()?.filter(post => post.board === "BLACK_BOARD").map((post, index) => (
                             <Posts
                               key={index}
                               index={index}
