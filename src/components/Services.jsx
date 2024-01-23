@@ -37,6 +37,27 @@ const Services = () => {
     }
   };
 
+  const accounti = async () => {
+    const url = `${api}/api/users/search/services`
+    await axios.get(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      // console.log(response.data.data);
+      console.log(response);
+      setGetAcc(response.data.data)
+    }).catch((error) => {
+      // console.log(error);
+      throw error
+    })
+  }
+
+  useEffect(() => {
+    accounti()
+  }, [])
+
   const accountingProviders = async () => {
     const url = `${api}/api/users/search/services?services=ACCOUNTING`
     await axios.get(url, {

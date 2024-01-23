@@ -1,11 +1,16 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/ask.svg";
 import { Footer, Navbar } from "../components";
-import { notify, warn } from "../App";
 import axios from "axios";
 import { useAuth } from "../contexts/AuthContext/AuthContext";
 import { api } from "../contexts";
+import { Link, useNavigate } from "react-router-dom";
+import { notify, warn } from "../App";
+import { AuthContext } from "../contexts/AuthContext/AuthContext";
+import { useDispatch } from "react-redux";
+import { saveUser } from "../store/slice/userSlice";
+import { setJwt } from "../store/slice/authSlice";
+import { useContext } from "react";
 
 const Verify = () => {
 
@@ -16,6 +21,8 @@ const Verify = () => {
   const [num5, setNum5] = useState("");
   const [num6, setNum6] = useState("");
   const [otp, setOtp] = useState("");
+  const dispatch = useDispatch()
+  const { setUser } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -98,12 +105,20 @@ const Verify = () => {
         },
       }).then((response) => {
         // console.log(response);
-        // notify("Email verification successful, you're being redirected")
+        notify("Email verification successful, you're being redirected")
         redirectToHome();
         setLoading(false);
+        setLoading(false)
+        const authUser = response.data.data.user;
+        const token = response.data.data.token;
+        localStorage.setItem('token', token);
+        localStorage.setItem('authUser', JSON.stringify(authUser));
+        setUser(authUser);
+        dispatch(setJwt(token))
+        dispatch(saveUser(authUser))
+        localStorage.removeItem("verifyMail")
       })
         .catch((error) => {
-          // console.log(error);
           setLoading(false);
           notify(error?.response?.data?.message);
         })
@@ -112,11 +127,11 @@ const Verify = () => {
     }
   };
 
-  const authUser = JSON.parse(localStorage.getItem("authUser"))
+  const authMail = JSON.parse(localStorage.getItem("verifyMail"))
 
   const verifyAccount = async (e) => {
-    const url = `${api}/api/send-otp?email=${authUser?.email}`
-    if (authUser?.email) {
+    const url = `${api}/api/send-otp?email=${authMail}`
+    if (authMail) {
       axios.get(url, {
         mode: "no-cors",
         headers: {
@@ -161,7 +176,7 @@ const Verify = () => {
                   Verify account
                 </h1>
                 <p className="font-DMSans text-[hsla(0, 0%, 18%, 0.9)] text-center">
-                  A Verification code has been sent to {authUser?.email}
+                  A Verification code has been sent to {authMail}
                 </p>
               </div>
               {error ? <p className="font-DMSans text-[1.2rem] text-[#FF3B30] text-center">

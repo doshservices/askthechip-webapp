@@ -88,9 +88,10 @@ const Share = ({ handleGetPosts }) => {
     setBoard(e.target.value);
   };
 
-  const me = user;
   const username =
-    me.role === "USER" ? `${me.firstName} ${me.lastName}` : `${me.companyName}`;
+    userDetails?.role === "USER"
+      ? `${userDetails?.firstName} ${userDetails?.lastName}`
+      : `${userDetails?.companyName}`;
 
   const modalToggle = () => {
     setModal(!modal)
@@ -114,11 +115,11 @@ const Share = ({ handleGetPosts }) => {
       <div className="share__preview" onClick={modalToggle}>
         <figure>
           {!userDetails?.profileImg ? (
-            <p className="text-white">{userDetails?.firstName[0]}</p>
+            <p className="text-white">{username[0]}</p>
           ) : (
             <img
               src={userDetails?.profileImg}
-              alt={userDetails?.firstName}
+              alt={username}
               className={`rounded-full w-[52px] aspect-square h-[50px]`}
             />
           )}
@@ -139,12 +140,12 @@ const Share = ({ handleGetPosts }) => {
                   ) : (
                     <img
                       src={userDetails?.profileImg}
-                      alt={userDetails?.firstName}
+                      alt={username}
                       className={`rounded-full w-[40px] aspect-square h-fit`}
                     />
                   )}
                 </figure>
-                <p className="text-[.9rem] text-500 my-[3px]">{userDetails?.firstName} {userDetails?.lastName}</p>
+                <p className="text-[.9rem] text-500 my-[3px]">{username}</p>
                 <div className="post__select__dropdown">
                   <input
                     value={board}

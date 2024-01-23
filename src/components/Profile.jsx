@@ -126,10 +126,10 @@ const Profile = () => {
   }, [profileImg]);
 
   const username =
-    profile?.role === "USER"
-      ? `${profile?.firstName} ${profile?.lastName}`
-      : `${profile?.companyName}`;
-  const role = profile?.role === "USER" ? "User" : "Service Provider";
+    userDetails?.role === "USER"
+      ? `${userDetails?.firstName} ${userDetails?.lastName}`
+      : `${userDetails?.companyName}`;
+  // const role = profile?.role === "USER" ? "User" : "Service Provider";
 
   return (
     <div className="pageLayout">
@@ -140,7 +140,7 @@ const Profile = () => {
             <div className="pl-40 sm:pl-44 md:pl-48 xm:pl-48 pt-10">
               <div className="text-light mt-6 sm:mt-4">
                 <div className="font-DMSans font-medium text-2xl mb-2 mt-2">
-                  {userDetails?.firstName} {userDetails?.lastName}
+                  {username}
                 </div>
                 <div className="w-[90%] text-sm font-DMSans mb-2">{userDetails?.role}</div>
               </div>
@@ -151,7 +151,7 @@ const Profile = () => {
               <div className="relative ml-8">
                 {!userDetails?.profileImg ? (
                   <div className="flex items-center justify-center w-[70px] h-[70px] md:w-[100px] md:h-[100px] rounded-full bg-primary100 font-bold text-xl">
-                    <span className="text-white">{userDetails?.firstName[0]}</span>
+                    <span className="text-white">{username[0]}</span>
                   </div>
                 ) : (
                   <img
