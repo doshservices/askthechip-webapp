@@ -102,7 +102,7 @@ const SignUp = () => {
         },
       })
       setLoading(false)
-      console.log(response);
+      // console.log(response);
       const email = response?.data?.data?.user?.email;
       localStorage.setItem('verifyMail', JSON.stringify(email));
       notify("Sign up Successful, you'll be redirected to verification page!");
@@ -110,7 +110,7 @@ const SignUp = () => {
     } catch (error) {
       setLoading(false);
       warn(error.response.data.message);
-      console.log(error);
+      // console.log(error);
     }
   }
 

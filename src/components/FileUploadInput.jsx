@@ -1,4 +1,4 @@
-function FileUploadInput({ state, handleState, name, id }) {
+function FileUploadInput({ state, handleState, name, id, filename }) {
 
   return (
     <div className="flex flex-col items-center justify-center mt-2">
@@ -15,9 +15,13 @@ function FileUploadInput({ state, handleState, name, id }) {
             fill="#068978"
           />
         </svg>
-        <span className="font-DMSans mt-2 text-sm text-[#2d2d2d]/50 leading-normal">
+        <span className="font-DMSans mt-2 text-sm text-[#2d2d2d]/50 leading-normal text-center">
           {state
-            ? "The document file has been uploaded"
+            ?
+            <span>
+              The document file <em className="not-italic font-semibold">{filename}</em> has been uploaded
+            </span>
+
             : "Click here to upload the document file"}
         </span>
         <input type="file" name={name} id={id} className="hidden" onChange={handleState} />

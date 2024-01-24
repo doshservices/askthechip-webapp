@@ -7,17 +7,20 @@ import { FileUploadInput } from "../components";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
+import { warn } from "../App";
 import { inform } from "../App";
 import axios from "axios";
 import { api } from "../contexts";
 
 const defaultFormFields = {
+  firstName: "",
+  lastName: "",
   companyName: "",
   officeAddress: "",
   phoneNumber: "",
   email: "",
   password: "",
-  gender: "MALE",
+  gender: "",
   role: "",
   serviceType: "",
   confirmPassword: "",
@@ -30,10 +33,10 @@ const SignUpAsProvider = () => {
   const [loading, setLoading] = useState(false);
   const [loadingBusiness, setLoadingBusiness] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [accountUser, setAccountUser] = useState("INDIVIDUAL");
   const [selectedOptions, setSelectedOptions] = useState({});
-  const [representativeId, setRepresentativeId] = useState(null);
   const [governmentId, setGovernmentId] = useState(null);
   const [cacDocument, setCacDocument] = useState(null);
 
@@ -82,15 +85,14 @@ const SignUpAsProvider = () => {
     }
   };
 
-  const handleGovernmentId = (file) => {
-    setGovernmentId(file);
-  }
-
   const handleSelectChange = (event) => {
     const { name, value } = event.target;
-    setSelectedOptions((prevSelectedOptions) => ({
-      ...prevSelectedOptions,
-      [name]: value,
+    setSelectedOptions((prevSelectedOptions) =>
+      ({ ...prevSelectedOptions, [name]: value, }));
+
+    setFormFields((prevFormFields) => ({
+      ...prevFormFields,
+      gender: value,
     }));
   };
 
@@ -101,6 +103,9 @@ const SignUpAsProvider = () => {
     email,
     password,
     confirmPassword,
+    lastName,
+    firstName,
+    gender
   } = formFields;
 
   const redirectToVerify = () => {
@@ -121,24 +126,26 @@ const SignUpAsProvider = () => {
   };
 
   const getIndividualDetails = () => {
-    const { companyName, officeAddress, phoneNumber, email, password } = formFields;
+    const { phoneNumber, email, password } = formFields;
     const { serviceType } = selectedOptions;
     const data = {
-      companyName,
-      officeAddress,
+      firstName,
+      lastName,
       phoneNumber,
       email,
       password,
-      gender: "MALE",
+      gender,
       role: "INDIVIDUAL",
       serviceType: serviceType,
-      representativeId: representativeId,
+      representativeId: governmentId,
       googleSigned: false
     };
     return data;
   };
 
   const individualDetails = getIndividualDetails();
+  // console.log(individualDetails);
+
   const getBusinessDetails = () => {
     const { companyName, officeAddress, phoneNumber, email, password } = formFields;
     const { serviceType } = selectedOptions;
@@ -148,7 +155,7 @@ const SignUpAsProvider = () => {
       phoneNumber,
       email,
       password,
-      gender: "MALE",
+      gender,
       role: "BUSINESS",
       serviceType: serviceType,
       cacDocument: cacDocument,
@@ -166,43 +173,44 @@ const SignUpAsProvider = () => {
     localStorage.removeItem("authUser");
     localStorage.removeItem("token");
     setUser(null);
+
+    let loadingSetter;
     if (accountUser === "INDIVIDUAL") {
       if (password !== confirmPassword) {
-        inform("Password doesn't match")
+        inform("Password doesn't match");
         return;
       }
-      setLoading(true);
+      loadingSetter = setLoading;
     } else {
-      setLoadingBusiness(true);
+      loadingSetter = setLoadingBusiness;
     }
 
-    axios.post(`${api}/api/users`, accountUser === "INDIVIDUAL" ? individualDetails : businessDetails, {
-      headers: {
-        "Content-Type": "application/json"
-      },
-    }).then((response) => {
-      console.log(response);
-      const authUser = response.data.data.user;
-      const token = response.data.data.token;
-      localStorage.setItem('token', token);
-      localStorage.setItem('authUser', JSON.stringify(authUser));
+    loadingSetter(true);
+
+    try {
+      const response = await axios.post(
+        `${api}/api/users`,
+        accountUser === "INDIVIDUAL" ? individualDetails : businessDetails,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const authUser = response?.data?.data?.user;
+      const token = response?.data?.data?.token;
+      localStorage.setItem("token", token);
+      localStorage.setItem("authUser", JSON.stringify(authUser));
       setUser(authUser);
-      if (accountUser === "INDIVIDUAL") {
-        setLoading(false);
-      } else {
-        setLoadingBusiness(false);
-      }
-      redirectToVerify()
-    }).catch((error) => {
-      console.log(error);
-      // warn(error.response.data.message);
-      if (accountUser === "INDIVIDUAL") {
-        setLoading(false);
-      } else {
-        setLoadingBusiness(false);
-      }
-    })
-  }
+      loadingSetter(false);
+      redirectToVerify();
+    } catch (error) {
+      // console.error(error);
+      warn(error?.message);
+      loadingSetter(false);
+    }
+  };
+
 
   return (
     <div className="font-Inter overflow-hidden">
@@ -254,40 +262,40 @@ const SignUpAsProvider = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-5">
                     <div className="flex flex-col mb-5">
                       <label
-                        htmlFor="companyName"
+                        htmlFor="firstName"
                         className="font-DMSans text-sm mb-2"
                       >
-                        Company Name
+                        First Name
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full">
                         <input
                           className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                           type="text"
-                          name="companyName"
-                          id="companyName"
-                          value={companyName}
+                          name="firstName"
+                          id="firstName"
+                          value={firstName}
                           onChange={handleChange}
-                          placeholder="Company Name Here"
+                          placeholder="First Name Here"
                           required
                         />
                       </div>
                     </div>
                     <div className="flex flex-col mb-5">
                       <label
-                        htmlFor="officeAddress"
+                        htmlFor="lastName"
                         className="font-DMSans text-sm mb-2"
                       >
-                        Office Address
+                        Last Name
                       </label>
                       <div className="border border-[#2d2d2d] rounded-full bg-transparent">
                         <input
                           className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent"
                           type="text"
-                          name="officeAddress"
-                          id="officeAddress"
-                          value={officeAddress}
+                          name="lastName"
+                          id="lastName"
+                          value={lastName}
                           onChange={handleChange}
-                          placeholder="Office Address Here"
+                          placeholder="Last Name Here"
                           required
                         />
                       </div>
@@ -359,6 +367,23 @@ const SignUpAsProvider = () => {
                       </select>
                     </div>
                   </div>
+                  <div className="flex flex-col mb-5">
+                    <label htmlFor="gender" className="font-DMSans text-sm mb-2">
+                      Gender
+                    </label>
+                    <div className="border border-[#2d2d2d] rounded-full">
+                      <select
+                        name="gender"
+                        value={selectedOptions.gender}
+                        onChange={handleSelectChange}
+                        className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
+                      >
+                        <option className="text-[1rem]" defaultValue>Select Gender</option>
+                        <option className="text-[1rem]" value="Male">MALE</option>
+                        <option className="text-[1rem]" value="Female">FEMALE</option>
+                      </select>
+                    </div>
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
                     <div className="flex flex-col mb-2">
                       <label
@@ -401,7 +426,7 @@ const SignUpAsProvider = () => {
                       <div className="flex border border-[#2d2d2d] rounded-full relative">
                         <input
                           className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent w-full pr-[2.5rem]"
-                          type={showPassword ? "text" : "password"}
+                          type={showConfirmPassword ? "text" : "password"}
                           name="confirmPassword"
                           id="confirmPassword"
                           placeholder="Confirm new password"
@@ -411,12 +436,12 @@ const SignUpAsProvider = () => {
                           required
                         />
                         <span
-                          onClick={() => setShowPassword(!showPassword)}
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                           className="flex justify-center items-center mx-3 cursor-pointer absolute right-0 top-[3px]"
                         >
                           <img
                             className="h-6"
-                            src={showPassword ? crossedEye : eye}
+                            src={showConfirmPassword ? crossedEye : eye}
                             alt="Show Password"
                           />
                         </span>
@@ -425,7 +450,7 @@ const SignUpAsProvider = () => {
                   </div>
                   <div className="mb-5 mt-3">
                     <div className="font-DMSans text-sm">Valid ID</div>
-                    <FileUploadInput filename={governmentId} name="representativeId" id="representativeId" state={governmentId} handleState={handleGovernmentId} />
+                    <FileUploadInput name="representativeId" filename={governmentId?.name} id="representativeId" state={governmentId} handleState={handleGovId} />
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
                     <button
@@ -443,12 +468,6 @@ const SignUpAsProvider = () => {
                         Login
                       </Link>
                     </div>
-                    {/* <div className="ml-2 font-DMSans text-sm text-center pb-4">
-                      or{" "}
-                      <Link to="/sign-up" className="ml-1 font-bold text-primary90">
-                        User Signup
-                      </Link>
-                    </div> */}
                   </div>
                 </form>
               )}
@@ -550,19 +569,35 @@ const SignUpAsProvider = () => {
                         <option defaultValue value="">
                           Select Service Type
                         </option>
-                        <option value="ACCOUNTING">Accounting</option>
-                        <option value="ADMINISTRATIVE">Administrative</option>
-                        <option value="CONSULTING">Consulting</option>
-                        <option value="FINANCIAL">Financial</option>
-                        <option value="LEGAL">Legal</option>
-                        <option value="MARKETING">Marketing</option>
-                        <option value="MENTORSHIP">Mentorship</option>
-                        <option value="TECHNOLOGY">Technology</option>
-                        <option value="TRAINING">Training</option>
+                        <option className="text-[1rem]" value="ACCOUNTING">Accounting</option>
+                        <option className="text-[1rem]" value="ADMINISTRATIVE">Administrative</option>
+                        <option className="text-[1rem]" value="CONSULTING">Consulting</option>
+                        <option className="text-[1rem]" value="FINANCIAL">Financial</option>
+                        <option className="text-[1rem]" value="LEGAL">Legal</option>
+                        <option className="text-[1rem]" value="MARKETING">Marketing</option>
+                        <option className="text-[1rem]" value="MENTORSHIP">Mentorship</option>
+                        <option className="text-[1rem]" value="TECHNOLOGY">Technology</option>
+                        <option className="text-[1rem]" value="TRAINING">Training</option>
                       </select>
                     </div>
                   </div>
-
+                  <div className="flex flex-col mb-5">
+                    <label htmlFor="gender" className="font-DMSans text-sm mb-2">
+                      Gender
+                    </label>
+                    <div className="border border-[#2d2d2d] rounded-full">
+                      <select
+                        name="gender"
+                        value={selectedOptions.gender}
+                        onChange={handleSelectChange}
+                        className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
+                      >
+                        <option className="text-[1rem]" defaultValue>Select Gender</option>
+                        <option className="text-[1rem]" value="Male">MALE</option>
+                        <option className="text-[1rem]" value="Female">FEMALE</option>
+                      </select>
+                    </div>
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 mb-3">
                     <div className="flex flex-col mb-2">
                       <label
@@ -605,7 +640,7 @@ const SignUpAsProvider = () => {
                       <div className="flex border border-[#2d2d2d] rounded-full relative">
                         <input
                           className="rounded-full py-2 px-5 w-full outline-none text-xs bg-transparent w-full pr-[2.5rem]"
-                          type={showPassword ? "text" : "password"}
+                          type={showConfirmPassword ? "text" : "password"}
                           name="confirmPassword"
                           id="confirmPassword"
                           placeholder="Confirm new password"
@@ -615,12 +650,12 @@ const SignUpAsProvider = () => {
                           required
                         />
                         <span
-                          onClick={() => setShowPassword(!showPassword)}
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                           className="flex justify-center items-center mx-3 cursor-pointer absolute right-0 top-[3px]"
                         >
                           <img
                             className="h-6"
-                            src={showPassword ? crossedEye : eye}
+                            src={showConfirmPassword ? crossedEye : eye}
                             alt="Show Password"
                           />
                         </span>
@@ -629,36 +664,12 @@ const SignUpAsProvider = () => {
                   </div>
                   <div className="mb-5">
                     <div className="font-DMSans text-sm">CAC Certificate</div>
-                    <FileUploadInput name="cacDocument" id="cacDocument" state={cacDocument} handleState={handleCac} />
+                    <FileUploadInput filename={cacDocument?.name} name="cacDocument" id="cacDocument" state={cacDocument} handleState={handleCac} />
                   </div>
                   <div>
-                    {/* <div className="flex flex-col mb-5">
-                      <label
-                        htmlFor="serviceType"
-                        className="font-DMSans text-sm mb-2"
-                      >
-                        Document Type
-                      </label>
-                      <div className="border border-[#2d2d2d] rounded-full">
-                        <select
-                          value={selectedOptions.documentType} onChange={handleSelectChange}
-                          name="documentType"
-                          id="documentType"
-                          className="rounded-full py-2 px-5 w-[96%] outline-none text-xs bg-transparent"
-                        >
-                          <option disabled defaultValue value="">
-                            Select Document Type
-                          </option>
-                          <option value="DRIVERS_LICENSE">Driver's license</option>
-                          <option value="INTERNATIONAL_PASSPORT">International Passport</option>
-                          <option value="NIN">National Identity Card</option>
-                          <option value="VOTERS_CARD">Voter's card</option>
-                        </select>
-                      </div>
-                    </div> */}
                     <div className="mb-5">
                       <div className="font-DMSans text-sm">Valid ID</div>
-                      <FileUploadInput name="representativeId" id="representativeId" state={governmentId} handleState={handleGovId} />
+                      <FileUploadInput filename={governmentId?.name} name="representativeId" id="representativeId" state={governmentId} handleState={handleGovId} />
                     </div>
                   </div>
                   <div className="flex justify-center mt-[3.75rem]">
