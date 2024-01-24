@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import { demoImg } from "./Chat/messages";
 import { useNavigate } from "react-router-dom";
 import { GreenLoader } from "./Loader/Loader"
+import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 
 export const SideColumn = () => {
     const navigate = useNavigate()
     const token = useSelector((state) => state?.jwtSlice?.jwt)
     const [providers, setProviders] = useState([])
     const [loading, setLoading] = useState(false);
+    const { profile } = useProfile();
 
     const getProviders = async () => {
         setLoading(true)
@@ -29,6 +31,20 @@ export const SideColumn = () => {
         }
     }
 
+    const navigateToProfile = (id) => {
+        if (id) {
+            localStorage.setItem("ask-un-id", JSON.stringify(id))
+            setTimeout(() => {
+                if (id === profile?._id) {
+                    navigate("/profile")
+                } else {
+                    navigate("/users-profile")
+                }
+            }, 1000)
+        } else {
+            warn("User Not Found")
+        }
+    }
     useEffect(() => {
         getProviders()
     }, [])
@@ -59,7 +75,7 @@ export const SideColumn = () => {
                         {providers.length > 0 ?
                             <>
                                 {providers.map((provider, index) =>
-                                    <div className="flex items-center py-[.55rem] px-[12px] gap-[10px]" key={index}>
+                                    <div onClick={() => navigateToProfile(provider?._id)} className="flex items-center py-[.55rem] px-[12px] gap-[10px]" key={index}>
                                         <img src={provider?.profileImg ? provider?.profileImg : demoImg} alt="" className="h-[35px] w-[35px] rounded-full cover cursor-pointer" />
                                         <p className="text-[.9rem] font-[500] cursor-pointer">{provider?.firstName} {provider?.lastName}</p>
                                     </div>
@@ -80,7 +96,7 @@ export const SideColumn = () => {
                         }
                     </>
                 }
-                <button>
+                <button onClick={() => navigate("/services")}>
                     <span>See More</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="11" height="9" viewBox="0 0 11 9" fill="none">
                         <path d="M5.30625 4.5L0.80625 9L9.61443e-09 8.19375L3.7125 4.5L0.0187498 0.806251L0.825 9.83802e-09L5.30625 4.5Z" fill="white" />
