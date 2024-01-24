@@ -53,7 +53,7 @@ const SignUpAsProvider = () => {
       if (e.target.files && e.target.files.length > 0) {
         const selectedFile = e.target.files[0];
 
-        if (!selectedFile) {
+        if (!selectedFile || selectedFile.type !== 'application/pdf') {
           // console.error("No file selected.");
           return;
         }
@@ -72,7 +72,7 @@ const SignUpAsProvider = () => {
       if (e.target.files && e.target.files.length > 0) {
         const selectedFile = e.target.files[0];
 
-        if (!selectedFile) {
+        if (!selectedFile || selectedFile.type !== 'application/pdf') {
           // console.error("No file selected.");
           return;
         }

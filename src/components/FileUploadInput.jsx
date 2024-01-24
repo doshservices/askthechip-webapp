@@ -24,7 +24,7 @@ function FileUploadInput({ state, handleState, name, id, filename }) {
 
             : "Click here to upload the document file"}
         </span>
-        <input type="file" name={name} id={id} className="hidden" onChange={handleState} />
+        <input type="file" name={name} id={id} className="hidden" onChange={handleState} required accept="application/pdf" />
       </label>
     </div>
   );

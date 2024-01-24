@@ -174,9 +174,10 @@ const Mentorship = () => {
                       fill="#068978"
                     />
                   </svg>
-                  <span className="font-DMSans mt-2 text-sm text-[#2d2d2d]/50 leading-normal">
+                  <span className="font-DMSans mt-2 text-sm text-[#2d2d2d]/50 leading-normal text-center">
                     {cv
-                      ? "The document file has been uploaded"
+                      ?
+                      <span>The document file <em className="not-italic font-semibold">{cv?.name}</em> has been uploaded</span>
                       : "Click here or drop files to upload"}
                   </span>
                   {cvUploadError &&
@@ -184,7 +185,7 @@ const Mentorship = () => {
                       {cvUploadError}
                     </span>
                   }
-                  <input type="file" name="cv" id="cv" className="hidden" onChange={handleCv} required accept="application/pdf" />
+                  <input type="file" name="cv" id="cv" className="hidden" onChange={handleCv} accept="application/pdf" />
                 </label>
               </div>
             </div>

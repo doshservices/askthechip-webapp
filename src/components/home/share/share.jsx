@@ -11,7 +11,7 @@ import { api } from "../../../contexts";
 const Share = ({ handleGetPosts }) => {
   const fileInputRef = useRef(null);
   const [postStatus, setPostStatus] = useState("");
-  const [board, setBoard] = useState("WHITE_BOARD");
+  const [board, setBoard] = useState("SELECT BOARD");
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
   const { token } = useAuth();
@@ -19,7 +19,6 @@ const Share = ({ handleGetPosts }) => {
   const [showBoardSelect, setShowBoardSelect] = useState(false)
   const userDetails = useSelector((state) => state?.user?.user);
   const [previewFile, setPreviewFile] = useState([])
-  // console.log(file);
 
   const handleTypePost = (e) => {
     setPostStatus(e.target.value);

@@ -46,7 +46,7 @@ const Services = () => {
       },
     }).then((response) => {
       // console.log(response.data.data);
-      console.log(response);
+      // console.log(response);
       setGetAcc(response.data.data)
     }).catch((error) => {
       // console.log(error);
