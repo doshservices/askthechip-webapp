@@ -28,7 +28,8 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
     }, 2500)
   }
   const me = user
-  const username = me?.role === "USER" ? `${me?.firstName} ${me?.lastName}` : `${me?.companyName}`
+  const username = userDetails?.role === "BUSINESS" ? `${userDetails?.companyName}` : `${userDetails?.firstName} ${userDetails?.lastName}`
+  const token = localStorage.getItem("token")
 
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between w-full">
@@ -38,7 +39,7 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
         <div className="flex justify-between w-full mx-6 md:mx-[6.25rem]">
           {/* Brand Logo */}
           <div className="flex my-auto">
-            <Link to="/" className={`flex items-center`}>
+            <Link to={token ? "/home" : "/"} className={`flex items-center`}>
               <img src={logo} alt="ask the chip" className="w-8" />
               <div className="font-medium text-sm text-[#f8f8f8] ml-2">
                 Askthechip
@@ -55,7 +56,7 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
             {!userDetails?.profileImg ? <div className="flex items-center justify-center w-[29.39px] h-auto aspect-square rounded-full bg-primary80 font-medium"><span className="text-white">{userDetails?.firstName[0]}</span></div> :
               <img
                 src={userDetails?.profileImg}
-                alt={userDetails?.firstName}
+                alt={username}
                 className={`w-[52px] h-auto aspect-square rounded-full`}
               />}
           </button>

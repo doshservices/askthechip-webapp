@@ -23,6 +23,7 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
+import { warn } from '../../../App';
 
 const reactions = [
   {
@@ -221,14 +222,18 @@ const Posts = ({ index, post, handleGetPosts }) => {
   const navigate = useNavigate()
 
   const navigateToProfile = () => {
-    localStorage.setItem("ask-un-id", JSON.stringify(postUserId))
-    setTimeout(() => {
-      if (postUserId === profile?._id) {
-        navigate("/profile")
-      } else {
-        navigate("/users-profile")
-      }
-    }, 1000)
+    if (postUserId) {
+      localStorage.setItem("ask-un-id", JSON.stringify(postUserId))
+      setTimeout(() => {
+        if (postUserId === profile?._id) {
+          navigate("/profile")
+        } else {
+          navigate("/users-profile")
+        }
+      }, 1000)
+    } else {
+      warn("User Not Found")
+    }
   }
 
   const commentModalDisplay = () => {

@@ -5,7 +5,6 @@ import eye from "./../assets/icons/eye.svg";
 import crossedEye from "./../assets/icons/crossed-eye.svg";
 import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
-import { warn } from "../App";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import axios from "axios";
 import { useDispatch } from "react-redux";

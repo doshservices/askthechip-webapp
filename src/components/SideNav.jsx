@@ -18,6 +18,7 @@ const SideNav = () => {
   const location = useLocation()
   const [logBtn, setLogBtn] = useState(false)
   const [logMsg, setLogMsg] = useState(false)
+  const token = localStorage.getItem("token")
 
   const handleLogOut = () => {
     setLogMsg(true)
@@ -43,7 +44,7 @@ const SideNav = () => {
     <aside className="side__nav">
       <ToastContainer />
       <nav className="side__nav__nav">
-        <Link to="/" className="logo">
+        <Link to={token ? "/home" : "/"} className="logo">
           <img src={logo} alt="logo" />
           <span>Askthechip</span>
         </Link>

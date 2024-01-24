@@ -20,12 +20,19 @@ const UserProfile = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if (!userId) {
+            navigate("/home")
+        }
+    }, [])
+
     const filteredPosts = reversedPosts.filter((postItem) => postItem?.userId?._id === userId);
 
     const { token } = useAuth()
     const id = JSON.parse(localStorage.getItem("ask-un-id"))
     const url = `${api}/api/users/${id}`
     const [profileDetails, setProfileDetails] = useState([])
+    // console.log(profileDetails);
 
     const saveChatUserId = () => {
         if (Object.keys(profileDetails).length > 0) {
@@ -85,6 +92,11 @@ const UserProfile = () => {
         getUserDetails()
     }, [])
 
+    const username =
+        profileDetails?.role === "BUSINESS"
+            ? `${profileDetails?.companyName}`
+            : `${profileDetails?.firstName} ${profileDetails?.lastName}`;
+
     return (
         <>
             <section className="pageLayout">
@@ -95,7 +107,7 @@ const UserProfile = () => {
                             <div className="pl-40 sm:pl-44 md:pl-48 xm:pl-48 pt-10">
                                 <div className="text-light mt-6 sm:mt-4">
                                     <div className="font-DMSans font-medium text-2xl mb-2 mt-2">
-                                        <span>{profileDetails?.firstName}</span> <span>{profileDetails?.lastName}</span>
+                                        <span>{username}</span>
                                     </div>
                                     <div className="w-[90%] text-sm font-DMSans mb-2">{profileDetails.role}</div>
                                 </div>
@@ -106,7 +118,7 @@ const UserProfile = () => {
                                 <div className="relative">
                                     {!profileDetails?.profileImg ? (
                                         <div className="flex items-center justify-center w-28 h-28 rounded-full bg-primary100 font-bold text-xl">
-                                            <span className="text-white">{profileDetails?.firstName?.[0]}</span>
+                                            <span className="text-white">{username?.[0]}</span>
                                         </div>
                                     ) : (
                                         <img
