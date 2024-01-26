@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { saveUser } from "../store/slice/userSlice";
 import { setJwt } from "../store/slice/authSlice";
 import { api } from "../contexts";
+import { notify, warn } from "../App";
 
 const defaultFormFields = {
   loginId: "",
@@ -62,6 +63,7 @@ const SignIn = () => {
         },
       })
       // console.log(response);
+      notify("Login Successful")
       const authUser = response.data.data.user;
       const token = response.data.data.token;
       localStorage.setItem('token', token);
@@ -72,7 +74,8 @@ const SignIn = () => {
       setLoading(false);
       redirectToHome();
     } catch (error) {
-      // warn(error?.response?.data?.message);
+      // console.log(error);
+      warn(error?.response?.data?.message);
       setLoading(false);
     }
   }

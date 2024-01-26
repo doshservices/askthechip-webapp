@@ -47,7 +47,7 @@ const Service = ({ serviceData, type }) => {
               </div>
               <div className="ml-3">
                 <div onClick={() => goToProfile(service?._id)} className="cursor-pointer font-medium text-[.85rem] text-dark2D/80">
-                  {service?.fullName}
+                  {service?.companyName}
                 </div>
                 <p className="font-[600] text-[.9rem] text-dark2D/80">
                   {service?.bio ? service?.bio : service?.serviceType}

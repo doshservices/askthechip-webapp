@@ -43,7 +43,7 @@ const Share = ({ handleGetPosts }) => {
           })
         );
         setFile(selectedFiles)
-        setPreviewFile((prevFiles) => [...prevFiles, ...filesWithBase64]);
+        setPreviewFile(filesWithBase64);
         // console.log('Updated Preview Files:', previewFile);
       } else {
       }
@@ -72,13 +72,14 @@ const Share = ({ handleGetPosts }) => {
         },
       });
       console.log(response);
-      handleGetPosts();
       setFile(null)
       setModal(false)
       setPreviewFile("")
       setPostStatus("")
       setLoading(false)
+      handleGetPosts();
     } catch (error) {
+      console.log(error);
       setLoading(false);
     } finally {
     }

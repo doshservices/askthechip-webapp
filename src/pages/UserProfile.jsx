@@ -106,9 +106,12 @@ const UserProfile = () => {
                         <div className="grid grid-cols-1 h-[7.6875rem] bg-coverImage bg-[#2d2d2d]/60 bg-blend-overlay rounded-lg">
                             <div className="pl-40 sm:pl-44 md:pl-48 xm:pl-48 pt-10">
                                 <div className="text-light mt-6 sm:mt-4">
-                                    <div className="font-DMSans font-medium text-2xl mb-2 mt-2">
-                                        <span>{username}</span>
-                                    </div>
+                                    {profileDetails?.role ?
+                                        <div className="font-DMSans font-medium text-2xl mb-2 mt-2">
+                                            <span>{username}</span>
+                                        </div>
+                                        : null
+                                    }
                                     <div className="w-[90%] text-sm font-DMSans mb-2">{profileDetails.role}</div>
                                 </div>
                             </div>
