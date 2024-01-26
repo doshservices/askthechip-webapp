@@ -7,6 +7,7 @@ import { fileToBase64 } from "../../Profile";
 import { useState, useRef, useEffect } from "react";
 import useClickOutside from "../../../utils/useClickOiutside";
 import { api } from "../../../contexts";
+import { warn } from "../../../App";
 
 const Share = ({ handleGetPosts }) => {
   const fileInputRef = useRef(null);
@@ -15,7 +16,7 @@ const Share = ({ handleGetPosts }) => {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
   const { token } = useAuth();
-  const [modal, setModal] = useState(false)
+  const [modal, setModal] = useState(true)
   const [showBoardSelect, setShowBoardSelect] = useState(false)
   const userDetails = useSelector((state) => state?.user?.user);
   const [previewFile, setPreviewFile] = useState([])
@@ -42,9 +43,8 @@ const Share = ({ handleGetPosts }) => {
             };
           })
         );
-        setFile(selectedFiles)
+        setFile(() => [...selectedFiles])
         setPreviewFile(filesWithBase64);
-        // console.log('Updated Preview Files:', previewFile);
       } else {
       }
     } catch (error) {
@@ -59,8 +59,11 @@ const Share = ({ handleGetPosts }) => {
       const formData = new FormData();
       formData.append("content", postStatus);
       formData.append("board", board);
+
       if (file) {
-        formData.append("postImg", file);
+        Array.from(file).forEach(image => {
+          formData.append("postImg", image);
+        });
       }
 
       const url = `${api}/api/create-post`;
@@ -79,6 +82,13 @@ const Share = ({ handleGetPosts }) => {
       setLoading(false)
       handleGetPosts();
     } catch (error) {
+      if (error?.response?.data?.message === "post validation failed: content: Path `content` is required.") {
+        warn("Content is required")
+      }
+      if (error?.response?.data?.message ===
+        "post validation failed: board: `SELECT BOARD` is not a valid enum value for path `board`.") {
+        warn("Please Select a Board")
+      }
       console.log(error);
       setLoading(false);
     } finally {
@@ -137,7 +147,7 @@ const Share = ({ handleGetPosts }) => {
               <div className="flex items-center gap-2">
                 <figure>
                   {!userDetails?.profileImg ? (
-                    <p style={{ background: "hsla(172, 92%, 28%, 1)" }} className="text-white flex items-center justify-center h-[40px] w-[40px] rounded-full">{userDetails?.firstName[0]}</p>
+                    <p style={{ background: "hsla(172, 92%, 28%, 1)" }} className="text-white flex items-center justify-center h-[40px] w-[40px] rounded-full">{username[0]}</p>
                   ) : (
                     <img
                       src={userDetails?.profileImg}

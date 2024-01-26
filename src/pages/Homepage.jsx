@@ -100,7 +100,7 @@ const HomePage = () => {
                     <>
                       {posts.length > 0 ?
                         <>
-                          {posts?.reverse().map((post, index) => (
+                          {posts?.reverse()?.map((post, index) => (
                             <Posts
                               key={index}
                               index={index}
@@ -129,7 +129,7 @@ const HomePage = () => {
                     <>
                       {posts.length > 0 ?
                         <>
-                          {posts?.reverse()?.filter(post => post.board === "WHITE_BOARD").map((post, index) => (
+                          {posts?.filter(post => post.board === "WHITE_BOARD").map((post, index) => (
                             <Posts
                               key={index}
                               index={index}
@@ -158,7 +158,7 @@ const HomePage = () => {
                     <>
                       {posts.length > 0 ?
                         <>
-                          {posts?.reverse()?.filter(post => post.board === "BLACK_BOARD").map((post, index) => (
+                          {posts?.filter(post => post.board === "BLACK_BOARD").map((post, index) => (
                             <Posts
                               key={index}
                               index={index}
