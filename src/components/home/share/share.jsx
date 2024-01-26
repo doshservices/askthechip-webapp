@@ -89,7 +89,11 @@ const Share = ({ handleGetPosts }) => {
         "post validation failed: board: `SELECT BOARD` is not a valid enum value for path `board`.") {
         warn("Please Select a Board")
       }
-      console.log(error);
+      if (error?.message ===
+        "Network Error") {
+        warn("Unable to upload your Post due to Network failure or Image size too large")
+      }
+      // console.log(error);
       setLoading(false);
     } finally {
     }
