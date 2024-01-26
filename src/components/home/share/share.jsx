@@ -16,7 +16,7 @@ const Share = ({ handleGetPosts }) => {
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
   const { token } = useAuth();
-  const [modal, setModal] = useState(true)
+  const [modal, setModal] = useState(false)
   const [showBoardSelect, setShowBoardSelect] = useState(false)
   const userDetails = useSelector((state) => state?.user?.user);
   const [previewFile, setPreviewFile] = useState([])
