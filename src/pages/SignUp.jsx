@@ -109,7 +109,7 @@ const SignUp = () => {
       redirectToVerifyPage();
     } catch (error) {
       setLoading(false);
-      warn(error.response.data.message);
+      warn(error?.response?.data?.message);
       // console.log(error);
     }
   }

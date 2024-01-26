@@ -7,7 +7,7 @@ import { FileUploadInput } from "../components";
 import { AuthContext } from "../contexts/AuthContext/AuthContext";
 import { Loader } from "../components";
 import { ToastContainer } from "react-toastify";
-import { warn } from "../App";
+import { notify, warn } from "../App";
 import { inform } from "../App";
 import axios from "axios";
 import { api } from "../contexts";
@@ -144,7 +144,6 @@ const SignUpAsProvider = () => {
   };
 
   const individualDetails = getIndividualDetails();
-  // console.log(individualDetails);
 
   const getBusinessDetails = () => {
     const { companyName, officeAddress, phoneNumber, email, password } = formFields;
@@ -166,14 +165,12 @@ const SignUpAsProvider = () => {
   };
 
   const businessDetails = getBusinessDetails();
-  // console.log(businessDetails);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     localStorage.removeItem("authUser");
     localStorage.removeItem("token");
     setUser(null);
-
     let loadingSetter;
     if (accountUser === "INDIVIDUAL") {
       if (password !== confirmPassword) {
@@ -187,43 +184,59 @@ const SignUpAsProvider = () => {
 
     loadingSetter(true);
 
+    const individualFromData = new FormData();
+    const businessFromData = new FormData();
+
+    for (const key in individualDetails) {
+      if (individualDetails.hasOwnProperty(key)) {
+        individualFromData.append(key, individualDetails[key]);
+      }
+    }
+
+    for (const key in businessFromData) {
+      if (businessFromData.hasOwnProperty(key)) {
+        businessDetails.append(key, businessFromData[key]);
+      }
+    }
+
     try {
       const response = await axios.post(
         `${api}/api/users`,
-        accountUser === "INDIVIDUAL" ? individualDetails : businessDetails,
+        accountUser === "INDIVIDUAL" ? individualFromData : businessFromData, {
+      },
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
+      console.log(response);
       const authUser = response?.data?.data?.user;
-      const token = response?.data?.data?.token;
-      localStorage.setItem("token", token);
-      localStorage.setItem("authUser", JSON.stringify(authUser));
+      const email = response?.data?.data?.user?.email;
+      localStorage.setItem('verifyMail', JSON.stringify(email));
       setUser(authUser);
       loadingSetter(false);
+      notify("Sign up Successful, you'll be redirected to verification page!");
       redirectToVerify();
     } catch (error) {
-      // console.error(error);
-      warn(error?.message);
+      console.error(error);
+      warn(error?.response?.data?.message);
       loadingSetter(false);
     }
   };
-
 
   return (
     <div className="font-Inter overflow-hidden">
       <ToastContainer />
       <div className="flex flex-col md:flex-row w-full">
         <div className="w-full md:w-[50%] h-screen">
-          <Link to="/" className="flex items-center h-16 ml-4 md:ml-20 my-7">
+          <Link to="/" className="flex items-center h-16 ml-4 md:ml-20 my-2">
             <div>
               <img src={logo} alt="Ask the chip" />
             </div>
             <div className="font-bold text-primary90 ml-2">Askthechip</div>
           </Link>
-          <div className="h-[calc(100vh_-_8rem)] md:h-[calc(100vh_-_10rem)] overflow-y-auto">
+          <div className="h-[calc(100vh_-_6rem)] md:h-[calc(100vh_-_8rem)] overflow-y-auto">
             <div className="w-[90%] max-w-[468px] mx-auto h-full">
               <div className="flex flex-col items-center mb-[1.875rem]">
                 <h1 className="font-DMSans text-[1.6rem] text-center font-bold mb-2 uppercase text-[#2d2d2d]">

@@ -39,9 +39,11 @@ const ProtectedRoute = () => {
 
   if (token) {
     const decoded = jwtDecode(token)
-    if (decoded?.exp && decoded?.exp < currentTimestamp) {
-      clearAuthUser()
-    }
+    setTimeout(() => {
+      if (decoded?.exp && decoded?.exp < currentTimestamp) {
+        clearAuthUser()
+      }
+    }, 3000);
   }
 
   useEffect(() => {

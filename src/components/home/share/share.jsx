@@ -68,9 +68,10 @@ const Share = ({ handleGetPosts }) => {
       const response = await axios.post(url, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       });
-      // console.log(response);
+      console.log(response);
       handleGetPosts();
       setFile(null)
       setModal(false)

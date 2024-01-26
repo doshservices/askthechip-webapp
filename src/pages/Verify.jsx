@@ -119,6 +119,7 @@ const Verify = () => {
         localStorage.removeItem("verifyMail")
       })
         .catch((error) => {
+          console.log(error);
           setLoading(false);
           notify(error?.response?.data?.message);
         })

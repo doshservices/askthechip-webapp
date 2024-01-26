@@ -168,7 +168,7 @@ const Footer = () => {
                 className="w-full md:w-fit py-2 px-[3.75rem] bg-primary90 text-white text-sm font-DMSans rounded hover:scale-90 active:scale-100 transition duration-300"
                 type="submit"
               >
-                Sign Up
+                Subscribe
               </button>
             </div>
           </form>
