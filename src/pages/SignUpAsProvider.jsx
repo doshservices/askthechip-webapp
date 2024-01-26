@@ -184,25 +184,25 @@ const SignUpAsProvider = () => {
 
     loadingSetter(true);
 
-    const individualFromData = new FormData();
-    const businessFromData = new FormData();
+    const individualFormData = new FormData();
+    const businessFormData = new FormData();
 
     for (const key in individualDetails) {
       if (individualDetails.hasOwnProperty(key)) {
-        individualFromData.append(key, individualDetails[key]);
+        individualFormData.append(key, individualDetails[key]);
       }
     }
 
-    for (const key in businessFromData) {
-      if (businessFromData.hasOwnProperty(key)) {
-        businessDetails.append(key, businessFromData[key]);
+    for (const key in businessDetails) {
+      if (businessDetails.hasOwnProperty(key)) {
+        businessFormData.append(key, businessDetails[key]);
       }
     }
 
     try {
       const response = await axios.post(
         `${api}/api/users`,
-        accountUser === "INDIVIDUAL" ? individualFromData : businessFromData, {
+        accountUser === "INDIVIDUAL" ? individualFormData : businessFormData, {
       },
         {
           headers: {
@@ -210,7 +210,7 @@ const SignUpAsProvider = () => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       const authUser = response?.data?.data?.user;
       const email = response?.data?.data?.user?.email;
       localStorage.setItem('verifyMail', JSON.stringify(email));
@@ -219,7 +219,7 @@ const SignUpAsProvider = () => {
       notify("Sign up Successful, you'll be redirected to verification page!");
       redirectToVerify();
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       warn(error?.response?.data?.message);
       loadingSetter(false);
     }
