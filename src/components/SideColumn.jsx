@@ -17,12 +17,11 @@ export const SideColumn = () => {
     const getProviders = async () => {
         setLoading(true)
         try {
-            const response = await axios.get(`${api}/api/users/search/services`, {
+            const response = await axios.get(`${api}/api/users/services`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-            // console.log(response);
             setProviders(response?.data?.data)
             setLoading(false)
         } catch (error) {
@@ -77,7 +76,7 @@ export const SideColumn = () => {
                                 {providers.map((provider, index) =>
                                     <div onClick={() => navigateToProfile(provider?._id)} className="flex items-center py-[.55rem] px-[12px] gap-[10px]" key={index}>
                                         <img src={provider?.profileImg ? provider?.profileImg : demoImg} alt="" className="h-[35px] w-[35px] rounded-full cover cursor-pointer" />
-                                        <p className="text-[.9rem] font-[500] cursor-pointer">{provider?.firstName} {provider?.lastName}</p>
+                                        <p className="text-[.9rem] font-[500] cursor-pointer">{provider?.role === "BUSINESS" ? `${provider?.companyName}` : `${provider?.firstName} ${provider?.lastName}`}</p>
                                     </div>
                                 )}
                             </>
