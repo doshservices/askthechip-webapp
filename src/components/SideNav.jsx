@@ -16,7 +16,7 @@ const SideNav = () => {
   const { setUser } = useContext(AuthContext);
   const dispatch = useDispatch()
   const location = useLocation()
-  const [logBtn, setLogBtn] = useState(false)
+  const [logInBtn, setLogInBtn] = useState(false)
   const [logMsg, setLogMsg] = useState(false)
   const token = localStorage.getItem("token")
 
@@ -33,12 +33,12 @@ const SideNav = () => {
     }, 2500)
   }
 
-  useEffect(() => {
-    if (logBtn === true) {
-      document.body.style.overflow = 'hidden';
-    }
-    return () => document.body.style.overflow = 'unset';
-  }, [logBtn])
+  // useEffect(() => {
+  //   if (logInBtn === true) {
+  //     document.body.style.overflow = 'hidden';
+  //   }
+  //   return () => document.body.style.overflow = 'unset';
+  // }, [logInBtn])
 
   return (
     <aside className="side__nav">
@@ -218,7 +218,7 @@ const SideNav = () => {
             <span>Settings</span>
           </NavLink>
         </ul>
-        {logBtn ?
+        {logInBtn ?
           <div className="log-btn">
             <div className="bg-[#fff] p-6">
               {logMsg ?
@@ -230,7 +230,7 @@ const SideNav = () => {
                     <button onClick={handleLogOut} className="font-[500] mr-10">
                       Yes
                     </button>
-                    <button onClick={() => setLogBtn(false)} className="text-[#E31818] font-[500]">
+                    <button onClick={() => setLogInBtn(false)} className="text-[#E31818] font-[500]">
                       No
                     </button>
                   </div>
@@ -240,7 +240,7 @@ const SideNav = () => {
           </div>
           : null
         }
-        <button onClick={() => setLogBtn(true)} className="logout">
+        <button onClick={() => setLogInBtn(true)} className="logout">
           <img src={power} alt="logout" />
           <span>Log out</span>
         </button>
