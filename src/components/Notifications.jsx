@@ -50,7 +50,7 @@ const Notifications = () => {
   }
 
   const getAllNotifications = async () => {
-    // setLoading(true)
+    setLoading(true)
     try {
       const response = await axios.get(
         `${api}/api/users/notification`,
@@ -127,7 +127,7 @@ const Notifications = () => {
   }
 
   return (
-    <section className="pageLayout notifications xsm:gap-[2rem] xsm:pr-[2rem] xs:pr-[4rem]">
+    <section className="pageLayout notifications xsm:gap-[2rem]">
       <SideNav />
       <div className="pageLayout__wrapper__container">
         {width < 480 ?

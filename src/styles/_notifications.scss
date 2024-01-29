@@ -2,9 +2,9 @@
 
     &__wrapper {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1.5fr;
 
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
             grid-template-columns: 1fr;
         }
 
@@ -14,8 +14,9 @@
             max-height: 100vh;
             overflow-y: scroll;
 
-            @media (max-width: 750px) {
+            @media (max-width: 950px) {
                 border-right: 0;
+                padding: $thin 0 8rem 0;
             }
 
             @media (max-width: 600px) {
@@ -30,7 +31,7 @@
                 padding: .8rem;
                 cursor: pointer;
 
-                @media (max-width: 600px) {
+                @media (max-width: 650px) {
                     padding: .8rem 1.1rem;
                 }
 
@@ -106,7 +107,7 @@
             }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
             .notifications__details {
                 position: absolute;
                 opacity: 0;

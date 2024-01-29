@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import power from "../../assets/icons/power-icon.svg";
-import { inform } from "../../App";
 import { useSelector } from "react-redux";
 
 const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) => {

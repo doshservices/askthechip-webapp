@@ -147,7 +147,6 @@ export const ChatBox = ({ online, conversation }) => {
     //     };
     // }, []); // The empty dependency array ensures that the effect runs only once, similar to componentDidMount
 
-
     useEffect(() => {
         scrollRef.current?.scrollIntoView()
     }, []);
@@ -166,7 +165,7 @@ export const ChatBox = ({ online, conversation }) => {
 
     return (
         <div className="chat">
-            {chatUserDetails === null ? <p className="block m-auto max-w-[fit-content]">AskTheChip WebApp</p>
+            {chatUserDetails === null ? <p className="bg-[#F8F8F8] h-[100vh] text-center py-10 px-4 fallback flex items-center justify-center">Please select a chat to start messaging</p>
                 :
                 <>
                     <div className="chat__header">
