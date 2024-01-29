@@ -27,7 +27,7 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
       navigateTo("/login");
     }, 2500)
   }
-  const me = user
+
   const username = userDetails?.role === "BUSINESS" ? `${userDetails?.companyName}` : `${userDetails?.firstName} ${userDetails?.lastName}`
   const token = localStorage.getItem("token")
 
@@ -53,7 +53,7 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
             onClick={showOthers}
             className="flex justify-center items-center text-[#f8f8f8] right-2 md:hidden m-3 transition active:scale-90"
           >
-            {!userDetails?.profileImg ? <div className="flex items-center justify-center w-[29.39px] h-auto aspect-square rounded-full bg-primary80 font-medium"><span className="text-white">{userDetails?.firstName[0]}</span></div> :
+            {!userDetails?.profileImg ? <div className="flex items-center justify-center w-[29.39px] h-auto aspect-square rounded-full bg-primary80 font-medium"><span className="text-white">{username[0]}</span></div> :
               <img
                 src={userDetails?.profileImg}
                 alt={username}

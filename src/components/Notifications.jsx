@@ -9,7 +9,7 @@ import { useWindowWidth } from "../utils/windowWidth";
 import { useState, useEffect } from "react";
 import { demoImg } from "./Chat/messages";
 import { useDispatch, useSelector } from "react-redux";
-import { setId } from "../store/slice/notificationSlice";
+import { setId, clearId } from "../store/slice/notificationSlice";
 import { useNavigate } from "react-router-dom";
 import { useProfile } from "../contexts/ProfileContext/ProfileContext";
 import { api } from "../contexts";
@@ -50,7 +50,7 @@ const Notifications = () => {
   }
 
   const getAllNotifications = async () => {
-    setLoading(true)
+    // setLoading(true)
     try {
       const response = await axios.get(
         `${api}/api/users/notification`,
@@ -142,7 +142,7 @@ const Notifications = () => {
           :
           <>
             {notification.length > 0 ?
-              <div className="notifications__wrapper xsm:mt-4">
+              <div className="notifications__wrapper">
                 <div className="notifications__preview">
                   {notification.map((notifications) => {
                     return (
@@ -168,21 +168,30 @@ const Notifications = () => {
                   })}
                 </div>
                 <section className={showNotification ? "notifications__details show" : "notifications__details"}>
-                  {width <= 600 &&
-                    <svg onClick={() => setShowNotification(!showNotification)} width="25" height="25" fill="none" stroke="#2d2d2d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M11.438 18.75 4.688 12l6.75-6.75"></path>
-                      <path d="M5.625 12h13.688"></path>
-                    </svg>
-                  }
-                  <div>
-                    <img onClick={navigateToProfile} src={fullNotification?.image ? fullNotification?.image : demoImg} alt="User" className="rounded-full" />
-                    <div>
-                      <h3>{fullNotification?.message}</h3>
-                      {fullNotification?.docId?.content && <p>“{fullNotification?.docId?.content}”</p>}
-                      <div className="post">
+                  {notificationId ?
+                    <>
+                      {width <= 600 &&
+                        <svg onClick={() => {
+                          setShowNotification(!showNotification)
+                          dispatch(clearId())
+                        }} className="mt-4 ml-4" width="25" height="25" fill="none" stroke="#2d2d2d" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M11.438 18.75 4.688 12l6.75-6.75"></path>
+                          <path d="M5.625 12h13.688"></path>
+                        </svg>
+                      }
+                      <div className="px-4 xs:px-8 pt-4 mb-4">
+                        <img onClick={navigateToProfile} src={fullNotification?.image ? fullNotification?.image : demoImg} alt="User" className="rounded-full" />
+                        <div>
+                          <h3>{fullNotification?.message}</h3>
+                          {fullNotification?.docId?.content && <p>“{fullNotification?.docId?.content}”</p>}
+                          <div className="post">
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </>
+                    :
+                    <p className="bg-[#F8F8F8] text-center py-10 px-4 fallback flex items-center justify-center">Please select a Notification to view</p>
+                  }
                 </section>
               </div>
               : <section className="bg-[#F8F8F8] mt-4 mx-4 xsm:mx-0 text-center py-10 px-4 max-w-[500px] xs:mx-auto" style={{ fontFamily: "DM Sans", color: "hsla(0, 0%, 18%, 0.8)" }}>

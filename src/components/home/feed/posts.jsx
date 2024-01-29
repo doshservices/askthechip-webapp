@@ -398,6 +398,7 @@ const Posts = ({ index, post, handleGetPosts }) => {
               }}
               loop={true}
               slidesPerView={1}
+              slidesPerGroup={1}
             >
               {post?.postImg?.map((img, index) =>
                 <SwiperSlide className='slides' key={index}>
