@@ -142,7 +142,10 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
                           <button onClick={handleLogOut} className="font-[500] mr-10">
                             Yes
                           </button>
-                          <button onClick={() => setLogInBtn(false)} className="text-[#E31818] font-[500]">
+                          <button onClick={() => {
+                            setLogInBtn(false)
+                            setIsOpened(false)
+                          }} className="text-[#E31818] font-[500]">
                             No
                           </button>
                         </div>
