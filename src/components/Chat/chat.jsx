@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import { useWindowWidth } from "../../utils/windowWidth";
-import { setConversationId, setMessageClass } from "../../store/slice/chatViewSlice";
+import { setChatUserId, setConversationId, setMessageClass } from "../../store/slice/chatViewSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
@@ -140,6 +140,7 @@ export const ChatBox = ({ online, conversation }) => {
     const changeMessageClass = () => {
         dispatch(setMessageClass("hide"))
         dispatch(setConversationId(null))
+        dispatch(setChatUserId(null))
     }
 
     const width = useWindowWidth()
