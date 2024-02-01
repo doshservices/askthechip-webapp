@@ -79,8 +79,7 @@
 .chat {
     position: relative;
     isolation: isolate;
-    min-height: 100vh;
-    max-height: 100vh;
+    height: 100vh;
 
     &__header {
         display: flex;
