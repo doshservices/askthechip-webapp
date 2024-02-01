@@ -99,7 +99,7 @@ const Mentorship = () => {
         {width < 480 ?
           <Header /> : <></>
         }
-        <section className="mentorship">
+        <section className="mentorship pb-20">
           <ToastContainer />
           <h2>Mentorship</h2>
           <p>Kindly fill out the form below to request for mentorship session</p>

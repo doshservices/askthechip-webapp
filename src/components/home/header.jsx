@@ -1,29 +1,42 @@
 import Search from "./search/search";
 import logo from "../../assets/ask.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import power from "../../assets/icons/power-icon.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../../store/slice/userSlice";
+import { clearJwt } from "../../store/slice/authSlice";
+import { clearChatUserId, setConversationId } from "../../store/slice/chatViewSlice";
 
 const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) => {
-  const { user, setUser } = useAuth();
+  const { setUser } = useAuth();
   const pathname = window.location.pathname;
   const [isOpened, setIsOpened] = useState(false);
   const userDetails = useSelector((state) => state?.user?.user);
+  const [logInBtn, setLogInBtn] = useState(false)
+  const [logMsg, setLogMsg] = useState(false)
+  const location = useLocation()
+  const dispatch = useDispatch()
 
   const showOthers = () => {
     setIsOpened(!isOpened);
   }
+
   const navigateTo = useNavigate();
+
   const handleLogOut = () => {
-    // inform("Logging you out...");
+    setLogMsg(true)
     setIsOpened(!isOpened);
     setTimeout(() => {
       setUser(null)
+      dispatch(clearUser())
+      dispatch(clearJwt())
+      dispatch(clearChatUserId())
+      dispatch(setConversationId(null))
       localStorage.removeItem('authUser');
       localStorage.removeItem('token');
-      navigateTo("/login");
+      navigateTo("/login", { state: { from: location }, replace: true });
     }, 2500)
   }
 
@@ -31,7 +44,7 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
   const token = localStorage.getItem("token")
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between w-full">
+    <div className="flex flex-col sm:flex-row items-center justify-between w-full relative z-1000">
       <nav
         className={`bg-primary100 md:hidden md:bg-[#f8f8f8] h-14 font-DMSans z-[9999] w-full shadow-md transition duration-500 flex`}
       >
@@ -111,12 +124,34 @@ const Header = ({ handleAllPost, handleLightMode, handleDarkMode, darkMode }) =>
                 </div>
               </Link>
               <div
-                onClick={handleLogOut}
+                onClick={() => setLogInBtn(true)}
                 className="hover:bg-red/20 flex cursor-pointer justify-start text-[#EB5757]"
               >
                 <img src={power} alt="delete" className="w-4 mr-2" />
                 Logout
               </div>
+              {logInBtn ?
+                <div className="log-btn">
+                  <div className="bg-[#fff] p-6 mx-4">
+                    {logMsg ?
+                      <p className="text-[1.2rem] text-center mx-6 font-[500]">Logging out...</p>
+                      :
+                      <>
+                        <p className="text-[1.2rem] text-center mx-6 font-[500]">Are you sure you want to log out?</p>
+                        <div className="flex justify-end mt-10">
+                          <button onClick={handleLogOut} className="font-[500] mr-10">
+                            Yes
+                          </button>
+                          <button onClick={() => setLogInBtn(false)} className="text-[#E31818] font-[500]">
+                            No
+                          </button>
+                        </div>
+                      </>
+                    }
+                  </div>
+                </div>
+                : null
+              }
             </div>
           )}
         </div>

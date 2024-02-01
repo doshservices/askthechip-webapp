@@ -6,11 +6,12 @@ import { Message } from "./Chat/messages";
 import { ChatBox } from "./Chat/chat";
 import { chatData } from "./Chat/chatData";
 import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useOnlineUsers } from "../contexts/SocketContext/SocketContext";
 import { api } from "../contexts";
 import { GreenLoader } from "./Loader/Loader";
+import { setMessageClass } from "../store/slice/chatViewSlice";
 
 const Messages = () => {
 
@@ -20,8 +21,14 @@ const Messages = () => {
   const [conversation, setConversation] = useState([])
   const onlineUsers = useOnlineUsers()
   const [loading, setLoading] = useState(false)
+  const conversationId = useSelector((state) => state?.chat?.conversationId);
+  const dispatch = useDispatch()
 
-  // console.log(onlineUsers?.onlineUsers[0]?.user);
+  useEffect(() => {
+    if (conversationId === null) {
+      dispatch(setMessageClass("hide"))
+    }
+  }, [conversationId])
 
   const getAllOnlineUsers = onlineUsers?.onlineUsers?.map((users) => users?.user)
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import logo from "../assets/logo.svg";
 import power from "../assets/icons/power-icon.svg";
 import { NavLink, Link, useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import { clearUser } from "../store/slice/userSlice";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { clearJwt } from "../store/slice/authSlice";
-import { clearChatUserId } from "../store/slice/chatViewSlice";
+import { clearChatUserId, setConversationId } from "../store/slice/chatViewSlice";
 
 const SideNav = () => {
   const navigateTo = useNavigate();
@@ -27,6 +27,7 @@ const SideNav = () => {
       dispatch(clearUser())
       dispatch(clearJwt())
       dispatch(clearChatUserId())
+      dispatch(setConversationId(null))
       localStorage.removeItem('authUser');
       localStorage.removeItem('token');
       navigateTo("/login", { state: { from: location }, replace: true });
@@ -41,7 +42,7 @@ const SideNav = () => {
   // }, [logInBtn])
 
   return (
-    <aside className="side__nav">
+    <aside className="side__nav" style={{ zIndex: logInBtn ? "10000000" : "10" }}>
       <ToastContainer />
       <nav className="side__nav__nav">
         <Link to={token ? "/home" : "/"} className="logo">

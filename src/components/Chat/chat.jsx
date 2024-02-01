@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext/AuthContext";
 import { useWindowWidth } from "../../utils/windowWidth";
-import { setMessageClass } from "../../store/slice/chatViewSlice";
+import { setConversationId, setMessageClass } from "../../store/slice/chatViewSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import { FavoriteIcon, VideoCallIcon, VoiceCallIcon } from "../../assets/icons";
@@ -125,28 +125,6 @@ export const ChatBox = ({ online, conversation }) => {
         }
     };
 
-    // useEffect(() => {
-    //     // const sendMessage = () => {
-    //     //     // Implement the logic for sending a message
-    //     //     console.log("Message sent!");
-    //     // };
-
-    //     const keyDownHandler = (e) => {
-    //         if (e.key === "Enter") {
-    //             e.preventDefault();
-    //             sendMessage(e); // Pass the event object to sendMessage
-    //         }
-    //     };
-
-    //     // Attach the event listener when the component mounts
-    //     document.addEventListener("keydown", keyDownHandler);
-
-    //     // Detach the event listener when the component unmounts
-    //     return () => {
-    //         document.removeEventListener("keydown", keyDownHandler);
-    //     };
-    // }, []); // The empty dependency array ensures that the effect runs only once, similar to componentDidMount
-
     useEffect(() => {
         scrollRef.current?.scrollIntoView()
     }, []);
@@ -159,7 +137,10 @@ export const ChatBox = ({ online, conversation }) => {
         scrollRef.current?.scrollIntoView()
     }, [sendMessage]);
 
-    const changeMessageClass = () => dispatch(setMessageClass("hide"))
+    const changeMessageClass = () => {
+        dispatch(setMessageClass("hide"))
+        dispatch(setConversationId(null))
+    }
 
     const width = useWindowWidth()
 
