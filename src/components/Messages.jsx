@@ -23,6 +23,7 @@ const Messages = () => {
   const [loading, setLoading] = useState(false)
   const conversationId = useSelector((state) => state?.chat?.conversationId);
   const dispatch = useDispatch()
+  const [previewMessage, setPreviewMessage] = useState([])
 
   useEffect(() => {
     if (conversationId === null) {
@@ -56,6 +57,26 @@ const Messages = () => {
     getAllConversation()
   }, [])
 
+  // const getMessages = async (id) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `${api}/api/chat/conversation/messages?conversationId=${id}`,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     setPreviewMessage((response?.data?.data?.message ?? '')[response?.data?.data?.message?.length - 1]);
+  //   } catch (error) {
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   getMessages()
+  // }, [])
+
   return (
     <div className="pageLayout">
       <SideNav />
@@ -73,9 +94,9 @@ const Messages = () => {
                   <>
                     {conversation.map((conversation) => {
                       return (
-                        <Fragment key={conversation?._id}>
+                        <div key={conversation?._id}>
                           <Message conversation={conversation} online={getAllOnlineUsers} />
-                        </Fragment>
+                        </div>
                       )
                     })}
                   </>

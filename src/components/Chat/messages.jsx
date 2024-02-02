@@ -8,24 +8,16 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { setConversationId } from "../../store/slice/chatViewSlice";
 import { api } from "../../contexts/index"
+import { useSocket } from "../../contexts/SocketContext/SocketContext";
 
 export { demoImg }
 
-export const Message = ({ conversation, online }) => {
+export const Message = ({ conversation, online, preview }) => {
     const { token } = useAuth()
     const userId = useSelector((state) => state?.user?.user?._id);
     const [userDetails, setUserDetails] = useState([])
     const [previewMessage, setPreviewMessage] = useState([])
-
-    const checkUserOnline = () => {
-        if (online?.includes(userDetails?._id)) {
-            return "Online"
-        } else {
-            return "Offline"
-        }
-    }
-
-    const onlineUser = checkUserOnline()
+    const { socket } = useSocket()
 
     const dispatch = useDispatch();
 
@@ -34,6 +26,15 @@ export const Message = ({ conversation, online }) => {
         dispatch(setConversationId(conversation?._id))
         dispatch(setMessageClass("show"))
     }
+
+    useEffect(() => {
+        socket?.on("getMessage", (incomingMessage) => {
+            // console.log(incomingMessage);
+            // setPreviewMessage(prevConversation => ({
+            //     ...prevConversation, incomingMessage
+            // }));
+        });
+    }, []);
 
     const id = conversation?.members.find(id => id !== userId);
 
@@ -66,8 +67,7 @@ export const Message = ({ conversation, online }) => {
                     },
                 }
             );
-            // console.log(response);
-            setPreviewMessage(response?.data?.data?.message.pop()?.text)
+            setPreviewMessage((response?.data?.data?.message ?? '')[response?.data?.data?.message?.length - 1]);
         } catch (error) {
         }
     }
@@ -76,13 +76,19 @@ export const Message = ({ conversation, online }) => {
         getMessages()
     }, [])
 
+    const onlineUser = online?.includes(userDetails?._id) ? "Online" : "Offline";
+    const username =
+        userDetails?.role === "BUSINESS"
+            ? `${userDetails?.companyName}`
+            : `${userDetails?.firstName} ${userDetails?.lastName}`;
+
     return (
         <>
             <div onClick={saveId} className="chat__messages">
-                <img className={onlineUser === "Online" ? "Online" : ""} src={userDetails?.profileImg ? userDetails?.profileImg : demoImg} alt={userDetails?.fullName} />
+                <img className={onlineUser === "Online" ? "Online" : ""} src={userDetails?.profileImg ? userDetails?.profileImg : demoImg} alt={username} />
                 <div className="sender__info">
-                    <h3>{userDetails?.firstName} {userDetails?.lastName}</h3>
-                    <p>{previewMessage}</p>
+                    <h3>{username}</h3>
+                    <p>{previewMessage?.text}</p>
                 </div>
                 <div className="time">
                     <p role="time">11:45am</p>

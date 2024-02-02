@@ -28,7 +28,7 @@ const Message = ({ text, message, id, time }) => {
     )
 }
 
-export const ChatBox = ({ online, conversation }) => {
+export const ChatBox = ({ online, conversation, preview }) => {
     const dispatch = useDispatch()
     const userId = useSelector((state) => state?.user?.user?._id);
     const { token } = useAuth()
@@ -43,18 +43,7 @@ export const ChatBox = ({ online, conversation }) => {
 
     const allMembers = conversation.flatMap(member => member.members);
 
-    let onlineArr = [];
-    online?.forEach((user) => onlineArr.push(user._id))
-
-    const checkUserOnline = () => {
-        if (onlineArr?.includes(chatUserDetails?._id)) {
-            return "online"
-        } else {
-            return null
-        }
-    }
-
-    const onlineUser = checkUserOnline();
+    const onlineUser = online?.some(user => user._id === chatUserDetails?._id) ? "online" : null;
 
     const getMessages = async () => {
         try {
@@ -76,7 +65,6 @@ export const ChatBox = ({ online, conversation }) => {
 
     useEffect(() => {
         socket?.on("getMessage", (incomingMessage) => {
-            // console.log(incomingMessage);
             setReceivedMessages((value) => [...value, incomingMessage])
         });
     }, []);
@@ -145,6 +133,11 @@ export const ChatBox = ({ online, conversation }) => {
 
     const width = useWindowWidth()
 
+    const username =
+        chatUserDetails?.role === "BUSINESS"
+            ? `${chatUserDetails?.companyName}`
+            : `${chatUserDetails?.firstName} ${chatUserDetails?.lastName}`;
+
     return (
         <div className="chat">
             {chatUserDetails === null ? <p className="bg-[#F8F8F8] h-[100vh] text-center py-10 px-4 fallback flex items-center justify-center">Please select a chat to start messaging</p>
@@ -162,12 +155,12 @@ export const ChatBox = ({ online, conversation }) => {
                                 {chatUserDetails?.profileImg ?
                                     <img src={chatUserDetails?.profileImg} alt="people" />
                                     :
-                                    <span className="text-white">{chatUserDetails.firstName?.[0]}</span>
+                                    <span className="text-white">{username[0]}</span>
                                 }
                             </div>
                         </div>
                         <div className="chat__header__user">
-                            <h3>{chatUserDetails?.firstName} {chatUserDetails?.lastName}</h3>
+                            <h3>{username}</h3>
                             <p className="last__seen" role="time">{onlineUser}</p>
                         </div>
                         <div className="chat__header__actions">
